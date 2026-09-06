@@ -1,0 +1,227 @@
+{
+  "method": "Decode receiver recordings and quantify visible chunk/clip boundaries.\n\nRGB MAE is an unaligned diagnostic, not a perceptual or lip-sync quality score.\nThe recordings have already passed through lossy H264 and a recorder encode.\n",
+  "recordings": [
+    {
+      "file": "soulx-closeup-native-10s-provenance.mp4",
+      "sha256": "8535c6c8551cb6d7f52bbbd579f47a21ce9f5f6577040e9237e30fe7fd1f7df7",
+      "frames": 250,
+      "width": 512,
+      "height": 512,
+      "fps": 25.0,
+      "video_duration_s": 10.0,
+      "audio_decoded_samples": 480256,
+      "audio_rate": 48000,
+      "pts_monotonic": true,
+      "adjacent_rgb_mae_median": 1.1802444458007812,
+      "adjacent_rgb_mae_p95": 2.5202511310577393,
+      "adjacent_rgb_mae_max": 3.721172332763672,
+      "chunk_boundaries": [
+        {
+          "frame": 24,
+          "time_s": 0.96,
+          "rgb_mae": 1.5791549682617188
+        },
+        {
+          "frame": 48,
+          "time_s": 1.92,
+          "rgb_mae": 1.6559168100357056
+        },
+        {
+          "frame": 72,
+          "time_s": 2.88,
+          "rgb_mae": 2.5869534015655518
+        },
+        {
+          "frame": 96,
+          "time_s": 3.84,
+          "rgb_mae": 2.232508420944214
+        },
+        {
+          "frame": 120,
+          "time_s": 4.8,
+          "rgb_mae": 2.2264697551727295
+        },
+        {
+          "frame": 144,
+          "time_s": 5.76,
+          "rgb_mae": 1.4301376342773438
+        },
+        {
+          "frame": 168,
+          "time_s": 6.72,
+          "rgb_mae": 0.8632049560546875
+        },
+        {
+          "frame": 192,
+          "time_s": 7.68,
+          "rgb_mae": 1.5186856985092163
+        },
+        {
+          "frame": 216,
+          "time_s": 8.64,
+          "rgb_mae": 1.3633651733398438
+        },
+        {
+          "frame": 240,
+          "time_s": 9.6,
+          "rgb_mae": 1.7816911935806274
+        }
+      ],
+      "first_to_conditioning_rgb_mae": 3.981334686279297,
+      "last_to_conditioning_rgb_mae": 3.991633176803589
+    },
+    {
+      "file": "soulx-closeup-continuous-23s.mp4",
+      "sha256": "c323e802ded5459451f80d296980ffe3fb19e674c55b14b96aa8c4a09ca21258",
+      "frames": 577,
+      "width": 512,
+      "height": 512,
+      "fps": 25.0,
+      "video_duration_s": 23.08,
+      "audio_decoded_samples": 1106944,
+      "audio_rate": 48000,
+      "pts_monotonic": true,
+      "adjacent_rgb_mae_median": 1.1806424260139465,
+      "adjacent_rgb_mae_p95": 2.730790078639984,
+      "adjacent_rgb_mae_max": 4.134380340576172,
+      "chunk_boundaries": [
+        {
+          "frame": 24,
+          "time_s": 0.96,
+          "rgb_mae": 2.028996706008911
+        },
+        {
+          "frame": 48,
+          "time_s": 1.92,
+          "rgb_mae": 2.0759761333465576
+        },
+        {
+          "frame": 72,
+          "time_s": 2.88,
+          "rgb_mae": 1.841356873512268
+        },
+        {
+          "frame": 96,
+          "time_s": 3.84,
+          "rgb_mae": 0.49272027611732483
+        },
+        {
+          "frame": 120,
+          "time_s": 4.8,
+          "rgb_mae": 0.2885475158691406
+        },
+        {
+          "frame": 144,
+          "time_s": 5.76,
+          "rgb_mae": 1.062681794166565
+        },
+        {
+          "frame": 168,
+          "time_s": 6.72,
+          "rgb_mae": 2.1020660400390625
+        },
+        {
+          "frame": 192,
+          "time_s": 7.68,
+          "rgb_mae": 1.3416391611099243
+        },
+        {
+          "frame": 216,
+          "time_s": 8.64,
+          "rgb_mae": 0.8360201716423035
+        },
+        {
+          "frame": 240,
+          "time_s": 9.6,
+          "rgb_mae": 2.7268879413604736
+        },
+        {
+          "frame": 264,
+          "time_s": 10.56,
+          "rgb_mae": 1.7611910104751587
+        },
+        {
+          "frame": 288,
+          "time_s": 11.52,
+          "rgb_mae": 1.4331563711166382
+        },
+        {
+          "frame": 312,
+          "time_s": 12.48,
+          "rgb_mae": 1.1809602975845337
+        },
+        {
+          "frame": 336,
+          "time_s": 13.44,
+          "rgb_mae": 1.7458305358886719
+        },
+        {
+          "frame": 360,
+          "time_s": 14.4,
+          "rgb_mae": 1.6869786977767944
+        },
+        {
+          "frame": 384,
+          "time_s": 15.36,
+          "rgb_mae": 1.7156347036361694
+        },
+        {
+          "frame": 408,
+          "time_s": 16.32,
+          "rgb_mae": 3.0614025592803955
+        },
+        {
+          "frame": 432,
+          "time_s": 17.28,
+          "rgb_mae": 1.2253532409667969
+        },
+        {
+          "frame": 456,
+          "time_s": 18.24,
+          "rgb_mae": 1.8095436096191406
+        },
+        {
+          "frame": 480,
+          "time_s": 19.2,
+          "rgb_mae": 1.1346803903579712
+        },
+        {
+          "frame": 504,
+          "time_s": 20.16,
+          "rgb_mae": 2.1738739013671875
+        },
+        {
+          "frame": 528,
+          "time_s": 21.12,
+          "rgb_mae": 2.8076984882354736
+        },
+        {
+          "frame": 552,
+          "time_s": 22.08,
+          "rgb_mae": 0.9505424499511719
+        },
+        {
+          "frame": 576,
+          "time_s": 23.04,
+          "rgb_mae": 0.6711400151252747
+        }
+      ],
+      "first_to_conditioning_rgb_mae": 4.156942844390869,
+      "last_to_conditioning_rgb_mae": 3.4223453998565674
+    }
+  ],
+  "independent_clip_seams": [
+    {
+      "source": "soulx-closeup-native-10s-provenance.mp4",
+      "target": "soulx-closeup-continuous-23s.mp4",
+      "rgb_mae": 4.267139434814453,
+      "exact": false
+    },
+    {
+      "source": "soulx-closeup-continuous-23s.mp4",
+      "target": "soulx-closeup-native-10s-provenance.mp4",
+      "rgb_mae": 3.953083038330078,
+      "exact": false
+    }
+  ]
+}

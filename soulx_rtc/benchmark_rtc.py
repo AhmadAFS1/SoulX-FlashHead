@@ -9,6 +9,15 @@ from pathlib import Path
 
 import aiohttp
 from aiortc import RTCConfiguration, RTCPeerConnection, RTCSessionDescription
+from aiortc.mediastreams import MediaStreamError
+
+
+def input_provenance(path):
+    """Record only the fixture name/hash, never API credentials or environment."""
+    if not path:
+        return None
+    path = Path(path)
+    return {"file": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
 
 
 async def run(args):
@@ -23,21 +32,28 @@ async def run(args):
         start = time.monotonic()
         barrier = asyncio.Event()
         async def peer(index):
-            if args.images:
+            if args.images or args.audio:
                 form = aiohttp.FormData()
                 form.add_field("seconds", str(args.seconds))
-                form.add_field("seed", str(50 + index))
-                portrait = Path(args.images[index % len(args.images)])
-                form.add_field("image", portrait.read_bytes(), filename=portrait.name)
+                form.add_field("seed", str(args.seed + index))
+                if args.images:
+                    portrait = Path(args.images[index % len(args.images)])
+                    form.add_field("image", portrait.read_bytes(), filename=portrait.name)
+                if args.audio:
+                    audio = Path(args.audio)
+                    form.add_field("audio", audio.read_bytes(), filename=audio.name)
                 session = await api("/sessions", "POST", data=form)
             else:
-                session = await api("/sessions", "POST", json={"seconds": args.seconds, "seed": 50 + index})
+                session = await api("/sessions", "POST", json={"seconds": args.seconds, "seed": args.seed + index})
             sid = session["id"]
             sessions.append(sid)
             pc = RTCPeerConnection(RTCConfiguration(iceServers=[]))
             peers.append(pc)
             row = {"index": index, "id": sid, "expected_video": session["frames"],
                    "video_frames": 0, "audio_frames": 0, "audio_samples": 0,
+                   "audio_packet_samples": 0, "seed": args.seed + index,
+                   "input_image": input_provenance(args.images[index % len(args.images)]) if args.images else None,
+                   "input_audio": input_provenance(args.audio),
                    "first_video_s": None, "first_audio_s": None,
                    "video_pts": [], "video_arrivals": [], "errors": []}
             rows.append(row)
@@ -85,11 +101,15 @@ async def run(args):
                                     Image.fromarray(pixels).save(path)
                         else:
                             row["audio_frames"] += 1
-                            row["audio_samples"] += frame.samples
+                            row["audio_packet_samples"] += frame.samples
+                            row["audio_samples"] += min(frame.samples, max(0,
+                                round(args.seconds * 48000) - round(media_time * 48000)))
                             if row["first_audio_s"] is None:
                                 row["first_audio_s"] = elapsed
                 except asyncio.CancelledError:
                     raise
+                except MediaStreamError:
+                    pass
                 except Exception as exc:
                     row["errors"].append(type(exc).__name__)
             @pc.on("track")
@@ -142,6 +162,7 @@ async def run(args):
                           sessions=args.sessions, clip_seconds=args.seconds, wall_s=elapsed,
                           received_frames=sum(r["video_frames"] for r in rows), peers=rows)
             report["received_aggregate_fps"] = report["received_frames"] / elapsed
+            report["metric_note"] = "Paced receiver wall includes negotiation and drain; not unpaced model FPS. Audio samples exclude final packet padding."
             path = Path(args.output)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(report, indent=2, default=str))
@@ -171,6 +192,8 @@ def main():
     p.add_argument("--save-frame", action="store_true")
     p.add_argument("--record", action="store_true", help="Record peer 0; use separately from performance runs")
     p.add_argument("--images", nargs="+", help="Alternate uploaded portraits across independent sessions")
+    p.add_argument("--audio", help="Upload this audio instead of the bundled sample")
+    p.add_argument("--seed", type=int, default=50, help="First session seed; incremented per peer")
     asyncio.run(run(p.parse_args()))
 
 

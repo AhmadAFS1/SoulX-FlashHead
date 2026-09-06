@@ -6,6 +6,7 @@ state, bounded queues, batching fixes, tests, and RTX 4070 benchmark evidence.
 - [Run, host, and test the WebRTC service](WEBRTC.md)
 - [Measured performance and quality limitations](benchmarks/REPORT.md)
 - [MuseTalk architecture comparison](benchmarks/ARCHITECTURE_REVIEW.md)
+- [Deep code audit, optimization roadmap, continuity tests, and recorded footage](docs/research/README.md)
 
 Ten connections are supported, but ten quality-equivalent real-time speakers
 were **not** achieved. Native-quality SoulX did not beat the best tested compiled
