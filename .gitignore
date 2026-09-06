@@ -1,5 +1,12 @@
 .DS_store
 .vscode
+.venv/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.torchinductor/
+.torchinductor-musetalk/
 __pycache__/
 logs/
 assets/

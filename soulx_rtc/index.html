@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SoulX FlashHead · WebRTC</title>
+<style>body{font:16px system-ui;max-width:850px;margin:30px auto;padding:16px;background:#151922;color:#eaeef5}video{max-width:100%;width:512px;background:#000;border-radius:12px}label{display:block;margin:15px 0}button,input{padding:8px}pre{white-space:pre-wrap}</style>
+<h1>SoulX FlashHead · WebRTC</h1>
+<p>One independent talking-head session, with synchronized audio and bounded buffering. Leave uploads empty to use the sample.</p>
+<label>API token <input id="token" type="password" autocomplete="off"></label>
+<label>Avatar <input id="image" type="file" accept="image/*"></label>
+<label>Audio <input id="audio" type="file" accept="audio/*"></label>
+<label>Duration <input id="seconds" type="number" value="10" min="1" max="30"> seconds</label>
+<button id="start">Start</button> <button id="stop" disabled>Stop</button>
+<p><video id="video" autoplay playsinline controls></video></p>
+<pre id="status">512px / 4 steps / 25 fps is the reference profile. The 256px / 2-step / 15-fps stress-test profile FAILED visual quality validation.</pre>
+<script>
+let pc, sid, timer;
+const el=id=>document.getElementById(id);
+async function api(path,options={}) {
+  const r=await fetch(path,{...options,headers:{...options.headers,...(el('token').value?{Authorization:'Bearer '+el('token').value}:{})}});
+  if(!r.ok)throw new Error(await r.text());
+  return r.status===204?null:r.json();
+}
+async function stop(){clearInterval(timer);timer=null;if(pc)pc.close();pc=null;if(sid){await api('/sessions/'+sid,{method:'DELETE'}).catch(()=>{});sid=null;}el('start').disabled=false;el('stop').disabled=true;}
+el('start').onclick=async()=>{
+  el('start').disabled=true;el('stop').disabled=false;
+  try {
+    el('status').textContent='Preparing avatar…';
+    const form=new FormData();form.append('seconds',el('seconds').value);
+    for(const k of ['image','audio'])if(el(k).files[0])form.append(k,el(k).files[0]);
+    const s=await api('/sessions',{method:'POST',body:form});sid=s.id;
+    pc=new RTCPeerConnection(await api('/config'));
+    const stream=new MediaStream();el('video').srcObject=stream;
+    pc.ontrack=e=>{stream.addTrack(e.track);el('video').play().catch(()=>{});};
+    pc.addTransceiver('video',{direction:'recvonly'});pc.addTransceiver('audio',{direction:'recvonly'});
+    await pc.setLocalDescription(await pc.createOffer());
+    await new Promise(resolve=>{if(pc.iceGatheringState==='complete')resolve();else pc.addEventListener('icegatheringstatechange',()=>{if(pc.iceGatheringState==='complete')resolve();});});
+    const answer=await api('/sessions/'+sid+'/offer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pc.localDescription)});
+    await pc.setRemoteDescription(answer);
+    timer=setInterval(async()=>{try{el('status').textContent=JSON.stringify(await api('/sessions/'+sid),null,2);}catch(e){el('status').textContent=e.message;}},1000);
+  }catch(e){el('status').textContent=e.message;await stop();}
+};
+el('stop').onclick=stop;
+window.addEventListener('pagehide',()=>{if(pc)pc.close();});
+</script>

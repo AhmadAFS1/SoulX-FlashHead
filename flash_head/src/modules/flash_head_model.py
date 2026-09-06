@@ -117,8 +117,8 @@ def rope_apply(x, freqs, grid_sizes, use_usp=False, sp_size=1, sp_rank=0):
     seq_len = f * h * w
 
     # precompute multipliers
-    x_i = torch.view_as_complex(x[0, :s].to(torch.float64).reshape(
-        s, n, -1, 2)) # [L, N, C/2] # 极坐标
+    x_i = torch.view_as_complex(x[:, :s].to(torch.float64).reshape(
+        x.shape[0], s, n, -1, 2))
     freqs_i = torch.cat([
         freqs[0][:f].view(f, 1, 1, -1).expand(f, h, w, -1),
         freqs[1][:h].view(1, h, 1, -1).expand(f, h, w, -1),
@@ -132,12 +132,12 @@ def rope_apply(x, freqs, grid_sizes, use_usp=False, sp_size=1, sp_rank=0):
         s_per_rank = s
         freqs_i_rank = freqs_i[(sp_rank * s_per_rank):((sp_rank + 1) *
                                                         s_per_rank), :, :]
-        x_i = torch.view_as_real(x_i * freqs_i_rank).flatten(2)
-        x_i = torch.cat([x_i, x[0, s:]])
+        x_i = torch.view_as_real(x_i * freqs_i_rank).flatten(3)
+        x_i = torch.cat([x_i, x[:, s:]], dim=1)
     else:
-        x_i = torch.view_as_real(x_i * freqs_i).flatten(2)
-        x_i = torch.cat([x_i, x[0, seq_len:]])
-    return x_i.unsqueeze(0).to(x.dtype)
+        x_i = torch.view_as_real(x_i * freqs_i).flatten(3)
+        x_i = torch.cat([x_i, x[:, seq_len:]], dim=1)
+    return x_i.to(x.dtype)
 
 
 class RMSNorm(nn.Module):
@@ -268,13 +268,18 @@ class DiTAudioBlock(nn.Module):
         x = x + y * e[2]
 
         x_1 = rearrange(self.norm3(x), 'b (f l) c -> (b f) l c', f=context.shape[1])
-        context_1 = context.squeeze(0)
+        # Keep sessions separate: the upstream squeeze/flatten path only works
+        # for batch size one. Audio cross-attention runs over (batch * frames).
+        context_1 = rearrange(context, 'b f n c -> (b f) n c')
 
         if self.use_usp:
+            if x.shape[0] != 1:
+                raise ValueError("Batched sessions currently require single-GPU inference")
             context_1 = context_1.unsqueeze(1).repeat(1, self.sp_size, 1, 1).flatten(0,1)
             context_1 = torch.chunk(context_1, self.sp_size, dim=0)[self.sp_rank]
 
-        x = x + self.cross_attn(x_1, context_1).flatten(0, 1).unsqueeze(0)
+        x = x + rearrange(self.cross_attn(x_1, context_1),
+                          '(b f) l c -> b (f l) c', b=x.shape[0])
 
         y = self.ffn(self.norm2(x) * (1 + e[4]) + e[3])
         x = x + y * e[5]

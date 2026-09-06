@@ -1,3 +1,22 @@
+## WebRTC experiment in this fork
+
+This fork adds shared-model, single-GPU WebRTC streaming, independent session
+state, bounded queues, batching fixes, tests, and RTX 4070 benchmark evidence.
+
+- [Run, host, and test the WebRTC service](WEBRTC.md)
+- [Measured performance and quality limitations](benchmarks/REPORT.md)
+- [MuseTalk architecture comparison](benchmarks/ARCHITECTURE_REVIEW.md)
+
+Ten connections are supported, but ten quality-equivalent real-time speakers
+were **not** achieved. Native-quality SoulX did not beat the best tested compiled
+MuseTalk baseline. The faster 256-pixel/two-step/15-fps profile failed visual
+quality validation; use the 512-pixel/four-step/25-fps reference profile.
+
+Model weights, virtual environments, caches, and secrets are not included.
+The original project documentation and attribution follow below.
+
+---
+
 <div align="center">
 
 
