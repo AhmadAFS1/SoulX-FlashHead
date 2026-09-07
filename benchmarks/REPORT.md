@@ -7,7 +7,7 @@ quality-comparable ten-speaker real-time replacement for MuseTalk has not been
 demonstrated.** Native SoulX is compute-limited, not session-VRAM-limited. A
 reduced profile delivered ten concurrent streams but failed visual quality.
 
-The final reference service is running locally at **http://127.0.0.1:8765**.
+The experimental reference service is running locally at **http://127.0.0.1:8765** using the native 480×832 staged fallback under the current co-resident VRAM load. The faster TensorRT profile and every detailed implementation test are indexed in [the complete test catalog](../docs/research/TEST_CATALOG.md).
 The earlier Gradio process was stopped to avoid keeping a second model on GPU.
 External/TURN hosting is configurable but has not been provisioned or tested.
 For a practical starting point, use **one active 25-FPS reference-quality session**
@@ -23,7 +23,7 @@ quality experiment. This is not full MuseTalk product/API parity.
 - SoulX: PyTorch 2.7.1+cu128, BF16, FlashAttention 2, compiled DiT and LTX VAE.
 - MuseTalk: existing Python environment, PyTorch 2.5.1+cu121, FP16. The saved
   TensorRT VAE engine is incompatible with this machine; it was not reused.
-- OmniVoice remained resident (~2,194 MiB) and was not modified or stopped.
+- OmniVoice remained resident and was not modified or stopped; its observed footprint changed during the later tests. See the current headroom failure evidence in [the implementation results](../docs/research/IMPLEMENTATION_RESULTS.md).
   GPU benchmarks ran sequentially, not with MuseTalk and SoulX generating together.
 - SoulX upstream revision: `9bc03de06bb0de82cd6bc477804512ae06144bf2`, plus local changes.
 - Same portrait and first ten seconds of the included 16-kHz audio for engine

@@ -9,6 +9,7 @@ state, bounded queues, batching fixes, tests, and RTX 4070 benchmark evidence.
 - [Deep code audit, optimization roadmap, continuity tests, and recorded footage](docs/research/README.md)
 - [Persistent portrait calls: API, browser controls, and native MuseTalk dimensions](CONTINUOUS_WEBRTC.md)
 - [Implementation status](docs/research/IMPLEMENTATION_STATUS.md) and [native portrait / TensorRT / call results](docs/research/IMPLEMENTATION_RESULTS.md)
+- [Complete test catalog](docs/research/TEST_CATALOG.md) — every automated, offline, WebRTC, soak and failure test recorded in this fork
 - [Watch 480×832 output](benchmarks/implementation/portrait-allocator-ab-real.mp4) · [watch true 9:16 output](benchmarks/implementation/portrait-9x16-staged-real.mp4)
 - [Watch continuous native-portrait H264 calls with interruption and recovery](benchmarks/implementation/calls-generated-idle-h264-peer0.mp4)
 - [Watch the cheaper 9:16 delivery crop (468×832)](benchmarks/implementation/portrait-9x16-cropped.mp4) — native 480×832 generation with six pixels cropped from each side, not a larger model profile.

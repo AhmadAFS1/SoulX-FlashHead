@@ -1,6 +1,6 @@
 # Evidence, reproduction and migration decision
 
-Historical pre-implementation evidence. Later native portrait, TensorRT and live-turn results are tracked in [implementation status](IMPLEMENTATION_STATUS.md). “Every MP4” and other scope statements below refer only to this historical migration-evidence directory, not the newer offline engine experiments.
+Historical pre-implementation evidence. Later native portrait, TensorRT and live-turn results are tracked in [implementation status](IMPLEMENTATION_STATUS.md), [implementation results](IMPLEMENTATION_RESULTS.md), and the [complete test catalog](TEST_CATALOG.md). “Every MP4” and other scope statements below refer only to this historical migration-evidence directory, not the newer offline engine experiments.
 
 Codec qualification discovered during implementation: the old native API answerer applied codec preferences too late, allowing VP8. Native API recordings without active-encoder evidence must not be called verified H264 transport. Both APIs now negotiate H264 before applying the offer and expose actual encoder identity. The standalone source-bank relay negotiated its H264 preference before the offer and is unaffected.
 
@@ -17,7 +17,7 @@ Date:2026-09-06. GPU:RTX4070,12282MiB visible, driver570.181. SoulX environment:
 | Native SoulX23.05s continuous input |577 frames; first video0.961s; reported server stall0 |One state across speech/silence/speech; not live append |
 | Native10s provenance rerun |250 frames,480000 useful audio samples; first video0.995s; server stall0.0426s |Fixture hashes/seed recorded; small jitter disclosed |
 | Recording decode/boundary analysis |Native10s/23s fully decoded; source relay FFmpeg decode clean |No exact generated endpoint matching demonstrated |
-| Automated tests |12 passed; four upstream Triton deprecation warnings |CPU unit/media controls; no new TRT performance validation |
+| Historical automated tests |12 passed; four upstream Triton deprecation warnings |Original finite API and migration controls; newer suite is indexed below |
 
 The provenance rerun had max receiver arrival gap0.259s, despite a much smaller server-accounted stall. The earlier10s and23s max gaps were0.200s and0.234s. Server stalls and receiver jitter measure different stages; neither should be replaced with “perfectly smooth.” Recordings add CPU decode/re-encode work and are not throughput benchmarks.
 
@@ -116,4 +116,4 @@ Those older GPU runs had different co-resident memory usage from this pass. Curr
 |Ten mixed idle/active calls |Plausible serving concept, untested |Publish measured active-speaker limit, burst admission and long-call memory bounds |
 |Public mobile hosting |Local media only |HTTPS/auth/TURN, selected candidate proof and real device/network matrix |
 
-Recommendation: retain MuseTalk production and its certified close-up bank. Prioritize SoulX invariant-conditioning/color caches and profiling, then a narrowly scoped BF16/FP16 TensorRT experiment and persistent-call implementation. Reconsider migration only when the combined quality, continuity, throughput and operational gates pass. Bigger full-frame resolution alone is not a migration criterion.
+Recommendation after the later implementation: retain MuseTalk production and its certified close-up bank. SoulX now has invariant-conditioning/color caches, selective BF16 TensorRT, and a persistent-call implementation, but the measured whole-model gains and live capacity are insufficient. Reconsider migration only when the combined quality, continuity, throughput and operational gates pass. Bigger full-frame resolution alone is not a migration criterion. See [implementation results](IMPLEMENTATION_RESULTS.md) for the later 480×832, 576×1024, H264 ramp, 30-minute soak, audio-boundary and headroom-failure evidence.

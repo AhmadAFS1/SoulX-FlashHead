@@ -1,6 +1,6 @@
 # Throughput, latency and TensorRT: a quality-gated plan
 
-This is the pre-implementation plan at `b3c47de`. Follow [implementation status](IMPLEMENTATION_STATUS.md) and [the implemented call API](../../CONTINUOUS_WEBRTC.md) for subsequent work; proposed speedups here are not measured results.
+This is the **historical pre-implementation plan** written at `b3c47de`. Follow [implementation status](IMPLEMENTATION_STATUS.md), the [complete test catalog](TEST_CATALOG.md), [measured results](IMPLEMENTATION_RESULTS.md) and [the implemented call API](../../CONTINUOUS_WEBRTC.md) for what was actually built and tested. Proposed speedups below are not measured results unless explicitly labelled historical evidence.
 
 Status: source-derived proposals, **not measured speedups**, unless explicitly labeled historical evidence. Scope is installed SoulX Lite on this RTX 4070, native 512² / four steps / 25 FPS. Keep the current working backend as the rollback path.
 
@@ -100,7 +100,7 @@ Export surfaces / hazards:
 
 NVIDIA documents BF16/FP16/INT8 formats, but format availability does not guarantee converter coverage or fast kernels for this graph. [TensorRT data formats](https://docs.nvidia.com/deeplearning/tensorrt/latest/inference-library/data-format-desc.html). Inspect converter diagnostics and the resulting partition graph on the chosen version. Avoid dozens of tiny TRT islands that repeatedly cross back to PyTorch. A successful `torch.export` is **not** an ONNX/TRT engine, and neither implies a 25% win over the already compiled PyTorch baseline.
 
-No TensorRT/ONNX packages or engine were installed/built in this pass. Earlier CPU export probes identified RoPE/attention export issues but did not run a complete CUDA TensorRT model. Building beside the two resident GPU services would risk OOM; schedule an explicit isolated build window before implementation.
+At the time this historical plan was written, no TensorRT/ONNX packages or engine had been installed/built. The later implementation performed the isolated CUDA TensorRT experiment; see [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md), [test catalog](TEST_CATALOG.md), and the preserved OOM evidence. The plan's proposed P2 work is therefore historical context, not current status.
 
 ### P3: Scheduler and media latency without sacrificing useful throughput
 

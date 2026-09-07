@@ -1,6 +1,6 @@
 # How SoulX-FlashHead Lite works in this fork
 
-Historical source snapshot. Native rectangular generation, conditioning caches, optional TensorRT partitions and a persistent call API have since been implemented; see [implementation status](IMPLEMENTATION_STATUS.md) and [current call contract](../../CONTINUOUS_WEBRTC.md). The checkpoint's temporal/endpoint limitations remain.
+Historical source snapshot. Native rectangular generation, conditioning caches, optional TensorRT partitions and a persistent call API have since been implemented; see [implementation status](IMPLEMENTATION_STATUS.md), the [complete test catalog](TEST_CATALOG.md), and [current call contract](../../CONTINUOUS_WEBRTC.md). The checkpoint's temporal/endpoint limitations remain.
 
 Snapshot before this research change: SoulX fork `2f76e830e92f054e34480ed860f71792551b5e01`; upstream base `9bc03de06bb0de82cd6bc477804512ae06144bf2`. MuseTalk comparison checkout: `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`. Analysis concerns the installed **Lite** checkpoint, not Pro, teacher, another FlashTalk model, or upstream multi-GPU benchmarks.
 
@@ -73,7 +73,7 @@ Crucially, the installed LTX checkpoint has `decoder_causal=false`, `encoder_cau
 
 ## Audio context and latency
 
-`Engine._audio()` constructs an eight-second, 16-kHz window ending at the next chunk's audio horizon. Initial history and audio beyond clip end are zero padded. Wav2Vec convolutional features are linearly interpolated to `8×fps`, then passed through its transformer; twelve hidden-state layers feed five-frame windows around each video frame. The current 33-frame conditioning slice contains nine history-frame contexts plus 24 future-to-the-cursor output contexts.
+`Engine._audio()` constructs an eight-second, 16-kHz window ending at the next chunk's audio horizon. Initial history and audio beyond clip end are zero padded. Wav2Vec convolutional features are linearly interpolated to `8×fps`, then passed through its transformer; twelve hidden-state layers feed five-frame windows around each video frame. The current 33-frame conditioning slice contains nine history-frame contexts plus 24 future-to-the-cursor output contexts. In `staged` mode, the audio encoder and DiT are explicitly moved around their stages to reduce VRAM overlap; this lowers capacity pressure but adds transfer latency. See the final fallback regression in [implementation results](IMPLEMENTATION_RESULTS.md).
 
 “Causal rolling” here means no samples after the current **chunk horizon** are read. It does not mean sample-by-sample causal Wav2Vec attention: tokens inside that eight-second window can attend within the window. Whole-file feature precomputation would change available context and interpolation. A transformer KV cache copied from an autoregressive language model is therefore not an equivalent replacement.
 
@@ -93,9 +93,9 @@ The latest warm worker reserved about 5514 MiB in PyTorch and appeared as 5712 M
 
 ## Current API is a clip service, not the MuseTalk call protocol
 
-Actual routes: `GET /`, `/health`, `/config`; `POST /sessions`; `GET/DELETE /sessions/{sid}`; `POST /sessions/{sid}/offer`. Uploads accept `image`, `audio`, `seconds`, `seed`. Limits include 30-second clips, bounded upload/image sizes and a reservation before asynchronous preparation. Non-loopback CLI binds require a bearer token.
+Historical finite routes are `GET /`, `/health`, `/config`; `POST /sessions`; `GET/DELETE /sessions/{sid}`; and `POST /sessions/{sid}/offer`. The later persistent API adds `/calls`, one-offer negotiation, raw audio turns, retries, interruption and deletion; see [the current contract](../../CONTINUOUS_WEBRTC.md). Uploads accept bounded media and validated seeds. Non-loopback CLI binds require a bearer token.
 
-One offer installs H264 and Opus tracks. A shared origin gates audio behind generated video. Starvation slows both media clocks rather than creating fake productive frames. At clip end, one video timestamp and five silent audio packets drain receiver buffers; tracks then end. Sessions expire after inactivity. There is **no** append-turn endpoint, persistent idle track, semantic pose plan, audible-EOF event contract, source-video conditioning input, or native `last_frame` parameter.
+One offer installs H264 and Opus tracks. A shared origin gates audio behind generated video. The persistent implementation keeps tracks and RTP timestamps across turns, bounds queues, accounts held/idle frames, and reconditions interruption from the last nine sent frames. It has no receiver acknowledgement, exact generated endpoint, semantic pose plan, audible-EOF event contract, source-video conditioning input, or native `last_frame` parameter. Those limitations were directly tested and remain product gates.
 
 `max_sessions=10` limits admitted objects, not ten real-time generations. The application-level token is not per-user authorization. Public HTTPS/TURN, worker health after a dead subprocess, ownership-safe cancellation during preparation, idle lifetime, disconnect cleanup and long-call resource bounds need additional production hardening.
 
@@ -103,4 +103,4 @@ One offer installs H264 and Opus tracks. A shared origin gates audio behind gene
 
 MuseTalk's `scripts/hls_gpu_scheduler.py::_run_generation_batch` gathers independently prepared face latents from multiple jobs/poses into a frame batch, runs UNet/VAE, trims padding, then restores ordered composition. Each pose's source frame, face geometry, mask and conditioning must correspond. SoulX's scheduler unit is a recurrent 24-frame chunk, and the next chunk of a single session cannot be generated independently before its history exists.
 
-MuseTalk's approved full canvas is 480×832 while the network face crop remains 256×256. SoulX's tested output is 512×512. A hypothetical native 480×832 profile has `15×26=390` spatial latent cells versus 256: 1.523× as many tokens and potentially ~2.32× dense attention score work. That is an architectural estimate, not measured latency; the current service only permits square sizes. Letterboxing a square render changes presentation, not model throughput or preserved original motion.
+MuseTalk's approved full canvas is 480×832 while the network face crop remains 256×256. SoulX's tested outputs include native 512×512, 480×832 and true 576×1024 9:16. Native 480×832 has `15×26=390` spatial latent cells versus 256: 1.523× as many tokens and potentially ~2.32× dense attention score work. That is an architectural estimate, not measured latency. Letterboxing/cropping changes presentation, not model throughput or preserved original motion. Measured profiles and failures are in [the test catalog](TEST_CATALOG.md).

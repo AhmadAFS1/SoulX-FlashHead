@@ -1,6 +1,6 @@
 # First/last frames and invisible turn boundaries
 
-Historical analysis at `b3c47de`. A subsequent [persistent-call prototype](../../CONTINUOUS_WEBRTC.md) implements stable tracks, queued turns and interruption reconditioning. Exact generated endpoints and receiver-acknowledged continuity remain open quality gates. See [implementation status](IMPLEMENTATION_STATUS.md).
+Historical analysis at `b3c47de`. A subsequent [persistent-call implementation](../../CONTINUOUS_WEBRTC.md) implements stable tracks, queued turns, generated-idle mode and interruption reconditioning. Exact generated endpoints and receiver-acknowledged continuity remain open quality gates. See [implementation status](IMPLEMENTATION_STATUS.md) and the [complete test catalog](TEST_CATALOG.md).
 
 ## Answer
 
@@ -15,7 +15,7 @@ The current MuseTalk assets have a stronger source-level contract: their first s
 | Transport | Same peer/senders; continuous media timestamps through switches | Source-bank relay passed one persistent H264/Opus session |
 | Source pixels | Outgoing canonical source frame equals incoming frame | All six source handles and 30 directed pairs match exactly |
 | Generated motion | Head, mouth, gaze, crop and lighting evolve naturally | Native continuous SoulX recordings look coherent in sampled frames; no universal guarantee |
-| Conversation | Multiple newly arriving turns, silence and interruptions share a call clock and correct ownership | MuseTalk implements this; current SoulX clip API does not |
+| Conversation | Multiple newly arriving turns, silence and interruptions share a call clock and correct ownership | SoulX persistent-call tests pass transport/ownership cases, but strict smoothness, invisible joins and perceptual lip-sync remain unpassed |
 
 One cannot infer the fourth row from a ten-second video or from a packet-loss-free connection. Even pixel-identical endpoints can still reveal a join if velocity, eye state or lighting changes immediately around them. A freeze is pixel-continuous but often perceptually obvious.
 

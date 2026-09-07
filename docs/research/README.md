@@ -1,6 +1,6 @@
 # SoulX-FlashHead for continuous avatar calls
 
-This is the pre-implementation research snapshot. The subsequent [implementation and measured results](IMPLEMENTATION_STATUS.md), [persistent call API](../../CONTINUOUS_WEBRTC.md), and [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md) supersede statements below about missing runtime features. Historical measurements are retained unchanged.
+This contains the research snapshot and comparison rationale. The subsequent [implementation and measured results](IMPLEMENTATION_STATUS.md), [complete test catalog](TEST_CATALOG.md), [persistent call API](../../CONTINUOUS_WEBRTC.md), and [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md) supersede statements below about missing runtime features. Historical measurements are retained unchanged.
 
 Analysis and receiver-side testing: **2026-09-06**, RTX 4070 12 GB.
 
@@ -16,6 +16,7 @@ The most important architectural distinction: MuseTalk changes a **256×256 face
 - [Optimization transfer and TensorRT plan](OPTIMIZATION_PLAN.md): what actually worked for MuseTalk, what transfers, priorities and release gates.
 - [Continuous calls and first/last-frame control](CONTINUOUS_CALLS.md): exact boundaries, independent turns, idle switching and proposed persistent-call design.
 - [Validation, footage and migration gates](VALIDATION.md): measured results, reproducible commands, limitations and acceptance matrix.
+- [Complete implementation test catalog](TEST_CATALOG.md): automated tests, offline benchmarks, WebRTC ramps, soak results, failure evidence and final gates.
 - [All 92 MuseTalk Markdown files reviewed](MUSETALK_DOC_AUDIT.md): full paths, SHA-256 hashes and per-file reading notes.
 - [10-second native SoulX WebRTC recording](../../benchmarks/migration/soulx-closeup-native-10s-provenance.mp4).
 - [23-second continuous SoulX WebRTC recording](../../benchmarks/migration/soulx-closeup-continuous-23s.mp4): two preassembled speech passages separated by two seconds of silence, one model state.
