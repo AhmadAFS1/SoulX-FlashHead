@@ -1,5 +1,7 @@
 # TensorRT experiments: isolated, explicit and fail-closed
 
+Read the [current TensorRT/runtime/test walkthrough](docs/architecture/06_TENSORRT_AND_TEST_TOOLING.md) and [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md) for remaining export, fusion, memory-lifetime and validation work. New proposals are not measured gains.
+
 Use the [implementation status](docs/research/IMPLEMENTATION_STATUS.md) for measured end-to-end results. Kernel gains below are not claims of25% whole-model improvement. PyTorch remains the default backend.
 
 ## Environment and artifacts

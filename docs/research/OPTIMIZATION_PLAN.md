@@ -1,5 +1,7 @@
 # Throughput, latency and TensorRT: a quality-gated plan
 
+For the next round after implementation, use [NEXT_OPTIMIZATION_PLAN.md](NEXT_OPTIMIZATION_PLAN.md), supported by the [complete source walkthrough](../architecture/README.md) and [September 7 evidence validation](EVIDENCE_VALIDATION_2026-09-07.md). This page remains the original historical plan.
+
 This is the **historical pre-implementation plan** written at `b3c47de`. Follow [implementation status](IMPLEMENTATION_STATUS.md), the [complete test catalog](TEST_CATALOG.md), [measured results](IMPLEMENTATION_RESULTS.md) and [the implemented call API](../../CONTINUOUS_WEBRTC.md) for what was actually built and tested. Proposed speedups below are not measured results unless explicitly labelled historical evidence.
 
 Status: source-derived proposals, **not measured speedups**, unless explicitly labeled historical evidence. Scope is installed SoulX Lite on this RTX 4070, native 512² / four steps / 25 FPS. Keep the current working backend as the rollback path.

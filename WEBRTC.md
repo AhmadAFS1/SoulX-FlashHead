@@ -1,5 +1,7 @@
 # SoulX-FlashHead shared-model WebRTC experiment
 
+For the complete internal flow, read the [source architecture guide](docs/architecture/README.md). The [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md) distinguishes implemented serving features from unpassed concurrency and smoothness goals.
+
 This is a single-GPU experimental service, not a claim of full MuseTalk product
 parity. It implements independent talking-head sessions, uploaded image/audio,
 shared weights, fair microbatch scheduling, bounded output queues, H264/Opus

@@ -1,5 +1,7 @@
 # First/last frames and invisible turn boundaries
 
+Current code-level explanations: [VAE and endpoint continuity](../architecture/03_VAE_AND_CONTINUITY.md), [persistent-call clocks and scheduling](../architecture/05_WEBRTC_AND_SCHEDULING.md), and [the next queued-turn optimization plan](NEXT_OPTIMIZATION_PLAN.md). Historical analysis follows.
+
 Historical analysis at `b3c47de`. A subsequent [persistent-call implementation](../../CONTINUOUS_WEBRTC.md) implements stable tracks, queued turns, generated-idle mode and interruption reconditioning. Exact generated endpoints and receiver-acknowledged continuity remain open quality gates. See [implementation status](IMPLEMENTATION_STATUS.md) and the [complete test catalog](TEST_CATALOG.md).
 
 ## Answer

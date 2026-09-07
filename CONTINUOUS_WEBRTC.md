@@ -1,5 +1,7 @@
 # Persistent portrait WebRTC calls (experimental)
 
+Internal contracts are explained in the [call/scheduler walkthrough](docs/architecture/05_WEBRTC_AND_SCHEDULING.md) and [VAE/continuity guide](docs/architecture/03_VAE_AND_CONTINUITY.md). Remaining queued-turn, admission and performance work is in the [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md).
+
 The implementation is separate from the original finite `/sessions` API. One call owns one peer, one H264 video sender and one Opus audio sender. New turns never replace tracks or restart RTP timestamps. Model weights remain shared in the single GPU process.
 
 This is a local integration/test endpoint, **not a certification of invisible live/idle joins, mobile/TURN deployment, or ten active speakers**. The supplied idle video can be replayed without neural work; held/idle frames are counted separately from newly generated frames.

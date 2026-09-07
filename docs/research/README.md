@@ -1,5 +1,7 @@
 # SoulX-FlashHead for continuous avatar calls
 
+Latest audit, **2026-09-07**: [complete 74-file source walkthrough](../architecture/README.md), [next optimization plan](NEXT_OPTIMIZATION_PLAN.md), [refreshed MuseTalk code comparison](MUSETALK_OPTIMIZATION_COMPARISON.md), and [revalidated evidence with executed notebook](EVIDENCE_VALIDATION_2026-09-07.md). These distinguish already delivered features from remaining proposals; they add documentation, not new runtime optimizations or GPU benchmarks.
+
 This contains the research snapshot and comparison rationale. The subsequent [implementation and measured results](IMPLEMENTATION_STATUS.md), [complete test catalog](TEST_CATALOG.md), [persistent call API](../../CONTINUOUS_WEBRTC.md), and [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md) supersede statements below about missing runtime features. Historical measurements are retained unchanged.
 
 Analysis and receiver-side testing: **2026-09-06**, RTX 4070 12 GB.

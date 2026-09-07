@@ -1,5 +1,7 @@
 # Implementation status: native portrait calls and performance
 
+The [September 7 full-code audit](../architecture/README.md) and [next optimization plan](NEXT_OPTIMIZATION_PLAN.md) document remaining opportunities and newly identified source/measurement gaps. The [executed evidence validation](EVIDENCE_VALIDATION_2026-09-07.md) rechecks historical results without rerunning the GPU. Completion below refers to the prior engineering round, not every possible optimization or product gate.
+
 Implemented and tested on September 6–7, 2026, from baseline `b3c47de`. The engineering experiment, sustained test and final fallback regressions are delivered. Product performance/quality targets are separate and must not be inferred from checked implementation tasks.
 
 ## Delivered engineering
@@ -40,6 +42,6 @@ The short generated-idle H264 run completed three turns plus an interruption in 
 - Ten simultaneous 25-FPS speakers require at least 250 useful FPS plus headroom: **failed on this configuration**. Generated-idle peers also consume rendering capacity.
 - Production migration: **do not migrate from MuseTalk based on these results**. Keep SoulX as an experimental whole-frame renderer with conservative single-call admission.
 
-The local endpoint remains `http://127.0.0.1:8765/`, using the slower fully staged PyTorch fallback. The faster measured native TensorRT profile no longer fits beside the increased unrelated GPU workload. Its final scheduler/audio follow-ups need a new GPU run with sufficient headroom; no permission to stop OmniVoice was received and it was left untouched.
+At the end of the implementation tests, the local endpoint was `http://127.0.0.1:8765/`, using the slower fully staged PyTorch fallback. At that time, the faster measured native TensorRT profile did not fit beside the increased unrelated GPU workload. Its final scheduler/audio follow-ups need a new GPU run with sufficient headroom; no permission to stop OmniVoice was received and it was left untouched. This is a historical deployment/memory observation, not a current liveness or GPU-fit guarantee.
 
 Read [the measured results and footage](IMPLEMENTATION_RESULTS.md), [complete test catalog](TEST_CATALOG.md), [persistent API/run instructions](../../CONTINUOUS_WEBRTC.md), and [TensorRT reproduction](../../TENSORRT_EXPERIMENTS.md). The original [optimization plan](OPTIMIZATION_PLAN.md) and [92-file MuseTalk audit](MUSETALK_DOC_AUDIT.md) remain historical references, not claims that every proposed product gate passed.

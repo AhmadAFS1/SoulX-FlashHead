@@ -1,5 +1,7 @@
 # SoulX-FlashHead test catalog
 
+September 7 documentation-audit addendum: the [evidence validation report](EVIDENCE_VALIDATION_2026-09-07.md) and [executed CPU notebook](notebooks/optimization_evidence_audit.ipynb) recheck eight retained JSON artifacts, 26 offline run rows, FPS/phase/capacity arithmetic, call counters and selected source contracts. All five notebook code cells passed. No new GPU benchmark or runtime test-suite run is implied; the catalog below retains its original scope and chronology.
+
 This is the complete index of the implementation and migration tests recorded in this fork as of **2026-09-07**. It is intentionally separate from the model walkthroughs: every result below names the artifact, workload, and limitation. Detailed interpretation belongs in [implementation results](IMPLEMENTATION_RESULTS.md); historical MuseTalk comparison evidence remains in [validation](VALIDATION.md) and [the 92-file audit](MUSETALK_DOC_AUDIT.md).
 
 ## Test environment and provenance
