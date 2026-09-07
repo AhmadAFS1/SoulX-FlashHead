@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "stage": "done",
+  "source": "actual SoulX denoised latent",
+  "input_sha256": "e2338f3fda564983261a6606a6aaa7a0660340f20d1fb0892eff8a1b3a108b94",
+  "input_shape": [
+    128,
+    5,
+    16,
+    16
+  ],
+  "compiled_torch_ms": 160.66400146484375,
+  "output_shape": [
+    1,
+    3,
+    33,
+    512,
+    512
+  ],
+  "trt_ms": 136.64814453125,
+  "max_abs": 0.056640625,
+  "mean_abs": 0.001567220315337181,
+  "finite": true,
+  "device_workspace_mib": 436,
+  "speedup": 1.175749601401295,
+  "note": "Kernel validation only; recurrent full-video quality still required"
+}

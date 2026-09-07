@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "when_utc": "2026-09-07 01:18:34",
+  "stage": "startup TensorRT FFN deserialization",
+  "error": "TensorRT CUDA out of memory; requested 55071488 bytes; engine failed to deserialize",
+  "profile": "480x832, BF16 FFNs plus transient-workspace TRT VAE, reference offload",
+  "co_resident_process": "OmniVoice (left untouched)",
+  "co_resident_nvml_mib_after_failure": 7456,
+  "prior_observed_co_resident_nvml_mib": [6150, 6510, 6580],
+  "benchmark_samples": 0,
+  "note": "The earlier SoulX worker had fully exited. This was not a duplicate-owner load. Co-resident growth exceeds available headroom for the measured approximately 5164-MiB native TRT runtime."
+}

@@ -1,5 +1,9 @@
 # Evidence, reproduction and migration decision
 
+Historical pre-implementation evidence. Later native portrait, TensorRT and live-turn results are tracked in [implementation status](IMPLEMENTATION_STATUS.md). “Every MP4” and other scope statements below refer only to this historical migration-evidence directory, not the newer offline engine experiments.
+
+Codec qualification discovered during implementation: the old native API answerer applied codec preferences too late, allowing VP8. Native API recordings without active-encoder evidence must not be called verified H264 transport. Both APIs now negotiate H264 before applying the offer and expose actual encoder identity. The standalone source-bank relay negotiated its H264 preference before the offer and is unaffected.
+
 Date:2026-09-06. GPU:RTX4070,12282MiB visible, driver570.181. SoulX environment:Python3.10, Torch2.7.1+cu128, BF16, compiled DiT/VAE, aiortc1.14.0/PyAV16.1.0. Native service profile512²/four steps/25FPS/B1, localhost8765.
 
 ## Tests completed in this pass

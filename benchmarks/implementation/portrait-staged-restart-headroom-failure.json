@@ -1,0 +1,18 @@
+{
+  "status": "failed",
+  "when_utc": "2026-09-07 after 01:20:47",
+  "stage": "first warmup Wav2Vec group normalization",
+  "requested_mib": 50,
+  "cuda_free_mib": 35.19,
+  "profile": "480x832, four-step optimized PyTorch, staged offload",
+  "co_resident_nvml_mib": 7456,
+  "benchmark_samples": 0,
+  "followup_failure": {
+    "when_utc": "2026-09-07 after 01:23:14",
+    "stage": "denoising after moving DiT reload after audio",
+    "requested_mib": 20,
+    "cuda_free_mib": 17.19,
+    "benchmark_samples": 0
+  },
+  "note": "The initial staged path kept DiT GPU weights resident during audio preprocessing. Moving reload after audio passed audio but then ran out of memory in denoising. The subsequent staged implementation also offloads Wav2Vec weights outside their audio stage; dimensions, steps and precision stay unchanged."
+}

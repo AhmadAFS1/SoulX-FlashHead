@@ -1,0 +1,6 @@
+# Install into an isolated --target directory; do not alter the serving venv.
+tensorrt-cu12==10.9.0.34
+onnx==1.17.0
+numpy==1.26.4
+protobuf==3.20.3
+nvidia-cuda-runtime-cu12==12.8.57

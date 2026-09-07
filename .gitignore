@@ -16,3 +16,7 @@ gradio_results/
 gradio_results_multigpu/
 models/
 tools/
+.trt-experiment/
+*.engine
+*.onnx
+.gpu-owner.lock

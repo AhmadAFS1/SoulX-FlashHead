@@ -3,9 +3,16 @@
 This is a single-GPU experimental service, not a claim of full MuseTalk product
 parity. It implements independent talking-head sessions, uploaded image/audio,
 shared weights, fair microbatch scheduling, bounded output queues, H264/Opus
-WebRTC, cancellation, API authentication, and ICE configuration. It does not
-currently implement MuseTalk's pose protocol, TTS integration, persistent
-multi-turn peers, S3 avatar storage, or worker control plane.
+WebRTC, cancellation, API authentication, and ICE configuration. Persistent
+multi-turn peers and native portrait profiles are now available through the
+[separate call API](CONTINUOUS_WEBRTC.md). MuseTalk's exact pose protocol, TTS
+integration, S3 avatar storage and production worker control plane are not ported.
+
+Codec correction: the older answerer set H264 preferences after applying the
+remote offer, which allowed VP8 to remain selected. Both APIs now set preferences
+before negotiation and report the actual sender encoder in session/call stats.
+Older native API recordings without encoder evidence are not verified H264
+transport benchmarks; an H264 MP4 container does not prove the RTP codec.
 
 ## Run
 

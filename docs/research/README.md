@@ -1,5 +1,7 @@
 # SoulX-FlashHead for continuous avatar calls
 
+This is the pre-implementation research snapshot. The subsequent [implementation and measured results](IMPLEMENTATION_STATUS.md), [persistent call API](../../CONTINUOUS_WEBRTC.md), and [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md) supersede statements below about missing runtime features. Historical measurements are retained unchanged.
+
 Analysis and receiver-side testing: **2026-09-06**, RTX 4070 12 GB.
 
 ## Decision

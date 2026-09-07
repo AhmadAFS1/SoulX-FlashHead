@@ -57,9 +57,12 @@ class Session:
     generation_done_s: object = None
     stalls_s: float = 0.
     gpu_wall_s: float = 0.
+    last_scheduled: float = 0.
 
     def metrics(self):
+        from .codec import sender_encoder_info
         return dict(id=self.id, fps=self.fps, startup_delay_s=self.startup_delay, frames=self.state.total_frames,
+                    video_encoders=sender_encoder_info(self.pc),
                     generated_frames=self.state.cursor, video_sent=self.video_sent,
                     audio_samples_sent=self.audio_sent, queued_chunks=self.queue.qsize(),
                     video_drain_sent=self.video_drain_sent,
@@ -202,11 +205,28 @@ class Service:
         self.isolation = None
         self.token = os.environ.get("SOULX_API_TOKEN", "")
         self.ice = json.loads(os.environ.get("SOULX_ICE_SERVERS", "[]"))
+        self.idle_asset = None
+        import hashlib
+        self.source_sha256 = {str(p):hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted(Path("soulx_rtc").glob("*.py"))}
+        from .calls import CallService
+        self.calls = CallService(self)
 
     async def gpu(self, function, *args):
         return await asyncio.get_running_loop().run_in_executor(self.executor, function, *args)
 
+    def mark_unhealthy(self, exc):
+        self.ready = False
+        for item in list(self.sessions.values())+list(self.calls.items.values()):
+            item.error = type(exc).__name__
+            item.changed.set()
+
     async def startup(self, app):
+        idle_video = getattr(self.args,"idle_video",None)
+        if idle_video:
+            import hashlib
+            path = Path(idle_video)
+            self.idle_asset = dict(file=path.name,sha256=hashlib.sha256(path.read_bytes()).hexdigest())
         from .worker import GPUProcess
         self.worker = GPUProcess()
         self.isolation = await self.worker.start(self.args)
@@ -231,6 +251,7 @@ class Service:
             await self.worker.release(s.state)
 
     async def cleanup(self, app):
+        await self.calls.cleanup()
         if self.task:
             self.task.cancel()
             with contextlib.suppress(asyncio.CancelledError):
@@ -242,6 +263,9 @@ class Service:
 
     async def schedule(self):
         while True:
+            if self.worker and not self.ready:
+                await asyncio.sleep(.05)
+                continue
             selected = []
             for _ in range(len(self.rotation)):
                 sid = self.rotation[0]
@@ -255,11 +279,18 @@ class Service:
                 if (s.connected and not s.closed and not s.error and
                         s.state.cursor < s.state.total_frames and not s.queue.full()):
                     selected.append(s)
-                if len(selected) == self.args.batch:
-                    break
             if not selected:
-                await asyncio.sleep(.005)
+                call_work = await self.calls.schedule_once()
+                if not call_work:
+                    await asyncio.sleep(.005)
                 continue
+            # Stable tie order retains round-robin fairness; generated lead orders
+            # eligible peers. No waiting to fill a batch near a playback deadline.
+            selected.sort(key=lambda s: ((s.state.cursor-s.video_sent)/s.fps,
+                                         s.last_scheduled))
+            selected = selected[:self.args.batch]
+            for s in selected:
+                s.last_scheduled = time.monotonic()
             try:
                 if self.worker:
                     chunks, metrics = await self.worker.generate([s.state for s in selected])
@@ -277,14 +308,15 @@ class Service:
                     if s.state.cursor == s.state.total_frames:
                         s.generation_done_s = now - s.activated
                     s.queue.put_nowait(chunk)
+                await self.calls.schedule_once()
             except Exception as exc:
                 LOG.exception("Generation failed")
-                for s in selected:
-                    s.error = type(exc).__name__
-                    s.changed.set()
+                self.mark_unhealthy(exc)
 
     async def create(self, request):
-        if len(self.sessions) + self.pending >= self.args.max_sessions:
+        if not self.ready:
+            raise web.HTTPServiceUnavailable(text="GPU worker is not ready")
+        if len(self.sessions) + len(self.calls.items) + self.pending >= self.args.max_sessions:
             raise web.HTTPTooManyRequests(text="Session capacity reached")
         self.pending += 1  # Reserve before the first await; concurrent uploads cannot over-admit.
         try:
@@ -308,6 +340,8 @@ class Service:
             seconds, seed = float(fields.get("seconds", 10)), int(fields.get("seed", 42))
             if not math.isfinite(seconds) or not 0 < seconds <= 30:
                 raise ValueError("seconds must be >0 and <=30")
+            if not 0<=seed<2**63:
+                raise ValueError("Seed must be an integer from 0 through 2**63-1")
             audio = await asyncio.to_thread(decode_audio,
                 payload.get("audio", "examples/podcast_sichuan_16k.wav"), seconds)
             with tempfile.TemporaryDirectory(prefix="soulx-upload-") as folder:
@@ -320,8 +354,12 @@ class Service:
                         img = img.convert("RGB")
                         img.thumbnail((1024, 1024))
                         img.save(image_path)
-                state = (await self.worker.prepare(image_path, audio, seed) if self.worker
-                         else await self.gpu(self.engine.prepare, image_path, audio, seed))
+                try:
+                    state = (await self.worker.prepare(image_path, audio, seed) if self.worker
+                             else await self.gpu(self.engine.prepare, image_path, audio, seed))
+                except RuntimeError as exc:
+                    self.mark_unhealthy(exc)
+                    raise web.HTTPServiceUnavailable(text="GPU preparation failed; worker restart required") from exc
             audio48 = (resample_poly(audio, 3, 1).clip(-1, 1) * 32767).astype(np.int16)
             sid = secrets.token_urlsafe(18)
             session = Session(sid, state, audio48, fps=self.args.fps)
@@ -357,7 +395,6 @@ class Service:
             elif pc.connectionState in ("failed", "closed") and not s.closed:
                 await self.close_session(s)
         try:
-            await pc.setRemoteDescription(RTCSessionDescription(sdp=params["sdp"], type="offer"))
             pc.addTrack(VideoTrack(s))
             pc.addTrack(AudioTrack(s))
             # H264 is browser-friendly; software encoding stays outside the GPU worker.
@@ -366,6 +403,7 @@ class Service:
             for transceiver in pc.getTransceivers():
                 if transceiver.kind == "video":
                     transceiver.setCodecPreferences(codecs)
+            await pc.setRemoteDescription(RTCSessionDescription(sdp=params["sdp"], type="offer"))
             await asyncio.wait_for(pc.setLocalDescription(await pc.createAnswer()), timeout=20)
             return web.json_response({"sdp": pc.localDescription.sdp, "type": "answer"})
         except Exception:
@@ -380,8 +418,22 @@ class Service:
         return web.Response(status=204)
 
     async def health(self, request):
+        from .metrics import process_rss_mib
         return web.json_response(dict(ready=self.ready, size=self.args.size, steps=self.args.steps,
+            server_rss_mib=process_rss_mib(),
             fps=self.args.fps,
+            width=getattr(self.args, "width", None) or self.args.size,
+            height=getattr(self.args, "height", None) or self.args.size,
+            optimized=getattr(self.args, "optimized", False),
+            real_rope=getattr(self.args, "real_rope", False),
+            memory_mode=getattr(self.args, "memory_mode", "default"),
+            idle_policy=getattr(self.args,"idle_policy","source"), idle_asset=self.idle_asset,
+            max_active_calls=getattr(self.args,"max_active_calls",1),
+            trt_ffn=bool(getattr(self.args,"trt_ffn",None)), trt_vae=bool(getattr(self.args,"trt_vae",None)),
+            h264_preset=getattr(self.args,"h264_preset","upstream"),
+            source_sha256=self.source_sha256,
+            calls=len(self.calls.items),
+            gpu_states=len(self.worker.states) if self.worker else None,
             batch=self.args.batch, sessions=len(self.sessions), max_sessions=self.args.max_sessions,
             queued_limit_chunks_per_session=2, session_isolation_test=self.isolation,
             recent_chunks=list(self.chunks)[-10:]))
@@ -405,6 +457,7 @@ def make_app(service):
         web.get("/config", service.config), web.post("/sessions", service.create),
         web.get("/sessions/{sid}", service.stats), web.delete("/sessions/{sid}", service.delete),
         web.post("/sessions/{sid}/offer", service.offer)])
+    app.add_routes(service.calls.routes())
     app.on_startup.append(service.startup)
     app.on_cleanup.append(service.cleanup)
     return app
@@ -415,19 +468,50 @@ def main():
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--size", type=int, choices=[256, 384, 512], default=512)
+    ap.add_argument("--width", type=int)
+    ap.add_argument("--height", type=int)
+    ap.add_argument("--optimized", action="store_true", help="Cache chunk conditioning and profile/reference constants")
+    ap.add_argument("--real-rope", action="store_true", help="Experimental FP32 real rotary math (requires --optimized)")
+    ap.add_argument("--profile", action="store_true", help="Detailed CUDA event timings")
+    ap.add_argument("--trt-ffn", help="Trusted exact-shape TensorRT FFN artifact directory (experimental)")
+    ap.add_argument("--trt-vae", help="Trusted exact-shape TensorRT VAE decoder engine (experimental)")
+    ap.add_argument("--memory-mode", choices=["default", "compact", "reference", "staged"], default="default")
+    ap.add_argument("--idle-video", help="Approved local idle asset for persistent calls; clients cannot select filesystem paths")
+    ap.add_argument("--idle-policy", choices=["source", "hold", "generate"], default="source",
+                    help="Source replay saves GPU; generated silence preserves recurrence but spends GPU while idle")
+    ap.add_argument("--max-active-calls", type=int, default=1,
+                    help="Bound simultaneously rendering calls independently from connected peers")
     ap.add_argument("--steps", type=int, choices=[2, 4], default=4)
-    ap.add_argument("--fps", type=int, choices=[15, 20, 25], default=25)
+    ap.add_argument("--fps", type=int, choices=[15, 20, 24, 25], default=25)
     ap.add_argument("--batch", type=int, choices=[1, 2, 4], default=1)
     ap.add_argument("--max-sessions", type=int, default=10)
     ap.add_argument("--eager", action="store_true")
     ap.add_argument("--validate-isolation", action="store_true")
+    ap.add_argument("--access-log", action="store_true", help="Log every HTTP request (off for polling/load tests)")
+    ap.add_argument("--h264-preset", choices=["upstream","veryfast"], default="upstream",
+                    help="Optional pinned low-latency CPU H264 encoder; not neural FPS")
     args = ap.parse_args()
+    from .engine import validate_geometry
+    try:
+        args.width, args.height = validate_geometry(args.size, args.width, args.height)
+        if args.real_rope and not args.optimized:
+            raise ValueError("--real-rope requires --optimized")
+        if args.trt_ffn and (args.batch != 1 or args.memory_mode == "staged"):
+            raise ValueError("TensorRT FFN profiles require batch one and no weight offload")
+        if not 1 <= args.max_active_calls <= args.max_sessions:
+            raise ValueError("max-active-calls must be between 1 and max-sessions")
+    except ValueError as exc:
+        ap.error(str(exc))
     if args.host not in ("127.0.0.1", "localhost", "::1") and not os.environ.get("SOULX_API_TOKEN"):
         ap.error("Set SOULX_API_TOKEN before exposing this GPU service beyond localhost")
     logging.basicConfig(level=logging.INFO)
+    if args.h264_preset != "upstream":
+        from .codec import install_encoder_factory
+        install_encoder_factory(args.fps,args.h264_preset)
     if (args.size, args.steps, args.fps) == (256, 2, 15):
         LOG.warning("STRESS TEST ONLY: 256/2/15 passed media delivery but failed visual quality (facial artifacts)")
-    web.run_app(make_app(Service(args)), host=args.host, port=args.port)
+    web.run_app(make_app(Service(args)), host=args.host, port=args.port,
+                access_log=logging.getLogger("aiohttp.access") if args.access_log else None)
 
 
 if __name__ == "__main__":

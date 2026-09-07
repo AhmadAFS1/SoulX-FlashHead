@@ -1,5 +1,7 @@
 # First/last frames and invisible turn boundaries
 
+Historical analysis at `b3c47de`. A subsequent [persistent-call prototype](../../CONTINUOUS_WEBRTC.md) implements stable tracks, queued turns and interruption reconditioning. Exact generated endpoints and receiver-acknowledged continuity remain open quality gates. See [implementation status](IMPLEMENTATION_STATUS.md).
+
 ## Answer
 
 **Native SoulX Lite does not expose exact first-frame and last-frame pixel controls.** It accepts a conditioning portrait and carries recent motion latents between chunks. That supports continuous-looking generation; it does not guarantee that independently generated clips return to the same canonical pose or match each other exactly.

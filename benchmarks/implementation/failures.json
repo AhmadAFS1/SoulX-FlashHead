@@ -1,0 +1,23 @@
+{
+  "note": "Failures retained explicitly; do not interpret partial experiment JSON as successful sweeps.",
+  "failures": [
+    {
+      "experiment": "portrait-ab.json",
+      "profile": "480x832 / four steps / 25 FPS / default allocator and memory mode",
+      "stage": "first reference VAE encode / compiled-kernel loading",
+      "error": "Triton CUDA out of memory",
+      "completed_timed_runs": 0,
+      "co_resident_omnivoice_mib": 6150
+    },
+    {
+      "experiment": "portrait-reference-ab.json",
+      "profile": "480x832 / four steps / 25 FPS / reference-only offload / default allocator",
+      "stage": "optimized-mode VAE decode warmup, after baseline run",
+      "error": "CUDA out of memory allocating 404 MiB; approximately 167 MiB device free",
+      "completed_timed_runs": 1,
+      "baseline_fps": 15.57207013364382,
+      "co_resident_omnivoice_mib": 6150,
+      "interpretation": "Not a valid completed A/B comparison. Fresh-process expandable-segment allocator tests are separate evidence."
+    }
+  ]
+}

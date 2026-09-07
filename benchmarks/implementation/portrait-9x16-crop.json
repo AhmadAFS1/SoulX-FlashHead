@@ -1,0 +1,18 @@
+{
+  "kind": "post_generation_delivery_crop",
+  "source": "portrait-trt-transient-workspace-real.mp4",
+  "source_sha256": "a09897daae88c782191643695fa9946fff16d64b77968eb7e68dad8e3992ae43",
+  "output": "portrait-9x16-cropped.mp4",
+  "output_sha256": "8615277a5a50e83f9afc8dd48edd269ede139d3d59533b0d8491d023270e384f",
+  "source_native_dimensions": [480, 832],
+  "delivered_dimensions": [468, 832],
+  "crop_xy": [6, 0],
+  "frames": 250,
+  "duration_seconds": 10,
+  "playback_fps": 25,
+  "filter": "crop=468:832:6:0",
+  "video_encoder": "libx264, veryfast, crf 18, threads 2",
+  "audio": "original AAC packets copied with -c:a copy",
+  "decode_check": "FFmpeg completed with no decoding errors",
+  "note": "No new neural generation, resizing, throughput measurement or cropped-WebRTC validation. Consult the source profile's generation evidence; playback FPS is not generated FPS."
+}

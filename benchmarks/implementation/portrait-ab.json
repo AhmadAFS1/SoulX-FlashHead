@@ -1,0 +1,38 @@
+{
+  "config": {
+    "width": 480,
+    "height": 832,
+    "fps": 25,
+    "steps": 4,
+    "batch": 1,
+    "sessions": 1,
+    "repeats": 5,
+    "seconds": 10,
+    "seed": 50,
+    "image": "benchmarks/implementation/musetalk-idle-anchor.png",
+    "audio": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+    "modes": [
+      "baseline",
+      "cached",
+      "real"
+    ],
+    "memory_mode": "default",
+    "eager": false,
+    "record": true,
+    "output": "benchmarks/implementation/portrait-ab.json"
+  },
+  "inputs": {
+    "image": {
+      "file": "musetalk-idle-anchor.png",
+      "sha256": "abafbb2f86b87bf06f5dcbd50fcb2f88fff762b256e92ef6e79d814308692cd6"
+    },
+    "audio": {
+      "file": "multi_sentence.wav",
+      "sha256": "928946e0df5b0977361d538656fda2f5320a4740c14a00fbe8adc062d24ebfd5"
+    }
+  },
+  "rows": [],
+  "quality": [],
+  "warmup_s": {},
+  "metric": "Unpaced useful native frames; setup/warmup/encoding excluded; 4-step unless configured otherwise"
+}

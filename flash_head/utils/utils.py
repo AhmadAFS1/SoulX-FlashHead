@@ -103,10 +103,18 @@ def lab_to_rgb_torch(lab: torch.Tensor) -> torch.Tensor:
     rgb = torch.clamp(rgb, 0.0, 1.0)
     return rgb
 
+def prepare_reference_color_stats(reference_image):
+    """Reference-only statistics; retain original dtype and reduction order."""
+    ref_lab = rgb_to_lab_torch(((reference_image + 1.0) / 2.0).permute(0, 2, 3, 4, 1))
+    return (ref_lab.mean(dim=[2, 3], keepdim=True),
+            ref_lab.std(dim=[2, 3], keepdim=True, unbiased=False))
+
+
 def match_and_blend_colors_torch(
     source_chunk: torch.Tensor, 
     reference_image: torch.Tensor, 
-    strength: float
+    strength: float,
+    reference_stats=None,
 ) -> torch.Tensor:
     """
     全GPU批量运算版本：将视频chunk的颜色匹配到参考图像并混合（支持B>1、T帧并行）
@@ -149,12 +157,15 @@ def match_and_blend_colors_torch(
     
     # 3. RGB转Lab（批量处理所有帧）
     source_lab = rgb_to_lab_torch(source_permuted)
-    ref_lab = rgb_to_lab_torch(ref_permuted)  # (B, 1, H, W, 3)
     
     # 4. 批量颜色迁移：匹配L/a/b通道的均值和标准差（核心逻辑）
     # 计算参考图各通道的均值和标准差（对H、W维度求统计，保持B维度）
-    ref_mean = ref_lab.mean(dim=[2, 3], keepdim=True)  # (B, 1, 1, 1, 3)
-    ref_std = ref_lab.std(dim=[2, 3], keepdim=True, unbiased=False)  # (B, 1, 1, 1, 3)
+    if reference_stats is None:
+        ref_lab = rgb_to_lab_torch(ref_permuted)
+        ref_mean = ref_lab.mean(dim=[2, 3], keepdim=True)
+        ref_std = ref_lab.std(dim=[2, 3], keepdim=True, unbiased=False)
+    else:
+        ref_mean, ref_std = reference_stats
     
     # 计算源视频各通道的均值和标准差（对H、W维度求统计，保持B、T维度）
     source_mean = source_lab.mean(dim=[2, 3], keepdim=True)  # (B, T, 1, 1, 3)

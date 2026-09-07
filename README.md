@@ -7,11 +7,19 @@ state, bounded queues, batching fixes, tests, and RTX 4070 benchmark evidence.
 - [Measured performance and quality limitations](benchmarks/REPORT.md)
 - [MuseTalk architecture comparison](benchmarks/ARCHITECTURE_REVIEW.md)
 - [Deep code audit, optimization roadmap, continuity tests, and recorded footage](docs/research/README.md)
+- [Persistent portrait calls: API, browser controls, and native MuseTalk dimensions](CONTINUOUS_WEBRTC.md)
+- [Implementation status](docs/research/IMPLEMENTATION_STATUS.md) and [native portrait / TensorRT / call results](docs/research/IMPLEMENTATION_RESULTS.md)
+- [Watch 480×832 output](benchmarks/implementation/portrait-allocator-ab-real.mp4) · [watch true 9:16 output](benchmarks/implementation/portrait-9x16-staged-real.mp4)
+- [Watch continuous native-portrait H264 calls with interruption and recovery](benchmarks/implementation/calls-generated-idle-h264-peer0.mp4)
+- [Watch the cheaper 9:16 delivery crop (468×832)](benchmarks/implementation/portrait-9x16-cropped.mp4) — native 480×832 generation with six pixels cropped from each side, not a larger model profile.
 
-Ten connections are supported, but ten quality-equivalent real-time speakers
-were **not** achieved. Native-quality SoulX did not beat the best tested compiled
-MuseTalk baseline. The faster 256-pixel/two-step/15-fps profile failed visual
-quality validation; use the 512-pixel/four-step/25-fps reference profile.
+Ten peers connected in the local tests, but ten quality-equivalent real-time
+speakers were **not** achieved. Native 480×832 TensorRT generated 28.57 aggregate
+FPS across ten jobs; true 9:16 at 576×1024 generated 10.88 FPS with staged offload.
+These do not beat the historical compiled MuseTalk ten-job throughput. Keep
+MuseTalk production while SoulX remains experimental. The faster
+256-pixel/two-step/15-fps profile failed visual validation; retain four-step
+generation and review each native portrait profile separately.
 
 Model weights, virtual environments, caches, and secrets are not included.
 The original project documentation and attribution follow below.

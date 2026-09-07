@@ -1,0 +1,89 @@
+{
+  "method": "Waveform correspondence, not a perceptual lip-sync or receiver-ACK score.",
+  "config": {
+    "recording": "benchmarks/implementation/calls-generated-idle-h264-peer0.mp4",
+    "reference": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/short.wav",
+    "seconds": 3,
+    "matches": 2,
+    "output": "benchmarks/implementation/audio-before-short.json"
+  },
+  "sample_rate": 16000,
+  "recording_sha256": "e72c813276b5f582b094ab8d55b654db315657a7ea18f2f5bc07b38c5ce35a2d",
+  "reference_sha256": "32c10f7128ab813975de8ecf99852c568e6806f9362fe0ab7dbdfd5bee02ead3",
+  "script_sha256": "3eb4d3d239d9037e9d27674306928a8f95bc3f35dd23586061f388d5833cd8d0",
+  "matches": [
+    {
+      "start_s": 3.1065,
+      "correlation": 0.6553392066858926,
+      "segments": [
+        {
+          "reference_start_s": 0.0,
+          "inferred_turn_start_s": 3.0864375,
+          "correlation": 0.9705922046468602
+        },
+        {
+          "reference_start_s": 0.5,
+          "inferred_turn_start_s": 3.0865,
+          "correlation": 0.7755147481952035
+        },
+        {
+          "reference_start_s": 1.0,
+          "inferred_turn_start_s": 3.1065,
+          "correlation": 0.9463077742378242
+        },
+        {
+          "reference_start_s": 1.5,
+          "inferred_turn_start_s": 3.1065,
+          "correlation": 0.9549013852693797
+        },
+        {
+          "reference_start_s": 2.0,
+          "inferred_turn_start_s": 3.1065,
+          "correlation": 0.9486667718583475
+        },
+        {
+          "reference_start_s": 2.5,
+          "inferred_turn_start_s": 3.1065,
+          "correlation": 0.9404940253552236
+        }
+      ]
+    },
+    {
+      "start_s": 23.6265,
+      "correlation": 0.9556767388822764,
+      "segments": [
+        {
+          "reference_start_s": 0.0,
+          "inferred_turn_start_s": 23.6264375,
+          "correlation": 0.9705119102084515
+        },
+        {
+          "reference_start_s": 0.5,
+          "inferred_turn_start_s": 23.6265,
+          "correlation": 0.9638690696070216
+        },
+        {
+          "reference_start_s": 1.0,
+          "inferred_turn_start_s": 23.6265,
+          "correlation": 0.9464174015267557
+        },
+        {
+          "reference_start_s": 1.5,
+          "inferred_turn_start_s": 23.6265,
+          "correlation": 0.9548342692467858
+        },
+        {
+          "reference_start_s": 2.0,
+          "inferred_turn_start_s": 23.6265,
+          "correlation": 0.9506474962794865
+        },
+        {
+          "reference_start_s": 2.5,
+          "inferred_turn_start_s": 23.6265,
+          "correlation": 0.9404051670520513
+        }
+      ]
+    }
+  ],
+  "note": "Normalized cross-correlation after lossy Opus/AAC and resampling. Low-energy windows excluded. No automatic quality pass; changing segment offsets can reveal inserted silence or timing drift."
+}

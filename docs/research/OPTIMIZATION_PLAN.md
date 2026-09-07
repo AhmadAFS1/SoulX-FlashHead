@@ -1,5 +1,7 @@
 # Throughput, latency and TensorRT: a quality-gated plan
 
+This is the pre-implementation plan at `b3c47de`. Follow [implementation status](IMPLEMENTATION_STATUS.md) and [the implemented call API](../../CONTINUOUS_WEBRTC.md) for subsequent work; proposed speedups here are not measured results.
+
 Status: source-derived proposals, **not measured speedups**, unless explicitly labeled historical evidence. Scope is installed SoulX Lite on this RTX 4070, native 512² / four steps / 25 FPS. Keep the current working backend as the rollback path.
 
 ## Define the target correctly

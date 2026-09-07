@@ -6,39 +6,64 @@
 <h1>SoulX FlashHead · WebRTC</h1>
 <p>One independent talking-head session, with synchronized audio and bounded buffering. Leave uploads empty to use the sample.</p>
 <label>API token <input id="token" type="password" autocomplete="off"></label>
+<label>Mode <select id="mode"><option value="sessions">Finite clip</option><option value="calls">Persistent FaceTime experiment</option></select></label>
+<p>Persistent calls use the server's approved idle avatar. Start once, then send audio turns without replacing the connection. Live/idle visual seams are experimental.</p>
 <label>Avatar <input id="image" type="file" accept="image/*"></label>
 <label>Audio <input id="audio" type="file" accept="audio/*"></label>
 <label>Duration <input id="seconds" type="number" value="10" min="1" max="30"> seconds</label>
 <button id="start">Start</button> <button id="stop" disabled>Stop</button>
+<button id="send" disabled>Send audio turn</button> <button id="interrupt" disabled>Interrupt</button>
 <p><video id="video" autoplay playsinline controls></video></p>
 <pre id="status">512px / 4 steps / 25 fps is the reference profile. The 256px / 2-step / 15-fps stress-test profile FAILED visual quality validation.</pre>
 <script>
-let pc, sid, timer;
+let pc, sid, timer, resource='sessions', pendingTurn=null, generation=0;
 const el=id=>document.getElementById(id);
 async function api(path,options={}) {
   const r=await fetch(path,{...options,headers:{...options.headers,...(el('token').value?{Authorization:'Bearer '+el('token').value}:{})}});
   if(!r.ok)throw new Error(await r.text());
   return r.status===204?null:r.json();
 }
-async function stop(){clearInterval(timer);timer=null;if(pc)pc.close();pc=null;if(sid){await api('/sessions/'+sid,{method:'DELETE'}).catch(()=>{});sid=null;}el('start').disabled=false;el('stop').disabled=true;}
+async function stop(){generation++;clearInterval(timer);timer=null;if(pc)pc.close();pc=null;const target=sid,kind=resource;sid=null;if(target)await api('/'+kind+'/'+target,{method:'DELETE'}).catch(()=>{});pendingTurn=null;el('start').disabled=false;el('stop').disabled=true;el('send').disabled=true;el('interrupt').disabled=true;el('mode').disabled=false;}
 el('start').onclick=async()=>{
+  const epoch=++generation;
   el('start').disabled=true;el('stop').disabled=false;
+  resource=el('mode').value;el('mode').disabled=true;
   try {
     el('status').textContent='Preparing avatar…';
     const form=new FormData();form.append('seconds',el('seconds').value);
     for(const k of ['image','audio'])if(el(k).files[0])form.append(k,el(k).files[0]);
-    const s=await api('/sessions',{method:'POST',body:form});sid=s.id;
-    pc=new RTCPeerConnection(await api('/config'));
+    const kind=resource;
+    const s=await api('/'+kind,kind==='calls'?{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}:{method:'POST',body:form});
+    if(epoch!==generation){await api('/'+kind+'/'+s.id,{method:'DELETE'}).catch(()=>{});return;}sid=s.id;
+    const config=await api('/config');
+    if(epoch!==generation)return;
+    const peer=pc=new RTCPeerConnection(config);
     const stream=new MediaStream();el('video').srcObject=stream;
-    pc.ontrack=e=>{stream.addTrack(e.track);el('video').play().catch(()=>{});};
-    pc.addTransceiver('video',{direction:'recvonly'});pc.addTransceiver('audio',{direction:'recvonly'});
-    await pc.setLocalDescription(await pc.createOffer());
-    await new Promise(resolve=>{if(pc.iceGatheringState==='complete')resolve();else pc.addEventListener('icegatheringstatechange',()=>{if(pc.iceGatheringState==='complete')resolve();});});
-    const answer=await api('/sessions/'+sid+'/offer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pc.localDescription)});
-    await pc.setRemoteDescription(answer);
-    timer=setInterval(async()=>{try{el('status').textContent=JSON.stringify(await api('/sessions/'+sid),null,2);}catch(e){el('status').textContent=e.message;}},1000);
-  }catch(e){el('status').textContent=e.message;await stop();}
+    peer.ontrack=e=>{if(epoch===generation){stream.addTrack(e.track);el('video').play().catch(()=>{});}};
+    peer.addTransceiver('video',{direction:'recvonly'});peer.addTransceiver('audio',{direction:'recvonly'});
+    const offer=await peer.createOffer();
+    if(epoch!==generation)return;
+    await peer.setLocalDescription(offer);
+    await new Promise((resolve,reject)=>{if(peer.iceGatheringState==='complete'){resolve();return;}const timeout=setTimeout(()=>reject(new Error('ICE gathering timed out')),20000);peer.addEventListener('icegatheringstatechange',()=>{if(peer.iceGatheringState==='complete'){clearTimeout(timeout);resolve();}});});
+    if(epoch!==generation)return;
+    const answer=await api('/'+kind+'/'+s.id+'/offer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(peer.localDescription)});
+    if(epoch!==generation)return;
+    await peer.setRemoteDescription(answer);
+    if(epoch!==generation)return;
+    el('send').disabled=resource!=='calls';el('interrupt').disabled=resource!=='calls';
+    timer=setInterval(async()=>{try{const status=await api('/'+kind+'/'+s.id);if(epoch===generation)el('status').textContent=JSON.stringify(status,null,2);}catch(e){if(epoch===generation)el('status').textContent=e.message;}},1000);
+  }catch(e){if(epoch===generation){el('status').textContent=e.message;await stop();}}
 };
 el('stop').onclick=stop;
+el('send').onclick=async()=>{
+  if(!sid||resource!=='calls')return;
+  if(!pendingTurn){const file=el('audio').files[0];if(!file){el('status').textContent='Choose an audio file first.';return;}pendingTurn={id:crypto.randomUUID(),file};}
+  const epoch=generation,turn=pendingTurn,cid=sid;
+  el('send').disabled=true;
+  try{await api('/calls/'+cid+'/turns',{method:'POST',headers:{'X-Turn-ID':turn.id,'Content-Type':'audio/wav'},body:turn.file});if(epoch===generation&&pendingTurn===turn)pendingTurn=null;}
+  catch(e){if(epoch===generation)el('status').textContent=e.message+' — sending again retries the same turn ID.';}
+  finally{if(epoch===generation)el('send').disabled=!sid||resource!=='calls';}
+};
+el('interrupt').onclick=async()=>{if(!sid)return;const epoch=generation,cid=sid;el('interrupt').disabled=true;try{await api('/calls/'+cid+'/interrupt',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(epoch===generation)pendingTurn=null;}catch(e){if(epoch===generation)el('status').textContent=e.message;}finally{if(epoch===generation)el('interrupt').disabled=!sid;}};
 window.addEventListener('pagehide',()=>{if(pc)pc.close();});
 </script>

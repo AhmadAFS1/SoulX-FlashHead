@@ -1,5 +1,7 @@
 # How SoulX-FlashHead Lite works in this fork
 
+Historical source snapshot. Native rectangular generation, conditioning caches, optional TensorRT partitions and a persistent call API have since been implemented; see [implementation status](IMPLEMENTATION_STATUS.md) and [current call contract](../../CONTINUOUS_WEBRTC.md). The checkpoint's temporal/endpoint limitations remain.
+
 Snapshot before this research change: SoulX fork `2f76e830e92f054e34480ed860f71792551b5e01`; upstream base `9bc03de06bb0de82cd6bc477804512ae06144bf2`. MuseTalk comparison checkout: `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`. Analysis concerns the installed **Lite** checkpoint, not Pro, teacher, another FlashTalk model, or upstream multi-GPU benchmarks.
 
 ## Model and data flow

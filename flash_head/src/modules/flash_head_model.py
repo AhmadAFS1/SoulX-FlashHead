@@ -140,6 +140,29 @@ def rope_apply(x, freqs, grid_sizes, use_usp=False, sp_size=1, sp_rank=0):
     return x_i.to(x.dtype)
 
 
+def prepare_rotary(freqs, grid_sizes, real=False):
+    """Profile constant, shared by every block/step; no per-session mutation."""
+    f, h, w = grid_sizes
+    c = freqs.shape[1]
+    parts = freqs.split([c - 2 * (c // 3), c // 3, c // 3], dim=1)
+    grid = torch.cat([
+        parts[0][:f].view(f, 1, 1, -1).expand(f, h, w, -1),
+        parts[1][:h].view(1, h, 1, -1).expand(f, h, w, -1),
+        parts[2][:w].view(1, 1, w, -1).expand(f, h, w, -1),
+    ], dim=-1).reshape(f * h * w, 1, -1)
+    return torch.view_as_real(grid).float().contiguous() if real else grid
+
+
+def apply_prepared_rotary(x, rotary):
+    if rotary.is_complex():
+        pairs = torch.view_as_complex(x.to(torch.float64).reshape(*x.shape[:-1], -1, 2))
+        return torch.view_as_real(pairs * rotary).flatten(-2).to(x.dtype)
+    pairs = x.float().reshape(*x.shape[:-1], -1, 2)
+    a, b = pairs.unbind(-1)
+    cos, sin = rotary.unbind(-1)
+    return torch.stack((a * cos - b * sin, a * sin + b * cos), -1).flatten(-2).to(x.dtype)
+
+
 class RMSNorm(nn.Module):
     def __init__(self, dim, eps=1e-5):
         super().__init__()
@@ -171,7 +194,7 @@ class SelfAttention(nn.Module):
         self.sp_size = get_sequence_parallel_world_size() if self.use_usp else 1
         self.sp_rank = get_sequence_parallel_rank() if self.use_usp else 0
 
-    def forward(self, x, freqs, grid_sizes):
+    def forward(self, x, freqs, grid_sizes, rotary=None):
         b, s, n, d = *x.shape[:2], self.num_heads, self.head_dim
         q = self.norm_q(self.q(x)).view(b, s, n, d)
         k = self.norm_k(self.k(x)).view(b, s, n, d)
@@ -192,8 +215,8 @@ class SelfAttention(nn.Module):
             ).flatten(2)
         else:
             x = flash_attention(
-                q=rope_apply(q, freqs, grid_sizes).flatten(2),
-                k=rope_apply(k, freqs, grid_sizes).flatten(2),
+                q=(rope_apply(q, freqs, grid_sizes) if rotary is None else apply_prepared_rotary(q, rotary)).flatten(2),
+                k=(rope_apply(k, freqs, grid_sizes) if rotary is None else apply_prepared_rotary(k, rotary)).flatten(2),
                 v=v,
                 num_heads=self.num_heads
             )
@@ -219,15 +242,23 @@ class CrossAttention(nn.Module):
             self.v_img = nn.Linear(dim, dim)
             self.norm_k_img = RMSNorm(dim, eps=eps)
 
-    def forward(self, x: torch.Tensor, y: torch.Tensor):
+    def prepare_kv(self, context):
+        if self.has_image_input:
+            raise ValueError("Conditioning cache currently supports audio-only Lite blocks")
+        return self.norm_k(self.k(context)), self.v(context)
+
+    def forward(self, x: torch.Tensor, y: torch.Tensor, prepared_kv=None):
         if self.has_image_input:
             img = y[:, :257]
             ctx = y[:, 257:]
         else:
             ctx = y
         q = self.norm_q(self.q(x))
-        k = self.norm_k(self.k(ctx))
-        v = self.v(ctx)
+        if prepared_kv is None:
+            k = self.norm_k(self.k(ctx))
+            v = self.v(ctx)
+        else:
+            k, v = prepared_kv
         x = flash_attention(q, k, v, num_heads=self.num_heads)
         if self.has_image_input:
             k_img = self.norm_k_img(self.k_img(img))
@@ -259,11 +290,11 @@ class DiTAudioBlock(nn.Module):
         self.sp_size = get_sequence_parallel_world_size() if self.use_usp else 1
         self.sp_rank = get_sequence_parallel_rank() if self.use_usp else 0
 
-    def forward(self, x, context, t_mod, freqs, grid_sizes):
+    def forward(self, x, context, t_mod, freqs, grid_sizes, cross_kv=None, rotary=None):
         e = (self.modulation.to(dtype=t_mod.dtype, device=t_mod.device) + t_mod).chunk(6, dim=1)
 
         y = self.self_attn(
-            self.norm1(x) * (1 + e[1]) + e[0], freqs, grid_sizes)
+            self.norm1(x) * (1 + e[1]) + e[0], freqs, grid_sizes, rotary)
 
         x = x + y * e[2]
 
@@ -278,7 +309,7 @@ class DiTAudioBlock(nn.Module):
             context_1 = context_1.unsqueeze(1).repeat(1, self.sp_size, 1, 1).flatten(0,1)
             context_1 = torch.chunk(context_1, self.sp_size, dim=0)[self.sp_rank]
 
-        x = x + rearrange(self.cross_attn(x_1, context_1),
+        x = x + rearrange(self.cross_attn(x_1, context_1, cross_kv),
                           '(b f) l c -> b (f l) c', b=x.shape[0])
 
         y = self.ffn(self.norm2(x) * (1 + e[4]) + e[3])
@@ -412,6 +443,32 @@ class WanModelAudioProject(ModelMixin, ConfigMixin):
             x=self.patch_size[0], y=self.patch_size[1], z=self.patch_size[2]
         )
 
+    def project_audio(self, context):
+        """Exactly the upstream audio packing, reusable for four denoise steps."""
+        dtype = self.patch_embedding.weight.dtype
+        audio = context.to(device=self.patch_embedding.weight.device, dtype=dtype)
+        first = audio[:, :1]
+        latter = rearrange(audio[:, 1:], 'b (n f) w s c -> b n f w s c', f=self.vae_scale)
+        mid = self.audio_window // 2
+        packed = torch.cat([
+            rearrange(latter[:, :, :1, :mid + 1], 'b n f w s c -> b n (f w) s c'),
+            rearrange(latter[:, :, 1:-1, mid:mid + 1], 'b n f w s c -> b n (f w) s c'),
+            rearrange(latter[:, :, -1:, mid:], 'b n f w s c -> b n (f w) s c'),
+        ], dim=2)
+        return self.audio_proj(first, packed).to(dtype)
+
+    def prepare_conditioning(self, context):
+        if self.use_usp:
+            raise ValueError("Cached conditioning is single-GPU only")
+        projected = self.project_audio(context)
+        flat = rearrange(projected, 'b f n c -> (b f) n c')
+        return projected, tuple(block.cross_attn.prepare_kv(flat) for block in self.blocks)
+
+    def prepare_time(self, timestep):
+        t = self.time_embedding(sinusoidal_embedding_1d(
+            self.freq_dim, timestep.to(dtype=self.patch_embedding.weight.dtype)))
+        return t, self.time_projection(t).unflatten(1, (6, self.dim))
+
     def forward(self,
                 x: torch.Tensor,  #(1, 16, 9, 64, 64))
                 timestep: torch.Tensor, #(9,)
@@ -419,6 +476,10 @@ class WanModelAudioProject(ModelMixin, ConfigMixin):
                 y: Optional[torch.Tensor] = None, #(1, 16, 9, 64, 64)
                 use_gradient_checkpointing: bool = False,
                 use_gradient_checkpointing_offload: bool = False,
+                prepared_context=None,
+                cross_kv=None,
+                rotary=None,
+                prepared_time=None,
                 **kwargs,
                 ):
 
@@ -427,9 +488,7 @@ class WanModelAudioProject(ModelMixin, ConfigMixin):
 
         x = torch.cat([x, y], dim=1) # (1, 32, 9, 64, 64)
         x, grid_sizes = self.patchify(x)
-        t = self.time_embedding(
-            sinusoidal_embedding_1d(self.freq_dim, timestep.to(dtype=x.dtype)))
-        t_mod = self.time_projection(t).unflatten(1, (6, self.dim))   # (bsz, 6, 1536) 
+        t, t_mod = self.prepare_time(timestep) if prepared_time is None else prepared_time
 
         # ==================== 音频条件处理 ====================
         # 输入: context (bsz, 81, 5, 12, 768)
@@ -438,6 +497,11 @@ class WanModelAudioProject(ModelMixin, ConfigMixin):
         # - 12 是音频特征的 blocks
         # - 768 是音频特征维度
         
+        # A preprojected context deliberately skips the original adapter path.
+        # Keep the uncached implementation as an independently testable baseline.
+        if prepared_context is not None:
+            return self.forward_blocks(x, prepared_context, t, t_mod, grid_sizes,
+                                       cross_kv=cross_kv, rotary=rotary)
         audio_cond = context.to(device=x.device, dtype=x.dtype)
         
         # 1. 第一帧：直接使用完整的5帧音频窗口
@@ -475,11 +539,15 @@ class WanModelAudioProject(ModelMixin, ConfigMixin):
             latter_frames_audio_processed
         ).to(x.dtype)  # (bsz, 9, 32, 1536)
 
+        return self.forward_blocks(x, context, t, t_mod, grid_sizes, rotary=rotary)
+
+    def forward_blocks(self, x, context, t, t_mod, grid_sizes, cross_kv=None, rotary=None):
         if self.use_usp:
             x = torch.chunk(x, self.sp_size, dim=1)[self.sp_rank]
 
-        for block in self.blocks:
-            x = block(x, context, t_mod, self.freqs, grid_sizes)
+        for index, block in enumerate(self.blocks):
+            x = block(x, context, t_mod, self.freqs, grid_sizes,
+                      None if cross_kv is None else cross_kv[index], rotary)
         x = self.head(x, t)   # (bsz, 9*32*32, 64)
         if self.use_usp:
             x = get_sp_group().all_gather(x, dim=1)

@@ -1,0 +1,52 @@
+{
+  "config": {
+    "width": 480,
+    "height": 832,
+    "fps": 25,
+    "steps": 4,
+    "batch": 1,
+    "sessions": 1,
+    "repeats": 3,
+    "seconds": 10,
+    "seed": 50,
+    "image": "benchmarks/implementation/musetalk-idle-anchor.png",
+    "audio": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+    "modes": [
+      "real"
+    ],
+    "memory_mode": "reference",
+    "eager": false,
+    "trt_ffn": ".trt-experiment/portrait-ffn-bf16",
+    "trt_vae": ".trt-experiment/portrait-vae-bf16/vae.engine",
+    "record": true,
+    "output": "benchmarks/implementation/portrait-trt-combined.json"
+  },
+  "inputs": {
+    "image": {
+      "file": "musetalk-idle-anchor.png",
+      "sha256": "abafbb2f86b87bf06f5dcbd50fcb2f88fff762b256e92ef6e79d814308692cd6"
+    },
+    "audio": {
+      "file": "multi_sentence.wav",
+      "sha256": "928946e0df5b0977361d538656fda2f5320a4740c14a00fbe8adc062d24ebfd5"
+    }
+  },
+  "rows": [],
+  "quality": [],
+  "warmup_s": {
+    "real": 24.299519416992553
+  },
+  "metric": "Unpaced useful native frames; setup/warmup/encoding excluded; 4-step unless configured otherwise",
+  "code_sha256": {
+    "/workspace/SoulX-FlashHead/soulx_rtc/experiment.py": "0befec2681a760e3abc3d3082fe751cfa064943b7f3d88d5ddaedc6f39e88683",
+    "/workspace/SoulX-FlashHead/soulx_rtc/engine.py": "6a6eb271b7aed26fd06ab8f68dbdf61b539de4cdcc06c7effe9e230ddbb85e61",
+    "flash_head/src/modules/flash_head_model.py": "aab3a774f1b09c17871ec06948582626dffa94a82a9df3a9bc430cb5f9bebae6",
+    "flash_head/utils/utils.py": "89885620da4c35e757655991638824c7f5c11a8df9bb4eac270d033d5288062b"
+  },
+  "status": "failed",
+  "failure": {
+    "stage": "generate_real_0",
+    "type": "OutOfMemoryError",
+    "message": "CUDA out of memory. Tried to allocate 56.00 MiB. GPU 0 has a total capacity of 11.61 GiB of which 43.19 MiB is free. Process 57366 has 6.36 GiB memory in use. Including non-PyTorch memory, this process has 5.19 GiB memory in use. Of the allocated memory 2.89 GiB is allocated by PyTorch, and 85.74 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  }
+}
