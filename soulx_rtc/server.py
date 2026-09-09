@@ -203,7 +203,7 @@ class Service:
         self.chunks = deque(maxlen=1000)
         self.pending = 0
         self.isolation = None
-        self.token = os.environ.get("SOULX_API_TOKEN", "")
+        self.token = "" if getattr(args, "allow_anonymous", False) else os.environ.get("SOULX_API_TOKEN", "")
         self.ice = json.loads(os.environ.get("SOULX_ICE_SERVERS", "[]"))
         self.idle_asset = None
         import hashlib
@@ -211,6 +211,8 @@ class Service:
             for p in sorted(Path("soulx_rtc").glob("*.py"))}
         from .calls import CallService
         self.calls = CallService(self)
+        from .tts import KokoroService
+        self.tts = KokoroService()
 
     async def gpu(self, function, *args):
         return await asyncio.get_running_loop().run_in_executor(self.executor, function, *args)
@@ -251,6 +253,7 @@ class Service:
             await self.worker.release(s.state)
 
     async def cleanup(self, app):
+        await self.tts.cleanup()
         await self.calls.cleanup()
         if self.task:
             self.task.cancel()
@@ -439,13 +442,13 @@ class Service:
             recent_chunks=list(self.chunks)[-10:]))
 
     async def config(self, request):
-        return web.json_response({"iceServers": self.ice})
+        return web.json_response({"iceServers": self.ice, "authRequired": bool(self.token)})
 
 
 def make_app(service):
     @web.middleware
     async def auth(request, handler):
-        if request.path != "/" and service.token:
+        if request.path not in ("/", "/webrtc/wall", "/webrtc/wall.js") and service.token:
             supplied = request.headers.get("Authorization", "")
             if not secrets.compare_digest(supplied, "Bearer " + service.token):
                 raise web.HTTPUnauthorized(text="Bearer token required")
@@ -453,11 +456,17 @@ def make_app(service):
     app = web.Application(middlewares=[auth], client_max_size=20 * 1024**2)
     async def index(request):
         return web.FileResponse(Path(__file__).with_name("index.html"))
+    async def wall(request):
+        return web.FileResponse(Path(__file__).with_name("wall.html"))
+    async def wall_script(request):
+        return web.FileResponse(Path(__file__).with_name("wall.js"))
     app.add_routes([web.get("/", index), web.get("/health", service.health),
+        web.get("/webrtc/wall", wall), web.get("/webrtc/wall.js", wall_script),
         web.get("/config", service.config), web.post("/sessions", service.create),
         web.get("/sessions/{sid}", service.stats), web.delete("/sessions/{sid}", service.delete),
         web.post("/sessions/{sid}/offer", service.offer)])
     app.add_routes(service.calls.routes())
+    app.add_routes(service.tts.routes())
     app.on_startup.append(service.startup)
     app.on_cleanup.append(service.cleanup)
     return app
@@ -468,15 +477,21 @@ def main():
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--size", type=int, choices=[256, 384, 512], default=512)
+    ap.add_argument("--allow-anonymous", action="store_true", help="Explicitly disable API authentication, including on public interfaces")
     ap.add_argument("--width", type=int)
     ap.add_argument("--height", type=int)
     ap.add_argument("--optimized", action="store_true", help="Cache chunk conditioning and profile/reference constants")
     ap.add_argument("--real-rope", action="store_true", help="Experimental FP32 real rotary math (requires --optimized)")
     ap.add_argument("--profile", action="store_true", help="Detailed CUDA event timings")
+    ap.add_argument("--lean", action="store_true", help="Skip discarded overlap color work and terminal-only motion encoding")
+    ap.add_argument("--fused-qkv", action="store_true", help="Pack self-attention projections after checkpoint load")
+    ap.add_argument("--dit-graph", action="store_true", help="Experimental fixed-buffer DiT CUDA graph; requires optimized real-RoPE")
     ap.add_argument("--trt-ffn", help="Trusted exact-shape TensorRT FFN artifact directory (experimental)")
     ap.add_argument("--trt-vae", help="Trusted exact-shape TensorRT VAE decoder engine (experimental)")
     ap.add_argument("--memory-mode", choices=["default", "compact", "reference", "staged"], default="default")
     ap.add_argument("--idle-video", help="Approved local idle asset for persistent calls; clients cannot select filesystem paths")
+    ap.add_argument("--avatar-root", default="/workspace/MuseTalk/assets/ltx23_pose_banks",
+                    help="Approved avatar banks; one certified idle video is offered per bank")
     ap.add_argument("--idle-policy", choices=["source", "hold", "generate"], default="source",
                     help="Source replay saves GPU; generated silence preserves recurrence but spends GPU while idle")
     ap.add_argument("--max-active-calls", type=int, default=1,
@@ -496,13 +511,15 @@ def main():
         args.width, args.height = validate_geometry(args.size, args.width, args.height)
         if args.real_rope and not args.optimized:
             raise ValueError("--real-rope requires --optimized")
+        if args.dit_graph and (not args.optimized or not args.real_rope or args.memory_mode == "staged"):
+            raise ValueError("--dit-graph requires --optimized --real-rope and non-staged weights")
         if args.trt_ffn and (args.batch != 1 or args.memory_mode == "staged"):
             raise ValueError("TensorRT FFN profiles require batch one and no weight offload")
         if not 1 <= args.max_active_calls <= args.max_sessions:
             raise ValueError("max-active-calls must be between 1 and max-sessions")
     except ValueError as exc:
         ap.error(str(exc))
-    if args.host not in ("127.0.0.1", "localhost", "::1") and not os.environ.get("SOULX_API_TOKEN"):
+    if args.host not in ("127.0.0.1", "localhost", "::1") and not os.environ.get("SOULX_API_TOKEN") and not args.allow_anonymous:
         ap.error("Set SOULX_API_TOKEN before exposing this GPU service beyond localhost")
     logging.basicConfig(level=logging.INFO)
     if args.h264_preset != "upstream":

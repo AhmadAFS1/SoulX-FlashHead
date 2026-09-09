@@ -85,6 +85,9 @@ def main():
     ap.add_argument("--eager", action="store_true")
     ap.add_argument("--trt-ffn")
     ap.add_argument("--trt-vae")
+    ap.add_argument("--lean", action="store_true")
+    ap.add_argument("--fused-qkv", action="store_true")
+    ap.add_argument("--dit-graph", action="store_true")
     ap.add_argument("--record", action="store_true")
     ap.add_argument("--output", required=True)
     args = ap.parse_args()
@@ -92,6 +95,8 @@ def main():
         ap.error("Require positive batch/sessions/repeats and seconds <=30")
     if args.trt_ffn and (args.batch!=1 or args.memory_mode=="staged"):
         ap.error("TensorRT FFN requires batch one and no staged weight offload")
+    if args.dit_graph and (args.modes != ["real"] or args.memory_mode == "staged"):
+        ap.error("DiT graph experiment requires --modes real and non-staged weights")
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
@@ -111,7 +116,9 @@ def main():
     with record_failure(result,save,"model_load"):
         engine = Engine(width=args.width, height=args.height, steps=args.steps,
                         fps=args.fps, compile_model=not args.eager, profile=True,
-                        memory_mode=args.memory_mode,trt_ffn=args.trt_ffn,trt_vae=args.trt_vae)
+                        optimized=args.modes == ["real"], real_rope=args.modes == ["real"],
+                        memory_mode=args.memory_mode,trt_ffn=args.trt_ffn,trt_vae=args.trt_vae,
+                        lean=args.lean, fused_qkv=args.fused_qkv, dit_graph=args.dit_graph)
     print("MODEL_READY", flush=True)
     warmed, reference = set(), None
     for repeat in range(args.repeats):
@@ -127,6 +134,8 @@ def main():
                 print(f"WARMED {mode} {result['warmup_s'][mode]:.2f}s", flush=True)
             with record_failure(result,save,f"prepare_{mode}_{repeat}"):
                 states = [engine.prepare(args.image, audio, args.seed+i) for i in range(args.sessions)]
+                for state in states:
+                    state.terminal = True
             engine.torch.cuda.reset_peak_memory_stats()
             chunks, metrics, first, completion = [], [], {}, {}
             started = time.perf_counter()

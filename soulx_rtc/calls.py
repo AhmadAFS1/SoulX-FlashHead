@@ -1,7 +1,7 @@
 """Persistent local-call API with bounded turns, shared GPU and stable RTP clocks.
 
-Idle media is explicitly not generated FPS. Reconditioning uses last sent RGB,
-not a claimed receiver acknowledgement. Visual live/idle seams need review.
+Idle media is explicitly not generated FPS. Boundaries use last sent RGB,
+not a claimed receiver acknowledgement. See EXACT_FRAME_BOUNDARIES.md.
 """
 import asyncio
 import contextlib
@@ -27,6 +27,8 @@ from aiortc.mediastreams import AudioStreamTrack, VideoStreamTrack, MediaStreamE
 from PIL import Image
 from scipy.signal import resample_poly
 
+from .boundaries import Boundaries
+
 
 @dataclass
 class Turn:
@@ -45,6 +47,7 @@ class Turn:
     finished_s: object = None
     useful_samples: int = 0
     synthetic_idle: bool = False
+    audio_end_time: object = None
 
     def __post_init__(self):
         self.useful_samples = len(self.audio48)
@@ -66,7 +69,8 @@ class IdleVideo:
     """One decoder per peer; no unbounded whole-video RGB cache."""
     def __init__(self, path, width, height, output_fps, anchor):
         self.path, self.width, self.height = path, width, height
-        self.output_fps, self.anchor = output_fps, anchor
+        self.output_fps, self.anchor = output_fps, anchor.copy()
+        self.anchor.setflags(write=False)
         self.container = self.frames = None
         self.position = -1
         self.last = anchor
@@ -85,6 +89,10 @@ class IdleVideo:
             self.source_fps = float(self.container.streams.video[0].average_rate)
             self.frames = self.container.decode(video=0)
         desired = math.floor(index * self.source_fps / self.output_fps)
+        if desired < self.position:
+            self.container.seek(0)
+            self.frames = self.container.decode(video=0)
+            self.position = -1
         while self.position < desired:
             frame = next(self.frames, None)
             if frame is None:
@@ -139,10 +147,16 @@ class Call:
     idle_policy: str = "source"
     generated_idle_frames: int = 0
     disconnected_at: object = None
+    boundaries: Boundaries = field(default_factory=Boundaries)
+    returning_idle: bool = False
+    close_task: object = None
+    avatar_id: str = 'default'
+    avatar_name: str = 'Server default avatar'
 
     def metrics(self):
         from .codec import sender_encoder_info
         return dict(id=self.id, fps=self.fps, width=self.idle.width, height=self.idle.height,
+                    avatar_id=self.avatar_id, avatar_name=self.avatar_name,
                     connected=self.connected, closed=self.closed, epoch=self.epoch, error=self.error,
                     active_turn=self.active.id if self.active else None,
                     queued_turns=len(self.queue), queued_chunks=self.chunks.qsize(),
@@ -157,6 +171,9 @@ class Call:
                     audio_hold_samples=self.audio_hold_samples,
                     audio_scheduling_lead_samples=960,
                     negotiations=self.negotiations, track_replacements=0,
+                    returning_idle=self.returning_idle,
+                    boundary_events=list(self.boundaries.events),
+                    boundary_contract="exact pre-encode RGB endpoints; not receiver pixel equality",
                     video_encoders=sender_encoder_info(self.pc),
                     total_turns=len(self.turns), completed_turns=sum(t.status=="complete" for t in self.turns.values()),
                     turns=[t.summary() for t in list(self.turns.values())[-64:]],
@@ -164,7 +181,14 @@ class Call:
 
     def finish_if_drained(self):
         turn = self.active
-        if turn and turn.video_sent >= turn.frames and turn.audio_sent >= turn.useful_samples:
+        if (turn and turn.video_sent >= turn.frames and turn.audio_sent >= turn.useful_samples
+                and (turn.synthetic_idle or not turn.useful_samples or (turn.audio_end_time is not None
+                     and time.monotonic() >= turn.audio_end_time))):
+            if not turn.synthetic_idle:
+                self.boundaries.begin("speech_to_idle",
+                    self.sent_history[-1] if self.sent_history else self.idle.anchor,
+                    turn.id, self.epoch)
+                self.returning_idle = True
             turn.status = "complete"
             turn.finished_s = time.monotonic()-turn.accepted
             turn.release_audio()
@@ -194,6 +218,9 @@ class CallVideoTrack(VideoStreamTrack):
                 c.underrun_frames+=missed
             c.video_clock=elapsed_slot
         await asyncio.sleep(max(0, c.origin+c.video_clock/c.fps-time.monotonic()))
+        if c.closed or c.error:
+            raise MediaStreamError
+        c.finish_if_drained()
         turn = c.active
         if turn and not c.current_frames and not c.chunks.empty():
             epoch, chunk = c.chunks.get_nowait()
@@ -210,12 +237,24 @@ class CallVideoTrack(VideoStreamTrack):
                 turn.status = "armed"
             if c.video_clock >= turn.start_frame:
                 rgb = c.current_frames.popleft()
+                if turn.video_sent == 0 and not turn.synthetic_idle:
+                    c.boundaries.begin("idle_to_speech",
+                        c.sent_history[-1] if c.sent_history else c.idle.anchor,
+                        turn.id, c.epoch, min(c.boundaries.frames, turn.frames))
+                if not turn.synthetic_idle:
+                    rgb = c.boundaries.apply(rgb, c.epoch, round(c.video_clock*90000/c.fps))
                 turn.video_sent += 1
                 turn.status = "speaking" if turn.audio_sent < turn.useful_samples else "draining"
                 if turn.first_media_s is None:
                     turn.first_media_s = time.monotonic()-turn.accepted
         if rgb is None:
-            if turn and turn.start_frame is not None and c.video_clock >= turn.start_frame and turn.video_sent < turn.frames:
+            if c.returning_idle:
+                rgb = c.boundaries.apply(c.idle.anchor, c.epoch, round(c.video_clock*90000/c.fps))
+                if c.boundaries.pending is None:
+                    c.returning_idle = False
+                    c.idle_index = 0
+                c.idle_frames += 1
+            elif turn and turn.start_frame is not None and c.video_clock >= turn.start_frame and turn.video_sent < turn.frames:
                 # Keep wire clock monotonic, account repetitions, and hold audio.
                 c.underrun_frames += 1
                 rgb = c.sent_history[-1] if c.sent_history else c.idle.anchor
@@ -276,6 +315,9 @@ class CallAudioTrack(AudioStreamTrack):
                 if not t.synthetic_idle:
                     samples[:available] = t.audio48[t.audio_sent:t.audio_sent+available]
                 t.audio_sent += available
+                if t.audio_sent >= t.useful_samples:
+                    # Include the final packet's full 20-ms sender timeline slot.
+                    t.audio_end_time = max(time.monotonic(), c.origin+c.audio_sent/48000)+.02
         frame = av.AudioFrame.from_ndarray(samples[None], format="s16", layout="mono")
         frame.sample_rate, frame.pts, frame.time_base = 48000, c.audio_sent, Fraction(1,48000)
         c.audio_sent += 960
@@ -286,13 +328,18 @@ class CallAudioTrack(AudioStreamTrack):
 class CallService:
     def __init__(self, service):
         self.service = service
+        from .avatars import AvatarCatalog
+        self.avatars = AvatarCatalog(getattr(service,'args',object()))
         self.items = {}
         self.pending = 0
 
     def routes(self):
-        return [web.post("/calls",self.create), web.get("/calls/{cid}",self.stats),
+        return [web.get('/avatars',self.list_avatars), web.post("/calls",self.create), web.get("/calls/{cid}",self.stats),
                 web.post("/calls/{cid}/offer",self.offer), web.post("/calls/{cid}/turns",self.append),
                 web.post("/calls/{cid}/interrupt",self.interrupt), web.delete("/calls/{cid}",self.delete)]
+
+    async def list_avatars(self, request):
+        return web.json_response({'avatars':self.avatars.public(),'default':'default'})
 
     def get(self, request):
         call = self.items.get(request.match_info["cid"])
@@ -316,7 +363,8 @@ class CallService:
                 raise ValueError("Seed must be an integer from 0 through 2**63-1")
             width = getattr(service.args,"width",None) or service.args.size
             height = getattr(service.args,"height",None) or service.args.size
-            path = getattr(service.args,"idle_video",None)
+            avatar = self.avatars.resolve(params.get('avatar_id','default'))
+            path = avatar['path']
             if path:
                 def first():
                     with av.open(path) as src:
@@ -338,7 +386,7 @@ class CallService:
             policy=getattr(service.args,"idle_policy","source")
             call = Call(secrets.token_urlsafe(18),state,service.args.fps,
                         IdleVideo(path if policy=="source" else None,width,height,service.args.fps,anchor),
-                        idle_policy=policy)
+                        idle_policy=policy, avatar_id=avatar['id'], avatar_name=avatar['name'])
             self.items[call.id] = call
             return web.json_response(call.metrics(),status=201)
         except (ValueError, TypeError, OSError) as exc:
@@ -434,7 +482,8 @@ class CallService:
             # Already-generated idle drains normally; RTP tracks stay unchanged.
             return (c.active and c.active.synthetic_idle and not waiting_speech and c.chunks.qsize()<1
                     and c.state.cursor==c.state.total_frames)
-        eligible = [c for c in eligible if c.active is None or c.state.cursor<c.state.total_frames or extend_idle(c)]
+        eligible = [c for c in eligible if not c.returning_idle and
+                    (c.active is None or c.state.cursor<c.state.total_frames or extend_idle(c))]
         if not eligible:
             return False
         active_count = sum(c.active is not None for c in self.items.values())
@@ -532,6 +581,8 @@ class CallService:
         c = self.get(request)
         async with c.control_lock:
             c.epoch += 1
+            c.boundaries.cancel()
+            c.returning_idle = False
             for t in list(c.queue)+([c.active] if c.active else []):
                 t.status, t.finished_s = "interrupted",time.monotonic()-t.accepted
                 t.release_audio()
@@ -560,12 +611,20 @@ class CallService:
         return web.json_response(self.get(request).metrics())
 
     async def close(self, c):
+        # Connection-state callbacks and HTTP DELETE may arrive concurrently.
+        # Both must await GPU release, not merely the initial closed flag.
+        if c.close_task is None:
+            c.close_task = asyncio.create_task(self._close(c))
+        await asyncio.shield(c.close_task)
+
+    async def _close(self, c):
         if c.closed:
             return
         c.closed, c.connected = True, False
         c.epoch += 1
+        c.boundaries.cancel()
+        c.returning_idle = False
         c.changed.set()
-        self.items.pop(c.id,None)
         if c.pc:
             await c.pc.close()
         async with c.lock:
@@ -581,6 +640,7 @@ class CallService:
         c.sent_history.clear()
         while not c.chunks.empty():
             c.chunks.get_nowait()
+        self.items.pop(c.id,None)
 
     async def delete(self, request):
         c = self.items.get(request.match_info["cid"])

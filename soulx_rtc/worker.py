@@ -57,6 +57,7 @@ def initialize(size, steps, compiled, fps, batch, validate, options=None, idle_v
 def prepare(path, audio, seed):
     sid = secrets.token_urlsafe(18)
     state = _engine.prepare(path, audio, seed)
+    state.terminal = True
     _states[sid] = state
     return RemoteState(sid, state.total_frames)
 
@@ -80,6 +81,7 @@ def prepare_call(path, seed):
     import numpy as np
     remote = prepare(path, np.zeros(1, np.float32), seed)
     state = _states[remote.id]
+    state.terminal = False
     state.audio = np.zeros(0, np.float32)
     state.total_frames = remote.total_frames = 0
     return remote
@@ -104,7 +106,8 @@ class GPUProcess:
 
     async def start(self, args):
         options = {name: getattr(args, name) for name in
-                   ("width", "height", "optimized", "profile", "real_rope", "memory_mode", "trt_ffn", "trt_vae")
+                   ("width", "height", "optimized", "profile", "real_rope", "memory_mode", "trt_ffn", "trt_vae",
+                    "lean", "fused_qkv", "dit_graph")
                    if hasattr(args, name)}
         return await self.call(initialize, args.size, args.steps, not args.eager,
                                args.fps, args.batch, args.validate_isolation, options,

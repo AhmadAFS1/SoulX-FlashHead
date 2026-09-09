@@ -1,0 +1,3 @@
+# Optional local speech for /webrtc/wall. Uses the existing PyTorch environment.
+kokoro==0.9.4
+misaki[en]==0.9.4

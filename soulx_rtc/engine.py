@@ -20,6 +20,8 @@ class GenerationState:
     total_frames: int
     cursor: int = 0
     audio_offset: int = 0
+    terminal: bool = False
+    motion_valid: bool = True
 
 
 def validate_geometry(size=512, width=None, height=None):
@@ -40,7 +42,8 @@ class Engine:
 
     def __init__(self, size=512, steps=4, compile_model=True, fps=25, *,
                  width=None, height=None, optimized=False, profile=False,
-                 real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None):
+                 real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None,
+                 lean=False, fused_qkv=False, dit_graph=False):
         import torch
         import flash_head.src.pipeline.flash_head_pipeline as implementation
         from flash_head.inference import get_pipeline
@@ -54,6 +57,9 @@ class Engine:
             raise ValueError("memory_mode must be default, compact, reference or staged")
         self.optimized, self.profile, self.real_rope = optimized, profile, real_rope
         self.memory_mode = memory_mode
+        self.lean, self.fused_qkv, self.dit_graph = lean, fused_qkv, dit_graph
+        if dit_graph and (not optimized or not real_rope or memory_mode == "staged"):
+            raise ValueError("DiT graph requires optimized real-RoPE and resident DiT weights")
         self.fps = fps
         from .gpu_lease import acquire_gpu_lease
         self.gpu_lease = acquire_gpu_lease()
@@ -71,6 +77,14 @@ class Engine:
         self.templates = OrderedDict()
         self.last_metrics = {}
         self.raw_model = getattr(self.pipeline.model, "_orig_mod", self.pipeline.model)
+        if fused_qkv:
+            for block in self.raw_model.blocks:
+                block.self_attn.pack_projections()
+                block.self_attn.use_fused_qkv = True
+        if lean:
+            # Not referenced by Lite's forward; preserve strict load above.
+            self.raw_model.text_embedding = None
+            self.raw_model.audio_emb = None
         trt_preparation_offload = bool(trt_ffn or trt_vae) and memory_mode == "reference"
         if trt_preparation_offload:
             # Deserialization needs temporary memory beyond steady inference.
@@ -96,9 +110,13 @@ class Engine:
                              if compile_model else self.raw_model.prepare_conditioning)
         self.profile_constants = {}
         self.compute_stream = torch.cuda.Stream()
+        self.graphs = {}
 
     def move_dit(self, device, preparation=False):
         if self.memory_mode == "staged" or (self.memory_mode == "reference" and preparation):
+            # Captured pointers must not survive any weight relocation.
+            if hasattr(self, "graphs"):
+                self.graphs.clear()
             self.raw_model.to(device)
             self.torch.cuda.empty_cache()
 
@@ -159,6 +177,8 @@ class Engine:
 
     def append(self, state, audio):
         """Append at a completed chunk boundary, retaining an eight-second history."""
+        if state.terminal or not state.motion_valid:
+            raise ValueError("Cannot append to an explicitly terminal generation state")
         if state.cursor != state.total_frames or state.cursor % self.chunk_frames:
             raise ValueError("Append requires a drained whole-chunk generation boundary")
         audio = np.ascontiguousarray(audio, dtype=np.float32)
@@ -195,6 +215,7 @@ class Engine:
         # Generation clock restarts; transport clock belongs to the call and never resets.
         state.audio = np.zeros(0, np.float32)
         state.audio_offset = state.cursor = state.total_frames = 0
+        state.motion_valid = True
 
     def generate(self, states):
         """Return one uint8 RGB chunk per session, without retaining history."""
@@ -254,7 +275,7 @@ class Engine:
                 for j, state in enumerate(states):
                     motion = state.pipeline.latent_motion_frames
                     noise[j, :, :motion.shape[1]] = motion
-                flow = p.model(x=noise, timestep=p.timesteps[i].expand(len(states)),
+                flow = self.denoise(p, noise, p.timesteps[i].expand(len(states)),
                                context=contexts, y=reference,
                                **kwargs, prepared_time=None if times is None else times[i])
                 t = (p.timesteps[i] / p.num_timesteps).to(p.param_dtype)
@@ -283,6 +304,12 @@ class Engine:
                 if self.trt_vae:
                     sp.vae.decode.release_workspace()
                     phase(f"decode_workspace_release_{j}")
+                output_offset = 9
+                if self.lean:
+                    # Color statistics are spatial/per-frame. These overlap
+                    # frames are neither sent nor used by the last-nine encoder.
+                    videos = videos[:, :, 9:]
+                    output_offset = 0
                 if self.memory_mode in ("compact", "reference", "staged"):
                     videos = torch.cat([match_and_blend_colors_torch(videos[:, :, k:k+4],
                         sp.original_color_reference, sp.color_correction_strength,
@@ -293,13 +320,18 @@ class Engine:
                         sp.original_color_reference, sp.color_correction_strength,
                         reference_stats=sp.reference_color_stats if self.optimized else None)
                 phase(f"color_{j}")
-                posterior = sp.vae.model.encode(videos[:, :, -9:], return_dict=False)[0]
-                sp.latent_motion_frames = sp.vae.normalize_latents(
-                    posterior.sample(generator=sp.generator))[0]
+                terminal = self.lean and state.terminal and state.cursor+self.chunk_frames >= state.total_frames
+                if not terminal:
+                    posterior = sp.vae.model.encode(videos[:, :, -9:], return_dict=False)[0]
+                    sp.latent_motion_frames = sp.vae.normalize_latents(
+                        posterior.sample(generator=sp.generator))[0]
+                    del posterior
+                else:
+                    state.motion_valid = False
                 phase(f"motion_encode_{j}")
                 count = min(self.chunk_frames, state.total_frames - state.cursor)
                 # Never transfer the nine overlap frames or float32 pixels to CPU.
-                pixels = ((videos[0, :, 9:9 + count].float() + 1) * 127.5)
+                pixels = ((videos[0, :, output_offset:output_offset + count].float() + 1) * 127.5)
                 pixels = pixels.clamp_(0, 255).to(torch.uint8).permute(1, 2, 3, 0).contiguous()
                 phase(f"uint8_{j}")
                 outputs.append(pixels.cpu().numpy())
@@ -310,7 +342,7 @@ class Engine:
                 trim = min(len(state.audio), trim_to - state.audio_offset)
                 state.audio = state.audio[trim:].copy()
                 state.audio_offset += trim
-                del videos, pixels, posterior
+                del videos, pixels
             if self.memory_mode != "staged":
                 self.move_dit(p.device)
                 phase("dit_reload")
@@ -329,12 +361,24 @@ class Engine:
             "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20,
             "width": self.width, "height": self.height,
             "optimized": self.optimized, "real_rope": self.real_rope,
+            "lean": self.lean, "fused_qkv": self.fused_qkv, "dit_graph": self.dit_graph,
             "trt_ffn_layers": self.trt_layers,
             "trt_vae": self.trt_vae,
             "trt_vae_workspace": "transient" if self.trt_vae else None,
             "stages_ms": {name: a.elapsed_time(b) for (_, a), (name, b) in zip(detail, detail[1:])},
         }
         return outputs
+
+    def denoise(self, p, x, timestep, **kwargs):
+        if not self.dit_graph:
+            return p.model(x=x, timestep=timestep, **kwargs)
+        from .graph import DenoiseGraph
+        # Conditioning and timestep tensors are copied into fixed buffers; RNG,
+        # motion-prefix writes and session bookkeeping stay outside capture.
+        key = (tuple(x.shape), self.fused_qkv, self.real_rope)
+        if key not in self.graphs:
+            self.graphs[key] = DenoiseGraph(p.model, x, timestep, kwargs)
+        return self.graphs[key](x, timestep, kwargs)
 
     def warmup(self, image="examples/girl.png", batch_size=1):
         states = [self.prepare(image, np.zeros(64000, np.float32), 100 + i)

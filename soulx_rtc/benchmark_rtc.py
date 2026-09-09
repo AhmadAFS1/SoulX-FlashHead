@@ -64,7 +64,8 @@ async def run(args):
                 path.parent.mkdir(parents=True, exist_ok=True)
                 container = av.open(str(path), "w")
                 vs = container.add_stream("libx264", rate=health["fps"])
-                vs.width = vs.height = health["size"]
+                vs.width = health.get("width", health["size"])
+                vs.height = health.get("height", health["size"])
                 vs.pix_fmt = "yuv420p"
                 vs.options = {"preset": "veryfast", "crf": "18"}
                 aus = container.add_stream("aac", rate=48000)
@@ -75,6 +76,11 @@ async def run(args):
                 try:
                     while True:
                         frame = await track.recv()
+                        if track.kind == "video":
+                            expected = (health.get("width", health["size"]), health.get("height", health["size"]))
+                            row["received_geometry"] = [frame.width, frame.height]
+                            if (frame.width, frame.height) != expected:
+                                raise ValueError("Receiver geometry does not match neural profile")
                         elapsed = time.monotonic() - start
                         # Explicit transport tail packets only drain codec/jitter
                         # buffers. They are never productive frames/audio.
@@ -158,7 +164,7 @@ async def run(args):
             for pc, row in zip(peers, rows):
                 stats = await pc.getStats()
                 row["rtp_stats"] = [vars(s) for s in stats.values() if s.type == "inbound-rtp"]
-            report = dict(profile={k: health[k] for k in ("size", "steps", "batch", "fps")},
+            report = dict(profile={k: health.get(k) for k in ("size", "width", "height", "steps", "batch", "fps")},
                           sessions=args.sessions, clip_seconds=args.seconds, wall_s=elapsed,
                           received_frames=sum(r["video_frames"] for r in rows), peers=rows)
             report["received_aggregate_fps"] = report["received_frames"] / elapsed

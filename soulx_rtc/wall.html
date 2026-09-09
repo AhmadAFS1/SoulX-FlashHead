@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SoulX FlashHead · WebRTC wall</title>
+<style>
+:root{color-scheme:dark;--bg:#090e16;--panel:#111b29;--line:#2b3c50;--text:#edf5fc;--muted:#9cacc0;--accent:#87efc0;--bad:#ffa6a6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top left,#1d354a,transparent 65%),var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}main{max-width:1680px;margin:auto;padding:24px;display:grid;gap:16px}.panel,.tile{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;margin:0}h2{font-size:17px;margin:0 0 12px}p{color:var(--muted);margin:6px 0 12px}a{color:var(--accent)}.controls{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;align-items:end}label{display:grid;gap:5px;color:var(--muted)}input,select,textarea,button{font:inherit;color:var(--text);background:#1a293b;border:1px solid var(--line);border-radius:8px;padding:9px 12px;min-width:0}input,select,textarea{width:100%}textarea{resize:vertical;min-height:84px}button{cursor:pointer;font-weight:600}button:hover:not(:disabled){border-color:var(--accent)}button:disabled{opacity:.45;cursor:not-allowed}.primary{color:#092319;background:var(--accent)}.danger{color:var(--bad)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.status{min-height:24px;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}.error{color:var(--bad)}.muted,small{color:var(--muted)}.tts{display:grid;grid-template-columns:3fr 1fr 1fr;gap:12px;align-items:end}.upload{display:flex;align-items:end;gap:10px;margin-top:12px}.upload label{flex:1}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.metric{padding:10px 14px;border-left:2px solid var(--line)}.metric strong{display:block;font-size:23px}.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.tile{padding:12px;min-width:0}.tile.audible{border-color:var(--accent)}.tile-head{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:10px}.tile-head h2{margin:0}.badge{color:var(--accent);font-size:12px}video{display:block;width:100%;height:380px;object-fit:contain;background:#05080d;border-radius:10px}.tile .actions button{font-size:12px;padding:7px 9px}.stats{white-space:pre-wrap;font:12px/1.65 ui-monospace,monospace;color:var(--muted);margin:10px 0 0}details{margin-top:12px}summary{cursor:pointer;color:var(--muted)}pre{overflow:auto;max-height:220px}#empty{text-align:center;padding:45px;border:1px dashed var(--line);border-radius:16px}.notice{font-size:12px;color:var(--muted)}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}@media(max-width:700px){main{padding:10px}.controls,.tts{grid-template-columns:1fr 1fr}.controls label:first-child,.tts label:first-child{grid-column:1/-1}.upload{align-items:stretch;flex-direction:column}video{height:340px}}
+</style>
+<style>
+@media(min-width:1100px){main{grid-template-columns:1fr 1.1fr}main>*{grid-column:1/-1}main>section:nth-child(-n+2){grid-column:auto}.tts{grid-template-columns:1fr 1fr}.tts label:first-child{grid-column:1/-1}h1{font-size:30px}}
+</style>
+<script src="/webrtc/wall.js" defer></script>
+</head>
+<body><main>
+<section class="panel">
+<h1>SoulX FlashHead · WebRTC wall</h1>
+<p>Watch independent live calls side by side. Send Kokoro speech to every peer, or test one speaker while the others stay idle.</p>
+<div class="controls">
+<label>API token<input id="token" type="password" autocomplete="off" placeholder="If configured on the server"></label>
+<label>Peers<input id="count" type="number" min="1" max="10" value="2"></label>
+<label>First seed<input id="seed" type="number" min="0" max="2147483647" value="50"></label>
+<label>Avatar<select id="avatar"><option value="default">Server default avatar</option></select></label>
+</div>
+<div class="actions">
+<button id="create" class="primary">Create + connect wall</button>
+<button id="refresh">Refresh server</button>
+<button id="mute">Mute all</button>
+<button id="interrupt" disabled>Interrupt all</button>
+<button id="stop" class="danger" disabled>Stop + release all</button>
+<a href="/" style="align-self:center;margin-left:auto">Single-session player ↗</a>
+</div>
+<div id="status" class="status" role="status" aria-live="polite">Create a wall, or use Kokoro → Speak to all to connect and speak in one step.</div>
+<p id="profile" class="notice">Loading server profile…</p>
+</section>
+<section class="panel">
+<h2>Kokoro test speech</h2>
+<div class="tts">
+<label>Text for the next turn<textarea id="text" maxlength="2000">Hello! This is a live SoulX FlashHead test with Kokoro speech. Each tile has its own WebRTC connection. Watch the mouth movement and compare how the sessions play together.</textarea></label>
+<label>Voice<select id="voice"><option>af_heart</option></select></label>
+<label>Speed<input id="speed" type="number" min="0.5" max="2" step="0.05" value="1"></label>
+</div>
+<div class="actions"><button id="speak" class="primary">Kokoro → Speak to all</button><button id="retry" disabled>Retry failed sends</button><span id="ttsStatus" class="notice" style="align-self:center">Checking Kokoro…</span></div>
+<div class="upload"><label>Or upload audio (WAV / FLAC / OGG, up to 30 seconds, 20 MiB)<input id="audio" type="file" accept="audio/wav,audio/x-wav,audio/flac,audio/ogg,.wav,.flac,.ogg"></label><button id="sendFile">Send file to all</button></div>
+<p class="notice">Each tile’s “Speak” uses the text above. Broadcast synthesizes once and sends the same audio to independent calls. Select “Listen” on a tile to hear it; all tiles start muted.</p>
+</section>
+<section class="panel metrics" aria-label="Live metrics">
+<div class="metric"><small>Connected in this wall</small><strong id="connected">0 / 0</strong></div>
+<div class="metric"><small>Speaking / queued peers</small><strong id="speaking">0 / 0</strong></div>
+<div class="metric"><small>Browser video FPS · mean</small><strong id="fps">—</strong></div>
+<div class="metric"><small>Kokoro synthesis / audio</small><strong id="ttsMetric">—</strong></div>
+</section>
+<div id="empty" class="muted">Your live sessions will appear here.</div>
+<section id="wall" class="wall" aria-label="WebRTC sessions"></section>
+<p class="notice">Browser FPS includes idle and held images. Neural frame counts and speech audio holds are shown separately. The server’s active-call limit controls simultaneous rendering; connected-peer capacity does not guarantee real-time speech.</p>
+</main></body></html>
