@@ -1,0 +1,349 @@
+[
+  {
+    "file": "/workspace/experiments/flashhead-media-jRaXOE/baseline-c10.json",
+    "sha256": "12d0a5b0f762ee5e4e1032262a9954b13e49b46513dacad64b4ee3a3255b0475",
+    "aggregate_wire_fps": 219.9605363767658,
+    "underruns": 14,
+    "transport_pass": true,
+    "cleanup_pass": true,
+    "rpc_overhead_mean_ms": 160.8012172859162,
+    "engine_mean_ms": 458.2149914698675,
+    "peers": [
+      {
+        "index": 0,
+        "avatar": "portrait:girl",
+        "fps": 24.54534430156457,
+        "missed_slots": 14,
+        "max_arrival_gap_s": 0.2695781288202852
+      },
+      {
+        "index": 1,
+        "avatar": "portrait:man",
+        "fps": 24.573547423019903,
+        "missed_slots": 13,
+        "max_arrival_gap_s": 0.28360323794186115
+      },
+      {
+        "index": 2,
+        "avatar": "portrait:yongen",
+        "fps": 24.595023142456828,
+        "missed_slots": 13,
+        "max_arrival_gap_s": 0.28551592701114714
+      },
+      {
+        "index": 3,
+        "avatar": "default",
+        "fps": 11.607110848564488,
+        "missed_slots": 431,
+        "max_arrival_gap_s": 0.7720438160467893
+      },
+      {
+        "index": 4,
+        "avatar": "portrait:girl",
+        "fps": 24.559395758979928,
+        "missed_slots": 14,
+        "max_arrival_gap_s": 0.26389217912219465
+      },
+      {
+        "index": 5,
+        "avatar": "portrait:man",
+        "fps": 24.609470581251127,
+        "missed_slots": 12,
+        "max_arrival_gap_s": 0.2997741810977459
+      },
+      {
+        "index": 6,
+        "avatar": "portrait:yongen",
+        "fps": 24.618648303511865,
+        "missed_slots": 12,
+        "max_arrival_gap_s": 0.2644630300346762
+      },
+      {
+        "index": 7,
+        "avatar": "default",
+        "fps": 11.66392551379705,
+        "missed_slots": 433,
+        "max_arrival_gap_s": 0.7807327688205987
+      },
+      {
+        "index": 8,
+        "avatar": "portrait:girl",
+        "fps": 24.57289591101378,
+        "missed_slots": 14,
+        "max_arrival_gap_s": 0.2589767889585346
+      },
+      {
+        "index": 9,
+        "avatar": "portrait:man",
+        "fps": 24.615174592606284,
+        "missed_slots": 13,
+        "max_arrival_gap_s": 0.2830536258406937
+      }
+    ]
+  },
+  {
+    "file": "benchmarks/media_20260913/candidate-final.json",
+    "sha256": "b33a0938a8bd4a3031df2622b4bcabd6f1ad735895dcf339fa06d4dc137b30ed",
+    "aggregate_wire_fps": 249.03680775534414,
+    "underruns": 3,
+    "transport_pass": true,
+    "cleanup_pass": true,
+    "rpc_overhead_mean_ms": 21.153438207693398,
+    "engine_mean_ms": 433.28479600604624,
+    "peers": [
+      {
+        "index": 0,
+        "avatar": "portrait:girl",
+        "fps": 24.964367749493807,
+        "missed_slots": 4,
+        "max_arrival_gap_s": 0.1595117230899632
+      },
+      {
+        "index": 1,
+        "avatar": "portrait:man",
+        "fps": 24.91209152369272,
+        "missed_slots": 5,
+        "max_arrival_gap_s": 0.151356064947322
+      },
+      {
+        "index": 2,
+        "avatar": "portrait:yongen",
+        "fps": 24.876096187031337,
+        "missed_slots": 6,
+        "max_arrival_gap_s": 0.14825359196402133
+      },
+      {
+        "index": 3,
+        "avatar": "default",
+        "fps": 24.820656465616004,
+        "missed_slots": 7,
+        "max_arrival_gap_s": 0.1592600957956165
+      },
+      {
+        "index": 4,
+        "avatar": "portrait:girl",
+        "fps": 24.96815885852178,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.13877879898063838
+      },
+      {
+        "index": 5,
+        "avatar": "portrait:man",
+        "fps": 24.9093893323139,
+        "missed_slots": 5,
+        "max_arrival_gap_s": 0.13833404006436467
+      },
+      {
+        "index": 6,
+        "avatar": "portrait:yongen",
+        "fps": 24.90184006900989,
+        "missed_slots": 5,
+        "max_arrival_gap_s": 0.17069466318935156
+      },
+      {
+        "index": 7,
+        "avatar": "default",
+        "fps": 24.892627125964882,
+        "missed_slots": 6,
+        "max_arrival_gap_s": 0.157618700992316
+      },
+      {
+        "index": 8,
+        "avatar": "portrait:girl",
+        "fps": 24.907458250147997,
+        "missed_slots": 5,
+        "max_arrival_gap_s": 0.15860920492559671
+      },
+      {
+        "index": 9,
+        "avatar": "portrait:man",
+        "fps": 24.884122193551814,
+        "missed_slots": 6,
+        "max_arrival_gap_s": 0.13995990599505603
+      }
+    ]
+  },
+  {
+    "file": "benchmarks/media_20260913/candidate-gc-r1.json",
+    "sha256": "bf559a34197393a0b57cb28a56a35ea28554d8088661ebd932edcee8a5c405bb",
+    "aggregate_wire_fps": 250.0696072048084,
+    "underruns": 0,
+    "transport_pass": true,
+    "cleanup_pass": true,
+    "rpc_overhead_mean_ms": 19.593111821450293,
+    "engine_mean_ms": 429.96949749067426,
+    "peers": [
+      {
+        "index": 0,
+        "avatar": "portrait:girl",
+        "fps": 25.052633720531826,
+        "missed_slots": 1,
+        "max_arrival_gap_s": 0.1969459899701178
+      },
+      {
+        "index": 1,
+        "avatar": "portrait:man",
+        "fps": 25.008658074903593,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.17640394903719425
+      },
+      {
+        "index": 2,
+        "avatar": "portrait:yongen",
+        "fps": 25.051264940726202,
+        "missed_slots": 1,
+        "max_arrival_gap_s": 0.18944492400623858
+      },
+      {
+        "index": 3,
+        "avatar": "default",
+        "fps": 24.962590712353894,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.18015439109876752
+      },
+      {
+        "index": 4,
+        "avatar": "portrait:girl",
+        "fps": 25.045120454885712,
+        "missed_slots": 1,
+        "max_arrival_gap_s": 0.1781446309760213
+      },
+      {
+        "index": 5,
+        "avatar": "portrait:man",
+        "fps": 25.005328761321763,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.17520107910968363
+      },
+      {
+        "index": 6,
+        "avatar": "portrait:yongen",
+        "fps": 24.953825499727202,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.16874937317334116
+      },
+      {
+        "index": 7,
+        "avatar": "default",
+        "fps": 25.026964800469322,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.18423459492623806
+      },
+      {
+        "index": 8,
+        "avatar": "portrait:girl",
+        "fps": 24.96806466234393,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.19353647902607918
+      },
+      {
+        "index": 9,
+        "avatar": "portrait:man",
+        "fps": 24.995155577544946,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.17652226495556533
+      }
+    ]
+  },
+  {
+    "file": "benchmarks/media_20260913/candidate-gc-r2.json",
+    "sha256": "8041331e24f12fd05fe179d03463bd86c15758fe22b693ff651fd585b4cf2f7b",
+    "aggregate_wire_fps": 249.8833259145874,
+    "underruns": 2,
+    "transport_pass": true,
+    "cleanup_pass": true,
+    "rpc_overhead_mean_ms": 21.858113375492394,
+    "engine_mean_ms": 431.73762450460345,
+    "peers": [
+      {
+        "index": 0,
+        "avatar": "portrait:girl",
+        "fps": 24.965688283393867,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.1831984189338982
+      },
+      {
+        "index": 1,
+        "avatar": "portrait:man",
+        "fps": 24.946336102503793,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.16348654800094664
+      },
+      {
+        "index": 2,
+        "avatar": "portrait:yongen",
+        "fps": 25.004398455121393,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.16606416390277445
+      },
+      {
+        "index": 3,
+        "avatar": "default",
+        "fps": 24.98361786569794,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.17872535716742277
+      },
+      {
+        "index": 4,
+        "avatar": "portrait:girl",
+        "fps": 25.001551101658443,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.1573956368956715
+      },
+      {
+        "index": 5,
+        "avatar": "portrait:man",
+        "fps": 24.991725844397884,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.15761061385273933
+      },
+      {
+        "index": 6,
+        "avatar": "portrait:yongen",
+        "fps": 25.003383368647466,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.16420243284665048
+      },
+      {
+        "index": 7,
+        "avatar": "default",
+        "fps": 24.985364796540154,
+        "missed_slots": 3,
+        "max_arrival_gap_s": 0.1751248179934919
+      },
+      {
+        "index": 8,
+        "avatar": "portrait:girl",
+        "fps": 24.99990768969758,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.15864406898617744
+      },
+      {
+        "index": 9,
+        "avatar": "portrait:man",
+        "fps": 25.0013524069289,
+        "missed_slots": 2,
+        "max_arrival_gap_s": 0.1677202379796654
+      }
+    ]
+  },
+  {
+    "file": "benchmarks/media_20260913/single-release.json",
+    "sha256": "057dcdeb9c736ee985a1296b24a055df7feefb3b6ccef2df0884b9dc97c94dfc",
+    "aggregate_wire_fps": 24.976552691595625,
+    "underruns": 0,
+    "transport_pass": true,
+    "cleanup_pass": true,
+    "rpc_overhead_mean_ms": 8.798289694823325,
+    "engine_mean_ms": 428.0817988794297,
+    "peers": [
+      {
+        "index": 0,
+        "avatar": "default",
+        "fps": 24.976552691595625,
+        "missed_slots": 1,
+        "max_arrival_gap_s": 0.10048898705281317
+      }
+    ]
+  }
+]

@@ -1,6 +1,7 @@
 import asyncio
 import io
 import time
+from pathlib import Path
 from types import SimpleNamespace
 
 import aiohttp
@@ -44,17 +45,41 @@ def wav(seconds=.2, amplitude=.05):
 
 
 @pytest.mark.parametrize("fast_codec",[False,True])
-def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_codec):
+@pytest.mark.parametrize("idle_asset",['synthetic','musetalk','image'])
+def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_codec,tmp_path,idle_asset):
     monkeypatch.delenv("SOULX_API_TOKEN",raising=False)
     if fast_codec:
         import aiortc.rtcrtpsender
         from soulx_rtc.codec import install_encoder_factory
         monkeypatch.setattr(aiortc.rtcrtpsender,"get_encoder",aiortc.rtcrtpsender.get_encoder)
         install_encoder_factory(25,"veryfast")
+    # A decoded moving idle video, not a still-image-only transport test.
+    idle_path=tmp_path/'idle.mkv'
+    with av.open(str(idle_path),'w') as out:
+        stream=out.add_stream('ffv1',rate=25)
+        stream.width=stream.height=64
+        stream.pix_fmt='bgr0'
+        for i in range(25):
+            rgb=np.full((64,64,3),30+i*3,np.uint8)
+            rgb[:,i:i+8,0]=220
+            for packet in stream.encode(av.VideoFrame.from_ndarray(rgb,format='rgb24')):
+                out.mux(packet)
+        for packet in stream.encode():
+            out.mux(packet)
+    if idle_asset=='musetalk':
+        idle_path=Path('/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/idle_active_listening.mp4')
+        if not idle_path.exists():
+            pytest.skip('Deployment MuseTalk avatar fixture not installed')
+    media_kind='video'
+    if idle_asset=='image':
+        idle_path=Path('examples/girl.png').resolve()
+        media_kind='image'
     async def run():
         service = Service(SimpleNamespace(batch=1,max_sessions=1,size=64,width=64,height=64,
-                                         steps=4,fps=25,max_active_calls=1,idle_video=None))
+                                         steps=4,fps=25,max_active_calls=1,idle_video=str(idle_path)))
         service.engine = FakeEngine()
+        service.calls.avatars.entries['fixture']=dict(id='fixture',name='Test avatar',
+                                                       path=str(idle_path),kind=media_kind)
         async def startup(app):
             service.ready = True
             service.task = asyncio.create_task(service.schedule())
@@ -80,9 +105,16 @@ def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_cod
             async with aiohttp.ClientSession() as client:
                 async with client.post(url+"/calls",json={"seed":2**100}) as r:
                     assert r.status==400 and service.ready
-                async with client.post(url+"/calls",json={"seed":51}) as r:
+                async with client.get(url+'/avatars') as r:
+                    assert r.status==200
+                    assert any(a['id']=='fixture' for a in (await r.json())['avatars'])
+                async with client.post(url+'/calls',json={'avatar_id':'../../etc/passwd'}) as r:
+                    assert r.status==400
+                async with client.post(url+"/calls",json={"seed":51,'avatar_id':'fixture'}) as r:
                     assert r.status==201,await r.text()
-                    cid=(await r.json())["id"]
+                    created=await r.json()
+                    assert created['avatar_id']=='fixture' and created['avatar_name']=='Test avatar'
+                    cid=created['id']
                 base=url+"/calls/"+cid
                 async with client.post(url+"/sessions",json={"seconds":1}) as r:
                     assert r.status==429
@@ -108,6 +140,24 @@ def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_cod
                     assert not c.error,c.error
                     await asyncio.sleep(.05)
                 assert c.turns["one"].status==c.turns["two"].status=="complete"
+                for name in ('one','two'):
+                    timing=c.turns[name].summary()['stage_ms']
+                    assert timing['admission_wait']>=0
+                    assert timing['append_rpc']>=0
+                    assert all(timing[key]>=0 for key in ('upload_read','upload_decode','transport_resample'))
+                    assert timing['first_chunk_ready_since_submit']>=timing['admission_wait']
+                while c.returning_idle and time.monotonic()<deadline:
+                    await asyncio.sleep(.02)
+                assert not c.returning_idle
+                events=list(c.boundaries.events)
+                for name in ('one','two'):
+                    for kind in ('idle_to_speech','speech_to_idle'):
+                        frames=[e for e in events if e['turn_id']==name and e['kind']==kind]
+                        assert [e['index'] for e in frames]==[0,1,2,3]
+                        assert frames[0]['exact'] and frames[-1]['exact']
+                        assert all(b['pts']>a['pts'] for a,b in zip(frames,frames[1:]))
+                assert max(e['pts'] for e in events if e['turn_id']=='one') < min(
+                    e['pts'] for e in events if e['turn_id']=='two')
                 assert all(t.audio_sent==3200*3 for t in c.turns.values())
                 assert all(len(t.audio)==len(t.audio48)==0 for t in c.turns.values())
                 assert c.negotiations==1 and c.generated_frames==48
@@ -116,10 +166,12 @@ def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_cod
                     assert r.status==202
                 await asyncio.sleep(.25)
                 sent_before=c.video_sent
+                reconditions_before=service.engine.reconditions
                 async with client.post(base+"/interrupt",json={}) as r:
                     assert r.status==200,await r.text()
                 assert c.epoch==1 and c.turns["cancel"].status=="interrupted"
-                assert service.engine.reconditions==1 and not c.current_frames and c.chunks.empty()
+                assert service.engine.reconditions==reconditions_before+1 and not c.current_frames and c.chunks.empty()
+                assert c.boundaries.pending is None and not c.returning_idle
                 await asyncio.sleep(.15)
                 assert c.video_sent>sent_before
                 assert all(len(v)>20 and all(b>a for a,b in zip(v,v[1:])) for v in pts.values())
@@ -149,6 +201,10 @@ def test_no_idle_switch_before_audio_drain():
         assert np.all(frame.to_ndarray(format="rgb24")==99)
         assert c.active is not None
         c.active.audio_sent=48000
+        c.active.audio_end_time=time.monotonic()+.02
+        c.finish_if_drained()
+        assert c.active is not None
+        await asyncio.sleep(.025)
         c.finish_if_drained()
         assert c.active is None
     asyncio.run(run())
@@ -241,6 +297,7 @@ def test_call_microbatch_respects_active_admission_and_private_outputs():
                 c.chunks.get_nowait()
                 c.active.video_sent=24
                 c.active.audio_sent=c.active.useful_samples
+                c.active.audio_end_time=time.monotonic()-1
                 c.finish_if_drained()
             assert await service.calls.schedule_once()
             assert calls[2].state.cursor==24

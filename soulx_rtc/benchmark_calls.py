@@ -8,13 +8,13 @@ import json
 import math
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import aiohttp
 import numpy as np
 import soundfile as sf
 from aiortc import RTCConfiguration, RTCPeerConnection, RTCSessionDescription
-from aiortc.contrib.media import MediaRecorder
 from aiortc.mediastreams import MediaStreamError
 
 from .server import decode_audio
@@ -45,25 +45,46 @@ async def run(args):
                 return None if response.status==204 else await response.json()
         health = await api("/health")
         async def create(index):
-            c = await api("/calls","POST",json={"seed":50+index})
+            avatars=getattr(args,'avatars',None) or ['default']
+            avatar=avatars[index%len(avatars)]
+            prepared=time.monotonic()
+            c = await api("/calls","POST",json={"seed":50+index,'avatar_id':avatar})
+            preparation_ms=(time.monotonic()-prepared)*1000
             ids.append(c["id"])
             pc = RTCPeerConnection(RTCConfiguration(iceServers=[]))
             peers.append(pc)
             row = dict(index=index,id=c["id"],video_pts=[],audio_pts=[],video_arrivals=[],audio_samples=0,errors=[])
+            row.update(avatar_id=avatar,call_prepare_ms=preparation_ms)
             row["snapshots"]=[]
             next_snapshot=0.
             rows.append(row)
-            recorder = MediaRecorder(str(output.with_name(output.stem+"-peer0.mp4"))) if args.record and index==0 else None
-            if recorder:
-                recorders.append(recorder)
-            # Recorder and metrics both need media; relay duplicates frames safely.
-            from aiortc.contrib.media import MediaRelay
-            relay = MediaRelay()
+            recording = None
+            if args.record and index in (getattr(args,'record_peers',None) or [0]):
+                import av
+                container=av.open(str(output.with_name(output.stem+f"-peer{index}.mp4")),"w")
+                vs=container.add_stream("libx264",rate=health["fps"])
+                vs.width,vs.height=health["width"],health["height"]
+                vs.pix_fmt="yuv420p"
+                vs.options={"preset":"veryfast","crf":"18"}
+                aus=container.add_stream("aac",rate=48000)
+                aus.layout="stereo"
+                recording=(container,{"video":vs,"audio":aus},ThreadPoolExecutor(max_workers=1,thread_name_prefix=f'record-{index}'))
+                recorders.append(recording)
             async def consume(track):
                 nonlocal next_snapshot
                 try:
                     while True:
                         frame=await track.recv()
+                        if track.kind=="video":
+                            row["received_geometry"]=[frame.width,frame.height]
+                            if row["received_geometry"] != [health["width"],health["height"]]:
+                                raise ValueError("Receiver geometry does not match neural profile")
+                        if recording:
+                            container,streams,executor=recording
+                            def record_frame(frame,kind):
+                                for packet in streams[kind].encode(frame):
+                                    container.mux(packet)
+                            await asyncio.get_running_loop().run_in_executor(executor,record_frame,frame,track.kind)
                         row[track.kind+"_pts"].append(float(frame.pts*frame.time_base))
                         if track.kind=="video":
                             row["video_arrivals"].append(time.monotonic()-started)
@@ -88,20 +109,17 @@ async def run(args):
                     row["errors"].append(type(exc).__name__)
             @pc.on("track")
             def track(t):
-                tasks.append(asyncio.create_task(consume(relay.subscribe(t))))
-                if recorder:
-                    recorder.addTrack(relay.subscribe(t))
+                tasks.append(asyncio.create_task(consume(t)))
             pc.addTransceiver("video",direction="recvonly")
             pc.addTransceiver("audio",direction="recvonly")
             await pc.setLocalDescription(await pc.createOffer())
             answer=await api(f"/calls/{c['id']}/offer","POST",json={"sdp":pc.localDescription.sdp,"type":"offer"})
             await pc.setRemoteDescription(RTCSessionDescription(**answer))
-            if recorder:
-                await recorder.start()
             row["pc"]=pc
             return row
         try:
             await asyncio.gather(*(create(i) for i in range(args.sessions)))
+            rows.sort(key=lambda row: row['index'])
             await asyncio.sleep(args.idle_seconds)
             call_started=time.monotonic()
             async def turns(row):
@@ -189,6 +207,11 @@ async def run(args):
                 task.cancel()
             await asyncio.gather(*tasks,return_exceptions=True)
             for row in rows:
+                # Turn completion precedes its outro; sample after the idle
+                # observation window to retain the emitted canonical endpoint.
+                final_status=await api(f"/calls/{row['id']}")
+                row["boundary_final"]={k:final_status.get(k) for k in
+                    ("boundary_events","boundary_contract","returning_idle")}
                 if "server" not in row:
                     row["server"]=await api(f"/calls/{row['id']}")
                     row["call_wall_s"]=elapsed
@@ -237,8 +260,18 @@ async def run(args):
             for t in tasks:
                 t.cancel()
             await asyncio.gather(*tasks,return_exceptions=True)
-            for recorder in recorders:
-                await recorder.stop()
+            for container,streams,executor in recorders:
+                def finish(container=container,streams=streams):
+                    try:
+                        for stream in streams.values():
+                            for packet in stream.encode(None):
+                                container.mux(packet)
+                    finally:
+                        container.close()
+                try:
+                    await asyncio.get_running_loop().run_in_executor(executor,finish)
+                finally:
+                    executor.shutdown(wait=True,cancel_futures=True)
             await asyncio.gather(*(pc.close() for pc in peers),return_exceptions=True)
             await asyncio.gather(*(api(f"/calls/{cid}","DELETE") for cid in ids),return_exceptions=True)
         # Successful completion also verifies that all admitted peer states were
@@ -255,6 +288,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--url",default="http://127.0.0.1:8765")
     ap.add_argument("--sessions",type=int,default=1)
+    ap.add_argument("--avatars",nargs='+',default=['default'],help="Approved avatar IDs, cycled over peers")
     ap.add_argument("--speakers",type=int,help="Number of peers sending turns; other connected peers only receive idle")
     ap.add_argument("--turns",type=int,default=2)
     ap.add_argument("--duration-seconds",type=float,default=0,
@@ -265,6 +299,7 @@ def main():
     ap.add_argument("--idle-seconds",type=float,default=1)
     ap.add_argument("--timeout",type=float,default=180)
     ap.add_argument("--record",action="store_true")
+    ap.add_argument("--record-peers",nargs='+',type=int,default=[0],help="Peer indices to record, including idle peers when needed")
     ap.add_argument("--compact-evidence",action="store_true",help="Store full timestamp arrays in a companion gzip file")
     ap.add_argument("--snapshots-every",type=float,default=0,
                     help="Save one native receiver image from peer zero at this interval; zero disables")

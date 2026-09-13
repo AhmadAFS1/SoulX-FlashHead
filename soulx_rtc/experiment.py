@@ -85,13 +85,21 @@ def main():
     ap.add_argument("--eager", action="store_true")
     ap.add_argument("--trt-ffn")
     ap.add_argument("--trt-vae")
+    ap.add_argument("--cuda-memory-mib", type=float, help="Torch allocator cap from model load onward; excludes CUDA context and non-Torch allocations")
+    ap.add_argument("--int8-weights", action="store_true", help="Opt-in approximate INT8 DiT weight storage with BF16 compute")
+    ap.add_argument("--lean", action="store_true")
+    ap.add_argument("--fused-qkv", action="store_true")
+    ap.add_argument("--dit-graph", action="store_true")
     ap.add_argument("--record", action="store_true")
+    ap.add_argument("--save-frames", action="store_true", help="Save first-repeat raw RGB outside the timed interval")
     ap.add_argument("--output", required=True)
     args = ap.parse_args()
     if args.batch < 1 or args.sessions < 1 or args.repeats < 1 or not 0 < args.seconds <= 30:
         ap.error("Require positive batch/sessions/repeats and seconds <=30")
     if args.trt_ffn and (args.batch!=1 or args.memory_mode=="staged"):
         ap.error("TensorRT FFN requires batch one and no staged weight offload")
+    if args.dit_graph and (args.modes != ["real"] or args.memory_mode == "staged"):
+        ap.error("DiT graph experiment requires --modes real and non-staged weights")
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
@@ -103,7 +111,7 @@ def main():
         rows=[], quality=[], warmup_s={},
         metric="Unpaced useful native frames; setup/warmup/encoding excluded; 4-step unless configured otherwise")
     result["code_sha256"] = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in
-        (Path(__file__), Path(__file__).with_name("engine.py"),
+        (Path(__file__), Path(__file__).with_name("engine.py"), Path(__file__).with_name("compact_weights.py"),
          Path("flash_head/src/modules/flash_head_model.py"), Path("flash_head/utils/utils.py"))}
     def save():
         output.write_text(json.dumps(result, indent=2)+"\n")
@@ -111,7 +119,9 @@ def main():
     with record_failure(result,save,"model_load"):
         engine = Engine(width=args.width, height=args.height, steps=args.steps,
                         fps=args.fps, compile_model=not args.eager, profile=True,
-                        memory_mode=args.memory_mode,trt_ffn=args.trt_ffn,trt_vae=args.trt_vae)
+                        optimized=args.modes == ["real"], real_rope=args.modes == ["real"],
+                        memory_mode=args.memory_mode,trt_ffn=args.trt_ffn,trt_vae=args.trt_vae,
+                        lean=args.lean, fused_qkv=args.fused_qkv, dit_graph=args.dit_graph, int8_weights=args.int8_weights, cuda_memory_mib=args.cuda_memory_mib)
     print("MODEL_READY", flush=True)
     warmed, reference = set(), None
     for repeat in range(args.repeats):
@@ -123,10 +133,14 @@ def main():
                 with record_failure(result,save,f"warmup_{mode}"):
                     engine.warmup(image=args.image, batch_size=min(args.batch, args.sessions))
                 result["warmup_s"][mode] = time.perf_counter()-started
+                engine.torch.cuda.synchronize()
+                engine.torch.cuda.empty_cache()
                 warmed.add(mode)
                 print(f"WARMED {mode} {result['warmup_s'][mode]:.2f}s", flush=True)
             with record_failure(result,save,f"prepare_{mode}_{repeat}"):
                 states = [engine.prepare(args.image, audio, args.seed+i) for i in range(args.sessions)]
+                for state in states:
+                    state.terminal = True
             engine.torch.cuda.reset_peak_memory_stats()
             chunks, metrics, first, completion = [], [], {}, {}
             started = time.perf_counter()
@@ -169,6 +183,8 @@ def main():
                                    per_chunk_mae=[float(e.mean()) for e in errors])
                     del errors
                 result["quality"].append(quality)
+                if args.save_frames:
+                    np.savez_compressed(output.with_name(output.stem+f"-{mode}-frames.npz"), frames=np.concatenate(chunks))
                 if args.record:
                     record(output.with_name(output.stem+f"-{mode}.mp4"), chunks, audio, args.fps)
             save()

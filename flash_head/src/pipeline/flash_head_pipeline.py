@@ -63,6 +63,7 @@ class FlashHeadPipeline:
         use_usp=False,
         num_timesteps=1000,
         use_timestep_transform=True,
+        model_transform=None,
     ):
         r"""
         Initializes the image-to-video generation model components.
@@ -110,6 +111,11 @@ class FlashHeadPipeline:
         
         self.model = WanModelAudioProject.from_pretrained(model_dir)
         self.model.eval().requires_grad_(False)
+        # Strict checkpoint loading stays unchanged. Optional inference-only
+        # transformations run at target precision on CPU before GPU placement.
+        if model_transform is not None:
+            self.model.to(dtype=self.param_dtype)
+            model_transform(self.model)
         self.model.to(device=self.device, dtype=self.param_dtype)
 
         self.config = self.model.config
@@ -203,7 +209,7 @@ class FlashHeadPipeline:
         self.latent_motion_frames = self.ref_img_latent[:, :1].clone()
 
     @torch.no_grad()
-    def preprocess_audio(self, speech_array, sr=16000, fps=25):
+    def preprocess_audio(self, speech_array, sr=16000, fps=25, timing=None):
         video_length = len(speech_array) * fps / sr
 
         # wav2vec_feature_extractor
@@ -212,10 +218,14 @@ class FlashHeadPipeline:
         )
         audio_feature = torch.from_numpy(audio_feature).float().to(device=self.device)
         audio_feature = audio_feature.unsqueeze(0)
+        if timing is not None:
+            timing("audio_normalize_h2d")
 
         # audio encoder
         with torch.no_grad():
             embeddings = self.audio_encoder(audio_feature, seq_len=int(video_length), output_hidden_states=True)
+        if timing is not None:
+            timing("wav2vec")
 
         if len(embeddings) == 0:
             logger.error("Fail to extract audio embedding")
@@ -223,6 +233,8 @@ class FlashHeadPipeline:
 
         audio_emb = torch.stack(embeddings.hidden_states[1:], dim=1).squeeze(0)
         audio_emb = rearrange(audio_emb, "b s d -> s b d")
+        if timing is not None:
+            timing("audio_stack")
         return audio_emb
 
     @torch.no_grad()

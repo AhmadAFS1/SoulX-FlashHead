@@ -196,6 +196,13 @@ class Service:
         self.sessions = {}
         self.rotation = deque()
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="soulx-gpu")
+        self.media_executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="soulx-media")
+        self.idle_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="soulx-idle-load")
+        from .idle_cache import IdleCache
+        self.idle_cache = IdleCache(int(getattr(args,'idle_cache_mib',512)*2**20))
+        self.loop_lags, self.gc_events = deque(maxlen=128), deque(maxlen=64)
+        self.lag_task = self.gc_callback = None
+        self.froze_startup_heap = False
         self.ready = False
         self.engine = None
         self.worker = None
@@ -203,7 +210,7 @@ class Service:
         self.chunks = deque(maxlen=1000)
         self.pending = 0
         self.isolation = None
-        self.token = os.environ.get("SOULX_API_TOKEN", "")
+        self.token = "" if getattr(args, "allow_anonymous", False) else os.environ.get("SOULX_API_TOKEN", "")
         self.ice = json.loads(os.environ.get("SOULX_ICE_SERVERS", "[]"))
         self.idle_asset = None
         import hashlib
@@ -211,9 +218,26 @@ class Service:
             for p in sorted(Path("soulx_rtc").glob("*.py"))}
         from .calls import CallService
         self.calls = CallService(self)
+        from .tts import KokoroService
+        self.tts = KokoroService()
 
     async def gpu(self, function, *args):
         return await asyncio.get_running_loop().run_in_executor(self.executor, function, *args)
+
+    async def media(self, function, *args):
+        return await asyncio.get_running_loop().run_in_executor(self.media_executor,function,*args)
+
+    async def acquire_idle(self, path, width, height):
+        future=asyncio.get_running_loop().run_in_executor(self.idle_executor,
+            self.idle_cache.acquire,path,width,height)
+        try:
+            return await asyncio.shield(future)
+        except asyncio.CancelledError:
+            def release_late(done):
+                if not done.cancelled() and done.exception() is None:
+                    self.idle_cache.release(done.result())
+            future.add_done_callback(release_late)
+            raise
 
     def mark_unhealthy(self, exc):
         self.ready = False
@@ -227,10 +251,34 @@ class Service:
             import hashlib
             path = Path(idle_video)
             self.idle_asset = dict(file=path.name,sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            if getattr(self.args,'idle_policy','source')=='source':
+                clip=await self.acquire_idle(str(path),getattr(self.args,'width',None) or self.args.size,
+                                             getattr(self.args,'height',None) or self.args.size)
+                self.idle_cache.release(clip)
         from .worker import GPUProcess
         self.worker = GPUProcess()
         self.isolation = await self.worker.start(self.args)
         LOG.info("Session isolation check: %s", self.isolation)
+        if getattr(self.args,'profile',False):
+            import gc
+            gc_started={}
+            def record_gc(phase,info):
+                generation=info['generation']
+                if phase=='start':
+                    gc_started[generation]=time.monotonic()
+                elif generation in gc_started:
+                    self.gc_events.append(dict(at=time.monotonic(),generation=generation,
+                        ms=(time.monotonic()-gc_started.pop(generation))*1000))
+            self.gc_callback=record_gc
+            gc.callbacks.append(record_gc)
+            self.lag_task=asyncio.create_task(self.monitor_media_loop())
+        if getattr(self.args,'freeze_startup_gc',False):
+            import gc
+            if gc.get_freeze_count():
+                raise RuntimeError('Startup GC freeze requires ownership of an unfrozen process heap')
+            gc.collect()
+            gc.freeze()
+            self.froze_startup_heap=True
         self.ready = True
         self.task = asyncio.create_task(self.schedule())
         LOG.info("READY size=%s steps=%s batch=%s max_sessions=%s",
@@ -251,6 +299,14 @@ class Service:
             await self.worker.release(s.state)
 
     async def cleanup(self, app):
+        if self.gc_callback:
+            import gc
+            gc.callbacks.remove(self.gc_callback)
+            self.gc_callback=None
+        if self.lag_task:
+            self.lag_task.cancel()
+            await asyncio.gather(self.lag_task,return_exceptions=True)
+        await self.tts.cleanup()
         await self.calls.cleanup()
         if self.task:
             self.task.cancel()
@@ -258,8 +314,22 @@ class Service:
                 await self.task
         await asyncio.gather(*(self.close_session(s) for s in list(self.sessions.values())))
         self.executor.shutdown(wait=True, cancel_futures=True)
+        self.media_executor.shutdown(wait=True, cancel_futures=True)
+        self.idle_executor.shutdown(wait=True, cancel_futures=True)
         if self.worker:
             self.worker.close()
+        if self.froze_startup_heap:
+            import gc
+            gc.unfreeze()
+            self.froze_startup_heap=False
+
+    async def monitor_media_loop(self):
+        while True:
+            expected=time.monotonic()+.02
+            await asyncio.sleep(.02)
+            lag=max(0.,time.monotonic()-expected)*1000
+            if lag>10:
+                self.loop_lags.append(dict(at=time.monotonic(),ms=lag))
 
     async def schedule(self):
         while True:
@@ -418,6 +488,7 @@ class Service:
         return web.Response(status=204)
 
     async def health(self, request):
+        import sys
         from .metrics import process_rss_mib
         return web.json_response(dict(ready=self.ready, size=self.args.size, steps=self.args.steps,
             server_rss_mib=process_rss_mib(),
@@ -427,6 +498,17 @@ class Service:
             optimized=getattr(self.args, "optimized", False),
             real_rope=getattr(self.args, "real_rope", False),
             memory_mode=getattr(self.args, "memory_mode", "default"),
+            int8_weights=getattr(self.args, "int8_weights", False),
+            compile_color=getattr(self.args, "compile_color", False),
+            compile_audio=getattr(self.args, "compile_audio", False),
+            profile=getattr(self.args, "profile", False),
+            idle_cache=self.idle_cache.stats(),
+            chunk_transport=getattr(self.args,'chunk_transport','shm'),
+            parent_torch_loaded='torch' in sys.modules,
+            startup_gc_frozen=self.froze_startup_heap,
+            media_loop_lags=list(self.loop_lags),gc_events=list(self.gc_events),
+            compiled=not getattr(self.args, "eager", False),
+            cuda_memory_mib=getattr(self.args, "cuda_memory_mib", None),
             idle_policy=getattr(self.args,"idle_policy","source"), idle_asset=self.idle_asset,
             max_active_calls=getattr(self.args,"max_active_calls",1),
             trt_ffn=bool(getattr(self.args,"trt_ffn",None)), trt_vae=bool(getattr(self.args,"trt_vae",None)),
@@ -439,13 +521,13 @@ class Service:
             recent_chunks=list(self.chunks)[-10:]))
 
     async def config(self, request):
-        return web.json_response({"iceServers": self.ice})
+        return web.json_response({"iceServers": self.ice, "authRequired": bool(self.token)})
 
 
 def make_app(service):
     @web.middleware
     async def auth(request, handler):
-        if request.path != "/" and service.token:
+        if request.path not in ("/", "/webrtc/wall", "/webrtc/wall.js") and service.token:
             supplied = request.headers.get("Authorization", "")
             if not secrets.compare_digest(supplied, "Bearer " + service.token):
                 raise web.HTTPUnauthorized(text="Bearer token required")
@@ -453,11 +535,19 @@ def make_app(service):
     app = web.Application(middlewares=[auth], client_max_size=20 * 1024**2)
     async def index(request):
         return web.FileResponse(Path(__file__).with_name("index.html"))
+    async def wall(request):
+        return web.FileResponse(Path(__file__).with_name("wall.html"),headers={
+            "Cache-Control":"no-store, max-age=0", "Pragma":"no-cache"})
+    async def wall_script(request):
+        return web.FileResponse(Path(__file__).with_name("wall.js"),headers={
+            "Cache-Control":"no-store, max-age=0", "Pragma":"no-cache"})
     app.add_routes([web.get("/", index), web.get("/health", service.health),
+        web.get("/webrtc/wall", wall), web.get("/webrtc/wall.js", wall_script),
         web.get("/config", service.config), web.post("/sessions", service.create),
         web.get("/sessions/{sid}", service.stats), web.delete("/sessions/{sid}", service.delete),
         web.post("/sessions/{sid}/offer", service.offer)])
     app.add_routes(service.calls.routes())
+    app.add_routes(service.tts.routes())
     app.on_startup.append(service.startup)
     app.on_cleanup.append(service.cleanup)
     return app
@@ -468,15 +558,28 @@ def main():
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--size", type=int, choices=[256, 384, 512], default=512)
+    ap.add_argument("--allow-anonymous", action="store_true", help="Explicitly disable API authentication, including on public interfaces")
     ap.add_argument("--width", type=int)
     ap.add_argument("--height", type=int)
     ap.add_argument("--optimized", action="store_true", help="Cache chunk conditioning and profile/reference constants")
     ap.add_argument("--real-rope", action="store_true", help="Experimental FP32 real rotary math (requires --optimized)")
     ap.add_argument("--profile", action="store_true", help="Detailed CUDA event timings")
+    ap.add_argument("--compile-color", action="store_true", help="Compile tiled color correction (experimental numerical change)")
+    ap.add_argument("--compile-audio", action="store_true", help="Compile FP32 Wav2Vec forward at the fixed rolling window")
+    ap.add_argument("--cuda-memory-mib", type=float, help="Torch allocator cap from model load onward; excludes CUDA context and non-Torch allocations")
+    ap.add_argument("--int8-weights", action="store_true", help="Opt-in approximate INT8 DiT weight storage with BF16 compute")
+    ap.add_argument("--lean", action="store_true", help="Skip discarded overlap color work and terminal-only motion encoding")
+    ap.add_argument("--fused-qkv", action="store_true", help="Pack self-attention projections after checkpoint load")
+    ap.add_argument("--dit-graph", action="store_true", help="Experimental fixed-buffer DiT CUDA graph; requires optimized real-RoPE")
     ap.add_argument("--trt-ffn", help="Trusted exact-shape TensorRT FFN artifact directory (experimental)")
     ap.add_argument("--trt-vae", help="Trusted exact-shape TensorRT VAE decoder engine (experimental)")
     ap.add_argument("--memory-mode", choices=["default", "compact", "reference", "staged"], default="default")
     ap.add_argument("--idle-video", help="Approved local idle asset for persistent calls; clients cannot select filesystem paths")
+    ap.add_argument("--idle-cache-mib",type=float,default=512,help="Shared decoded CPU idle cache; 0 retains per-peer decoding")
+    ap.add_argument("--chunk-transport",choices=['shm','pickle'],default='shm',help="Bounded shared RGB slot or legacy serialized chunks")
+    ap.add_argument("--freeze-startup-gc",action='store_true',help="Standalone server: collect and freeze long-lived startup objects; new call objects retain normal GC")
+    ap.add_argument("--avatar-root", default="/workspace/MuseTalk/assets/ltx23_pose_banks",
+                    help="Approved avatar banks; one certified idle video is offered per bank")
     ap.add_argument("--idle-policy", choices=["source", "hold", "generate"], default="source",
                     help="Source replay saves GPU; generated silence preserves recurrence but spends GPU while idle")
     ap.add_argument("--max-active-calls", type=int, default=1,
@@ -496,13 +599,15 @@ def main():
         args.width, args.height = validate_geometry(args.size, args.width, args.height)
         if args.real_rope and not args.optimized:
             raise ValueError("--real-rope requires --optimized")
+        if args.dit_graph and (not args.optimized or not args.real_rope or args.memory_mode == "staged"):
+            raise ValueError("--dit-graph requires --optimized --real-rope and non-staged weights")
         if args.trt_ffn and (args.batch != 1 or args.memory_mode == "staged"):
             raise ValueError("TensorRT FFN profiles require batch one and no weight offload")
         if not 1 <= args.max_active_calls <= args.max_sessions:
             raise ValueError("max-active-calls must be between 1 and max-sessions")
     except ValueError as exc:
         ap.error(str(exc))
-    if args.host not in ("127.0.0.1", "localhost", "::1") and not os.environ.get("SOULX_API_TOKEN"):
+    if args.host not in ("127.0.0.1", "localhost", "::1") and not os.environ.get("SOULX_API_TOKEN") and not args.allow_anonymous:
         ap.error("Set SOULX_API_TOKEN before exposing this GPU service beyond localhost")
     logging.basicConfig(level=logging.INFO)
     if args.h264_preset != "upstream":

@@ -1,5 +1,8 @@
 # Persistent portrait WebRTC calls (experimental)
 
+Persistent speech turns now use [exact sender-frame anchors and canonical idle
+crossfades](EXACT_FRAME_BOUNDARIES.md), with endpoint telemetry and automated tests.
+
 Internal contracts are explained in the [call/scheduler walkthrough](docs/architecture/05_WEBRTC_AND_SCHEDULING.md) and [VAE/continuity guide](docs/architecture/03_VAE_AND_CONTINUITY.md). Remaining queued-turn, admission and performance work is in the [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md).
 
 The implementation is separate from the original finite `/sessions` API. One call owns one peer, one H264 video sender and one Opus audio sender. New turns never replace tracks or restart RTP timestamps. Model weights remain shared in the single GPU process.
@@ -33,7 +36,10 @@ Open `http://127.0.0.1:8765/`, select **Persistent FaceTime experiment**, then S
 
 ## API
 
-All non-root routes use the existing `SOULX_API_TOKEN` bearer middleware when configured. External binds still require a token. The client never receives arbitrary filesystem access.
+For multiple browser peers and live text-to-speech, open `/webrtc/wall` and follow
+the [Kokoro wall guide](WEBRTC_WALL.md). Each tile uses this persistent-call API.
+
+All API routes use the existing `SOULX_API_TOKEN` bearer middleware when configured. The root player and static wall assets are public so the user can enter a token. External binds still require a token. The client never receives arbitrary filesystem access.
 
 | Method and route | Contract |
 | --- | --- |

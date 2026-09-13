@@ -10,7 +10,7 @@ from flash_head.src.distributed.usp_device import get_device, get_parallel_degre
 with open("flash_head/configs/infer_params.yaml", "r") as f:
     infer_params = yaml.safe_load(f)
 
-def get_pipeline(world_size, ckpt_dir, model_type, wav2vec_dir):
+def get_pipeline(world_size, ckpt_dir, model_type, wav2vec_dir, *, model_transform=None):
     global infer_params
     ulysses_degree, ring_degree = get_parallel_degree(world_size, infer_params['num_heads'])
     device = get_device(ulysses_degree, ring_degree)
@@ -22,6 +22,7 @@ def get_pipeline(world_size, ckpt_dir, model_type, wav2vec_dir):
         wav2vec_dir=wav2vec_dir,
         device=device,
         use_usp=(world_size > 1),
+        model_transform=model_transform,
     )
 
     # compute motion_frames_num

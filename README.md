@@ -4,6 +4,8 @@ This fork adds shared-model, single-GPU WebRTC streaming, independent session
 state, bounded queues, batching fixes, tests, and RTX 4070 benchmark evidence.
 
 - [Run, host, and test the WebRTC service](WEBRTC.md)
+- [Exact sender-frame boundaries, canonical idle return, and continuity tests](EXACT_FRAME_BOUNDARIES.md)
+- [Live multi-session browser wall with Kokoro TTS](WEBRTC_WALL.md)
 - [Complete codebase walkthrough: 74 source/config files, model tensors, memory and WebRTC flow](docs/architecture/README.md)
 - [Next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md) · [MuseTalk optimization transfer analysis](docs/research/MUSETALK_OPTIMIZATION_COMPARISON.md) · [Revalidated benchmark evidence](docs/research/EVIDENCE_VALIDATION_2026-09-07.md)
 - [Measured performance and quality limitations](benchmarks/REPORT.md)

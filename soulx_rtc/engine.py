@@ -20,6 +20,8 @@ class GenerationState:
     total_frames: int
     cursor: int = 0
     audio_offset: int = 0
+    terminal: bool = False
+    motion_valid: bool = True
 
 
 def validate_geometry(size=512, width=None, height=None):
@@ -40,7 +42,9 @@ class Engine:
 
     def __init__(self, size=512, steps=4, compile_model=True, fps=25, *,
                  width=None, height=None, optimized=False, profile=False,
-                 real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None):
+                 real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None,
+                 lean=False, fused_qkv=False, dit_graph=False, int8_weights=False, cuda_memory_mib=None,
+                 compile_color=False, compile_audio=False):
         import torch
         import flash_head.src.pipeline.flash_head_pipeline as implementation
         from flash_head.inference import get_pipeline
@@ -54,6 +58,12 @@ class Engine:
             raise ValueError("memory_mode must be default, compact, reference or staged")
         self.optimized, self.profile, self.real_rope = optimized, profile, real_rope
         self.memory_mode = memory_mode
+        self.lean, self.fused_qkv, self.dit_graph = lean, fused_qkv, dit_graph
+        self.int8_weights = bool(int8_weights)
+        if int8_weights and trt_ffn:
+            raise ValueError("INT8 weight storage cannot be combined with TensorRT FFN partitions")
+        if dit_graph and (not optimized or not real_rope or memory_mode == "staged"):
+            raise ValueError("DiT graph requires optimized real-RoPE and resident DiT weights")
         self.fps = fps
         from .gpu_lease import acquire_gpu_lease
         self.gpu_lease = acquire_gpu_lease()
@@ -61,10 +71,34 @@ class Engine:
         implementation.COMPILE_MODEL = compile_model
         implementation.COMPILE_VAE = compile_model
         self.torch = torch
+        self.cuda_memory_mib = cuda_memory_mib
+        if cuda_memory_mib is not None:
+            total = torch.cuda.get_device_properties(0).total_memory
+            if not 0 < cuda_memory_mib * 2**20 <= total:
+                raise ValueError("CUDA allocator budget must be positive and within device capacity")
+            torch.cuda.set_per_process_memory_fraction(cuda_memory_mib * 2**20 / total)
+        self.weight_storage_report = None
+        def transform(model):
+            if fused_qkv:
+                for block in model.blocks:
+                    block.self_attn.pack_projections()
+                    block.self_attn.use_fused_qkv = True
+            if lean:
+                model.text_embedding = None
+                model.audio_emb = None
+            if int8_weights:
+                from .compact_weights import quantize_block_linears
+                self.weight_storage_report = quantize_block_linears(model.blocks)
         self.size, self.steps = size, steps
         self.pipeline = get_pipeline(1, "models/SoulX-FlashHead-1_3B", "lite",
-                                     "models/wav2vec2-base-960h")
+                                     "models/wav2vec2-base-960h", model_transform=transform)
         self.pipeline.audio_encoder.eval().requires_grad_(False)
+        self.compile_color, self.compile_audio = compile_color, compile_audio
+        from flash_head.utils.utils import match_and_blend_colors_torch
+        self.color_match = (torch.compile(match_and_blend_colors_torch, fullgraph=True)
+                            if compile_color else match_and_blend_colors_torch)
+        if compile_audio:
+            self.pipeline.audio_encoder.forward = torch.compile(self.pipeline.audio_encoder.forward, fullgraph=True)
         if memory_mode == "staged":
             self.pipeline.audio_encoder.to("cpu")
             torch.cuda.empty_cache()
@@ -96,9 +130,13 @@ class Engine:
                              if compile_model else self.raw_model.prepare_conditioning)
         self.profile_constants = {}
         self.compute_stream = torch.cuda.Stream()
+        self.graphs = {}
 
     def move_dit(self, device, preparation=False):
         if self.memory_mode == "staged" or (self.memory_mode == "reference" and preparation):
+            # Captured pointers must not survive any weight relocation.
+            if hasattr(self, "graphs"):
+                self.graphs.clear()
             self.raw_model.to(device)
             self.torch.cuda.empty_cache()
 
@@ -114,6 +152,7 @@ class Engine:
         return self.profile_constants[key]
 
     def prepare(self, image_path, audio, seed=42):
+        preparation_started = time.perf_counter()
         torch = self.torch
         audio = np.ascontiguousarray(audio, dtype=np.float32)
         if not len(audio) or not np.isfinite(audio).all():
@@ -121,7 +160,8 @@ class Engine:
         # Content key avoids stale reference latents when an upload is replaced.
         with open(image_path, "rb") as source:
             key = (hashlib.sha256(source.read()).hexdigest(), self.width, self.height, self.steps)
-        if key not in self.templates:
+        cache_hit = key in self.templates
+        if not cache_hit:
             self.move_dit("cpu", preparation=True)
             p = copy.copy(self.pipeline)
             with torch.no_grad(), torch.random.fork_rng(devices=[0]):
@@ -139,9 +179,10 @@ class Engine:
         p = copy.copy(self.templates[key])
         p.latent_motion_frames = p.ref_img_latent[:, :1].clone()
         p.generator = torch.Generator(device=p.device).manual_seed(int(seed))
+        self.last_preparation = dict(cache_hit=cache_hit, host_ms=(time.perf_counter()-preparation_started)*1000)
         return GenerationState(p, audio, math.ceil(len(audio) * self.fps / self.sample_rate))
 
-    def _audio(self, state):
+    def _audio(self, state, timing=None):
         # Same rolling 8-second window as upstream streaming mode. It reaches
         # the next chunk horizon; Wav2Vec attention is not sample-causal.
         end = round((state.cursor + self.chunk_frames) * self.sample_rate / self.fps)
@@ -150,7 +191,8 @@ class Engine:
         lo, hi = max(state.audio_offset, start), min(end, state.audio_offset + len(state.audio))
         if hi > lo:
             window[lo - start:hi - start] = state.audio[lo - state.audio_offset:hi - state.audio_offset]
-        embeddings = state.pipeline.preprocess_audio(window, sr=self.sample_rate, fps=self.fps)
+        embeddings = state.pipeline.preprocess_audio(window, sr=self.sample_rate, fps=self.fps,
+                                                    timing=timing)
         end_frame = 8 * self.fps
         torch = self.torch
         centers = torch.arange(end_frame - 33, end_frame, device=embeddings.device)[:, None]
@@ -159,6 +201,8 @@ class Engine:
 
     def append(self, state, audio):
         """Append at a completed chunk boundary, retaining an eight-second history."""
+        if state.terminal or not state.motion_valid:
+            raise ValueError("Cannot append to an explicitly terminal generation state")
         if state.cursor != state.total_frames or state.cursor % self.chunk_frames:
             raise ValueError("Append requires a drained whole-chunk generation boundary")
         audio = np.ascontiguousarray(audio, dtype=np.float32)
@@ -195,6 +239,7 @@ class Engine:
         # Generation clock restarts; transport clock belongs to the call and never resets.
         state.audio = np.zeros(0, np.float32)
         state.audio_offset = state.cursor = state.total_frames = 0
+        state.motion_valid = True
 
     def generate(self, states):
         """Return one uint8 RGB chunk per session, without retaining history."""
@@ -206,11 +251,13 @@ class Engine:
         started = time.perf_counter()
         stamps = []
         detail = []
+        host_detail = []
         def phase(name):
             if self.profile:
                 event = torch.cuda.Event(enable_timing=True)
                 event.record()
                 detail.append((name, event))
+                host_detail.append((name, time.perf_counter()))
         def stamp():
             event = torch.cuda.Event(enable_timing=True)
             event.record()
@@ -227,7 +274,14 @@ class Engine:
                 phase("dit_offload_for_audio")
                 self.pipeline.audio_encoder.to(self.pipeline.device)
                 phase("audio_weights_reload")
-            contexts = torch.cat([self._audio(s) for s in states])
+            audio_contexts = []
+            for index, state in enumerate(states):
+                timing = None
+                if self.profile:
+                    timing = phase if len(states) == 1 else lambda name, i=index: phase(f"{name}_{i}")
+                audio_contexts.append(self._audio(state, timing))
+            contexts = torch.cat(audio_contexts)
+            del audio_contexts
             phase("audio")
             p = states[0].pipeline
             if self.memory_mode == "staged":
@@ -254,7 +308,7 @@ class Engine:
                 for j, state in enumerate(states):
                     motion = state.pipeline.latent_motion_frames
                     noise[j, :, :motion.shape[1]] = motion
-                flow = p.model(x=noise, timestep=p.timesteps[i].expand(len(states)),
+                flow = self.denoise(p, noise, p.timesteps[i].expand(len(states)),
                                context=contexts, y=reference,
                                **kwargs, prepared_time=None if times is None else times[i])
                 t = (p.timesteps[i] / p.num_timesteps).to(p.param_dtype)
@@ -283,23 +337,34 @@ class Engine:
                 if self.trt_vae:
                     sp.vae.decode.release_workspace()
                     phase(f"decode_workspace_release_{j}")
+                output_offset = 9
+                if self.lean:
+                    # Color statistics are spatial/per-frame. These overlap
+                    # frames are neither sent nor used by the last-nine encoder.
+                    videos = videos[:, :, 9:]
+                    output_offset = 0
                 if self.memory_mode in ("compact", "reference", "staged"):
-                    videos = torch.cat([match_and_blend_colors_torch(videos[:, :, k:k+4],
+                    videos = torch.cat([self.color_match(videos[:, :, k:k+4],
                         sp.original_color_reference, sp.color_correction_strength,
                         reference_stats=sp.reference_color_stats if self.optimized else None)
                         for k in range(0, videos.shape[2], 4)], dim=2)
                 else:
-                    videos = match_and_blend_colors_torch(videos,
+                    videos = self.color_match(videos,
                         sp.original_color_reference, sp.color_correction_strength,
                         reference_stats=sp.reference_color_stats if self.optimized else None)
                 phase(f"color_{j}")
-                posterior = sp.vae.model.encode(videos[:, :, -9:], return_dict=False)[0]
-                sp.latent_motion_frames = sp.vae.normalize_latents(
-                    posterior.sample(generator=sp.generator))[0]
+                terminal = self.lean and state.terminal and state.cursor+self.chunk_frames >= state.total_frames
+                if not terminal:
+                    posterior = sp.vae.model.encode(videos[:, :, -9:], return_dict=False)[0]
+                    sp.latent_motion_frames = sp.vae.normalize_latents(
+                        posterior.sample(generator=sp.generator))[0]
+                    del posterior
+                else:
+                    state.motion_valid = False
                 phase(f"motion_encode_{j}")
                 count = min(self.chunk_frames, state.total_frames - state.cursor)
                 # Never transfer the nine overlap frames or float32 pixels to CPU.
-                pixels = ((videos[0, :, 9:9 + count].float() + 1) * 127.5)
+                pixels = ((videos[0, :, output_offset:output_offset + count].float() + 1) * 127.5)
                 pixels = pixels.clamp_(0, 255).to(torch.uint8).permute(1, 2, 3, 0).contiguous()
                 phase(f"uint8_{j}")
                 outputs.append(pixels.cpu().numpy())
@@ -310,11 +375,12 @@ class Engine:
                 trim = min(len(state.audio), trim_to - state.audio_offset)
                 state.audio = state.audio[trim:].copy()
                 state.audio_offset += trim
-                del videos, pixels, posterior
+                del videos, pixels
             if self.memory_mode != "staged":
                 self.move_dit(p.device)
                 phase("dit_reload")
             stamp()
+            phase("cleanup")
             torch.cuda.synchronize()
         elapsed = time.perf_counter() - started
         self.last_metrics = {
@@ -329,12 +395,28 @@ class Engine:
             "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20,
             "width": self.width, "height": self.height,
             "optimized": self.optimized, "real_rope": self.real_rope,
+            "int8_weights": self.int8_weights, "weight_storage": self.weight_storage_report,
+            "cuda_memory_mib": self.cuda_memory_mib,
+            "lean": self.lean, "fused_qkv": self.fused_qkv, "dit_graph": self.dit_graph,
+            "compile_color": self.compile_color, "compile_audio": self.compile_audio,
             "trt_ffn_layers": self.trt_layers,
             "trt_vae": self.trt_vae,
             "trt_vae_workspace": "transient" if self.trt_vae else None,
             "stages_ms": {name: a.elapsed_time(b) for (_, a), (name, b) in zip(detail, detail[1:])},
+            "host_stages_ms": {name: (b-a)*1000 for (_, a), (name, b) in zip(host_detail, host_detail[1:])},
         }
         return outputs
+
+    def denoise(self, p, x, timestep, **kwargs):
+        if not self.dit_graph:
+            return p.model(x=x, timestep=timestep, **kwargs)
+        from .graph import DenoiseGraph
+        # Conditioning and timestep tensors are copied into fixed buffers; RNG,
+        # motion-prefix writes and session bookkeeping stay outside capture.
+        key = (tuple(x.shape), self.fused_qkv, self.real_rope)
+        if key not in self.graphs:
+            self.graphs[key] = DenoiseGraph(p.model, x, timestep, kwargs)
+        return self.graphs[key](x, timestep, kwargs)
 
     def warmup(self, image="examples/girl.png", batch_size=1):
         states = [self.prepare(image, np.zeros(64000, np.float32), 100 + i)

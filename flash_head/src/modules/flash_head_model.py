@@ -190,15 +190,38 @@ class SelfAttention(nn.Module):
         self.norm_q = RMSNorm(dim, eps=eps)
         self.norm_k = RMSNorm(dim, eps=eps)
 
+        # Populated only after strict checkpoint loading. Keeping one packed
+        # owner avoids duplicating Q/K/V weights during CPU/GPU moves.
+        self.packed_qkv = None
+        self.use_fused_qkv = False
+
         self.use_usp = dist.is_initialized()
         self.sp_size = get_sequence_parallel_world_size() if self.use_usp else 1
         self.sp_rank = get_sequence_parallel_rank() if self.use_usp else 0
 
+    def pack_projections(self):
+        if self.packed_qkv is None:
+            packed = nn.Linear(self.dim, 3*self.dim, device=self.q.weight.device,
+                               dtype=self.q.weight.dtype).requires_grad_(False)
+            with torch.no_grad():
+                packed.weight.copy_(torch.cat([self.q.weight, self.k.weight, self.v.weight]))
+                packed.bias.copy_(torch.cat([self.q.bias, self.k.bias, self.v.bias]))
+            self.packed_qkv = packed
+            self.q = self.k = self.v = None
+
     def forward(self, x, freqs, grid_sizes, rotary=None):
         b, s, n, d = *x.shape[:2], self.num_heads, self.head_dim
-        q = self.norm_q(self.q(x)).view(b, s, n, d)
-        k = self.norm_k(self.k(x)).view(b, s, n, d)
-        v = self.v(x)
+        if self.packed_qkv is None:
+            q, k, v = self.q(x), self.k(x), self.v(x)
+        elif self.use_fused_qkv:
+            q, k, v = self.packed_qkv(x).chunk(3, dim=-1)
+        else:
+            weights = self.packed_qkv.weight.chunk(3, dim=0)
+            biases = self.packed_qkv.bias.chunk(3, dim=0)
+            q, k, v = [torch.nn.functional.linear(x, w, bias)
+                       for w, bias in zip(weights, biases)]
+        q = self.norm_q(q).view(b, s, n, d)
+        k = self.norm_k(k).view(b, s, n, d)
 
         if self.use_usp:
             from yunchang.kernels import AttnType

@@ -1,5 +1,8 @@
 # SoulX-FlashHead shared-model WebRTC experiment
 
+See [exact frame boundary behavior and validation](EXACT_FRAME_BOUNDARIES.md)
+for the persistent call API's entry/exit fades and canonical idle target.
+
 For the complete internal flow, read the [source architecture guide](docs/architecture/README.md). The [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md) distinguishes implemented serving features from unpassed concurrency and smoothness goals.
 
 This is a single-GPU experimental service, not a claim of full MuseTalk product
@@ -7,8 +10,10 @@ parity. It implements independent talking-head sessions, uploaded image/audio,
 shared weights, fair microbatch scheduling, bounded output queues, H264/Opus
 WebRTC, cancellation, API authentication, and ICE configuration. Persistent
 multi-turn peers and native portrait profiles are now available through the
-[separate call API](CONTINUOUS_WEBRTC.md). MuseTalk's exact pose protocol, TTS
-integration, S3 avatar storage and production worker control plane are not ported.
+[separate call API](CONTINUOUS_WEBRTC.md). MuseTalk's exact pose protocol,
+S3 avatar storage and production worker control plane are not ported.
+The [multi-session browser wall with local Kokoro TTS](WEBRTC_WALL.md) is available
+at `/webrtc/wall` for live side-by-side testing of persistent calls.
 
 Codec correction: the older answerer set H264 preferences after applying the
 remote offer, which allowed VP8 to remain selected. Both APIs now set preferences
