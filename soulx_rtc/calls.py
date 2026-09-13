@@ -48,6 +48,7 @@ class Turn:
     useful_samples: int = 0
     synthetic_idle: bool = False
     audio_end_time: object = None
+    stage_ms: dict = field(default_factory=dict)
 
     def __post_init__(self):
         self.useful_samples = len(self.audio48)
@@ -62,12 +63,12 @@ class Turn:
                     useful_audio_samples=self.useful_samples, video_sent=self.video_sent,
                     audio_sent=self.audio_sent, start_frame=self.start_frame,
                     start_sample=self.start_sample, first_media_s=self.first_media_s,
-                    finished_s=self.finished_s)
+                    finished_s=self.finished_s, stage_ms=self.stage_ms)
 
 
 class IdleVideo:
     """One decoder per peer; no unbounded whole-video RGB cache."""
-    def __init__(self, path, width, height, output_fps, anchor):
+    def __init__(self, path, width, height, output_fps, anchor, *, cache=None, clip=None):
         self.path, self.width, self.height = path, width, height
         self.output_fps, self.anchor = output_fps, anchor.copy()
         self.anchor.setflags(write=False)
@@ -76,12 +77,15 @@ class IdleVideo:
         self.last = anchor
         self.source_fps = output_fps
         self.lock = threading.Lock()
+        self.cache, self.clip = cache, clip
 
     def next(self, index):
         with self.lock:
             return self._next(index)
 
     def _next(self, index):
+        if self.clip is not None:
+            return self.clip.at(index,self.output_fps)
         if not self.path:
             return self.anchor
         if self.container is None:
@@ -108,6 +112,9 @@ class IdleVideo:
             if self.container:
                 self.container.close()
                 self.container = None
+            if self.clip is not None:
+                self.cache.release(self.clip)
+                self.clip = None
 
 
 @dataclass
@@ -146,17 +153,22 @@ class Call:
     negotiations: int = 0
     idle_policy: str = "source"
     generated_idle_frames: int = 0
+    idle_decode_ms: float = 0.
+    idle_decode_max_ms: float = 0.
+    idle_decode_count: int = 0
     disconnected_at: object = None
     boundaries: Boundaries = field(default_factory=Boundaries)
     returning_idle: bool = False
     close_task: object = None
     avatar_id: str = 'default'
     avatar_name: str = 'Server default avatar'
+    media: object = None
 
     def metrics(self):
         from .codec import sender_encoder_info
         return dict(id=self.id, fps=self.fps, width=self.idle.width, height=self.idle.height,
                     avatar_id=self.avatar_id, avatar_name=self.avatar_name,
+                    idle_cached=self.idle.clip is not None,
                     connected=self.connected, closed=self.closed, epoch=self.epoch, error=self.error,
                     active_turn=self.active.id if self.active else None,
                     queued_turns=len(self.queue), queued_chunks=self.chunks.qsize(),
@@ -164,6 +176,9 @@ class Call:
                     video_clock_slots=self.video_clock, missed_video_slots=self.missed_video_slots,
                     generated_frames=self.generated_frames, idle_frames=self.idle_frames,
                     generated_idle_frames=self.generated_idle_frames, idle_policy=self.idle_policy,
+                    idle_decode_mean_ms=self.idle_decode_ms/max(1,self.idle_decode_count),
+                    idle_decode_max_ms=self.idle_decode_max_ms,
+                    idle_decode_count=self.idle_decode_count,
                     generated_frame_note="Includes new whole-chunk tail padding and neural idle; excludes held/source-idle frames",
                     completed_useful_video_frames=sum(math.ceil(t.useful_samples*self.fps/48000)
                         for t in self.turns.values() if t.status=="complete"),
@@ -265,7 +280,17 @@ class CallVideoTrack(VideoStreamTrack):
                 c.held_frames += 1
             elif c.idle.path:
                 epoch = c.epoch
-                rgb = await asyncio.to_thread(c.idle.next, c.idle_index)
+                decode_started=time.perf_counter()
+                if c.idle.clip is not None:
+                    rgb = c.idle.next(c.idle_index)
+                elif c.media:
+                    rgb = await c.media(c.idle.next,c.idle_index)
+                else:
+                    rgb = await asyncio.to_thread(c.idle.next, c.idle_index)
+                decode_ms=(time.perf_counter()-decode_started)*1000
+                c.idle_decode_ms+=decode_ms
+                c.idle_decode_max_ms=max(c.idle_decode_max_ms,decode_ms)
+                c.idle_decode_count+=1
                 if epoch != c.epoch:
                     rgb = c.sent_history[-1] if c.sent_history else c.idle.anchor
                 c.idle_index += 1
@@ -334,12 +359,21 @@ class CallService:
         self.pending = 0
 
     def routes(self):
-        return [web.get('/avatars',self.list_avatars), web.post("/calls",self.create), web.get("/calls/{cid}",self.stats),
+        return [web.get('/avatars',self.list_avatars),
+                web.get('/avatars/{avatar_id}/preview.jpg',self.avatar_preview),
+                web.post("/calls",self.create), web.get("/calls/{cid}",self.stats),
                 web.post("/calls/{cid}/offer",self.offer), web.post("/calls/{cid}/turns",self.append),
                 web.post("/calls/{cid}/interrupt",self.interrupt), web.delete("/calls/{cid}",self.delete)]
 
     async def list_avatars(self, request):
         return web.json_response({'avatars':self.avatars.public(),'default':'default'})
+
+    async def avatar_preview(self, request):
+        try:
+            body=await asyncio.to_thread(self.avatars.preview,request.match_info['avatar_id'])
+        except (ValueError,OSError,StopIteration) as exc:
+            raise web.HTTPNotFound(text='Avatar preview unavailable') from exc
+        return web.Response(body=body,content_type='image/jpeg',headers={'Cache-Control':'public, max-age=3600'})
 
     def get(self, request):
         call = self.items.get(request.match_info["cid"])
@@ -354,6 +388,7 @@ class CallService:
         if len(self.items)+len(service.sessions)+service.pending >= service.args.max_sessions:
             raise web.HTTPTooManyRequests(text="Connected peer capacity reached")
         service.pending += 1
+        cached_clip = None
         try:
             params = await request.json() if request.can_read_body else {}
             if not isinstance(params,dict):
@@ -365,15 +400,23 @@ class CallService:
             height = getattr(service.args,"height",None) or service.args.size
             avatar = self.avatars.resolve(params.get('avatar_id','default'))
             path = avatar['path']
-            if path:
+            media_kind=avatar.get('kind','video')
+            policy=getattr(service.args,'idle_policy','source')
+            if path and media_kind=='video' and policy=='source':
+                cached_clip = await service.acquire_idle(path,width,height)
+            if path and media_kind=='video':
                 def first():
                     with av.open(path) as src:
                         return next(src.decode(video=0)).reformat(width=width,height=height,format="rgb24").to_ndarray()
-                anchor = await asyncio.to_thread(first)
+                anchor = cached_clip.frames[0] if cached_clip is not None else await service.media(first)
+            elif path:
+                def first_image():
+                    from .avatars import portrait_anchor
+                    return portrait_anchor(path,width,height)
+                anchor=await service.media(first_image)
             else:
-                with Image.open("examples/girl.png") as image:
-                    from flash_head.utils.utils import resize_and_centercrop
-                    anchor = resize_and_centercrop(image.convert("RGB"),(height,width))[0,:,0].permute(1,2,0).numpy()
+                from .avatars import portrait_anchor
+                anchor=await service.media(portrait_anchor,'examples/girl.png',width,height)
             with tempfile.TemporaryDirectory(prefix="soulx-call-") as folder:
                 image = str(Path(folder)/"anchor.png")
                 Image.fromarray(anchor).save(image)
@@ -385,13 +428,16 @@ class CallService:
                     raise web.HTTPServiceUnavailable(text="GPU preparation failed; worker restart required") from exc
             policy=getattr(service.args,"idle_policy","source")
             call = Call(secrets.token_urlsafe(18),state,service.args.fps,
-                        IdleVideo(path if policy=="source" else None,width,height,service.args.fps,anchor),
-                        idle_policy=policy, avatar_id=avatar['id'], avatar_name=avatar['name'])
+                        IdleVideo(path if policy=="source" and media_kind=='video' else None,
+                                  width,height,service.args.fps,anchor,cache=service.idle_cache,clip=cached_clip),
+                        idle_policy=policy, avatar_id=avatar['id'], avatar_name=avatar['name'],media=service.media)
             self.items[call.id] = call
+            cached_clip = None  # Lease now belongs to IdleVideo.close().
             return web.json_response(call.metrics(),status=201)
         except (ValueError, TypeError, OSError) as exc:
             raise web.HTTPBadRequest(text=str(exc)) from exc
         finally:
+            service.idle_cache.release(cached_clip)
             service.pending -= 1
 
     async def offer(self, request):
@@ -438,7 +484,9 @@ class CallService:
         turn_id = request.headers.get("X-Turn-ID","")
         if not turn_id or len(turn_id)>128 or turn_id.startswith("_idle:"):
             raise web.HTTPBadRequest(text="X-Turn-ID required (1–128 characters)")
+        read_started = time.perf_counter()
         data = await request.read()
+        upload_read_ms = (time.perf_counter()-read_started)*1000
         digest = hashlib.sha256(data).hexdigest()
         async with c.control_lock:
             if turn_id in c.turns:
@@ -451,18 +499,27 @@ class CallService:
             if len(c.turns)>=2048:
                 # Do not evict idempotency keys and permit accidental replay.
                 raise web.HTTPTooManyRequests(text="Call turn-history limit reached; start a new call")
-            try:
+            def prepare_audio():
+                started=time.perf_counter()
                 with sf.SoundFile(io.BytesIO(data)) as source:
                     if source.frames > 30*source.samplerate:
                         raise ValueError("Each turn must be <=30 seconds; split longer audio explicitly")
-                audio = await asyncio.to_thread(decode_audio,data,30)
+                audio=decode_audio(data,30)
+                decoded=time.perf_counter()
+                pcm=(resample_poly(audio,3,1).clip(-1,1)*32767).astype(np.int16)
+                return audio,pcm,(decoded-started)*1000,(time.perf_counter()-decoded)*1000
+            try:
+                prepared_started=time.perf_counter()
+                audio,pcm,upload_decode_ms,transport_resample_ms=await self.service.media(prepare_audio)
+                media_wait_ms=max(0.,(time.perf_counter()-prepared_started)*1000-upload_decode_ms-transport_resample_ms)
             except (ValueError, RuntimeError, OSError) as exc:
                 raise web.HTTPBadRequest(text=str(exc)) from exc
             if c.closed:
                 raise web.HTTPGone(text="Call closed during upload")
-            pcm = (resample_poly(audio,3,1).clip(-1,1)*32767).astype(np.int16)
             frames = math.ceil(len(audio)*c.fps/16000/24)*24
             turn = Turn(turn_id,digest,audio,pcm,frames)
+            turn.stage_ms.update(upload_read=upload_read_ms, upload_decode=upload_decode_ms,
+                                 transport_resample=transport_resample_ms,media_wait=media_wait_ms)
             c.turns[turn_id] = turn
             c.queue.append(turn)
             return web.json_response(turn.summary(),status=202)
@@ -535,20 +592,25 @@ class CallService:
                                       np.zeros(samples,np.float32),np.zeros(samples*3,np.int16),24,synthetic_idle=True)
                         c.active = turn
                         turn.status = "preparing"
+                        turn.stage_ms['admission_wait'] = (time.monotonic()-turn.accepted)*1000
                         # Idle playback changes visible motion; re-encode its latest
                         # sent history only when no previous chunk remains in flight.
                         if c.idle.path and len(c.sent_history)==9:
+                            recondition_started = time.monotonic()
                             displayed = np.stack(c.sent_history)
                             if service.worker:
                                 await service.worker.recondition(c.state,displayed)
                             else:
                                 await service.gpu(service.engine.recondition,c.state,displayed)
+                            turn.stage_ms['recondition_rpc'] = (time.monotonic()-recondition_started)*1000
                         if epoch != c.epoch or c.closed:
                             continue
+                        append_started = time.monotonic()
                         if service.worker:
                             await service.worker.append(c.state,turn.audio)
                         else:
                             await service.gpu(service.engine.append,c.state,turn.audio)
+                        turn.stage_ms['append_rpc'] = (time.monotonic()-append_started)*1000
                         turn.audio = np.zeros(0, np.float32)
                     if epoch != c.epoch or c.closed:
                         continue
@@ -567,6 +629,9 @@ class CallService:
                 for c, chunk in zip(rendering,chunks):
                     epoch = epochs[c.id]
                     if epoch == c.epoch and not c.closed:
+                        if c.active:
+                            c.active.stage_ms.setdefault('first_chunk_ready_since_submit',
+                                (time.monotonic()-c.active.accepted)*1000)
                         c.generated_frames += len(chunk)
                         if c.active and c.active.synthetic_idle:
                             c.generated_idle_frames += len(chunk)
@@ -630,7 +695,10 @@ class CallService:
         async with c.lock:
             if self.service.worker:
                 await self.service.worker.release(c.state)
-        c.idle.close()
+        if hasattr(self.service,'media'):
+            await self.service.media(c.idle.close)
+        else:
+            await asyncio.to_thread(c.idle.close)
         c.queue.clear()
         for turn in c.turns.values():
             turn.release_audio()

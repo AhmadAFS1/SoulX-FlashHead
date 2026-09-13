@@ -1,5 +1,9 @@
 # Next optimization plan: useful throughput and smooth concurrent SoulX calls
 
+**2026-09-13 implemented follow-up:** [media/cache/IPC release](MEDIA_OPTIMIZATION_2026-09-13.md) implements the bounded CPU idle cache, shared RGB transport, media executor isolation and pause telemetry. Ten-connected/one-speaker wire throughput improved about 13.6%; single-call pacing passed, strict ten-peer pacing did not. Next prioritize remaining receiver/encoder/event-loop gaps and TTS/long-run qualification, then matched GEMM/VAE experiments. Do not mark P4/P5, ten-active capacity or migration complete from these media results.
+
+**2026-09-11 measured follow-up:** [pipeline profile and revised priority order](PIPELINE_PROFILE_2026-09-11.md). New CUDA/operator/CPU/RTC measurements partially execute P0/P5/P6; the complete plan below is not marked delivered. Prioritize GEMM/VAE for neural FPS, but shared bounded CPU idle caching and worker/media scheduling for the ten-peer wall. The tested compiler gains are small and numerically different; equal-canvas MuseTalk superiority remains unproven.
+
 Date: 2026-09-07. Based on source audit at `ac2c2bbb7308f87880c2ae4b01563d1e4d203c02`.
 
 **Not all possible improvements have been implemented.** The first optimization round is delivered; the next round below is proposed work. No speedup in this plan is a promise. The immediate objective is a better quality-preserving single-call pipeline and a defensible concurrency envelope, not an unsupported ten-speaker claim.

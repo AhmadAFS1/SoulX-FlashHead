@@ -4,15 +4,12 @@ const peers = new Map();
 let epoch = 0, busy = false, stopping = false, health = null, kokoro = null, leader = null;
 const fmt = (v, digits = 1) => Number.isFinite(v) ? v.toFixed(digits) : '—';
 const json = body => ({method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
-const token = () => $('token').value.trim();
 function status(message, error = false) {
   $('status').textContent = message;
   $('status').classList.toggle('error', error);
 }
-async function request(path, options = {}, credential = token()) {
-  const response = await fetch(path, {...options, cache: 'no-store', headers: {
-    ...options.headers, ...(credential ? {Authorization: `Bearer ${credential}`} : {})
-  }});
+async function request(path, options = {}) {
+  const response = await fetch(path, {...options, cache: 'no-store'});
   if (!response.ok) {
     const error = new Error(`${response.status}: ${(await response.text()).slice(0, 600)}`);
     error.status = response.status;
@@ -33,7 +30,8 @@ function controls() {
   $('retry').disabled = busy || stopping || ![...peers.values()].some(p => p.pending);
   $('interrupt').disabled = busy || stopping || !connected.length;
   $('stop').disabled = stopping || (!busy && !peers.size);
-  for (const id of ['count', 'seed', 'token', 'avatar']) $(id).disabled = busy || stopping || peers.size > 0;
+  for (const id of ['count', 'seed']) $(id).disabled = busy || stopping || peers.size > 0;
+  for (const button of document.querySelectorAll('.avatar-option')) button.disabled = busy || stopping || peers.size > 0;
   for (const p of peers.values()) {
     const ready = p.pc?.connectionState === 'connected' && !p.closed;
     p.speak.disabled = busy || stopping || !ready || !!p.pending || kokoro?.available === false;
@@ -167,14 +165,33 @@ async function connect(p, config, run) {
 }
 async function refreshServer() {
   const results = await Promise.allSettled([api('/health'), api('/webrtc/tts/kokoro/status'), api('/avatars'), api('/config')]);
-  if (results[3].status === 'fulfilled') {
-    $('token').closest('label').hidden = results[3].value.authRequired === false;
-  }
   if (results[2].status === 'fulfilled') {
     const previous = $('avatar').value;
-    const avatars = results[2].value.avatars;
-    $('avatar').replaceChildren(...avatars.map(a => new Option(a.name, a.id)));
-    if (avatars.some(a => a.id === previous)) $('avatar').value = previous;
+    const avatars = results[2].value.avatars.slice(0,4);
+    const selected = avatars.some(a => a.id === previous) ? previous : avatars[0]?.id;
+    $('avatar').value = selected || 'default';
+    $('avatars').replaceChildren(...avatars.map(a => {
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='avatar-option'+(a.id === selected ? ' selected' : '');
+      button.setAttribute('role','radio');
+      button.setAttribute('aria-checked',a.id === selected ? 'true' : 'false');
+      const image=document.createElement('img');
+      image.src=a.preview_url;
+      image.alt='';
+      const name=document.createElement('span');
+      name.textContent=a.name;
+      button.append(image,name);
+      button.onclick=() => {
+        $('avatar').value=a.id;
+        for (const option of document.querySelectorAll('.avatar-option')) {
+          const active=option === button;
+          option.classList.toggle('selected',active);
+          option.setAttribute('aria-checked',active ? 'true' : 'false');
+        }
+      };
+      return button;
+    }));
   }
   if (results[0].status === 'fulfilled') {
     health = results[0].value;
@@ -194,11 +211,11 @@ async function createWall(run) {
   if (peers.size) return;
   await refreshServer();
   if (run !== epoch) return;
-  if (!health?.ready) throw new Error('GPU server is not ready. Check the token and server status.');
+  if (!health?.ready) throw new Error('GPU server is not ready.');
   const count = Number($('count').value), seed = Number($('seed').value);
   if (!Number.isInteger(count) || count < 1 || count > health.max_sessions) throw new Error(`Choose 1–${health.max_sessions} peers.`);
   if (!Number.isSafeInteger(seed) || seed < 0 || seed > 2147483647) throw new Error('First seed must be an integer from 0 to 2147483647.');
-  const credential = token(), config = await api('/config', {}, credential);
+  const credential = '', config = await api('/config');
   if (run !== epoch) return;
   status(`Connecting ${count} independent calls…`);
   const tiles = Array.from({length: count}, (_, i) => makeTile(i, seed + i, credential));

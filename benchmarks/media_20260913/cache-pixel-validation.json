@@ -1,0 +1,16 @@
+{
+  "compared_frames": 303,
+  "source_frames": 241,
+  "max_rgb_error": 0,
+  "cache": {
+    "bytes": 133263360,
+    "reserved_bytes": 0,
+    "limit_bytes": 536870912,
+    "entries": 1,
+    "leases": 0,
+    "hits": 0,
+    "misses": 1,
+    "fallbacks": 0
+  },
+  "passed": true
+}

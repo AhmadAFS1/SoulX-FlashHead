@@ -4,6 +4,8 @@ Packetization, keyframe handling and bitrate feedback remain in aiortc. This
 changes CPU encoding, not the neural generation rate or resolution.
 """
 from fractions import Fraction
+from collections import deque
+import time
 
 import av
 from aiortc.codecs.h264 import H264Encoder
@@ -13,6 +15,13 @@ class FastH264Encoder(H264Encoder):
     def __init__(self, fps=25, preset="veryfast"):
         super().__init__()
         self.fps, self.preset = fps, preset
+        self.encode_times_ms = deque(maxlen=128)
+
+    def encode(self, frame, force_keyframe=False):
+        started=time.perf_counter()
+        result=super().encode(frame,force_keyframe)
+        self.encode_times_ms.append((time.perf_counter()-started)*1000)
+        return result
 
     def _encode_frame(self, frame, force_keyframe):
         # Mirror the upstream lifecycle condition so every replacement context
@@ -61,7 +70,11 @@ def sender_encoder_info(pc):
             continue
         encoder=getattr(sender,"_RTCRtpSender__encoder",None)
         context=getattr(encoder,"codec",None)
+        samples=list(getattr(encoder,'encode_times_ms',[]))
         result.append(dict(encoder=type(encoder).__name__,
             codec=getattr(context,"name",None),threads=getattr(context,"thread_count",None),
-            preset=getattr(encoder,"preset","upstream")))
+            preset=getattr(encoder,"preset","upstream"),
+            encode_mean_ms=sum(samples)/len(samples) if samples else None,
+            encode_max_ms=max(samples) if samples else None,
+            encode_sample_count=len(samples)))
     return result

@@ -1,6 +1,7 @@
 import asyncio
 import io
 import time
+from pathlib import Path
 from types import SimpleNamespace
 
 import aiohttp
@@ -44,7 +45,7 @@ def wav(seconds=.2, amplitude=.05):
 
 
 @pytest.mark.parametrize("fast_codec",[False,True])
-@pytest.mark.parametrize("idle_asset",['synthetic','musetalk'])
+@pytest.mark.parametrize("idle_asset",['synthetic','musetalk','image'])
 def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_codec,tmp_path,idle_asset):
     monkeypatch.delenv("SOULX_API_TOKEN",raising=False)
     if fast_codec:
@@ -66,15 +67,19 @@ def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_cod
         for packet in stream.encode():
             out.mux(packet)
     if idle_asset=='musetalk':
-        from pathlib import Path
         idle_path=Path('/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/idle_active_listening.mp4')
         if not idle_path.exists():
             pytest.skip('Deployment MuseTalk avatar fixture not installed')
+    media_kind='video'
+    if idle_asset=='image':
+        idle_path=Path('examples/girl.png').resolve()
+        media_kind='image'
     async def run():
         service = Service(SimpleNamespace(batch=1,max_sessions=1,size=64,width=64,height=64,
                                          steps=4,fps=25,max_active_calls=1,idle_video=str(idle_path)))
         service.engine = FakeEngine()
-        service.calls.avatars.entries['fixture']=dict(id='fixture',name='Test avatar',path=str(idle_path))
+        service.calls.avatars.entries['fixture']=dict(id='fixture',name='Test avatar',
+                                                       path=str(idle_path),kind=media_kind)
         async def startup(app):
             service.ready = True
             service.task = asyncio.create_task(service.schedule())
@@ -135,6 +140,12 @@ def test_persistent_real_peer_turns_retry_interrupt_cleanup(monkeypatch,fast_cod
                     assert not c.error,c.error
                     await asyncio.sleep(.05)
                 assert c.turns["one"].status==c.turns["two"].status=="complete"
+                for name in ('one','two'):
+                    timing=c.turns[name].summary()['stage_ms']
+                    assert timing['admission_wait']>=0
+                    assert timing['append_rpc']>=0
+                    assert all(timing[key]>=0 for key in ('upload_read','upload_decode','transport_resample'))
+                    assert timing['first_chunk_ready_since_submit']>=timing['admission_wait']
                 while c.returning_idle and time.monotonic()<deadline:
                     await asyncio.sleep(.02)
                 assert not c.returning_idle

@@ -1,5 +1,9 @@
 # Implementation status: native portrait calls and performance
 
+September 13 addendum: [implemented media/cache/IPC changes and release evidence](MEDIA_OPTIMIZATION_2026-09-13.md). Shared bounded immutable CPU idle clips, owned shared-memory chunk transport, dedicated media executors, Torch-free portrait preparation, GC/loop-lag telemetry and optional startup GC freezing are tested. Final regression suite: **72 passed / one skipped**. Single-call recording: 24.98 wire FPS, zero underruns, nine boundary checks passed. Ten connected/one speaker: about 250 aggregate wire FPS (+13.6% versus fresh baseline), but strict ten-peer smoothness still fails. Neural kernels are unchanged in this round; not all proposed optimizations are delivered.
+
+September 11 addendum: [new per-stage instrumentation, candidate benchmarks and live-call results](PIPELINE_PROFILE_2026-09-11.md). Ingress/worker/media timings and default-off color/audio compilation switches are implemented. The restored phone service keeps its original rendering defaults with profiling enabled. Equal-canvas speed superiority, strict ten-connected smoothness and ten-active-speaker capacity remain unpassed; not all proposed optimizations are implemented.
+
 The [September 7 full-code audit](../architecture/README.md) and [next optimization plan](NEXT_OPTIMIZATION_PLAN.md) document remaining opportunities and newly identified source/measurement gaps. The [executed evidence validation](EVIDENCE_VALIDATION_2026-09-07.md) rechecks historical results without rerunning the GPU. Completion below refers to the prior engineering round, not every possible optimization or product gate.
 
 Implemented and tested on September 6–7, 2026, from baseline `b3c47de`. The engineering experiment, sustained test and final fallback regressions are delivered. Product performance/quality targets are separate and must not be inferred from checked implementation tasks.

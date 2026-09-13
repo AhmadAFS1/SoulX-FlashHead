@@ -1,0 +1,68 @@
+{
+  "video": "benchmarks/media_20260913/single-release-peer0.mp4",
+  "peer": 0,
+  "frames": 945,
+  "pts_monotonic": true,
+  "presentation_gap_max_s": 0.08000000000000007,
+  "arrival_gap_max_s": 0.10048898705281317,
+  "arrival_gap_p95_s": 0.04392927651060744,
+  "wire_fps": 24.976552691595625,
+  "black_frames": 0,
+  "max_identical_speaking_run_frames": 0,
+  "largest_frame_changes": [
+    {
+      "pts": 25.52,
+      "mad": 6.624669053819445
+    },
+    {
+      "pts": 13.6,
+      "mad": 4.503445095486111
+    },
+    {
+      "pts": 23.12,
+      "mad": 3.944807942708333
+    },
+    {
+      "pts": 14.72,
+      "mad": 3.5596571180555556
+    },
+    {
+      "pts": 23.16,
+      "mad": 3.455960648148148
+    },
+    {
+      "pts": 15.44,
+      "mad": 3.3742549189814817
+    },
+    {
+      "pts": 13.64,
+      "mad": 3.2106499565972224
+    },
+    {
+      "pts": 6.2,
+      "mad": 3.1539189091435187
+    },
+    {
+      "pts": 5.4,
+      "mad": 3.0154351128472223
+    },
+    {
+      "pts": 24.96,
+      "mad": 2.9369140625
+    },
+    {
+      "pts": 25.4,
+      "mad": 2.8404676649305554
+    },
+    {
+      "pts": 26.4,
+      "mad": 2.7961335358796298
+    }
+  ],
+  "transport_pass": true,
+  "underruns": 0,
+  "missed_slots": 1,
+  "note": "Checks obvious whole-frame blackouts/cuts and exact repeated frames during completed speech; inspect footage for identity, mouth and blend artifacts.",
+  "structural_video_pass": true,
+  "strict_pacing_pass": true
+}

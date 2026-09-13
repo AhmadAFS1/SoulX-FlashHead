@@ -43,7 +43,8 @@ class Engine:
     def __init__(self, size=512, steps=4, compile_model=True, fps=25, *,
                  width=None, height=None, optimized=False, profile=False,
                  real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None,
-                 lean=False, fused_qkv=False, dit_graph=False):
+                 lean=False, fused_qkv=False, dit_graph=False, int8_weights=False, cuda_memory_mib=None,
+                 compile_color=False, compile_audio=False):
         import torch
         import flash_head.src.pipeline.flash_head_pipeline as implementation
         from flash_head.inference import get_pipeline
@@ -58,6 +59,9 @@ class Engine:
         self.optimized, self.profile, self.real_rope = optimized, profile, real_rope
         self.memory_mode = memory_mode
         self.lean, self.fused_qkv, self.dit_graph = lean, fused_qkv, dit_graph
+        self.int8_weights = bool(int8_weights)
+        if int8_weights and trt_ffn:
+            raise ValueError("INT8 weight storage cannot be combined with TensorRT FFN partitions")
         if dit_graph and (not optimized or not real_rope or memory_mode == "staged"):
             raise ValueError("DiT graph requires optimized real-RoPE and resident DiT weights")
         self.fps = fps
@@ -67,24 +71,40 @@ class Engine:
         implementation.COMPILE_MODEL = compile_model
         implementation.COMPILE_VAE = compile_model
         self.torch = torch
+        self.cuda_memory_mib = cuda_memory_mib
+        if cuda_memory_mib is not None:
+            total = torch.cuda.get_device_properties(0).total_memory
+            if not 0 < cuda_memory_mib * 2**20 <= total:
+                raise ValueError("CUDA allocator budget must be positive and within device capacity")
+            torch.cuda.set_per_process_memory_fraction(cuda_memory_mib * 2**20 / total)
+        self.weight_storage_report = None
+        def transform(model):
+            if fused_qkv:
+                for block in model.blocks:
+                    block.self_attn.pack_projections()
+                    block.self_attn.use_fused_qkv = True
+            if lean:
+                model.text_embedding = None
+                model.audio_emb = None
+            if int8_weights:
+                from .compact_weights import quantize_block_linears
+                self.weight_storage_report = quantize_block_linears(model.blocks)
         self.size, self.steps = size, steps
         self.pipeline = get_pipeline(1, "models/SoulX-FlashHead-1_3B", "lite",
-                                     "models/wav2vec2-base-960h")
+                                     "models/wav2vec2-base-960h", model_transform=transform)
         self.pipeline.audio_encoder.eval().requires_grad_(False)
+        self.compile_color, self.compile_audio = compile_color, compile_audio
+        from flash_head.utils.utils import match_and_blend_colors_torch
+        self.color_match = (torch.compile(match_and_blend_colors_torch, fullgraph=True)
+                            if compile_color else match_and_blend_colors_torch)
+        if compile_audio:
+            self.pipeline.audio_encoder.forward = torch.compile(self.pipeline.audio_encoder.forward, fullgraph=True)
         if memory_mode == "staged":
             self.pipeline.audio_encoder.to("cpu")
             torch.cuda.empty_cache()
         self.templates = OrderedDict()
         self.last_metrics = {}
         self.raw_model = getattr(self.pipeline.model, "_orig_mod", self.pipeline.model)
-        if fused_qkv:
-            for block in self.raw_model.blocks:
-                block.self_attn.pack_projections()
-                block.self_attn.use_fused_qkv = True
-        if lean:
-            # Not referenced by Lite's forward; preserve strict load above.
-            self.raw_model.text_embedding = None
-            self.raw_model.audio_emb = None
         trt_preparation_offload = bool(trt_ffn or trt_vae) and memory_mode == "reference"
         if trt_preparation_offload:
             # Deserialization needs temporary memory beyond steady inference.
@@ -132,6 +152,7 @@ class Engine:
         return self.profile_constants[key]
 
     def prepare(self, image_path, audio, seed=42):
+        preparation_started = time.perf_counter()
         torch = self.torch
         audio = np.ascontiguousarray(audio, dtype=np.float32)
         if not len(audio) or not np.isfinite(audio).all():
@@ -139,7 +160,8 @@ class Engine:
         # Content key avoids stale reference latents when an upload is replaced.
         with open(image_path, "rb") as source:
             key = (hashlib.sha256(source.read()).hexdigest(), self.width, self.height, self.steps)
-        if key not in self.templates:
+        cache_hit = key in self.templates
+        if not cache_hit:
             self.move_dit("cpu", preparation=True)
             p = copy.copy(self.pipeline)
             with torch.no_grad(), torch.random.fork_rng(devices=[0]):
@@ -157,9 +179,10 @@ class Engine:
         p = copy.copy(self.templates[key])
         p.latent_motion_frames = p.ref_img_latent[:, :1].clone()
         p.generator = torch.Generator(device=p.device).manual_seed(int(seed))
+        self.last_preparation = dict(cache_hit=cache_hit, host_ms=(time.perf_counter()-preparation_started)*1000)
         return GenerationState(p, audio, math.ceil(len(audio) * self.fps / self.sample_rate))
 
-    def _audio(self, state):
+    def _audio(self, state, timing=None):
         # Same rolling 8-second window as upstream streaming mode. It reaches
         # the next chunk horizon; Wav2Vec attention is not sample-causal.
         end = round((state.cursor + self.chunk_frames) * self.sample_rate / self.fps)
@@ -168,7 +191,8 @@ class Engine:
         lo, hi = max(state.audio_offset, start), min(end, state.audio_offset + len(state.audio))
         if hi > lo:
             window[lo - start:hi - start] = state.audio[lo - state.audio_offset:hi - state.audio_offset]
-        embeddings = state.pipeline.preprocess_audio(window, sr=self.sample_rate, fps=self.fps)
+        embeddings = state.pipeline.preprocess_audio(window, sr=self.sample_rate, fps=self.fps,
+                                                    timing=timing)
         end_frame = 8 * self.fps
         torch = self.torch
         centers = torch.arange(end_frame - 33, end_frame, device=embeddings.device)[:, None]
@@ -227,11 +251,13 @@ class Engine:
         started = time.perf_counter()
         stamps = []
         detail = []
+        host_detail = []
         def phase(name):
             if self.profile:
                 event = torch.cuda.Event(enable_timing=True)
                 event.record()
                 detail.append((name, event))
+                host_detail.append((name, time.perf_counter()))
         def stamp():
             event = torch.cuda.Event(enable_timing=True)
             event.record()
@@ -248,7 +274,14 @@ class Engine:
                 phase("dit_offload_for_audio")
                 self.pipeline.audio_encoder.to(self.pipeline.device)
                 phase("audio_weights_reload")
-            contexts = torch.cat([self._audio(s) for s in states])
+            audio_contexts = []
+            for index, state in enumerate(states):
+                timing = None
+                if self.profile:
+                    timing = phase if len(states) == 1 else lambda name, i=index: phase(f"{name}_{i}")
+                audio_contexts.append(self._audio(state, timing))
+            contexts = torch.cat(audio_contexts)
+            del audio_contexts
             phase("audio")
             p = states[0].pipeline
             if self.memory_mode == "staged":
@@ -311,12 +344,12 @@ class Engine:
                     videos = videos[:, :, 9:]
                     output_offset = 0
                 if self.memory_mode in ("compact", "reference", "staged"):
-                    videos = torch.cat([match_and_blend_colors_torch(videos[:, :, k:k+4],
+                    videos = torch.cat([self.color_match(videos[:, :, k:k+4],
                         sp.original_color_reference, sp.color_correction_strength,
                         reference_stats=sp.reference_color_stats if self.optimized else None)
                         for k in range(0, videos.shape[2], 4)], dim=2)
                 else:
-                    videos = match_and_blend_colors_torch(videos,
+                    videos = self.color_match(videos,
                         sp.original_color_reference, sp.color_correction_strength,
                         reference_stats=sp.reference_color_stats if self.optimized else None)
                 phase(f"color_{j}")
@@ -347,6 +380,7 @@ class Engine:
                 self.move_dit(p.device)
                 phase("dit_reload")
             stamp()
+            phase("cleanup")
             torch.cuda.synchronize()
         elapsed = time.perf_counter() - started
         self.last_metrics = {
@@ -361,11 +395,15 @@ class Engine:
             "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20,
             "width": self.width, "height": self.height,
             "optimized": self.optimized, "real_rope": self.real_rope,
+            "int8_weights": self.int8_weights, "weight_storage": self.weight_storage_report,
+            "cuda_memory_mib": self.cuda_memory_mib,
             "lean": self.lean, "fused_qkv": self.fused_qkv, "dit_graph": self.dit_graph,
+            "compile_color": self.compile_color, "compile_audio": self.compile_audio,
             "trt_ffn_layers": self.trt_layers,
             "trt_vae": self.trt_vae,
             "trt_vae_workspace": "transient" if self.trt_vae else None,
             "stages_ms": {name: a.elapsed_time(b) for (_, a), (name, b) in zip(detail, detail[1:])},
+            "host_stages_ms": {name: (b-a)*1000 for (_, a), (name, b) in zip(host_detail, host_detail[1:])},
         }
         return outputs
 

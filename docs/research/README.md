@@ -1,5 +1,9 @@
 # SoulX-FlashHead for continuous avatar calls
 
+Latest implementation, **2026-09-13**: [bounded idle cache, shared-memory transport and recorded WebRTC validation](MEDIA_OPTIMIZATION_2026-09-13.md). Ten connected/one speaking peer improved from 219.96 to about 250 aggregate **wire** FPS; the final single-call recording passed pacing/boundary checks. Occasional ten-peer gaps remain, and this is not a neural FPS or migration win. [Watch the final recording](../../benchmarks/media_20260913/single-release-peer0.mp4).
+
+Latest measurements, **2026-09-11**: [full pipeline profile, four-avatar tests and revised optimization priorities](PIPELINE_PROFILE_2026-09-11.md). Phone compiler trials reached 56.47 versus 54.06 FPS; equal-canvas 512² remained below the prior compiled MuseTalk result. Ten connected peers with one speaker exposed idle-decoding/CPU scheduling bottlenecks. The historical audit and conclusions below retain their original dates.
+
 Latest audit, **2026-09-07**: [complete 74-file source walkthrough](../architecture/README.md), [next optimization plan](NEXT_OPTIMIZATION_PLAN.md), [refreshed MuseTalk code comparison](MUSETALK_OPTIMIZATION_COMPARISON.md), and [revalidated evidence with executed notebook](EVIDENCE_VALIDATION_2026-09-07.md). These distinguish already delivered features from remaining proposals; they add documentation, not new runtime optimizations or GPU benchmarks.
 
 This contains the research snapshot and comparison rationale. The subsequent [implementation and measured results](IMPLEMENTATION_STATUS.md), [complete test catalog](TEST_CATALOG.md), [persistent call API](../../CONTINUOUS_WEBRTC.md), and [TensorRT experiments](../../TENSORRT_EXPERIMENTS.md) supersede statements below about missing runtime features. Historical measurements are retained unchanged.

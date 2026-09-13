@@ -24,3 +24,20 @@ def test_fast_h264_packets_decode_and_recreate_on_bitrate_change():
         count+=len(decoded)
         assert encoder.codec.name=="libx264" and encoder.codec.thread_count==2
     assert count==12
+    assert len(encoder.encode_times_ms)==12
+    assert all(value>=0 for value in encoder.encode_times_ms)
+    assert encoder.encode_times_ms.maxlen==128
+
+
+def test_encoder_telemetry_reports_bounded_sample_window():
+    from types import SimpleNamespace
+    from soulx_rtc.codec import sender_encoder_info
+    encoder=FastH264Encoder()
+    encoder.encode_times_ms.extend(range(140))
+    sender=SimpleNamespace(kind='video',_RTCRtpSender__encoder=encoder)
+    pc=SimpleNamespace(getSenders=lambda:[sender])
+    row=sender_encoder_info(pc)[0]
+    assert row['encode_sample_count']==128
+    assert row['encode_mean_ms']==(12+139)/2
+    assert row['encode_max_ms']==139
+    assert sender_encoder_info(None)==[]

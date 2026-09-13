@@ -41,7 +41,7 @@ def test_browser_wall_lifecycle(monkeypatch, tmp_path):
     monkeypatch.setenv('SOULX_API_TOKEN', 'browser-test-token')
     async def run():
         service = Service(SimpleNamespace(batch=2, max_sessions=3, size=64, width=64, height=64,
-            steps=4, fps=25, max_active_calls=3, idle_video=None, idle_policy='hold'))
+            steps=4, fps=25, max_active_calls=3, idle_video=None, idle_policy='hold', allow_anonymous=True))
         service.engine = WallEngine()
         async def startup(app):
             service.ready = True
@@ -67,7 +67,6 @@ def test_browser_wall_lifecycle(monkeypatch, tmp_path):
                 errors = []
                 page.on('pageerror', lambda error: errors.append(str(error)))
                 await page.goto(url + '/webrtc/wall')
-                await page.fill('#token', 'browser-test-token')
                 await page.fill('#count', '3')
                 await page.click('#refresh')
                 await page.wait_for_function("document.querySelector('#profile').textContent.includes('GPU ready')")

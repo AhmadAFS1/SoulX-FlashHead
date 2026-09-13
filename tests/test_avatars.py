@@ -13,7 +13,7 @@ def test_catalog_only_exposes_approved_idle_ids(tmp_path):
     bad=root/'escape'/'certified'
     bad.mkdir(parents=True)
     (bad/'active_listening.mp4').symlink_to(outside)
-    catalog=AvatarCatalog(SimpleNamespace(avatar_root=str(root),idle_video=None))
+    catalog=AvatarCatalog(SimpleNamespace(avatar_root=str(root),idle_video=None,default_avatar_images=False))
     assert [e['id'] for e in catalog.public()]==['default','bank:alice']
     assert all('path' not in e for e in catalog.public())
     assert catalog.resolve('bank:alice')['path']==str(bank/'active_listening.mp4')
