@@ -74,6 +74,17 @@ this experimental hook is a bit-identical production replacement.
 
 ## Quality interpretation
 
+### Confirmed practical result
+
+The comparison review confirms that reducing the audio-conditioning strength
+does reduce the visibly overexaggerated mouth movement in these subjects. The
+effect is clearest at 0.5 and remains visible at 0.75, while 0.9 is a mild
+adjustment. This is the intended behavior for a future user-facing control.
+The control should remain separate from the teeth solution: the male clips still
+show smeared or unstable teeth when the mouth is open, including at reduced
+strength. Lowering movement can reduce how often the defect is exposed, but it
+does not reconstruct dental detail.
+
 These are experimental controls, not trained disentangled expression parameters.
 Inspect opening, consonant closures, head motion, teeth consistency, and temporal
 stability. A quieter-looking mouth alone is not a lip-sync quality pass. Existing
