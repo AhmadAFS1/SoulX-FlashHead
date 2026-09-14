@@ -1,0 +1,64 @@
+{
+  "rows": [
+    {
+      "avatar": "male",
+      "strength": 1.0,
+      "median_useful_fps": 53.74058219033888,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "male",
+      "strength": 0.9,
+      "median_useful_fps": 53.752336095581555,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "male",
+      "strength": 0.75,
+      "median_useful_fps": 53.77863567059628,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "male",
+      "strength": 0.5,
+      "median_useful_fps": 53.434173090493374,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "girl",
+      "strength": 1.0,
+      "median_useful_fps": 53.28053360703181,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "girl",
+      "strength": 0.9,
+      "median_useful_fps": 53.07513096491705,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "girl",
+      "strength": 0.75,
+      "median_useful_fps": 53.292137186857246,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    },
+    {
+      "avatar": "girl",
+      "strength": 0.5,
+      "median_useful_fps": 52.56374999049511,
+      "max_torch_mib": 3354.7373046875,
+      "repeats_exact": true
+    }
+  ],
+  "identity_control_exact": false,
+  "identity_control_mae_255": 0.9206480685763889,
+  "comparisons_decoded": true,
+  "note": "Offline raw-generation comparisons; no WebRTC or objective lip-sync scoring."
+}

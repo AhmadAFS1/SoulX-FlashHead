@@ -1,5 +1,9 @@
 # SoulX-FlashHead for continuous avatar calls
 
+Latest articulation experiment, **2026-09-13**: [Lite mouth-strength analysis and four-level comparisons](MOUTH_MOVEMENT_CONTROL_2026-09-13.md). Process-local audio residual attenuation, two avatars, two seeds and repeated renders; experimental controls only, with production defaults preserved.
+
+Latest quality follow-up, **2026-09-13**: [male-avatar teeth precision/resolution experiment](MALE_TEETH_QUALITY_2026-09-13.md). BF16 and INT8 both show smeared teeth in the tested avatar; modestly higher resolution helps some frames but does not establish a complete fix. All 24 renders and eight receiver captures completed, and the live service was restored.
+
 Latest implementation, **2026-09-13**: [bounded idle cache, shared-memory transport and recorded WebRTC validation](MEDIA_OPTIMIZATION_2026-09-13.md). Ten connected/one speaking peer improved from 219.96 to about 250 aggregate **wire** FPS; the final single-call recording passed pacing/boundary checks. Occasional ten-peer gaps remain, and this is not a neural FPS or migration win. [Watch the final recording](../../benchmarks/media_20260913/single-release-peer0.mp4).
 
 Latest measurements, **2026-09-11**: [full pipeline profile, four-avatar tests and revised optimization priorities](PIPELINE_PROFILE_2026-09-11.md). Phone compiler trials reached 56.47 versus 54.06 FPS; equal-canvas 512² remained below the prior compiled MuseTalk result. Ten connected peers with one speaker exposed idle-decoding/CPU scheduling bottlenecks. The historical audit and conclusions below retain their original dates.
