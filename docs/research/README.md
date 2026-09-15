@@ -1,5 +1,7 @@
 # SoulX-FlashHead for continuous avatar calls
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 Latest articulation experiment, **2026-09-13**: [Lite mouth-strength analysis and four-level comparisons](MOUTH_MOVEMENT_CONTROL_2026-09-13.md). Process-local audio residual attenuation, two avatars, two seeds and repeated renders; experimental controls only, with production defaults preserved.
 
 Latest quality follow-up, **2026-09-13**: [male-avatar teeth precision/resolution experiment](MALE_TEETH_QUALITY_2026-09-13.md). BF16 and INT8 both show smeared teeth in the tested avatar; modestly higher resolution helps some frames but does not establish a complete fix. All 24 renders and eight receiver captures completed, and the live service was restored.

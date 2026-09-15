@@ -1,5 +1,7 @@
 # Native portrait generation and persistent calls: implementation evidence
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 Implementation started 2026-09-06 from `b3c47de` and continued on September 7. Experiments below ran on the local RTX 4070 with 12,282 MiB visible. An unrelated OmniVoice process initially retained approximately 6,150 MiB, rising to 6,510 MiB during later portrait TensorRT tests; it was not stopped. This is a constrained, co-resident deployment test, not an isolated whole-GPU capacity claim.
 
 ## Decision

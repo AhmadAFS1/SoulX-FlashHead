@@ -1,5 +1,7 @@
 # Bounded media optimizations and recorded WebRTC validation — 2026-09-13
 
+> **GPU provenance — retrospective local-host attribution:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). No independent per-run GPU snapshot was identified for this report. This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 This implements the media/cache/IPC track from the
 [September 11 pipeline profile](PIPELINE_PROFILE_2026-09-11.md). It does not
 change the neural model, precision, step count, color math or VAE/GEMM kernels.

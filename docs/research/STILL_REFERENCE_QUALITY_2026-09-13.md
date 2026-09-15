@@ -1,5 +1,7 @@
 # Male still-reference versus idle-motion experiment — September 13, 2026
 
+> **GPU provenance — retrospective local-host attribution:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). No independent per-run GPU snapshot was identified for this report. This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 Using only the male avatar's neutral still portrait changes the generated
 articulation and pose, but does not reliably reduce exposed teeth or fix their
 smeared detail in this test. Some sampled still-start frames open the mouth

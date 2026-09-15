@@ -1,5 +1,7 @@
 # MuseTalk versus SoulX: what transfers, what still needs work
 
+> **GPU provenance — audit only:** No new GPU inference benchmark was run for this document. Local retained SoulX/MuseTalk measurements refer to an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible); historical other-host comparisons retain their own GPU labels. See [GPU run provenance](GPU_RUN_PROVENANCE.md).
+
 Audit: 2026-09-07. SoulX source `ac2c2bbb7308f87880c2ae4b01563d1e4d203c02`; MuseTalk source `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`.
 
 **Recommendation: transfer MuseTalk's serving discipline and experiment methodology, not its tensor shapes or precision settings. Keep MuseTalk production until SoulX passes matched quality, native-resolution and concurrent-delivery gates.**

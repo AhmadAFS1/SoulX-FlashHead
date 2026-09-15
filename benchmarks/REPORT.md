@@ -1,5 +1,7 @@
 # RTX4070: SoulX-FlashHead versus MuseTalk
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](../docs/research/GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 ## Outcome
 
 A functioning shared-model H264/Opus WebRTC service was implemented. **A

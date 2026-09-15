@@ -1,0 +1,21 @@
+{
+  "purpose": "Sanitized historical hardware fields only; no runtime environment or credentials copied.",
+  "observations": [
+    {
+      "source": "/workspace/experiments/ref2va-evaluation/preflight.json",
+      "timestamp_utc": "2026-09-11T03:28:24.628341+00:00",
+      "gpu": "name, memory.total [MiB], memory.used [MiB], utilization.gpu [%]\nNVIDIA GeForce RTX 4070, 12282 MiB, 7994 MiB, 0 %",
+      "cuda_runtime": "12.8",
+      "full_inference_executed": false
+    },
+    {
+      "source": "/workspace/experiments/flashhead-pipeline-ARsFTh/environment-final-source.json",
+      "device_snapshot": "NVIDIA GeForce RTX 4070, 570.181, 12282 MiB, 38, 450 MHz"
+    },
+    {
+      "source": "/workspace/experiments/flashhead-mouth-3lwV6k/measured/outputs/measure.log",
+      "analysis_renderer_log_line": "I0000 00:00:1789342341.919055  414054 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 570.181), renderer: NVIDIA GeForce RTX 4070/PCIe/SSE2",
+      "scope": "MediaPipe/GL analysis renderer; not per-render CUDA generation metadata"
+    }
+  ]
+}

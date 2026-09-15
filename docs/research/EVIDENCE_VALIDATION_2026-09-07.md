@@ -1,5 +1,7 @@
 # Evidence validation and audit findings — 2026-09-07
 
+> **GPU provenance — audit only:** No new GPU inference benchmark was run for this document. Local retained SoulX/MuseTalk measurements refer to an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible); historical other-host comparisons retain their own GPU labels. See [GPU run provenance](GPU_RUN_PROVENANCE.md).
+
 **Validated for planning, not for production migration.** The retained data supports the reported native useful-FPS medians and identifies major unfinished work. It does not establish ten simultaneous smooth speakers, an end-to-end 25% TensorRT gain, or invisible generated/source joins.
 
 [Executed evidence notebook](notebooks/optimization_evidence_audit.ipynb) · [Optimization plan](NEXT_OPTIMIZATION_PLAN.md) · [Full architecture guide](../architecture/README.md) · [Historical test catalog](TEST_CATALOG.md)

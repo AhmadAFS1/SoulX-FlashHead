@@ -1,5 +1,7 @@
 # SoulX-FlashHead: complete source walkthrough
 
+> **GPU provenance — source walkthrough:** No new GPU inference run was performed for the September 7 walkthrough. Referenced local measurements were made on an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). See [GPU run provenance](../research/GPU_RUN_PROVENANCE.md); recommendations and upstream results are not new local benchmarks.
+
 Audit date: **2026-09-07 UTC**. Source baseline: SoulX `ac2c2bbb7308f87880c2ae4b01563d1e4d203c02`; MuseTalk comparison: `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`.
 
 SoulX Lite is a recurrent, audio-conditioned **whole-frame video generator**, not a mouth-patch renderer. The fork wraps one shared GPU model in a persistent H264/Opus call service. Its model, serving and measurement layers have different contracts; this guide documents each separately.

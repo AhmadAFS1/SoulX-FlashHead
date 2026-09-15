@@ -1,5 +1,7 @@
 # SoulX-FlashHead test catalog
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 September 13 articulation follow-up: [mouth movement control sweep](MOUTH_MOVEMENT_CONTROL_2026-09-13.md). Thirty-two measured ten-second renders across two avatars, two seeds, four strengths and two repeats. Exact repeats, four labeled comparison videos, decoded-frame checks and normalized mouth-landmark measurements. Includes an unmodified control and explicit retracing deviation; no new WebRTC qualification or production-strength default.
 
 September 13 still-reference follow-up: [male still start versus idle motion](STILL_REFERENCE_QUALITY_2026-09-13.md). Twelve renders, two seeds, still/encoded repeated-still/video-motion conditions. Repeats match exactly; all modes deliver roughly 53–54 useful generation FPS. Still input changes motion but does not reliably hide or repair teeth in the sampled frames. Raw comparison clips retained locally; this round adds no WebRTC capture or runtime behavior change.

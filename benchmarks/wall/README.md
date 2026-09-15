@@ -1,5 +1,7 @@
 # Browser wall validation — 2026-09-08
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](../../docs/research/GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 The live test used Chromium with **two real browser RTCPeerConnections**, local
 CPU Kokoro synthesis, and the SoulX GPU worker. Source avatar: MuseTalk's certified
 `idle_active_listening.mp4`. Profile: native 480×832, four steps, 25-fps target,

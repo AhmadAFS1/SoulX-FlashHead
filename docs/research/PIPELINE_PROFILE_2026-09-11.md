@@ -1,5 +1,7 @@
 # FlashHead pipeline profiling and optimization experiments — 2026-09-11
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 September 13 follow-up: [implemented media/cache/IPC optimizations and recorded validation](MEDIA_OPTIMIZATION_2026-09-13.md). The historical measurements below are unchanged; the newer report supersedes the idle-decoding deployment status, not the neural-compute comparison.
 
 Status: completed. Seventy-two measured GPU renders, four individual-avatar live

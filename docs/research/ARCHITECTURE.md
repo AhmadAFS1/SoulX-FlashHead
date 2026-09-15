@@ -1,5 +1,7 @@
 # How SoulX-FlashHead Lite works in this fork
 
+> **GPU provenance — audit only:** No new GPU inference benchmark was run for this document. Local retained SoulX/MuseTalk measurements refer to an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible); historical other-host comparisons retain their own GPU labels. See [GPU run provenance](GPU_RUN_PROVENANCE.md).
+
 For the complete post-implementation walkthrough, use the [September 7 architecture guide](../architecture/README.md), including its [74-file source inventory](../architecture/SOURCE_INVENTORY.md). This page preserves the earlier snapshot.
 
 Historical source snapshot. Native rectangular generation, conditioning caches, optional TensorRT partitions and a persistent call API have since been implemented; see [implementation status](IMPLEMENTATION_STATUS.md), the [complete test catalog](TEST_CATALOG.md), and [current call contract](../../CONTINUOUS_WEBRTC.md). The checkpoint's temporal/endpoint limitations remain.

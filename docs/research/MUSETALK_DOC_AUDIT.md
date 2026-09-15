@@ -1,5 +1,7 @@
 # MuseTalk Markdown audit — 2026-09-06
 
+> **GPU provenance — audit only:** No new GPU inference benchmark was run for this document. Local retained SoulX/MuseTalk measurements refer to an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible); historical other-host comparisons retain their own GPU labels. See [GPU run provenance](GPU_RUN_PROVENANCE.md).
+
 All **92 project Markdown files** discovered under `/workspace/MuseTalk` were read in full (including ignored generated/asset documentation; excluding Git internals, environments, node_modules and site-packages). Snapshot: `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`; worktree left unchanged. Total: **1,392,709 bytes**, 35,803 newline characters. Credential-like values were redacted for inspection and are not reproduced here.
 
 This inventory records file identity, not a claim that every historical recommendation is still correct. Later measured results and current code take priority over older plans. In particular: July4 exact16-only success supersedes July3 failure, while July10/11 immutable batch8 publication and the current selector define the shipped default. September close-up assets supersede old derivative-boundary failures. Historical prices/business assumptions are outside this technical recommendation.

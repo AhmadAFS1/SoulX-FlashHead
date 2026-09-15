@@ -1,5 +1,7 @@
 # Male-avatar teeth quality test — September 13, 2026
 
+> **GPU provenance — retrospective local-host attribution:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). No independent per-run GPU snapshot was identified for this report. This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 The requested four-condition quality test completed. The male default avatar
 has smeared/merged tooth detail in **unquantized BF16 raw output as well as INT8**.
 In the inspected matched samples, disabling INT8 did not produce a clear teeth

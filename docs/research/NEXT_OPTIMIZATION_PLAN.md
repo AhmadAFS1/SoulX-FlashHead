@@ -1,5 +1,7 @@
 # Next optimization plan: useful throughput and smooth concurrent SoulX calls
 
+> **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
+
 **2026-09-13 implemented follow-up:** [media/cache/IPC release](MEDIA_OPTIMIZATION_2026-09-13.md) implements the bounded CPU idle cache, shared RGB transport, media executor isolation and pause telemetry. Ten-connected/one-speaker wire throughput improved about 13.6%; single-call pacing passed, strict ten-peer pacing did not. Next prioritize remaining receiver/encoder/event-loop gaps and TTS/long-run qualification, then matched GEMM/VAE experiments. Do not mark P4/P5, ten-active capacity or migration complete from these media results.
 
 **2026-09-11 measured follow-up:** [pipeline profile and revised priority order](PIPELINE_PROFILE_2026-09-11.md). New CUDA/operator/CPU/RTC measurements partially execute P0/P5/P6; the complete plan below is not marked delivered. Prioritize GEMM/VAE for neural FPS, but shared bounded CPU idle caching and worker/media scheduling for the ten-peer wall. The tested compiler gains are small and numerically different; equal-canvas MuseTalk superiority remains unproven.
