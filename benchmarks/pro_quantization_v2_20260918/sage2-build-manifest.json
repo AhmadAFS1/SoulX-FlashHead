@@ -1,0 +1,43 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-18",
+  "source": {
+    "repository": "https://github.com/thu-ml/SageAttention",
+    "commit": "d1a57a546c3d395b1ffcbeecc66d81db76f3b4b5",
+    "working_tree_clean": true
+  },
+  "package": {
+    "name": "sageattention",
+    "version": "2.2.0",
+    "target_directory": ".pro-sage2-deps"
+  },
+  "build": {
+    "command": "TORCH_CUDA_ARCH_LIST='8.6+PTX' MAX_JOBS=4 .venv/bin/pip install .deps/SageAttention --no-build-isolation --no-deps --target .pro-sage2-deps",
+    "host_nvcc": "12.1.105",
+    "torch": "2.7.1+cu128",
+    "architecture_note": "Forward-compatible compute_86 PTX was used because the host nvcc 12.1 cannot emit native sm_89; the NVIDIA driver JIT-compiles PTX for Ada sm_89."
+  },
+  "artifacts": [
+    {
+      "path": ".pro-sage2-deps/sageattention/_fused.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "51901c5af4282f50aaa9f45927ef8a8de55b09220e0f04f460a304597377f39d",
+      "bytes": 10626976
+    },
+    {
+      "path": ".pro-sage2-deps/sageattention/_qattn_sm80.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "38b8e01c8a6d9b60e4d682bfe524876ba1287ca11357504ee341a9716e1b1fd5",
+      "bytes": 23035584
+    }
+  ],
+  "runtime_policy": {
+    "kernel_symbol": "sageattn_qk_int8_pv_fp16_cuda",
+    "qk": "int8",
+    "pv": "fp16",
+    "pv_accum_dtype": "fp16+fp32",
+    "fallback": false
+  },
+  "constraints": [
+    "The FP8-PV SageAttention2 path requires a newer CUDA build toolchain and was not selected.",
+    "This package is isolated from the base virtual environment."
+  ]
+}

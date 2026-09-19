@@ -1,0 +1,17 @@
+{
+  "execution": "CPU media preparation, no GPU inference",
+  "silent_video": "/workspace/SoulX-FlashHead/benchmarks/closed_mouth_silence_20260917/silence-seed51.mp4",
+  "silent_sha256": "4d5d817d0aa2b3dfe2b46ea0d8b9962f63a1c4687e625a4feb461399793bf075",
+  "reference": "First decoded frame of silence-seed51, then SoulX standard resize/center-crop to 320x576",
+  "audio": "First 9 seconds of each recording, 0.5 s silent handles each end, 50 ms fade at speech cut",
+  "sources": {
+    "A": {
+      "source": "/workspace/SoulX-FlashHead/benchmarks/comparison-10s.wav",
+      "source_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2"
+    },
+    "B": {
+      "source": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+      "source_sha256": "928946e0df5b0977361d538656fda2f5320a4740c14a00fbe8adc062d24ebfd5"
+    }
+  }
+}

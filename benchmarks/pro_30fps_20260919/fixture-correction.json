@@ -1,0 +1,18 @@
+{
+  "status": "registered",
+  "date_utc": "2026-09-19T02:40:26.562829+00:00",
+  "execution": "CPU fixture audit and lossless segment extraction",
+  "duplicate_prefix_effective_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+  "replacement_effective_sha256": "28cc5e0a34a7468fecadf5dce66ebf65c54c46d865fa06c90d0701fa1933f4c0",
+  "replacement_path": "benchmarks/pro_30fps_20260919/sichuan-30s-40s.wav",
+  "source_path": "examples/podcast_sichuan_16k.wav",
+  "source_sha256": "2eab639d2104b84292945a0ca902b12794163480b7f1bbefc56bc5400f6172f9",
+  "sample_range": [
+    480000,
+    640000
+  ],
+  "sample_rate": 16000,
+  "correlation_with_original": -0.016506834575383017,
+  "correlation_with_audio_b": 0.00450022539210706,
+  "prior_sichuan_prefix_generalization_claim": "invalid: exact duplicate; retained as a repeatability observation"
+}

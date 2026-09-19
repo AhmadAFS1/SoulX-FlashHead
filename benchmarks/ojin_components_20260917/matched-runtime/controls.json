@@ -1,0 +1,89 @@
+{
+  "date_utc": "2026-09-17T20:46:45.879696+00:00",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "physical_vram": "12 GB class; visible capacity in snapshot",
+  "processes": "157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "mediapipe": "0.10.9",
+  "execution": "Replay GPU SR / CPU FaceMesh control on saved matched raw RGB; Lite is NOT resident",
+  "runs": [
+    {
+      "seed": 50,
+      "mode": "bicubic2",
+      "processing_s": 0.4927391681121662,
+      "fps": 507.36782496472955,
+      "video": "soulx-LITE-bicubic2-512-to-1024-seed50/soulx-LITE-bicubic2-512-to-1024-seed50.mp4",
+      "video_sha256": "205074e6fa8b881baceff397cef5a2e4822aef9bb461f89152cb72284bf97a49",
+      "raw_input_file_sha256": "e555cbfc59249880aeaf68a11642259d7f14affc0c8b086138933853f5d5daaf",
+      "torch_peak_allocated_mib": 2.3388671875,
+      "tracker_comparison": {
+        "seed": 50,
+        "facemesh_detected": 250,
+        "facelandmarker_detected": 250,
+        "facemesh_total_s": 0.6743493979447521,
+        "landmark_disagreement_mean_px": 2.2711159571979573,
+        "landmark_disagreement_p95_px": 3.7496904874178107,
+        "note": "Disagreement is not an accuracy score; no landmark ground truth"
+      }
+    },
+    {
+      "seed": 50,
+      "mode": "legacy-general4x-resized2x",
+      "processing_s": 21.65353723091539,
+      "fps": 11.545457785209692,
+      "video": "soulx-LITE-legacy-general4x-resized2x-512-to-1024-seed50/soulx-LITE-legacy-general4x-resized2x-512-to-1024-seed50.mp4",
+      "video_sha256": "22a83390f40ac9046f72a5c2d336964110531f1a491eb8e0ce59ec4ee262d3da",
+      "raw_input_file_sha256": "e555cbfc59249880aeaf68a11642259d7f14affc0c8b086138933853f5d5daaf",
+      "torch_peak_allocated_mib": 131.90966796875,
+      "tracker_comparison": {
+        "seed": 50,
+        "facemesh_detected": 250,
+        "facelandmarker_detected": 250,
+        "facemesh_total_s": 0.6743493979447521,
+        "landmark_disagreement_mean_px": 2.2711159571979573,
+        "landmark_disagreement_p95_px": 3.7496904874178107,
+        "note": "Disagreement is not an accuracy score; no landmark ground truth"
+      }
+    },
+    {
+      "seed": 51,
+      "mode": "bicubic2",
+      "processing_s": 0.44982269464526325,
+      "fps": 555.7745373366581,
+      "video": "soulx-LITE-bicubic2-512-to-1024-seed51/soulx-LITE-bicubic2-512-to-1024-seed51.mp4",
+      "video_sha256": "394b116cde2f246997235eb626203af036ae70bfb68527bfaa337fbafc1b796a",
+      "raw_input_file_sha256": "f7f64cb7801f101c35932b6b9a9f5a898d952ac99a1414dc25d333f56091f814",
+      "torch_peak_allocated_mib": 2.3388671875,
+      "tracker_comparison": {
+        "seed": 51,
+        "facemesh_detected": 250,
+        "facelandmarker_detected": 250,
+        "facemesh_total_s": 0.5317420003702864,
+        "landmark_disagreement_mean_px": 2.2498696908255713,
+        "landmark_disagreement_p95_px": 3.6834907200232054,
+        "note": "Disagreement is not an accuracy score; no landmark ground truth"
+      }
+    },
+    {
+      "seed": 51,
+      "mode": "legacy-general4x-resized2x",
+      "processing_s": 21.68966563255526,
+      "fps": 11.526226555782431,
+      "video": "soulx-LITE-legacy-general4x-resized2x-512-to-1024-seed51/soulx-LITE-legacy-general4x-resized2x-512-to-1024-seed51.mp4",
+      "video_sha256": "d41cf445fd8639503fe76d79e02018771b7fd720519de1437ca55bf7840e32c8",
+      "raw_input_file_sha256": "f7f64cb7801f101c35932b6b9a9f5a898d952ac99a1414dc25d333f56091f814",
+      "torch_peak_allocated_mib": 131.90966796875,
+      "tracker_comparison": {
+        "seed": 51,
+        "facemesh_detected": 250,
+        "facelandmarker_detected": 250,
+        "facemesh_total_s": 0.5317420003702864,
+        "landmark_disagreement_mean_px": 2.2498696908255713,
+        "landmark_disagreement_p95_px": 3.6834907200232054,
+        "note": "Disagreement is not an accuracy score; no landmark ground truth"
+      }
+    }
+  ],
+  "status": "complete"
+}

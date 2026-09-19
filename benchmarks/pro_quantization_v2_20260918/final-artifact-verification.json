@@ -1,0 +1,364 @@
+{
+  "excluded": 17,
+  "execution": "CPU-only artifact verification; no generation",
+  "invalid": 1,
+  "runs": [
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/calibration/capture-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/calibration/capture-r02",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/calibration/decoder-top12-capture-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [
+        "missing:requested-policy.json",
+        "missing:resolved-policy.json",
+        "missing:fixtures-resolved.json",
+        "missing:source-manifest.json"
+      ],
+      "run": "benchmarks/pro_quantization_v2_20260918/controls/original-runner-control-seed50-r01",
+      "status": "invalid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/controls/reference-isolate-attention-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/generalization/two-turns-gap-seed50-r01/candidate",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/generalization/two-turns-gap-seed50-r01/reference",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/recurrence/promoted-sage2-bf16-decoder-seed50-r01/candidate",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/recurrence/promoted-sage2-bf16-decoder-seed50-r01/reference",
+      "status": "valid"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-compiled-fixed-latents-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-fixed-latents-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-qdq-output-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-six-fixed-latents-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-six-target-build-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-stream-fixed-latents-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-twelve-fixed-latents-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-twelve-target-build-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-decoder-build-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r04",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-self-all-fp8-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/kernels-self-fp8-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/pro-fp8-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/pro-fp8-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/profile-decoder-smoke-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r02",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r03",
+      "status": "valid"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-decoder-int8-twelve-seed1-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-decoder-int8-twelve-seed1-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-decoder-int8-twelve-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-sage2-fp16-decoder-int8-twelve-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-sage2-fp16-seed1-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/000-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/001-candidate-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/002-candidate-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/003-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/004-reference-seed0-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/005-candidate-seed0-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/006-candidate-seed1-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/final-candidate-four-seed-r01/runs/007-reference-seed1-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/000-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/001-candidate-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/002-candidate-seed50-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/003-reference-seed50-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/004-reference-seed50-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/005-candidate-seed50-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/006-candidate-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/007-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/008-reference-seed51-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/009-candidate-seed51-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/010-candidate-seed51-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/011-reference-seed51-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/012-reference-seed0-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/013-candidate-seed0-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/014-candidate-seed0-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/015-reference-seed0-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/016-reference-seed0-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/017-candidate-seed0-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/018-candidate-seed1-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/019-reference-seed1-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/020-reference-seed1-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/021-candidate-seed1-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/022-candidate-seed1-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/023-reference-seed1-r03",
+      "status": "valid"
+    }
+  ],
+  "status": "complete",
+  "valid": 52
+}

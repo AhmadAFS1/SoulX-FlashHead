@@ -1,0 +1,19 @@
+{
+  "execution": "CPU processing",
+  "method": "6 exact handle frames and 6 cosine-blend frames per end; all-intra lossless H264 yuv420p",
+  "control_tail": "8 s silent clip held for final 2 s; primary quality scoring excludes final handle region",
+  "clips": {
+    "pro-base": {
+      "frames": 250,
+      "first_last_equal": true,
+      "all_12_handle_frames_equal": true,
+      "decoded_anchor_sha256": "23131602bbfb8a6d7b97b18cc47132c3fd1ad97526747dc0bfa2c3550e3e7e43"
+    },
+    "silent-control-base": {
+      "frames": 250,
+      "first_last_equal": true,
+      "all_12_handle_frames_equal": true,
+      "decoded_anchor_sha256": "23131602bbfb8a6d7b97b18cc47132c3fd1ad97526747dc0bfa2c3550e3e7e43"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "hardware": "NVIDIA GeForce RTX 4070 SUPER, physical 12 GB class, nvidia-smi 12282 MiB, driver 595.84",
+  "runtime": "Torch 2.7.1+cu128 / CUDA 12.8",
+  "date_utc": "2026-09-17",
+  "kind": "new local GPU inference",
+  "coresident": "OmniVoice ~2478 MiB",
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "3ce0c967-a434-42d3-a6c8-c3ae751d63cc",
+          "timestamp": 1789605325509
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "3ce0c967-a434-42d3-a6c8-c3ae751d63cc",
+          "timestamp": 1789605325510
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "3ce0c967-a434-42d3-a6c8-c3ae751d63cc",
+          "timestamp": 1789605496353
+        }
+      ]
+    ]
+  },
+  "sampled_whole_gpu_peak_mib": 9401,
+  "sampling_interval_s": 2,
+  "output": "/workspace/experiments/ltx23-soulx-transfer/ComfyUI/output/research/q4_sdpa_tiled_2s_00001-audio.mp4",
+  "ffprobe": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 480,
+        "height": 832,
+        "r_frame_rate": "24/1",
+        "duration": "2.375000",
+        "nb_frames": "57"
+      },
+      {
+        "codec_name": "aac",
+        "r_frame_rate": "0/0",
+        "duration": "2.368000",
+        "nb_frames": "112"
+      }
+    ]
+  },
+  "limitations": [
+    "SDPA+tiled decode adaptation; not original Sage graph",
+    "57 container frames vs 49 requested; not frame-exact validated",
+    "not a dental quality pass",
+    "no full-length local test"
+  ]
+}

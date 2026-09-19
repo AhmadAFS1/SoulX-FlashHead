@@ -1,0 +1,62 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "physical_board_class": "12 GB",
+  "nvidia_smi_total_mib": 12282,
+  "driver": "595.84",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "date_utc": "2026-09-17",
+  "sampling_interval_s": 2,
+  "coresident": "OmniVoice ~2478 MiB; brief other SoulX workload during full_latents CPU encoding, followed by shared experiment lease",
+  "results": [
+    {
+      "phase": "full_latents",
+      "wall_s": 247.212,
+      "sampled_whole_gpu_peak_mib": 8057,
+      "status": "success"
+    },
+    {
+      "phase": "full_decode",
+      "wall_s": 54.651,
+      "sampled_whole_gpu_peak_mib": 3239,
+      "status": "success"
+    },
+    {
+      "phase": "controls_latents",
+      "wall_s": 340.797,
+      "sampled_whole_gpu_peak_mib": 8665,
+      "status": "success"
+    },
+    {
+      "phase": "controls_decode",
+      "wall_s": 81.67,
+      "sampled_whole_gpu_peak_mib": 3239,
+      "status": "success"
+    },
+    {
+      "phase": "v10_latents",
+      "wall_s": 236.157,
+      "sampled_whole_gpu_peak_mib": 8057,
+      "status": "success"
+    },
+    {
+      "phase": "v10_decode",
+      "wall_s": 54.364,
+      "sampled_whole_gpu_peak_mib": 3239,
+      "status": "success"
+    },
+    {
+      "phase": "plain8_latents",
+      "wall_s": 229.087,
+      "sampled_whole_gpu_peak_mib": 7863,
+      "status": "success"
+    },
+    {
+      "phase": "plain8_decode",
+      "wall_s": 27.172,
+      "sampled_whole_gpu_peak_mib": 3239,
+      "status": "success"
+    }
+  ],
+  "limitations": "Sampled whole-device peaks include other apps. Five conditions, one portrait/prompt/seed pair; not a universal dental-quality verdict."
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "elapsed_s": 0.0033854549983516335,
+    "gpu_utilization_percent": 99.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 0.0,
+    "process_rss_mib": 2950.00390625,
+    "system_cpu_percent": 0.0,
+    "system_ram_percent": 43.4,
+    "system_ram_used_mib": 13423.671875,
+    "torch_allocated_mib": 2723.8896484375,
+    "torch_reserved_mib": 5778.0
+  },
+  {
+    "elapsed_s": 0.5403930200263858,
+    "gpu_utilization_percent": 99.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 100.5,
+    "process_rss_mib": 2950.00390625,
+    "system_cpu_percent": 5.2,
+    "system_ram_percent": 43.3,
+    "system_ram_used_mib": 13404.2578125,
+    "torch_allocated_mib": 2777.771484375,
+    "torch_reserved_mib": 5778.0
+  },
+  {
+    "elapsed_s": 1.0959953049896285,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 99.0,
+    "process_rss_mib": 2950.00390625,
+    "system_cpu_percent": 7.2,
+    "system_ram_percent": 43.3,
+    "system_ram_used_mib": 13410.80078125,
+    "torch_allocated_mib": 2777.771484375,
+    "torch_reserved_mib": 5778.0
+  },
+  {
+    "elapsed_s": 1.6327511820127256,
+    "gpu_utilization_percent": 93.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 100.6,
+    "process_rss_mib": 2951.81640625,
+    "system_cpu_percent": 7.9,
+    "system_ram_percent": 43.4,
+    "system_ram_used_mib": 13429.00390625,
+    "torch_allocated_mib": 3665.521484375,
+    "torch_reserved_mib": 5778.0
+  },
+  {
+    "elapsed_s": 2.1685494820121676,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 100.8,
+    "process_rss_mib": 2951.81640625,
+    "system_cpu_percent": 6.7,
+    "system_ram_percent": 43.4,
+    "system_ram_used_mib": 13436.59375,
+    "torch_allocated_mib": 3714.458984375,
+    "torch_reserved_mib": 5778.0
+  },
+  {
+    "elapsed_s": 2.703777295013424,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8752.0,
+    "process_cpu_percent": 99.0,
+    "process_rss_mib": 2951.81640625,
+    "system_cpu_percent": 4.1,
+    "system_ram_percent": 43.4,
+    "system_ram_used_mib": 13428.4921875,
+    "torch_allocated_mib": 2812.576171875,
+    "torch_reserved_mib": 5778.0
+  }
+]

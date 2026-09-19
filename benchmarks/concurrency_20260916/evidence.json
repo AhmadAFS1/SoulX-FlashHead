@@ -1,0 +1,1012 @@
+{
+  "date_utc": "2026-09-16T19:05:42.398915+00:00",
+  "execution": "CPU/file audit; NO new GPU throughput or WebRTC load test",
+  "methodology": "Useful generated FPS differs from wire FPS. MuseTalk C / mean interval is an approximate cadence proxy, not exact sum of per-stream FPS. Sources have different GPUs, avatars, geometry, precision, pacing and timing boundaries; no matched cross-model ranking.",
+  "current_soulx": {
+    "source": {
+      "repo": "SoulX-FlashHead",
+      "path": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/results.json",
+      "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+      "sha256": "b7390a03b32b975aed557a07b4d57dbd78f2c6b331760d2293f2556067b78ac9"
+    },
+    "gpu": {
+      "model": "NVIDIA GeForce RTX 4070 SUPER",
+      "visible_vram_mib": 12282.0,
+      "used_vram_before_model_load_mib": 2487.0,
+      "driver": "595.84",
+      "evidence": "nvidia-smi query at experiment start"
+    },
+    "profile": {
+      "model": "SoulX-FlashHead Lite",
+      "width": 320,
+      "height": 576,
+      "fps": 25,
+      "steps": 4,
+      "optimized": true,
+      "real_rope": true,
+      "lean": true,
+      "fused_qkv": true,
+      "compiled": true,
+      "memory_mode": "compact",
+      "int8_weight_storage": true,
+      "torch_allocator_cap_mib": 3584
+    },
+    "rows": [
+      {
+        "label": "close-100",
+        "strength": 0.5,
+        "seed": 50,
+        "frames": 250,
+        "wall_s": 7.032939242984867,
+        "useful_fps": 35.5470154600535,
+        "peak_torch_mib": 3332.8291015625,
+        "raw_sha256": "26f6a565749ff6419957206ec5899c2ab337b6b64a72bb5dd5328f7c02bdc535",
+        "differs_from_unmodified": true,
+        "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/close-100-strength-0p5-seed-50.mp4",
+        "video_sha256": "1361a748772c76b488aaf6194aa99504af23f19477221ed66a8c1dfe31c1f5a5"
+      },
+      {
+        "label": "closer-125",
+        "strength": 0.5,
+        "seed": 50,
+        "frames": 250,
+        "wall_s": 7.078691795992199,
+        "useful_fps": 35.31726019510336,
+        "peak_torch_mib": 3334.34619140625,
+        "raw_sha256": "73513ebc1e632b68d0cb4c7487f96dbcb691bf6789b231355a7143ef2149de9e",
+        "differs_from_unmodified": true,
+        "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/closer-125-strength-0p5-seed-50.mp4",
+        "video_sha256": "233e7df6097bd55064ff8df2091f6b82757e26df88d216d41541e2cfe306c9bd"
+      },
+      {
+        "label": "closest-150",
+        "strength": 0.5,
+        "seed": 50,
+        "frames": 250,
+        "wall_s": 7.099244871002156,
+        "useful_fps": 35.21501294048321,
+        "peak_torch_mib": 3335.98828125,
+        "raw_sha256": "2827a45ab363fd8613849f274052a8fd73c8ab4feeceb00ca8731c5460faf18b",
+        "differs_from_unmodified": true,
+        "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/closest-150-strength-0p5-seed-50.mp4",
+        "video_sha256": "213c9225b2346e1cecd7cfa70b7aee0edcad346c4f67fcbb9d32cc434476a91e"
+      }
+    ]
+  },
+  "historical_soulx_engine": [
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/engine-512-4-b1.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "80376d72269c627780b066a920105b701ddfd6d0105c83353d3f1fe791423f52"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "sessions": 1,
+      "batch": 1,
+      "size": 512,
+      "steps": 4,
+      "generated_frames": 250,
+      "wall_s": 6.115806762012653,
+      "aggregate_fps": 40.87768134742822
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/engine-512-4-b1.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "80376d72269c627780b066a920105b701ddfd6d0105c83353d3f1fe791423f52"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "sessions": 10,
+      "batch": 1,
+      "size": 512,
+      "steps": 4,
+      "generated_frames": 2500,
+      "wall_s": 61.49128906801343,
+      "aggregate_fps": 40.656165090877096
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/engine-512-4-b2.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "3031912ad44cb4d3f27e86b0b2dd19fb0f7dffc5b6e934229b043909196bacc1"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "sessions": 10,
+      "batch": 2,
+      "size": 512,
+      "steps": 4,
+      "generated_frames": 2500,
+      "wall_s": 60.90019241103437,
+      "aggregate_fps": 41.05077342164572
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/portrait-ten-jobs.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "b545da9468091a4eb442e1bea61ef7daa814d5690db5bc8823912fdfc1582d22"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "width": 480,
+        "height": 832,
+        "fps": 25,
+        "steps": 4,
+        "batch": 1,
+        "sessions": 10,
+        "repeats": 5,
+        "seconds": 10,
+        "seed": 50,
+        "image": "benchmarks/implementation/musetalk-idle-anchor.png",
+        "audio": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+        "modes": [
+          "real"
+        ],
+        "memory_mode": "reference",
+        "eager": false,
+        "trt_ffn": null,
+        "trt_vae": null,
+        "record": false,
+        "output": "benchmarks/implementation/portrait-ten-jobs.json"
+      },
+      "summary": {
+        "real": {
+          "median_fps": 27.599923706865063,
+          "p95_wall_s": 90.67020737826824
+        }
+      }
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/portrait-trt-ten-jobs.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "262d9ebb2a6c5af796651438c04ceb4a0b6ed5c1a53d5037d1a9abd8a15dead9"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "width": 480,
+        "height": 832,
+        "fps": 25,
+        "steps": 4,
+        "batch": 1,
+        "sessions": 10,
+        "repeats": 5,
+        "seconds": 10,
+        "seed": 50,
+        "image": "benchmarks/implementation/musetalk-idle-anchor.png",
+        "audio": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+        "modes": [
+          "real"
+        ],
+        "memory_mode": "reference",
+        "eager": false,
+        "trt_ffn": ".trt-experiment/portrait-ffn-bf16",
+        "trt_vae": ".trt-experiment/portrait-vae-bf16/vae.engine",
+        "record": false,
+        "output": "benchmarks/implementation/portrait-trt-ten-jobs.json"
+      },
+      "summary": {
+        "real": {
+          "median_fps": 28.56958870756897,
+          "p95_wall_s": 87.74070733985863
+        }
+      }
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/square-trt-combined-reference.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "bdc28de9ce6df25ae84dc598f433766f98329bdc31353f913f80e10199c3ebec"
+      },
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "width": 512,
+        "height": 512,
+        "fps": 25,
+        "steps": 4,
+        "batch": 1,
+        "sessions": 1,
+        "repeats": 3,
+        "seconds": 10,
+        "seed": 50,
+        "image": "benchmarks/implementation/musetalk-idle-anchor.png",
+        "audio": "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav",
+        "modes": [
+          "real"
+        ],
+        "memory_mode": "reference",
+        "eager": false,
+        "trt_ffn": ".trt-experiment/ffn-bf16-shared",
+        "trt_vae": ".trt-experiment/vae-bf16-square/vae.engine",
+        "record": true,
+        "output": "benchmarks/implementation/square-trt-combined-reference.json"
+      },
+      "summary": {
+        "real": {
+          "median_fps": 44.26118280696075,
+          "p95_wall_s": 5.677238560700789
+        }
+      }
+    }
+  ],
+  "historical_soulx_calls": [
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-c1.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "ff341b4d689063ec0229c97539b41e9224c8a8bab31baa65669b742a6548ecaa"
+      },
+      "label": "c1",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 1,
+        "speakers": null,
+        "turns": 2,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/short.wav",
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2.0,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": true,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": true,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": true,
+        "output": "benchmarks/implementation/calls-h264-trt-c1.json"
+      },
+      "wall_s": 23.142734055989422,
+      "completed_turns": 3,
+      "all_transport_pass": true,
+      "total_underrun_frames": 1,
+      "cleanup_pass": true
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-c2.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "ec72aa11d4691a12a04f6e2e4730132aa63c73eef99e4b4b7eb513afbed2e6e8"
+      },
+      "label": "c2",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 2,
+        "speakers": null,
+        "turns": 1,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": false,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": false,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": false,
+        "output": "benchmarks/implementation/calls-h264-trt-c2.json"
+      },
+      "wall_s": 10.54112733504735,
+      "completed_turns": 2,
+      "all_transport_pass": true,
+      "total_underrun_frames": 134,
+      "cleanup_pass": true
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-c4.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "624a7994fd9cce2b82e2bf65590981f55dfa12415757649140f058d3a4e0ca94"
+      },
+      "label": "c4",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 4,
+        "speakers": null,
+        "turns": 1,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": false,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": false,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": false,
+        "output": "benchmarks/implementation/calls-h264-trt-c4.json"
+      },
+      "wall_s": 20.34683650895022,
+      "completed_turns": 4,
+      "all_transport_pass": true,
+      "total_underrun_frames": 935,
+      "cleanup_pass": true
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-c6.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "27092b7155697dad554cbb2fb4e4737a4c7528f8e33999bd2ced742cb27722c2"
+      },
+      "label": "c6",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 6,
+        "speakers": null,
+        "turns": 1,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": false,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": false,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": false,
+        "output": "benchmarks/implementation/calls-h264-trt-c6.json"
+      },
+      "wall_s": 31.812750372919254,
+      "completed_turns": 6,
+      "all_transport_pass": true,
+      "total_underrun_frames": 2622,
+      "cleanup_pass": true
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-c10.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "39267b8bd8bcf68d2c13620bfe352982f6bbff7973e056265f034f50e193ec2d"
+      },
+      "label": "c10",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 10,
+        "speakers": null,
+        "turns": 1,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": false,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": false,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": false,
+        "output": "benchmarks/implementation/calls-h264-trt-c10.json"
+      },
+      "wall_s": 58.90269613498822,
+      "completed_turns": 10,
+      "all_transport_pass": true,
+      "total_underrun_frames": 9153,
+      "cleanup_pass": true
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "benchmarks/implementation/calls-h264-trt-mixed10.json",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "481e680c5fca75ad26cfce3de994b4267e5c474770453ef2fe4119e23d025816"
+      },
+      "label": "mixed10",
+      "gpu": "RTX 4070, 12282 MiB; historical report attribution",
+      "config": {
+        "url": "http://127.0.0.1:8765",
+        "sessions": 10,
+        "speakers": 1,
+        "turns": 2,
+        "duration_seconds": 0,
+        "audio": [
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/short.wav",
+          "/workspace/MuseTalk/generated/webrtc_quality/2026-08-08/kokoro_duration_matrix/multi_sentence.wav"
+        ],
+        "audio_seconds": 3.0,
+        "gap": 2,
+        "idle_seconds": 1,
+        "timeout": 180,
+        "record": true,
+        "compact_evidence": false,
+        "snapshots_every": 0,
+        "interrupt": false,
+        "interrupt_after": 0.6,
+        "resume_after_interrupt": false,
+        "output": "benchmarks/implementation/calls-h264-trt-mixed10.json"
+      },
+      "wall_s": 18.869456098997034,
+      "completed_turns": 2,
+      "all_transport_pass": true,
+      "total_underrun_frames": 27,
+      "cleanup_pass": true
+    }
+  ],
+  "musetalk_raw_summaries": [
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "load_test_webrtc_v100_baseline_pytorch_20_20_batch4_ramp1_6.json",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "f6310fdc184d1a55847050fee6e1a4472940112b21f046bd4f4f0fd7475c8bf8"
+      },
+      "gpu": "Tesla V100-SXM2-32GB, 32768 MB reported",
+      "rows": [
+        {
+          "concurrency": 1,
+          "completed": 1,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 21.612,
+          "avg_segment_interval_s": 0.051,
+          "max_segment_interval_s": 0.062,
+          "wall_time_s": 39.8,
+          "gpu": {
+            "samples": 39,
+            "avg_util_pct": 25.36,
+            "peak_util_pct": 100.0,
+            "avg_memory_used_mb": 5629.1,
+            "peak_memory_used_mb": 16690.0,
+            "avg_memory_util_pct": 9.18,
+            "peak_memory_util_pct": 35.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 19.607843137254903
+        },
+        {
+          "concurrency": 2,
+          "completed": 2,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 2.772,
+          "avg_segment_interval_s": 0.055,
+          "max_segment_interval_s": 0.118,
+          "wall_time_s": 22.3,
+          "gpu": {
+            "samples": 22,
+            "avg_util_pct": 72.5,
+            "peak_util_pct": 82.0,
+            "avg_memory_used_mb": 3840.4,
+            "peak_memory_used_mb": 3846.0,
+            "avg_memory_util_pct": 31.18,
+            "peak_memory_util_pct": 38.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 36.36363636363637
+        },
+        {
+          "concurrency": 3,
+          "completed": 3,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 4.036,
+          "avg_segment_interval_s": 0.091,
+          "max_segment_interval_s": 0.451,
+          "wall_time_s": 36.4,
+          "gpu": {
+            "samples": 36,
+            "avg_util_pct": 64.89,
+            "peak_util_pct": 86.0,
+            "avg_memory_used_mb": 3855.7,
+            "peak_memory_used_mb": 3856.0,
+            "avg_memory_util_pct": 28.19,
+            "peak_memory_util_pct": 39.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 32.96703296703297
+        },
+        {
+          "concurrency": 4,
+          "completed": 4,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 5.824,
+          "avg_segment_interval_s": 0.126,
+          "max_segment_interval_s": 0.512,
+          "wall_time_s": 50.7,
+          "gpu": {
+            "samples": 54,
+            "avg_util_pct": 58.28,
+            "peak_util_pct": 80.0,
+            "avg_memory_used_mb": 3864.9,
+            "peak_memory_used_mb": 3866.0,
+            "avg_memory_util_pct": 24.98,
+            "peak_memory_util_pct": 37.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 31.746031746031747
+        },
+        {
+          "concurrency": 5,
+          "completed": 5,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 6.874,
+          "avg_segment_interval_s": 0.143,
+          "max_segment_interval_s": 0.679,
+          "wall_time_s": 58.2,
+          "gpu": {
+            "samples": 56,
+            "avg_util_pct": 69.34,
+            "peak_util_pct": 85.0,
+            "avg_memory_used_mb": 3875.8,
+            "peak_memory_used_mb": 3876.0,
+            "avg_memory_util_pct": 28.95,
+            "peak_memory_util_pct": 38.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 34.96503496503497
+        },
+        {
+          "concurrency": 6,
+          "completed": 3,
+          "failed": 3,
+          "avg_time_to_live_ready_s": 7.693,
+          "avg_segment_interval_s": 0.172,
+          "max_segment_interval_s": 0.82,
+          "wall_time_s": 240.2,
+          "gpu": {
+            "samples": 231,
+            "avg_util_pct": 20.61,
+            "peak_util_pct": 94.0,
+            "avg_memory_used_mb": 1127.1,
+            "peak_memory_used_mb": 3886.0,
+            "avg_memory_util_pct": 8.72,
+            "peak_memory_util_pct": 39.0
+          },
+          "errors": [
+            "audio track receive failed: MediaStreamError: ",
+            "video track receive failed: MediaStreamError: ",
+            "timeout: stream did not complete in 240s (last status error: ClientConnectorError: Cannot connect to host 127.0.0.1:8000 ssl:default [Connect call failed ('127.0.0.1', 8000)])",
+            "video track receive failed: MediaStreamError: ",
+            "audio track receive failed: MediaStreamError: ",
+            "timeout: stream did not complete in 240s (last status error: ClientConnectorError: Cannot connect to host 127.0.0.1:8000 ssl:default [Connect call failed ('127.0.0.1', 8000)])",
+            "video track receive failed: MediaStreamError: ",
+            "audio track receive failed: MediaStreamError: ",
+            "timeout: stream did not complete in 240s (last status error: ClientConnectorError: Cannot connect to host 127.0.0.1:8000 ssl:default [Connect call failed ('127.0.0.1', 8000)])"
+          ],
+          "derived_aggregate_fps_proxy": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "load_test_webrtc_report_v100_20_20_4_5_6_8streams_4_8_16_libx264_20260523.json",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "f744f539137557294fb16937e529cf4f2fb2ad00c524016e0c251352fff7069c"
+      },
+      "gpu": "Tesla V100-SXM2-32GB, 32768 MB reported",
+      "rows": [
+        {
+          "concurrency": 4,
+          "completed": 4,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 8.197,
+          "avg_segment_interval_s": 0.081,
+          "max_segment_interval_s": 0.977,
+          "wall_time_s": 38.6,
+          "gpu": {
+            "samples": 38,
+            "avg_util_pct": 64.21,
+            "peak_util_pct": 99.0,
+            "avg_memory_used_mb": 26898.1,
+            "peak_memory_used_mb": 27328.0,
+            "avg_memory_util_pct": 26.71,
+            "peak_memory_util_pct": 55.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 49.382716049382715
+        },
+        {
+          "concurrency": 5,
+          "completed": 5,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 5.403,
+          "avg_segment_interval_s": 0.096,
+          "max_segment_interval_s": 1.182,
+          "wall_time_s": 40.2,
+          "gpu": {
+            "samples": 39,
+            "avg_util_pct": 73.1,
+            "peak_util_pct": 99.0,
+            "avg_memory_used_mb": 27329.9,
+            "peak_memory_used_mb": 27330.0,
+            "avg_memory_util_pct": 37.13,
+            "peak_memory_util_pct": 56.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 52.083333333333336
+        },
+        {
+          "concurrency": 6,
+          "completed": 6,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 5.962,
+          "avg_segment_interval_s": 0.126,
+          "max_segment_interval_s": 2.637,
+          "wall_time_s": 53.1,
+          "gpu": {
+            "samples": 51,
+            "avg_util_pct": 71.57,
+            "peak_util_pct": 100.0,
+            "avg_memory_used_mb": 27321.1,
+            "peak_memory_used_mb": 27396.0,
+            "avg_memory_util_pct": 34.27,
+            "peak_memory_util_pct": 55.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 47.61904761904762
+        },
+        {
+          "concurrency": 8,
+          "completed": 8,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 7.208,
+          "avg_segment_interval_s": 0.164,
+          "max_segment_interval_s": 2.346,
+          "wall_time_s": 67.7,
+          "gpu": {
+            "samples": 66,
+            "avg_util_pct": 69.08,
+            "peak_util_pct": 100.0,
+            "avg_memory_used_mb": 27381.6,
+            "peak_memory_used_mb": 31542.0,
+            "avg_memory_util_pct": 33.17,
+            "peak_memory_util_pct": 56.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 48.78048780487805
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "load_test_webrtc_4090_gpt_moving_avatar_20_20_4_5_6_8streams_8_12_libx264_20260523.json",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "58c13a0da8673ea013c824b40bdaf4003e724bd27647cc051f457c1ed292ac7a"
+      },
+      "gpu": "RTX 4090, 24564 MiB",
+      "rows": [
+        {
+          "concurrency": 4,
+          "completed": 4,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 4.864,
+          "avg_segment_interval_s": 0.066,
+          "max_segment_interval_s": 0.608,
+          "wall_time_s": 29.1,
+          "gpu": {
+            "samples": 29,
+            "avg_util_pct": 42.17,
+            "peak_util_pct": 94.0,
+            "avg_memory_used_mb": 20363.1,
+            "peak_memory_used_mb": 20601.0,
+            "avg_memory_util_pct": 29.03,
+            "peak_memory_util_pct": 77.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 60.6060606060606
+        },
+        {
+          "concurrency": 5,
+          "completed": 5,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 3.722,
+          "avg_segment_interval_s": 0.081,
+          "max_segment_interval_s": 0.58,
+          "wall_time_s": 33.3,
+          "gpu": {
+            "samples": 33,
+            "avg_util_pct": 47.82,
+            "peak_util_pct": 87.0,
+            "avg_memory_used_mb": 20675.5,
+            "peak_memory_used_mb": 20699.0,
+            "avg_memory_util_pct": 34.0,
+            "peak_memory_util_pct": 66.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 61.72839506172839
+        },
+        {
+          "concurrency": 6,
+          "completed": 6,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 4.46,
+          "avg_segment_interval_s": 0.096,
+          "max_segment_interval_s": 0.845,
+          "wall_time_s": 40.3,
+          "gpu": {
+            "samples": 40,
+            "avg_util_pct": 43.88,
+            "peak_util_pct": 90.0,
+            "avg_memory_used_mb": 20699.0,
+            "peak_memory_used_mb": 20699.0,
+            "avg_memory_util_pct": 30.62,
+            "peak_memory_util_pct": 63.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 62.5
+        },
+        {
+          "concurrency": 8,
+          "completed": 8,
+          "failed": 0,
+          "avg_time_to_live_ready_s": 7.116,
+          "avg_segment_interval_s": 0.13,
+          "max_segment_interval_s": 1.468,
+          "wall_time_s": 54.8,
+          "gpu": {
+            "samples": 54,
+            "avg_util_pct": 42.65,
+            "peak_util_pct": 88.0,
+            "avg_memory_used_mb": 20699.0,
+            "peak_memory_used_mb": 20699.0,
+            "avg_memory_util_pct": 28.15,
+            "peak_memory_util_pct": 67.0
+          },
+          "errors": [],
+          "derived_aggregate_fps_proxy": 61.53846153846153
+        }
+      ]
+    }
+  ],
+  "documentary_evidence": [
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "current_cross_server_throughput_findings.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "5d258c9c49da04874a8ffcc0219a38ec4ea1e4114a9d65002e42fc8279067b63"
+      },
+      "start_line": 502,
+      "end_line": 525,
+      "excerpt": "## RTX 4090 WebRTC Throughput Check - May 23, 2026\n\nThis pass tested the same MuseTalk server stack on an RTX 4090 to compare\nagainst the saved RTX 3090 WebRTC references.\n\nHardware/runtime observed:\n\n- GPU: `NVIDIA GeForce RTX 4090`\n- GPU memory: `24564 MiB`\n- Driver: `565.77`\n- Python env: `/workspace/.venvs/musetalk_trt_stagewise`\n- Encoder: `WEBRTC_H264_ENCODER=libx264`\n- WebRTC request shape: `20/20 fps`, request `batch_size=8`\n- Ramp tested: `4,5,6,8`\n\nAvatar prepared for this run:\n\n- avatar id: `gpt_moving_avatar_4090`\n- source video: `data/video/chatgpt_moving_vid.mp4`\n- prepare endpoint elapsed time: about `2m39s`\n- prepared frames: `600`\n- avatar artifact size on disk: about `742 MB`\n- warmed avatar cache memory: about `3174.8 MB`\n"
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "current_unet_trt_throughput_findings_2026-05-29.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "36bc5d85eb0a97c24c09705d15c38456b83d9986148126aa09bcf8edaf2542a7"
+      },
+      "start_line": 1,
+      "end_line": 36,
+      "excerpt": "# UNet TensorRT Throughput Findings - 2026-05-29\n\nLater RTX 5000 Ada follow-up:\n`docs/webrtc_load_test_findings_2026-06-07.md` records that the 2026-06-07\nserver had the VAE INT8 path available but did not have the validated batch-8\nUNet TensorRT artifact or capture directory from this note, so the June 7 load\ntests remained PyTorch-UNet tests.\n\n## 2026-05-29 Current Server Update\n\nThe current server is no longer in the earlier CUDA-failed / 150W-capped state.\nCUDA is healthy and the RTX 3090 is running with a `300W` power limit. The API\nserver was restarted successfully with:\n\n```text\nVAE decode backend active: tensorrt_stagewise_int8_mixed\nUNet backend active: tensorrt_unet_multi\n```\n\nThe live UNet TensorRT path is intentionally **not** using the failed batch-16\nartifact. The exact batch-8 TensorRT UNet passed capture validation, and the\nruntime now routes padded batch-16 work as two exact batch-8 TensorRT calls.\n\nRuntime flags used:\n\n```text\nMUSETALK_UNET_BACKEND=trt\nMUSETALK_TRT_UNET_ENABLED=1\nMUSETALK_TRT_UNET_PATHS=8:models/tensorrt_unet_static_bs8_20260529/unet_trt.ts\nMUSETALK_TRT_FALLBACK=0\n```\n\n### Latest VAE INT8 Baseline\n\nSame host, capture disabled, VAE INT8 `8,16` buckets, PyTorch UNet:\n"
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "current_unet_trt_throughput_findings_2026-05-29.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "36bc5d85eb0a97c24c09705d15c38456b83d9986148126aa09bcf8edaf2542a7"
+      },
+      "start_line": 98,
+      "end_line": 121,
+      "excerpt": "\nSame C4/C6/C8 load shape, capture disabled:\n\n| Streams | Completed | Avg frame interval | Approx aggregate FPS | Gain vs PyTorch UNet | Avg live-ready | Max frame interval |\n| ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| 4 | `4/4` | `0.056s` | `71.4` | `+7.1%` | `4.126s` | `0.433s` |\n| 6 | `6/6` | `0.083s` | `72.3` | `+9.6%` | `4.316s` | `0.927s` |\n| 8 | `8/8` | `0.113s` | `70.8` | `+8.8%` | `5.978s` | `1.699s` |\n\nReport:\n\n```text\ntmp/load_tests/load_test_webrtc_3090_int8_5stage_trt_unet_split8_20_20_4_6_8streams_8_16_buckets_batch8_300w_20260529.json\n```\n\nScheduler timing averaged across the 18 completed streams:\n\n| Component | Mean |\n| --- | ---: |\n| `avg_gpu_batch` | `0.185s` |\n| `avg_unet` | `0.051s` |\n| `avg_vae` | `0.132s` |\n| `avg_compose` | `0.061s` |\n"
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "docs/webrtc_load_test_findings_2026-06-07.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "1c923b35e35959f944caed28582918ed3535210913edbbd2fe875e0bb3912dc1"
+      },
+      "start_line": 1,
+      "end_line": 50,
+      "excerpt": "# WebRTC Load Test Findings - 2026-06-07\n\nThis note captures the RTX 5000 Ada WebRTC load-test thread from 2026-06-07:\nthe accidental FP16 run, the corrected INT8 `8,16` run, the follow-up INT8\n`4,8,16` bucket run, and the optimization read from the existing markdowns.\n\nThe workload is MuseTalk lipsync serving for mobile-app AI talking humans. The\nuser-facing target is smooth concurrent WebRTC playback at `20 fps`.\n\n## Short Answer\n\n- The corrected INT8 run lifted the saturated RTX 5000 Ada WebRTC aggregate\n  plateau from about `60-61 fps` to about `70-71 fps`.\n- Smooth strict `20 fps` capacity is still `3` concurrent streams. C4 and above\n  complete, but they record strict video stalls and miss the required aggregate\n  target.\n- INT8 materially reduced VRAM: FP16 peaked around `24.4 GB`; INT8 `8,16`\n  peaked around `17.7 GB`.\n- The saved VRAM gave room to warm an additional batch-4 VAE engine. The\n  `4,8,16` run peaked around `19.8 GB`, but it did not improve strict capacity.\n- The current live path is not the most optimized path documented in the repo.\n  The faster documented path is five-stage VAE INT8 plus TensorRT UNet split8,\n  but the required UNet TensorRT artifact is missing on this RTX 5000 Ada node.\n\n## Test Shape\n\nAll 2026-06-07 RTX 5000 Ada tests used the same WebRTC request shape:\n\n```text\nGPU: NVIDIA RTX 5000 Ada Generation, about 32 GB visible VRAM\nbase URL: http://127.0.0.1:8000\navatar: test_avatar_2\naudio: data/audio/ai-assistant.mpga\nramp: 1,2,3,4,5,6,8\nplayback_fps: 20\nmusetalk_fps: 20\nrequest batch_size: 8\nhold_seconds: 10\nsegment_duration: 1.0\nsame-host WebRTC load-test client\n```\n\nThe aggregate FPS number is calculated as:\n\n```text\naggregate_fps = concurrency / avg_frame_interval_s\n```\n\nFor strict smooth `20 fps`, the aggregate targets are:\n"
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "load_test_webrtc_rtx6000ada_int8_trt_unet_split8_20fps_20260608.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "9d162a5b361700d76a1c42f29c055f51595b0a206fad7a95c28f10c8d15c9cdf"
+      },
+      "start_line": 1,
+      "end_line": 59,
+      "excerpt": "# RTX 6000 Ada WebRTC Load Test - VAE INT8 + TRT UNet Split8 - 2026-06-08\n\nThis is the optimized RTX 6000 Ada rerun for the `20 fps` WebRTC capacity test.\nIt is the run that should be compared against the earlier\n`VAE INT8 + PyTorch UNet` RTX 6000 Ada baseline.\n\nImportant precision note: INT8 applies to the five selected VAE decoder stages\nand the warmed scheduler buckets. The UNet artifact tested here is FP16\nTensorRT, loaded through the split8 runtime. It is not UNet INT8.\n\n## Configuration\n\n- GPU: NVIDIA RTX 6000 Ada Generation, 49140 MiB\n- Server profile: `throughput_record`\n- WebRTC target: `--playback-fps 20 --musetalk-fps 20`\n- VAE backend: `tensorrt_stagewise_int8_mixed`\n- UNet backend: `tensorrt_unet_multi`\n- UNet runtime shape: static batch-8 TensorRT artifact, split8 for larger turns\n- Fixed buckets / warmup batches: `8,16`\n- INT8 frontend: `onnx_qdq`\n- INT8 VAE stages: `decoder_pre,decoder_mid_block,decoder_up_block_0,decoder_up_block_1,decoder_up_block_2`\n- H.264 encoder: `libx264`\n- Avatar: `test_avatar`\n- Audio: `data/audio/ai-assistant.mpga`\n- Harness: `load_test_webrtc.py`\n\nServer log evidence:\n\n```text\nStagewise TRT warmup complete (batches=[8, 16], total=30.40s)\nVAE decode backend active: tensorrt_stagewise_int8_mixed\nUNet backend active: tensorrt_unet_multi\nHLS GPU scheduler started (max_combined_batch_size=16, fixed_batch_sizes=[8, 16]...)\n```\n\nUNet TensorRT artifact and validation:\n\n- Capture corpus: `calibration/unet_rtx6000ada_split8_20260608`\n- Captures: 64 real scheduler captures, all batch `8`\n- Artifact: `models/tensorrt_unet_static_bs8_rtx6000ada_20260608/unet_trt.ts`\n- Artifact metadata: `models/tensorrt_unet_static_bs8_rtx6000ada_20260608/unet_trt_meta.json`\n- Validation report: `tmp/unet_rtx6000ada_split8_trt_validation_20260608.json`\n- Validation result: passed\n- Validation summary: `mae_mean=0.001684`, `mae_max=0.001708`, `max_abs_max=0.151123`, `latency_ms_mean=14.987`\n\n## Optimized Results\n\nSmooth 20 fps means an average frame interval near `0.050s` with no meaningful\nthrottling. The harness warns when max frame interval exceeds `0.100s`.\n\n| Concurrency | Completed | Failed | Avg live-ready | Avg interval | Max interval | Aggregate fps | Peak VRAM | Smooth at 20 fps |\n| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |\n| 4 | 4 | 0 | 3.778s | 0.051s | 0.072s | 78.4 | 19,644 MB | Yes |\n| 8 | 8 | 0 | 3.296s | 0.070s | 0.661s | 114.3 | 19,644 MB | No |\n| 10 | 10 | 0 | 4.019s | 0.089s | 1.050s | 112.4 | 19,644 MB | No |\n| 12 | 12 | 0 | 4.891s | 0.105s | 1.297s | 114.3 | 19,644 MB | No |\n| 15 | 15 | 0 | 6.629s | 0.134s | 2.016s | 111.9 | 19,644 MB | No |\n| 16 | 16 | 0 | 6.933s | 0.143s | 2.252s | 111.9 | 19,644 MB | No |\n| 20 | 20 | 0 | 9.041s | 0.179s | 2.843s | 111.7 | 19,644 MB | No |"
+    },
+    {
+      "source": {
+        "repo": "MuseTalk",
+        "path": "docs/webrtc_generation_optimization_results_2026-07-03.md",
+        "revision": "534c4f0fe9c74e9f4c45130660fa9f38e6aba31e",
+        "sha256": "75b732dedeaf7d885ba7603509df1146ed19d16451c57d725ee0fb99702caf24"
+      },
+      "start_line": 30,
+      "end_line": 80,
+      "excerpt": "## 2026-07-04 Follow-Up: UNet Batch-8 vs Batch-16\n\nBuilt and validated both requested UNet TRT artifacts from fresh captures:\n\n| Artifact | Validation | Mean latency | Mean backend fps | Quality gate |\n| --- | --- | ---: | ---: | --- |\n| `models/tensorrt_unet_static_bs8_20260704/unet_trt.ts` | pass | `25.86 ms` at batch 8 | `309.36 fps` | `mae_max=0.001772`, `max_abs_max=0.1323` |\n| `models/tensorrt_unet_static_bs16_20260704/unet_trt.ts` | pass | `44.89 ms` at batch 16 | `356.44 fps` | `mae_max=0.001785`, `max_abs_max=0.1240` |\n\nValidation reports:\n\n- `tmp/unet_trt_bs8_bs16_20260704/unet_trt_static_bs8_validation.json`\n- `tmp/unet_trt_bs8_bs16_20260704/unet_trt_static_bs16_validation.json`\n\nLive WebRTC tests used VAE INT8 safe-five\n`decoder_pre,decoder_mid_block,decoder_up_block_0,decoder_up_block_1,decoder_up_block_2`,\nbatch frame handoff, fixed-point/shrunk-mask compose, recent avatar\n`avatar_5a584c8b-512f-4f70-848c-a3d1efbb988f_1782690149`, and 20 fps WebRTC.\n\n| Runtime profile | Startup result | C4 avg/max interval | C6 avg/max interval | C8 avg/max interval | Peak VRAM | Decision |\n| --- | --- | ---: | ---: | ---: | ---: | --- |\n| Split8 only: `MUSETALK_TRT_UNET_PATHS=8:...`, scheduler `8,16` | healthy in `2m13s` | `0.062s / 0.344s` | `0.093s / 0.901s` | `0.138s / 30.111s` | `20753 MB` | works, but bad C8 tail |\n| Dual exact `8,16`: `MUSETALK_TRT_UNET_PATHS=8:...,16:...` | failed startup | n/a | n/a | n/a | OOM after `22723 MB` | do not deploy on 24 GB |\n| Exact16 only: `MUSETALK_TRT_UNET_PATHS=16:...`, scheduler `16` | healthy in `1m37s` | `0.061s / 0.219s` | `0.085s / 1.398s` | `0.116s / 2.333s` | `17635 MB` | best validated 3090 profile |\n\nThe exact batch-16 artifact is now correctness-valid, but loading both batch-8\nand batch-16 UNet engines is too close to the 24 GB RTX 3090 edge. The server\nfinished VAE INT8 warmup, reached about `22.2 GB`, then failed deserializing the\nbatch-16 UNet engine with a small CUDA OOM request. The deployable fix is to\nrun the exact batch-16 engine alone and force the scheduler bucket to `16`.\n\nVideo smoke artifact for the selected profile:\n\n- `tmp/unet_trt_bs8_bs16_20260704/video/webrtc_exact16only_20fps_smoke.mp4`\n- `frames_written=376`\n- WebRTC stats reported `video_stalls=0`, `strict_video_stalls=0`,\n  `frames_dropped=0`, `frames_duplicated=0`\n\nStartup has been updated to generate and load the best validated TRT profile:\n\n- `scripts/select_unet_trt_profile.py` writes\n  `.runtime/musetalk_trt_best.env`.\n- `scripts/vast_onstart.sh` runs the selector after setup/TURN bootstrap and\n  before starting the server.\n- `scripts/run_trt_stagewise_server.sh` sources the generated env by default.\n- Set `MUSETALK_SELECT_BEST_TRT_PROFILE=0` or\n  `MUSETALK_TRT_PROFILE_ENV_LOAD=0` to disable this behavior.\n\nCurrent deployment recommendation: use exact16-only for new 3090 servers. Treat\n`6x20fps` as the practical support target from this run. `8x20fps` completes but\nis still throttled, so the next concurrency test should be `8x15fps`."
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "docs/research/PIPELINE_PROFILE_2026-09-11.md",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "7a99f029ecf8aa6adc0dc020fa1b978c2e0cad32df5140bd5be0f9e590d41343"
+      },
+      "start_line": 26,
+      "end_line": 46,
+      "excerpt": "- RTX 4070, 12,282 MiB; the unrelated OmniVoice process remained resident at\n  5,312 MiB. FlashHead was gracefully paused after verifying no live sessions,\n  and experiments took exclusive ownership of the FlashHead GPU lease.\n- Four-step Lite, compiled DiT/VAE, cached conditioning, real RoPE, packed QKV,\n  lean postprocessing, resident compact INT8 **storage with BF16 compute**.\n  This is not integer matrix multiplication.\n- Phone baseline: 320\u00d7576, 3,584 MiB Torch allocator cap, 25 playback FPS.\n  320\u00d7576 is approximately portrait 9:16, not mathematically exact 9:16.\n- Fixed real ten-second WAV, 16 kHz, seed 50, 250 useful generated frames.\n  A complete clip warms each variant; three measured repetitions follow per\n  avatar. Preparation, compiler warmup, quality comparison, and video encoding\n  are outside the generation timer. All repeats are retained.\n- Avatars: FlashHead girl; MuseTalk man; MuseTalk yongen; extracted MuseTalk\n  production-idle anchor. Source paths and input hashes are in the JSON.\n  The portrait tests use still anchors, not motion-driving input videos.\n- GPU phase measurements are CUDA-event **intervals**, including possible GPU\n  starvation between launches, not an assertion that every millisecond is a\n  running kernel. Host intervals measure enqueue/CPU time and must not be added\n  to GPU intervals. One warmed operator trace separates kernel work further.\n- Variants run in blocks, not randomized alternating trials. Small percentage\n  differences are descriptive measurements, not statistically established gains."
+    },
+    {
+      "source": {
+        "repo": "SoulX-FlashHead",
+        "path": "docs/research/PIPELINE_PROFILE_2026-09-11.md",
+        "revision": "752598aed98e8b68bda7b69bf9a03fb404db3228",
+        "sha256": "7a99f029ecf8aa6adc0dc020fa1b978c2e0cad32df5140bd5be0f9e590d41343"
+      },
+      "start_line": 127,
+      "end_line": 190,
+      "excerpt": "\n| Avatar | Existing baseline | Compiled color | Compiled audio | Both compiled |\n| --- | ---: | ---: | ---: | ---: |\n| Girl | 54.06 | 55.50 | 54.65 | 56.26 |\n| Man | 53.91 | 55.77 | 54.64 | 56.55 |\n| Yongen | 54.05 | 55.85 | 54.88 | 56.47 |\n| Production idle anchor | 54.21 | 54.58 | 54.63 | 56.50 |\n| Pooled median, 12 renders | 54.06 | 55.71 | 54.65 | 56.47 |\n\nBoth options: +4.47% pooled median throughput, not +25%. Baseline measured range\n53.14\u201354.48 FPS; combined 55.93\u201356.77 FPS. Avatar content has little influence\non this fixed-shape neural workload. Baseline median first-chunk latency by\navatar is 424\u2013432 ms; combined is 404\u2013409 ms. This excludes preparation and RTC.\n\nThe first uncached girl template took 5,195 ms including shape/compiler setup;\nsubsequent newly encountered avatars took 147\u2013194 ms. Warm template lookup and\nstate creation had a 2.06 ms synchronized median. Prewarming approved avatars\ncan remove a real cold-call penalty, but will not accelerate ongoing chunks.\n\nColor-only raw RGB error against the corresponding baseline first repeat:\nMAE 1.79\u20132.68/255, PSNR 32.64\u201336.09 dB. Audio-only: MAE 0.92\u20131.13,\nPSNR 40.32\u201343.78 dB. Combined: MAE 1.70\u20132.78, PSNR 32.29\u201337.31 dB.\nThese are differences, not proof of worse/better perceptual quality. Sparse\ngirl contact sheets showed plausible frames but are not a lip-sync review.\nThe full paired MP4s are retained for all four avatars. These options remain\nexperimental and default off; they are not promoted based on FPS alone.\n\n### Where the milliseconds go\n\nMean across 108 baseline steady, full, nonterminal chunks (first and last chunks\nexcluded from each of twelve runs). Total phase interval 422.03 ms; mean wall\n422.21 ms. These are per **24 new frames**, not per single frame.\n\n| Region | ms/chunk | Share of phase interval |\n| --- | ---: | ---: |\n| Audio normalize/H2D + Wav2Vec + stack/index | 13.88 | 3.3% |\n| Conditioning/noise/reference | 5.90 | 1.4% |\n| Four DiT passes | 232.84 | 55.2% |\n| VAE decode | 116.34 | 27.6% |\n| Color correction | 14.08 | 3.3% |\n| Motion feedback encode | 33.96 | 8.0% |\n| Uint8 layout + CPU transfer | 4.82 | 1.1% |\n| Remaining bookkeeping phases | 0.21 | <0.1% |\n\nWav2Vec itself: 12.28 ms. Each DiT pass: 57.78\u201359.50 ms. Merely removing all\naudio and color work would yield only about a 7.1% whole-chunk speedup and would\nobviously change the model. A +25% throughput gain requires removing 20% of\ntotal time, around 84 ms/chunk. That requires material DiT/VAE improvements,\nnot only Python/HTTP cleanup. Four-pass DiT and VAE decode together account for\n82.8% of this path.\n\nThe 250-frame job still runs eleven full neural chunks; the last output chunk\ncontains only ten useful frames. Therefore 24/steady-chunk-time and measured\n250/job-time are intentionally different rates.\n\n### Operator-level evidence\n\nOne warmed nonterminal chunk, `kernels-320.operators.txt` and its gzipped Chrome\ntrace, confirms the active attention backend is FlashAttention. Approximate\nattributed GPU costs: `aten::mm` 148.52 ms plus `aten::addmm` 33.36 ms (45.4%\ncombined); cuDNN convolution 141.21 ms (35.3%); FlashAttention 18.75 ms (4.7%).\nDo not add framework operator rows to their corresponding kernel rows: the\nprofiler table contains both views of the same work. Its total self CUDA time\nis 400.55 ms; profiler instrumentation makes it a different measurement from"
+    }
+  ],
+  "source_availability": [
+    {
+      "path": "/workspace/experiments/flashhead-pipeline-ARsFTh/profile-320.json",
+      "exists": false
+    },
+    {
+      "path": "/workspace/MuseTalk/tmp/load_tests/load_test_webrtc_rtx6000ada_int8_5stage_trt_unet_split8_20_20_4_8_12_16streams_8_16_libx264_20260608.json",
+      "exists": false
+    },
+    {
+      "path": "/workspace/MuseTalk/tmp/load_tests/load_test_webrtc_3090_int8_5stage_trt_unet_split8_20_20_4_6_8streams_8_16_buckets_batch8_300w_20260529.json",
+      "exists": false
+    }
+  ],
+  "illustrative_turn_taking": {
+    "connected": 10,
+    "speaking_fraction": 0.3,
+    "expected_active": 3.0,
+    "probability_two_or_more_if_independent": 0.8506916541,
+    "warning": "Independent binomial illustration only; no user traffic data or correlation model was measured."
+  },
+  "illustrative_sizing": {
+    "baseline_fps": 35.31726019510336,
+    "utilization_budget": 0.8,
+    "scenarios": [
+      {
+        "active_speakers": 1,
+        "target_fps": 20,
+        "required_fps_no_headroom": 20,
+        "required_fps_at_80pct_utilization": 25.0,
+        "speedup_over_current_no_headroom": 0.566295343679376,
+        "speedup_over_current_with_headroom": 0.7078691795992199
+      },
+      {
+        "active_speakers": 1,
+        "target_fps": 25,
+        "required_fps_no_headroom": 25,
+        "required_fps_at_80pct_utilization": 31.25,
+        "speedup_over_current_no_headroom": 0.7078691795992199,
+        "speedup_over_current_with_headroom": 0.8848364744990249
+      },
+      {
+        "active_speakers": 2,
+        "target_fps": 20,
+        "required_fps_no_headroom": 40,
+        "required_fps_at_80pct_utilization": 50.0,
+        "speedup_over_current_no_headroom": 1.132590687358752,
+        "speedup_over_current_with_headroom": 1.4157383591984398
+      },
+      {
+        "active_speakers": 2,
+        "target_fps": 25,
+        "required_fps_no_headroom": 50,
+        "required_fps_at_80pct_utilization": 62.5,
+        "speedup_over_current_no_headroom": 1.4157383591984398,
+        "speedup_over_current_with_headroom": 1.7696729489980498
+      },
+      {
+        "active_speakers": 3,
+        "target_fps": 20,
+        "required_fps_no_headroom": 60,
+        "required_fps_at_80pct_utilization": 75.0,
+        "speedup_over_current_no_headroom": 1.6988860310381277,
+        "speedup_over_current_with_headroom": 2.1236075387976596
+      },
+      {
+        "active_speakers": 3,
+        "target_fps": 25,
+        "required_fps_no_headroom": 75,
+        "required_fps_at_80pct_utilization": 93.75,
+        "speedup_over_current_no_headroom": 2.1236075387976596,
+        "speedup_over_current_with_headroom": 2.6545094234970747
+      },
+      {
+        "active_speakers": 4,
+        "target_fps": 20,
+        "required_fps_no_headroom": 80,
+        "required_fps_at_80pct_utilization": 100.0,
+        "speedup_over_current_no_headroom": 2.265181374717504,
+        "speedup_over_current_with_headroom": 2.8314767183968796
+      },
+      {
+        "active_speakers": 4,
+        "target_fps": 25,
+        "required_fps_no_headroom": 100,
+        "required_fps_at_80pct_utilization": 125.0,
+        "speedup_over_current_no_headroom": 2.8314767183968796,
+        "speedup_over_current_with_headroom": 3.5393458979960997
+      },
+      {
+        "active_speakers": 6,
+        "target_fps": 20,
+        "required_fps_no_headroom": 120,
+        "required_fps_at_80pct_utilization": 150.0,
+        "speedup_over_current_no_headroom": 3.3977720620762555,
+        "speedup_over_current_with_headroom": 4.247215077595319
+      },
+      {
+        "active_speakers": 6,
+        "target_fps": 25,
+        "required_fps_no_headroom": 150,
+        "required_fps_at_80pct_utilization": 187.5,
+        "speedup_over_current_no_headroom": 4.247215077595319,
+        "speedup_over_current_with_headroom": 5.3090188469941495
+      },
+      {
+        "active_speakers": 8,
+        "target_fps": 20,
+        "required_fps_no_headroom": 160,
+        "required_fps_at_80pct_utilization": 200.0,
+        "speedup_over_current_no_headroom": 4.530362749435008,
+        "speedup_over_current_with_headroom": 5.662953436793759
+      },
+      {
+        "active_speakers": 8,
+        "target_fps": 25,
+        "required_fps_no_headroom": 200,
+        "required_fps_at_80pct_utilization": 250.0,
+        "speedup_over_current_no_headroom": 5.662953436793759,
+        "speedup_over_current_with_headroom": 7.078691795992199
+      },
+      {
+        "active_speakers": 10,
+        "target_fps": 20,
+        "required_fps_no_headroom": 200,
+        "required_fps_at_80pct_utilization": 250.0,
+        "speedup_over_current_no_headroom": 5.662953436793759,
+        "speedup_over_current_with_headroom": 7.078691795992199
+      },
+      {
+        "active_speakers": 10,
+        "target_fps": 25,
+        "required_fps_no_headroom": 250,
+        "required_fps_at_80pct_utilization": 312.5,
+        "speedup_over_current_no_headroom": 7.078691795992199,
+        "speedup_over_current_with_headroom": 8.84836474499025
+      }
+    ],
+    "warning": "Arithmetic planning scenarios only. Not a concurrency validation, extrapolation to another GPU, or SLA."
+  }
+}

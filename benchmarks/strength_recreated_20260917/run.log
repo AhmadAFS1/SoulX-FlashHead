@@ -1,0 +1,32 @@
+2026-09-17 02:14:11.508 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 50, "strength": 1.0, "directory": "seed50-strength1", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.02667201400618, "useful_fps": 31.146158652522647, "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 50, "strength": 0.9, "directory": "seed50-strength0.9", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.03282993999892, "useful_fps": 31.122282167974497, "raw_sha256": "555f072aaf261b8eb6095ae50c154184c80d978d8d311dafae68798174fc8d84", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 50, "strength": 0.75, "directory": "seed50-strength0.75", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.057782807998592, "useful_fps": 31.02590451455659, "raw_sha256": "ae80700e6e9adf7512370e9678c0386237b78ffeae6d3b8edd760b1d444617f0", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 50, "strength": 0.5, "directory": "seed50-strength0.5", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.057657299010316, "useful_fps": 31.02638778528175, "raw_sha256": "c0b016b9e846b3f926724586e89706ed232a90ac58affd8b0995186cefb5e9d3", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 51, "strength": 1.0, "directory": "seed51-strength1", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.088796019990696, "useful_fps": 30.90694825066037, "raw_sha256": "211cf11f481539c6da9ab5ec8b0ae87dd9edbda79f8bba13bfe76e34c90e1dd2", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 51, "strength": 0.9, "directory": "seed51-strength0.9", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.075040663999971, "useful_fps": 30.959596415971795, "raw_sha256": "8299485ec353270bf8f6f674d8b1e7374b5db15ae39eda1326a65276a3244ec4", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 51, "strength": 0.75, "directory": "seed51-strength0.75", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.07241888801218, "useful_fps": 30.969651534220876, "raw_sha256": "25943931e5f44a98c366747a51b23f0651a82ca0c0f3629b96ebad08ce5351ea", "frames": 250, "peak_allocated_mib": 3301.47265625}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+{"seed": 51, "strength": 0.5, "directory": "seed51-strength0.5", "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n", "wall_s": 8.09271139698103, "useful_fps": 30.89199499851953, "raw_sha256": "e8d39169e7fb91b5404af31182c00547ff511d00d7de2c5890ff8f7b637ee685", "frames": 250, "peak_allocated_mib": 3301.47265625}

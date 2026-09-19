@@ -1,0 +1,18 @@
+[09/19/2026-01:24:02] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+[09/19/2026-01:24:02] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+[09/19/2026-01:24:03] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+[09/19/2026-01:24:03] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+W0919 01:24:03.659000 522204 .venv/lib/python3.10/site-packages/torch/_inductor/utils.py:1250] [4/7] Not enough SMs to use max_autotune_gemm mode
+W0919 01:24:04.053000 522204 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] torch._dynamo hit config.recompile_limit (8)
+W0919 01:24:04.053000 522204 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8]    function: 'forward' (/workspace/SoulX-FlashHead/flash_head/wan/modules/vae.py:34)
+W0919 01:24:04.053000 522204 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8]    last reason: 4/7: tensor 'x' stride mismatch at index 1. expected 184320, actual 737280
+W0919 01:24:04.053000 522204 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+W0919 01:24:04.053000 522204 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] To diagnose recompilation issues, see https://pytorch.org/docs/main/torch.compiler_troubleshooting.html.
+[09/19/2026-01:24:04] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+[09/19/2026-01:24:04] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+Traceback (most recent call last):
+  File "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/decoder_trial.py", line 276, in <module>
+    main()
+  File "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/decoder_trial.py", line 253, in main
+    raise RuntimeError("Decoder failed finite/cache-reset/BF16-adapter qualification")
+RuntimeError: Decoder failed finite/cache-reset/BF16-adapter qualification

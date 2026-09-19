@@ -1,0 +1,9 @@
+{
+  "execution": "CPU Tasks FaceLandmarker smoke/contract checks; EGL context initialized on RTX 4070 SUPER",
+  "mediapipe": "0.10.35",
+  "real_video_frames": 12,
+  "finite_20_point_outputs": true,
+  "monotonic_video_calls": true,
+  "closed_tracker_rejected": true,
+  "blank_image_no_face": true
+}

@@ -1,0 +1,91 @@
+{
+  "candidate_policy": "benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+  "cells": [
+    {
+      "child_status": "complete",
+      "command": [
+        "/workspace/SoulX-FlashHead/.venv/bin/python",
+        "benchmarks/pro_quantization_v2_20260918/run.py",
+        "--policy",
+        "benchmarks/pro_quantization_v2_20260918/policies/self_all_fp8_sage2_fp16.json",
+        "--fixtures",
+        "benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--output",
+        "benchmarks/pro_30fps_20260919/fp16-seed1-pilot-r01/runs/000-reference-seed1-r01",
+        "--seed",
+        "1",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock",
+        "--save-raw"
+      ],
+      "completed_utc": "2026-09-19T01:54:10.603825+00:00",
+      "output": "benchmarks/pro_30fps_20260919/fp16-seed1-pilot-r01/runs/000-reference-seed1-r01",
+      "pythonpath": ".pro-sage2-deps:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "repeat": 0,
+      "returncode": 0,
+      "role": "reference",
+      "seed": 1,
+      "sequence": 0,
+      "started_utc": "2026-09-19T01:53:20.460265+00:00"
+    },
+    {
+      "child_status": "complete",
+      "command": [
+        "/workspace/SoulX-FlashHead/.venv/bin/python",
+        "benchmarks/pro_quantization_v2_20260918/run.py",
+        "--policy",
+        "benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+        "--fixtures",
+        "benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--output",
+        "benchmarks/pro_30fps_20260919/fp16-seed1-pilot-r01/runs/001-candidate-seed1-r01",
+        "--seed",
+        "1",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock",
+        "--save-raw"
+      ],
+      "completed_utc": "2026-09-19T01:54:57.088578+00:00",
+      "output": "benchmarks/pro_30fps_20260919/fp16-seed1-pilot-r01/runs/001-candidate-seed1-r01",
+      "pythonpath": "/workspace/experiments/pro30-deps/sage-sm89:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "repeat": 0,
+      "returncode": 0,
+      "role": "candidate",
+      "seed": 1,
+      "sequence": 1,
+      "started_utc": "2026-09-19T01:54:10.605335+00:00"
+    }
+  ],
+  "date_utc": "2026-09-19T01:53:20.459938+00:00",
+  "execution": "sequential subprocess orchestration; each child acquires the shared GPU lease",
+  "fixture_id": "indian150-a",
+  "frames": 250,
+  "reference_policy": "benchmarks/pro_quantization_v2_20260918/policies/self_all_fp8_sage2_fp16.json",
+  "schedule": [
+    {
+      "repeat": 0,
+      "role": "reference",
+      "seed": 1,
+      "sequence": 0
+    },
+    {
+      "repeat": 0,
+      "role": "candidate",
+      "seed": 1,
+      "sequence": 1
+    }
+  ],
+  "status": "complete"
+}

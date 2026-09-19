@@ -1,0 +1,860 @@
+{
+  "execution": "CPU aggregation of recorded RTX 4070 SUPER inference measurements and CPU media checks; no new generation",
+  "runs": [
+    {
+      "variant": "full-frame-seed50",
+      "stages_s": {
+        "generation": 4.478633477934636,
+        "fixed_composition": 0.0,
+        "aligned_composition": 0.0
+      },
+      "generation_fps": 55.820598231961114,
+      "fixed_branch_fps": 55.820598231961114,
+      "aligned_branch_fps": 55.820598231961114,
+      "peak_allocated_mib": 4784.61669921875,
+      "peak_reserved_mib": 5332.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 4612.689453125,
+          "max": 4614.4296875,
+          "min": 4610.5625
+        },
+        "process_cpu_percent": {
+          "mean": 100.23750000000001,
+          "max": 101.0,
+          "min": 98.7
+        },
+        "host_cpu_percent": {
+          "mean": 6.8375,
+          "max": 10.5,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 11498.77978515625,
+          "max": 11523.85546875,
+          "min": 11478.48828125
+        },
+        "gpu_percent": {
+          "mean": 98.0,
+          "max": 100.0,
+          "min": 93.0
+        },
+        "device_vram_mib": {
+          "mean": 8294.0,
+          "max": 8294.0,
+          "min": 8294.0
+        }
+      }
+    },
+    {
+      "variant": "full-frame-seed51",
+      "stages_s": {
+        "generation": 4.480893723899499,
+        "fixed_composition": 0.0,
+        "aligned_composition": 0.0
+      },
+      "generation_fps": 55.792441286118574,
+      "fixed_branch_fps": 55.792441286118574,
+      "aligned_branch_fps": 55.792441286118574,
+      "peak_allocated_mib": 4784.42919921875,
+      "peak_reserved_mib": 5332.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 4908.859375,
+          "max": 4908.859375,
+          "min": 4908.859375
+        },
+        "process_cpu_percent": {
+          "mean": 100.05000000000001,
+          "max": 101.8,
+          "min": 97.9
+        },
+        "host_cpu_percent": {
+          "mean": 6.3625,
+          "max": 10.2,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 11815.94482421875,
+          "max": 11844.296875,
+          "min": 11799.8828125
+        },
+        "gpu_percent": {
+          "mean": 98.0,
+          "max": 100.0,
+          "min": 93.0
+        },
+        "device_vram_mib": {
+          "mean": 8294.0,
+          "max": 8294.0,
+          "min": 8294.0
+        }
+      }
+    },
+    {
+      "variant": "face-crop256-seed50",
+      "stages_s": {
+        "generation": 1.9034387260326184,
+        "fixed_composition": 0.4718014129321091,
+        "aligned_composition": 2.8876621471135877
+      },
+      "generation_fps": 131.3412386649718,
+      "fixed_branch_fps": 105.252515692567,
+      "aligned_branch_fps": 52.180074396102356,
+      "peak_allocated_mib": 4354.22705078125,
+      "peak_reserved_mib": 4890.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5149.022135416667,
+          "max": 5272.37109375,
+          "min": 5033.37890625
+        },
+        "process_cpu_percent": {
+          "mean": 101.38888888888889,
+          "max": 104.3,
+          "min": 97.9
+        },
+        "host_cpu_percent": {
+          "mean": 5.877777777777777,
+          "max": 9.8,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 12015.750868055555,
+          "max": 12139.203125,
+          "min": 11888.6875
+        },
+        "gpu_percent": {
+          "mean": 0.0,
+          "max": 0.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 7864.0,
+          "max": 7864.0,
+          "min": 7864.0
+        }
+      },
+      "tracking": {
+        "detected": 248,
+        "total": 250,
+        "failure_indices": [
+          63,
+          64
+        ]
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 41.418802001695546,
+          "p95": 97.47794137224348,
+          "max": 123.26601314695056
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 2.6788492879319574,
+          "p95": 4.695200109481808,
+          "max": 10.000110626220703
+        }
+      }
+    },
+    {
+      "variant": "face-crop256-seed51",
+      "stages_s": {
+        "generation": 1.9435728029930033,
+        "fixed_composition": 0.46219461603323,
+        "aligned_composition": 2.8707755940267816
+      },
+      "generation_fps": 128.62908948664682,
+      "fixed_branch_fps": 103.91694476483968,
+      "aligned_branch_fps": 51.92810727091478,
+      "peak_allocated_mib": 4354.22705078125,
+      "peak_reserved_mib": 4890.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5374.04296875,
+          "max": 5374.38671875,
+          "min": 5373.87109375
+        },
+        "process_cpu_percent": {
+          "mean": 101.67777777777776,
+          "max": 104.2,
+          "min": 100.0
+        },
+        "host_cpu_percent": {
+          "mean": 6.355555555555556,
+          "max": 10.0,
+          "min": 3.5
+        },
+        "host_ram_used_mib": {
+          "mean": 12239.301215277777,
+          "max": 12261.5,
+          "min": 12227.41796875
+        },
+        "gpu_percent": {
+          "mean": 0.0,
+          "max": 0.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 7864.0,
+          "max": 7864.0,
+          "min": 7864.0
+        }
+      },
+      "tracking": {
+        "detected": 250,
+        "total": 250,
+        "failure_indices": []
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 19.659732661099447,
+          "p95": 54.08842707814519,
+          "max": 61.88858226879016
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 1.7092204887866973,
+          "p95": 4.977861881256102,
+          "max": 5.8293046951293945
+        }
+      }
+    },
+    {
+      "variant": "face-crop384-seed50",
+      "stages_s": {
+        "generation": 3.53952461614972,
+        "fixed_composition": 0.5231535579659976,
+        "aligned_composition": 2.8240896419156343
+      },
+      "generation_fps": 70.63095390249015,
+      "fixed_branch_fps": 61.53576268797491,
+      "aligned_branch_fps": 39.28585075425427,
+      "peak_allocated_mib": 4649.87890625,
+      "peak_reserved_mib": 5120.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5422.6171875,
+          "max": 5422.6171875,
+          "min": 5422.6171875
+        },
+        "process_cpu_percent": {
+          "mean": 101.43333333333334,
+          "max": 103.4,
+          "min": 100.0
+        },
+        "host_cpu_percent": {
+          "mean": 6.7,
+          "max": 10.0,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 12297.132486979166,
+          "max": 12325.16796875,
+          "min": 12283.29296875
+        },
+        "gpu_percent": {
+          "mean": 42.083333333333336,
+          "max": 100.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 8094.0,
+          "max": 8094.0,
+          "min": 8094.0
+        }
+      },
+      "tracking": {
+        "detected": 250,
+        "total": 250,
+        "failure_indices": []
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 7.105033400749218,
+          "p95": 15.151073463881778,
+          "max": 18.52039029325235
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 1.0063388479351998,
+          "p95": 2.225717675685881,
+          "max": 2.982682466506958
+        }
+      }
+    },
+    {
+      "variant": "face-crop384-seed51",
+      "stages_s": {
+        "generation": 3.538912060961593,
+        "fixed_composition": 0.5703953839838505,
+        "aligned_composition": 2.881538830057252
+      },
+      "generation_fps": 70.64317951208712,
+      "fixed_branch_fps": 60.837502024217386,
+      "aligned_branch_fps": 38.93807526036978,
+      "peak_allocated_mib": 4649.87890625,
+      "peak_reserved_mib": 5120.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5465.25390625,
+          "max": 5465.25390625,
+          "min": 5465.25390625
+        },
+        "process_cpu_percent": {
+          "mean": 101.39166666666667,
+          "max": 104.2,
+          "min": 99.0
+        },
+        "host_cpu_percent": {
+          "mean": 6.616666666666667,
+          "max": 10.5,
+          "min": 3.5
+        },
+        "host_ram_used_mib": {
+          "mean": 12328.247395833334,
+          "max": 12357.69140625,
+          "min": 12314.265625
+        },
+        "gpu_percent": {
+          "mean": 45.833333333333336,
+          "max": 100.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 8094.0,
+          "max": 8094.0,
+          "min": 8094.0
+        }
+      },
+      "tracking": {
+        "detected": 250,
+        "total": 250,
+        "failure_indices": []
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 7.59016878444339,
+          "p95": 16.188582434910643,
+          "max": 19.33004610173868
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 0.882387837588787,
+          "p95": 1.5392643630504608,
+          "max": 1.8925957679748535
+        }
+      }
+    },
+    {
+      "variant": "face-crop512-seed50",
+      "stages_s": {
+        "generation": 6.094841923972126,
+        "fixed_composition": 0.6121341569232754,
+        "aligned_composition": 2.7997887870878913
+      },
+      "generation_fps": 41.01829105964247,
+      "fixed_branch_fps": 37.2746222715952,
+      "aligned_branch_fps": 28.106844243588192,
+      "peak_allocated_mib": 5067.86767578125,
+      "peak_reserved_mib": 5696.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5503.949678308823,
+          "max": 5504.0859375,
+          "min": 5501.76953125
+        },
+        "process_cpu_percent": {
+          "mean": 101.15294117647058,
+          "max": 102.9,
+          "min": 100.0
+        },
+        "host_cpu_percent": {
+          "mean": 6.017647058823529,
+          "max": 9.8,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 12356.474264705883,
+          "max": 12378.6953125,
+          "min": 12328.70703125
+        },
+        "gpu_percent": {
+          "mean": 58.0,
+          "max": 100.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 8670.0,
+          "max": 8670.0,
+          "min": 8670.0
+        }
+      },
+      "tracking": {
+        "detected": 250,
+        "total": 250,
+        "failure_indices": []
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 3.5436973542941446,
+          "p95": 9.488886498475905,
+          "max": 15.891145502521903
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 0.6960831944346428,
+          "p95": 1.9816385388374327,
+          "max": 3.0801868438720703
+        }
+      }
+    },
+    {
+      "variant": "face-crop512-seed51",
+      "stages_s": {
+        "generation": 6.0953707289882,
+        "fixed_composition": 0.5860372079769149,
+        "aligned_composition": 2.697480674018152
+      },
+      "generation_fps": 41.01473251020758,
+      "fixed_branch_fps": 37.41726330117737,
+      "aligned_branch_fps": 28.43218752844189,
+      "peak_allocated_mib": 5067.86767578125,
+      "peak_reserved_mib": 5696.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5670.875919117647,
+          "max": 5671.37109375,
+          "min": 5662.953125
+        },
+        "process_cpu_percent": {
+          "mean": 100.98823529411764,
+          "max": 102.4,
+          "min": 98.4
+        },
+        "host_cpu_percent": {
+          "mean": 6.458823529411765,
+          "max": 10.8,
+          "min": 3.3
+        },
+        "host_ram_used_mib": {
+          "mean": 12533.379365808823,
+          "max": 12550.89453125,
+          "min": 12519.81640625
+        },
+        "gpu_percent": {
+          "mean": 63.35294117647059,
+          "max": 100.0,
+          "min": 0.0
+        },
+        "device_vram_mib": {
+          "mean": 8670.0,
+          "max": 8670.0,
+          "min": 8670.0
+        }
+      },
+      "tracking": {
+        "detected": 250,
+        "total": 250,
+        "failure_indices": []
+      },
+      "alignment_px": {
+        "upper_anchor_rms_before_px": {
+          "mean": 3.5728260995230623,
+          "p95": 8.915040863510823,
+          "max": 10.609308514577785
+        },
+        "upper_anchor_rms_after_px": {
+          "mean": 0.6437751356959343,
+          "p95": 1.424325382709503,
+          "max": 2.307974338531494
+        }
+      }
+    }
+  ],
+  "media": {
+    "benchmarks/single_lite_face_roi_20260917/full-frame-seed50/native/soulx-LITE-full-frame-seed50-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/full-frame-seed51/native/soulx-LITE-full-frame-seed51-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed50/native/soulx-LITE-face-crop256-seed50-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 256,
+          "height": 256,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed50/fixed/soulx-LITE-face-crop256-seed50-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed50/aligned/soulx-LITE-face-crop256-seed50-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed51/native/soulx-LITE-face-crop256-seed51-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 256,
+          "height": 256,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed51/fixed/soulx-LITE-face-crop256-seed51-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed51/aligned/soulx-LITE-face-crop256-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed50/native/soulx-LITE-face-crop384-seed50-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 384,
+          "height": 384,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed50/fixed/soulx-LITE-face-crop384-seed50-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed50/aligned/soulx-LITE-face-crop384-seed50-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed51/native/soulx-LITE-face-crop384-seed51-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 384,
+          "height": 384,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed51/fixed/soulx-LITE-face-crop384-seed51-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed51/aligned/soulx-LITE-face-crop384-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed50/native/soulx-LITE-face-crop512-seed50-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 512,
+          "height": 512,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed50/fixed/soulx-LITE-face-crop512-seed50-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed50/aligned/soulx-LITE-face-crop512-seed50-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed51/native/soulx-LITE-face-crop512-seed51-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 512,
+          "height": 512,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed51/fixed/soulx-LITE-face-crop512-seed51-fixed-paste-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed51/aligned/soulx-LITE-face-crop512-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    }
+  },
+  "source_mouth_width_px": 51.969037071894974,
+  "source_mouth_latent_spacings": {
+    "full_frame": 1.624032408496718,
+    "256": 1.4435843631081937,
+    "384": 2.1653765446622906,
+    "512": 2.8871687262163874
+  },
+  "gpu_utilization_caveat": "All 256 ROI nvidia-smi utilization samples were zero despite synchronized GPU inference; half-second sampling misses/aliases short GPU bursts. These samples cannot estimate that path GPU utilization. Other ROI samples include both alternative CPU compositors."
+}

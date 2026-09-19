@@ -1,0 +1,1820 @@
+{
+  "arguments": {
+    "calibration": "benchmarks/pro_30fps_20260919/stage-calibration-r01/results.json",
+    "command": "build",
+    "floating_precision": "bf16",
+    "gpu_lock": "/workspace/SoulX-FlashHead/.gpu-owner.lock",
+    "output": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01",
+    "precision": "fp16",
+    "workspace_mib": "512"
+  },
+  "calibration": {
+    "path": "benchmarks/pro_30fps_20260919/stage-calibration-r01/results.json",
+    "sha256": "7dcf156e75e1fccece1f10e356f8edc715f1ce046d573fb50ddea2d6ab182160"
+  },
+  "date_utc": "2026-09-19T01:37:56.697681+00:00",
+  "environment": {
+    "attention_backend_availability": {
+      "flash_attention_2": true,
+      "sageattention": true
+    },
+    "available_disk": {
+      "free_bytes": 7925936128,
+      "path": "/workspace/SoulX-FlashHead",
+      "total_bytes": 219043332096
+    },
+    "compiler_caches": {
+      "torchinductor": {
+        "existed_before_run": false,
+        "path": "/root/.cache/torch/inductor"
+      },
+      "triton": {
+        "existed_before_run": true,
+        "path": "/root/.triton/cache"
+      }
+    },
+    "cuda_compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Mon_Apr__3_17:16:06_PDT_2023\nCuda compilation tools, release 12.1, V12.1.105\nBuild cuda_12.1.r12.1/compiler.32688072_0",
+    "cuda_runtime": "12.8",
+    "date_utc": "2026-09-19T01:37:56.699167+00:00",
+    "environment_overrides": {
+      "CUDA_VERSION": "12.1.1",
+      "NCCL_VERSION": "2.17.1-1",
+      "PYTHONPATH": ".pro-sage2-deps:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "PYTHONUNBUFFERED": "1",
+      "PYTHON_VERSION": "3.10"
+    },
+    "git": {
+      "commit": "877a07fb980a3db118702ae0a6806008a651e91f",
+      "dirty": true,
+      "status": [
+        "M WEBRTC.md",
+        " M benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py",
+        " M benchmarks/pro_quantization_v2_20260918/capture.py",
+        " M benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_install.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_trial.py",
+        " M benchmarks/pro_quantization_v2_20260918/profile.py",
+        " M benchmarks/pro_quantization_v2_20260918/run.py",
+        " M benchmarks/pro_quantization_v2_20260918/sweep.py",
+        " M docs/research/README.md",
+        " M soulx_rtc/calls.py",
+        " M soulx_rtc/pro_attention_backends.py",
+        " M soulx_rtc/pro_quantization_v2.py",
+        " M soulx_rtc/server.py",
+        " M soulx_rtc/wall.html",
+        " M soulx_rtc/wall.js",
+        " M tests/test_wall.py",
+        "?? benchmarks/pro_30fps_20260919/",
+        "?? docs/research/PRO_30FPS_QUANTIZATION_ANALYSIS_AND_PLAN_2026-09-18.md",
+        "?? soulx_rtc/pro_vae_stage_backend.py",
+        "?? tests/test_pro_30fps.py"
+      ]
+    },
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "compute_capability": "8.9",
+          "driver": "595.84",
+          "name": "NVIDIA GeForce RTX 4070 SUPER",
+          "used_vram_mib": 2727,
+          "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+          "visible_vram_mib": 12282
+        }
+      ]
+    },
+    "hostname": "400445b4c77b",
+    "packages": {
+      "absl-py": "2.5.0",
+      "accelerate": "1.15.0",
+      "aiofiles": "24.1.0",
+      "aiohappyeyeballs": "2.7.1",
+      "aiohttp": "3.14.3",
+      "aioice": "0.10.2",
+      "aiortc": "1.14.0",
+      "aiosignal": "1.4.0",
+      "annotated-doc": "0.0.5",
+      "annotated-types": "0.8.0",
+      "anyio": "4.15.1",
+      "asttokens": "3.0.2",
+      "async-timeout": "5.0.1",
+      "attrs": "26.1.0",
+      "audioread": "3.1.0",
+      "av": "16.1.0",
+      "beautifulsoup4": "4.15.0",
+      "bleach": "6.4.0",
+      "blinker": "1.9.0",
+      "brotli": "1.2.0",
+      "certifi": "2026.7.22",
+      "cffi": "2.1.1",
+      "charset-normalizer": "3.5.1",
+      "click": "8.5.0",
+      "cloudpickle": "3.1.2",
+      "comm": "0.2.3",
+      "contourpy": "1.3.2",
+      "cryptography": "50.0.1",
+      "cycler": "0.12.1",
+      "debugpy": "1.8.22",
+      "decorator": "5.3.1",
+      "decord": "0.6.0",
+      "defusedxml": "0.7.1",
+      "diffusers": "0.39.0",
+      "distvae": "0.1.0",
+      "dnspython": "2.8.0",
+      "easydict": "1.13",
+      "einops": "0.8.2",
+      "exceptiongroup": "1.3.1",
+      "executing": "2.2.1",
+      "fastapi": "0.141.1",
+      "fastjsonschema": "2.22.2",
+      "ffmpy": "1.0.0",
+      "filelock": "3.32.3",
+      "flash_attn": "2.8.0.post2",
+      "flask": "3.1.3",
+      "flatbuffers": "25.12.19",
+      "fonttools": "4.65.0",
+      "frozenlist": "1.8.0",
+      "fsspec": "2026.7.0",
+      "ftfy": "6.3.1",
+      "google-crc32c": "1.8.0",
+      "gradio": "5.50.0",
+      "gradio_client": "1.14.0",
+      "groovy": "0.1.2",
+      "h11": "0.16.0",
+      "hf-xet": "1.6.0",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.19",
+      "ifaddr": "0.2.0",
+      "imageio": "2.37.4",
+      "imageio-ffmpeg": "0.6.0",
+      "importlib_metadata": "9.0.1",
+      "iniconfig": "2.3.0",
+      "ipykernel": "7.3.0",
+      "ipython": "8.39.0",
+      "itsdangerous": "2.2.0",
+      "jedi": "0.20.0",
+      "jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jupyter_client": "8.10.0",
+      "jupyter_core": "5.9.1",
+      "jupyterlab_pygments": "0.3.0",
+      "kiwisolver": "1.5.1",
+      "lazy-loader": "0.5",
+      "librosa": "0.11.0",
+      "llvmlite": "0.49.0",
+      "loguru": "0.7.3",
+      "markdown-it-py": "4.2.0",
+      "markupsafe": "3.0.3",
+      "matplotlib": "3.10.9",
+      "matplotlib-inline": "0.2.2",
+      "mdurl": "0.1.2",
+      "mediapipe": "0.10.9",
+      "mistune": "3.3.4",
+      "mpmath": "1.3.0",
+      "msgpack": "1.2.2",
+      "multidict": "6.8.0",
+      "nbclient": "0.11.0",
+      "nbconvert": "7.17.1",
+      "nbformat": "5.11.1",
+      "nest-asyncio2": "1.7.2",
+      "networkx": "3.4.2",
+      "numba": "0.67.0",
+      "numpy": "2.2.6",
+      "nvidia-cublas-cu12": "12.8.3.14",
+      "nvidia-cuda-cupti-cu12": "12.8.57",
+      "nvidia-cuda-nvrtc-cu12": "12.8.61",
+      "nvidia-cuda-runtime-cu12": "12.8.57",
+      "nvidia-cudnn-cu12": "9.7.1.26",
+      "nvidia-cufft-cu12": "11.3.3.41",
+      "nvidia-cufile-cu12": "1.13.0.11",
+      "nvidia-curand-cu12": "10.3.9.55",
+      "nvidia-cusolver-cu12": "11.7.2.55",
+      "nvidia-cusparse-cu12": "12.5.7.53",
+      "nvidia-cusparselt-cu12": "0.6.3",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.8.61",
+      "nvidia-nvtx-cu12": "12.8.55",
+      "onnx": "1.17.0",
+      "opencv-contrib-python": "5.0.0.93",
+      "opencv-python": "5.0.0.93",
+      "opencv-python-headless": "5.0.0.93",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pandocfilters": "1.5.1",
+      "parso": "0.8.7",
+      "peft": "0.20.0",
+      "pexpect": "4.9.0",
+      "pillow": "11.3.0",
+      "pip": "25.2",
+      "platformdirs": "4.11.8",
+      "pluggy": "1.6.0",
+      "pooch": "1.9.0",
+      "prompt_toolkit": "3.0.53",
+      "propcache": "0.5.2",
+      "protobuf": "3.20.3",
+      "psutil": "7.2.2",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.4",
+      "pycparser": "3.0",
+      "pydantic": "2.12.3",
+      "pydantic_core": "2.41.4",
+      "pydub": "0.25.1",
+      "pyee": "13.0.1",
+      "pygments": "2.21.0",
+      "pylibsrtp": "1.0.0",
+      "pyloudnorm": "0.2.0",
+      "pyopenssl": "26.4.0",
+      "pyparsing": "3.3.2",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-multipart": "0.0.32",
+      "pytz": "2026.3.post1",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.2.0",
+      "referencing": "0.37.0",
+      "regex": "2026.9.10",
+      "requests": "2.34.2",
+      "rich": "15.0.0",
+      "rpds-py": "0.30.0",
+      "ruff": "0.16.7",
+      "safehttpx": "0.1.7",
+      "safetensors": "0.8.0",
+      "sageattention": "1.0.6",
+      "scikit-image": "0.25.2",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.15.3",
+      "semantic-version": "2.10.0",
+      "sentencepiece": "0.2.2",
+      "setuptools": "59.6.0",
+      "shellingham": "1.5.4",
+      "six": "1.17.0",
+      "sounddevice": "0.5.6",
+      "soundfile": "0.14.0",
+      "soupsieve": "2.9.2",
+      "soxr": "1.1.0",
+      "stack-data": "0.6.3",
+      "starlette": "0.52.1",
+      "sympy": "1.14.0",
+      "tensorrt-cu12": "10.9.0.34",
+      "tensorrt_cu12_bindings": "10.9.0.34",
+      "tensorrt_cu12_libs": "10.9.0.34",
+      "threadpoolctl": "3.6.0",
+      "tifffile": "2025.5.10",
+      "tinycss2": "1.5.1",
+      "tokenizers": "0.22.2",
+      "tomli": "2.4.1",
+      "tomlkit": "0.13.3",
+      "torch": "2.7.1+cu128",
+      "torchaudio": "2.7.1+cu128",
+      "torchvision": "0.22.1+cu128",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "traitlets": "5.16.1",
+      "transformers": "4.57.3",
+      "triton": "3.3.1",
+      "typer": "0.27.2",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.4",
+      "urllib3": "2.7.0",
+      "uvicorn": "0.53.0",
+      "wcwidth": "0.8.3",
+      "webencodings": "0.6.1",
+      "websockets": "15.0.1",
+      "werkzeug": "3.1.8",
+      "wheel": "0.48.0",
+      "xformers": "0.0.31",
+      "xfuser": "0.6.0",
+      "yarl": "1.24.5",
+      "yunchang": "0.6.4",
+      "zipp": "4.1.0"
+    },
+    "physical_ram_bytes": 32455614464,
+    "physical_vram_class": "unverified in this run",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "resident_gpu_processes": [
+      {
+        "pid": "157695",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "2478"
+      },
+      {
+        "pid": "246436",
+        "process": "/workspace/experiments/ltx23-soulx-transfer/.venv/bin/python",
+        "used_memory_mib": "234"
+      }
+    ],
+    "torch": "2.7.1+cu128"
+  },
+  "execution": "fresh GPU stage diagnostic; not end-to-end video throughput",
+  "floating_precision": "fp16",
+  "groups": [
+    [
+      4,
+      5,
+      6
+    ],
+    [
+      8,
+      9,
+      10
+    ]
+  ],
+  "precision": "fp16",
+  "schema_version": 1,
+  "source_sha256": {
+    "benchmarks/pro_30fps_20260919/decoder_stages.py": "5b321f0f165bc75a74b9cb25367acc65900dac1267cbfbb5a81969d0a88e00ae",
+    "benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py": "ceff9bd9a051ca2fc4432d7166b6e497fa22eb8d80ca9bdfae2896e6c37839e0",
+    "flash_head/wan/modules/vae.py": "7071d15350f30eed21a363c624e36c646ae8f7ec81303b83575dcf63bfbc49eb",
+    "soulx_rtc/pro_vae_stage_backend.py": "5b8ce3c664b12bfa63cf0d674ae30708c68e8270e959a7d002f1a7dfbc056e37"
+  },
+  "stages": {
+    "4-5-6": {
+      "1x192x1x144x80": {
+        "binding_dtype": "float16",
+        "build_s": 7.05390614096541,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.078125,
+            "mean_abs": 0.005038243718445301,
+            "relative_l2": 0.008027881383895874,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.0005387734272517264,
+            "relative_l2": 0.004686237312853336,
+            "shape": [
+              1,
+              192,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.0005067075835540891,
+            "relative_l2": 0.005635365378111601,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0390625,
+            "mean_abs": 0.001143859582953155,
+            "relative_l2": 0.009540246799588203,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0546875,
+            "mean_abs": 0.00144809705670923,
+            "relative_l2": 0.01054405514150858,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0014938974054530263,
+            "relative_l2": 0.010921172797679901,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0014781348872929811,
+            "relative_l2": 0.010779369622468948,
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              1,
+              144,
+              80
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-0.layers.json",
+        "layers_sha256": "65a08f7319e9ca0511eb7c205a8c02c8da26009ea6d044a233454ab3b8f1a7f6",
+        "onnx_sha256": "f5e8e809c2dd0d3ca875d93ec48e65a2628a822f908bd17badf53006365333a1",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-0.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 7,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "ac97df7564530295cf09191a46b3f31d7c0974ca31c34b0ac117e10efaf1d102",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 26749440
+      },
+      "1x192x2x144x80__1x192x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80": {
+        "binding_dtype": "float16",
+        "build_s": 7.552835442998912,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.1875,
+            "mean_abs": 0.007986941374838352,
+            "relative_l2": 0.009838514029979706,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.0005236536380834877,
+            "relative_l2": 0.004572669975459576,
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0005603295867331326,
+            "relative_l2": 0.005933018401265144,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.001280265860259533,
+            "relative_l2": 0.010945707559585571,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.078125,
+            "mean_abs": 0.0017511913320049644,
+            "relative_l2": 0.011814681813120842,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.078125,
+            "mean_abs": 0.0016929337289184332,
+            "relative_l2": 0.012327841483056545,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.078125,
+            "mean_abs": 0.0018643650691956282,
+            "relative_l2": 0.013844109140336514,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_0",
+            "shape": [
+              1,
+              192,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_1",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_2",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_3",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_4",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_5",
+            "shape": [
+              1,
+              384,
+              1,
+              144,
+              80
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-1.layers.json",
+        "layers_sha256": "f117e60f89bf896c9c0a2757292643295c72945359e8af5be06801441af7aaa4",
+        "onnx_sha256": "45bd25840df8269c65ee9165f37e806727efaf4b19ffcd447af8fb12e3763cbb",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-1.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 7,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "50886dcc68580e2e14fe3493c95a2d70d91d33b2787e64ed247ab67ae38e0560",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 168145920
+      },
+      "1x192x2x144x80__1x192x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80": {
+        "binding_dtype": "float16",
+        "build_s": 7.389453386014793,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.1875,
+            "mean_abs": 0.008566193282604218,
+            "relative_l2": 0.010487327352166176,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.000570117321331054,
+            "relative_l2": 0.004689027089625597,
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0005793175077997148,
+            "relative_l2": 0.006133869756013155,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.07421875,
+            "mean_abs": 0.0014711200492456555,
+            "relative_l2": 0.012237864546477795,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.078125,
+            "mean_abs": 0.0018882217118516564,
+            "relative_l2": 0.012572099454700947,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.0016722073778510094,
+            "relative_l2": 0.012225931510329247,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.1015625,
+            "mean_abs": 0.0019508820259943604,
+            "relative_l2": 0.012904911302030087,
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_0",
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_1",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_2",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_3",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_4",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_in_5",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-2.layers.json",
+        "layers_sha256": "d8cdaab5435246d85244a896c236f95efd89c55fb24253ca1e7a6c05c75f1acf",
+        "onnx_sha256": "97ce60b2a207192180dc940676e16fa52ab3102b00b276b82f4cb352e4259c39",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              384,
+              2,
+              144,
+              80
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-4-5-6-2.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 7,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "b1d1f9f4b44e9e7276d11ec4f343e91f7de0e100ab5c607e28a954ad3574d925",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 212382720
+      }
+    },
+    "8-9-10": {
+      "1x192x1x288x160": {
+        "binding_dtype": "float16",
+        "build_s": 4.022683385992423,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.125,
+            "mean_abs": 0.005536689888685942,
+            "relative_l2": 0.003978983499109745,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.00038974647759459913,
+            "relative_l2": 0.004253588616847992,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.0006697949138469994,
+            "relative_l2": 0.005488087888807058,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.0005499916733242571,
+            "relative_l2": 0.0054256790317595005,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0625,
+            "mean_abs": 0.0009615165181457996,
+            "relative_l2": 0.007210065145045519,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0007211249321699142,
+            "relative_l2": 0.006549259647727013,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.06640625,
+            "mean_abs": 0.0009456994011998177,
+            "relative_l2": 0.0071425228379666805,
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-0.layers.json",
+        "layers_sha256": "80c6df48d07baa83e19776afa0b32ec6610cd4a489ca97edc400812ec4037359",
+        "onnx_sha256": "739e57c15778703c4784da4bb6bff11def3a240683a836f96b6e055e9f584653",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-0.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 6,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "b996c2015c107739e3c5d962fd578f6f1db04ebb61814c18b6556e48f234590e",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 53913600
+      },
+      "1x192x4x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160": {
+        "binding_dtype": "float16",
+        "build_s": 7.610397237003781,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.30859375,
+            "mean_abs": 0.00816391222178936,
+            "relative_l2": 0.004493020474910736,
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.00037308837636373937,
+            "relative_l2": 0.004313786048442125,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.09375,
+            "mean_abs": 0.0008315008017234504,
+            "relative_l2": 0.006592349149286747,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.0006043685134500265,
+            "relative_l2": 0.0061530848033726215,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.109375,
+            "mean_abs": 0.0013322810409590602,
+            "relative_l2": 0.008836563676595688,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.046875,
+            "mean_abs": 0.0008483626297675073,
+            "relative_l2": 0.008024281822144985,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.09375,
+            "mean_abs": 0.0013291708892211318,
+            "relative_l2": 0.009105115197598934,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_0",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_1",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_2",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_3",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_4",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_5",
+            "shape": [
+              1,
+              192,
+              1,
+              288,
+              160
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-1.layers.json",
+        "layers_sha256": "12fc268cdeceb3dc4668afbe466a2630fd0ad2256a23ba85048e81f61b90e70d",
+        "onnx_sha256": "c28b20131dbef5eb8250433e7fb7fc463e9f06bd5698585741d3e404663cd68b",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-1.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 6,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "c72789694fb6dff0b5c74dfd96a95971f2131168780987cca2ce8e1ab769cb34",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 619683840
+      },
+      "1x192x4x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160": {
+        "binding_dtype": "float16",
+        "build_s": 7.729431214043871,
+        "build_sample_comparison": [
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.3828125,
+            "mean_abs": 0.008970154449343681,
+            "relative_l2": 0.00459365826100111,
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.03125,
+            "mean_abs": 0.00037408655043691397,
+            "relative_l2": 0.004285162314772606,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.09375,
+            "mean_abs": 0.0009006556938402355,
+            "relative_l2": 0.0068713524378836155,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.0390625,
+            "mean_abs": 0.0006203286466188729,
+            "relative_l2": 0.006333979777991772,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.1640625,
+            "mean_abs": 0.001532057300209999,
+            "relative_l2": 0.009730512276291847,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.05859375,
+            "mean_abs": 0.0008987615583464503,
+            "relative_l2": 0.00862036645412445,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "dtype": "bfloat16",
+            "finite": true,
+            "max_abs": 0.109375,
+            "mean_abs": 0.0015022074803709984,
+            "relative_l2": 0.01036865171045065,
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          }
+        ],
+        "caller_cache_dtype": "bfloat16",
+        "floating_precision": "fp16",
+        "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+        "inputs": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_0",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_1",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_2",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_3",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_4",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_in_5",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          }
+        ],
+        "int8_convolutions_verified": false,
+        "layers_path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-2.layers.json",
+        "layers_sha256": "019a4c40fc632f449ffa07c12e4cb6cbd3d3c7ad98a07389b59526190483c4df",
+        "onnx_sha256": "5cdb10da864aa0d4204bd23736a80d234b7737a723aaff9d0ee54d0c8e00ae8d",
+        "outputs": [
+          {
+            "name": "y",
+            "shape": [
+              1,
+              192,
+              4,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_0",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_1",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_2",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_3",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_4",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          },
+          {
+            "name": "cache_out_5",
+            "shape": [
+              1,
+              192,
+              2,
+              288,
+              160
+            ]
+          }
+        ],
+        "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/stage-8-9-10-2.engine",
+        "precision": "fp16",
+        "precision_evidence": {
+          "convolutions": 6,
+          "int8_convolutions": 0,
+          "quantized_names": []
+        },
+        "quantized_modules": [],
+        "sha256": "a28a0863430314c42356fca505ea3ece4475c10fc184a97086f27049f9fa0b75",
+        "tensorrt": "10.9.0.34",
+        "workspace_bytes": 743546880
+      }
+    }
+  },
+  "status": "complete",
+  "weights_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+}

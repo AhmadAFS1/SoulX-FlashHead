@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "indian150-a",
+      "reference": {
+        "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      },
+      "audio": {
+        "path": "benchmarks/pro_lite_150x_20260917/audio.wav",
+        "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2"
+      },
+      "sample_rate": 16000,
+      "fps": 25,
+      "split": "calibration-and-acceptance",
+      "framing": "1.50x",
+      "license": "Local repository benchmark fixture; retain its existing provenance.",
+      "provenance": "Accepted PRO FP8 fixture preserved in benchmarks/pro_quantization_20260918/PRO_FP8/manifest.json.",
+      "notes": "Use seed 50 only for fitting, seed 51 for development validation, and seeds 0/1 for final held-out trajectory checks. Additional utterances must be registered with hashes before use."
+    },
+    {
+      "id": "indian150-two-turns-gap",
+      "reference": {
+        "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      },
+      "audio": {
+        "path": "benchmarks/migration/two-turns-with-gap.wav",
+        "sha256": "a110f36cea557314775831c0e26b7b188017de01b7590c45bef5f9104d1e0433"
+      },
+      "sample_rate": 16000,
+      "fps": 25,
+      "split": "held-out-generalization",
+      "framing": "1.50x",
+      "license": "Local repository benchmark fixture; retain its existing provenance.",
+      "provenance": "Existing benchmarks/migration/two-turns-with-gap.wav asset, registered without modification on 2026-09-18.",
+      "notes": "Different 23.05-second utterance with an internal silence gap; use 576 useful frames for the paired held-out test."
+    },
+    {
+      "id": "indian150-audio-b",
+      "reference": {
+        "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      },
+      "audio": {
+        "path": "benchmarks/pro_musetalk_redub_20260917/audio-B.wav",
+        "sha256": "bc3003f393221d170cbd5717dda7b64d95056ca75d7132e4805fab9c973f126b"
+      },
+      "sample_rate": 16000,
+      "fps": 25,
+      "split": "held-out-generalization",
+      "framing": "1.50x",
+      "license": "Local repository benchmark fixture; retain its existing provenance.",
+      "provenance": "Existing local audio, newly preregistered for this candidate before generation on 2026-09-19.",
+      "notes": "No scale fitting or candidate selection on this utterance; evaluate first 250 frames with held-out seed 0 for audio-b and seed 1 for Sichuan. Original file hash plus run effective sample hash retained."
+    },
+    {
+      "id": "indian150-sichuan-prefix",
+      "reference": {
+        "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      },
+      "audio": {
+        "path": "examples/podcast_sichuan_16k.wav",
+        "sha256": "2eab639d2104b84292945a0ca902b12794163480b7f1bbefc56bc5400f6172f9"
+      },
+      "sample_rate": 16000,
+      "fps": 25,
+      "split": "held-out-generalization",
+      "framing": "1.50x",
+      "license": "Local repository benchmark fixture; retain its existing provenance.",
+      "provenance": "Existing local audio, newly preregistered for this candidate before generation on 2026-09-19.",
+      "notes": "No scale fitting or candidate selection on this utterance; evaluate first 250 frames with held-out seed 0 for audio-b and seed 1 for Sichuan. Original file hash plus run effective sample hash retained."
+    },
+    {
+      "id": "indian150-sichuan-30s",
+      "reference": {
+        "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      },
+      "audio": {
+        "path": "benchmarks/pro_30fps_20260919/sichuan-30s-40s.wav",
+        "sha256": "82fb80a06f5cfa96873b62f374861d6639eccdfe2987b3789ca2ac748b308c85"
+      },
+      "sample_rate": 16000,
+      "fps": 25,
+      "split": "held-out-generalization",
+      "framing": "1.50x",
+      "license": "Local repository benchmark fixture; retain its existing provenance.",
+      "provenance": "Lossless float32 extraction of samples 480000:640000 from examples/podcast_sichuan_16k.wav on 2026-09-19.",
+      "notes": "Registered before generation. Distinct 30\u201340 second segment of existing podcast; first 10 seconds duplicate the standard fixture and do not count as new speech. No fitting on this segment."
+    }
+  ],
+  "registered_utc": "2026-09-19T02:40:26.562829+00:00"
+}

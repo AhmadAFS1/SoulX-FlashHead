@@ -1,0 +1,39 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T00:44:52.708736+00:00",
+  "execution": "fresh local GPU inference",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2809 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "profile": {
+    "width": 512,
+    "height": 512,
+    "fps": 25,
+    "steps": 4,
+    "seed": 50,
+    "precision": "BF16",
+    "memory_mode": "staged",
+    "compiled": false,
+    "conditioning": "stock",
+    "seconds": 10,
+    "allocator_cap_mib": 8704
+  },
+  "source": "/workspace/benchmarks/same-avatar/shared.png",
+  "source_crop_xyxy": [
+    38,
+    64,
+    345,
+    371
+  ],
+  "effective_source_detail_px": 256,
+  "reference_preparation": "Crop the same 307x307 region; downsample to detail x detail with Lanczos unless detail=307; then upscale to 512x512 with Lanczos and save lossless PNG.",
+  "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+  "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+  "reference_sha256": "2e1212fcd2b466456b728e10fd516f724e6a54bc8dbbd93aac018d5ff28fd9ac",
+  "wall_s": 11.298978884005919,
+  "useful_fps": 22.12589319499334,
+  "frames": 250,
+  "peak_allocated_mib": 3835.9130859375,
+  "peak_reserved_mib": 4186.0,
+  "raw_sha256": "3a026154ec67c46b8d49a006dd29dfe888dc26422653dc13e8c4156bcac613cd"
+}

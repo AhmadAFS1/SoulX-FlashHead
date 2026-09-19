@@ -1,0 +1,106 @@
+2026-09-16 19:17:36.780 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+W0916 19:17:45.018000 209036 .venv/lib/python3.10/site-packages/torch/_inductor/utils.py:1250] [3/0] Not enough SMs to use max_autotune_gemm mode
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/lowering.py:1917: UserWarning: Torchinductor does not support code generation for complex operators. Performance may be worse than eager.
+  warnings.warn(
+INFO:soulx_rtc:Session isolation check: None
+INFO:soulx_rtc:READY size=512 steps=4 batch=4 max_sessions=12
+======== Running on http://127.0.0.1:8765 ========
+(Press CTRL+C to quit)
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 34280) -> ('172.17.0.2', 41837)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 34280) -> ('172.17.0.2', 41837)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 34280) -> ('172.17.0.2', 41837)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(0) ICE completed
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 41034) -> ('172.17.0.2', 42820)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 41034) -> ('172.17.0.2', 42820)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 47609) -> ('172.17.0.2', 35628)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 47609) -> ('172.17.0.2', 35628)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 41034) -> ('172.17.0.2', 42820)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 47609) -> ('172.17.0.2', 35628)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(2) ICE completed
+INFO:aioice.ice:Connection(4) ICE completed
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 53723) -> ('172.17.0.2', 39689)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 53723) -> ('172.17.0.2', 39689)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 53723) -> ('172.17.0.2', 39689)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(6) ICE completed
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 58835) -> ('172.17.0.2', 47634)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 58835) -> ('172.17.0.2', 47634)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(10) Check CandidatePair(('172.17.0.2', 52116) -> ('172.17.0.2', 51808)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(10) Check CandidatePair(('172.17.0.2', 52116) -> ('172.17.0.2', 51808)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 58835) -> ('172.17.0.2', 47634)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(10) Check CandidatePair(('172.17.0.2', 52116) -> ('172.17.0.2', 51808)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(8) ICE completed
+INFO:aioice.ice:Connection(10) ICE completed
+INFO:aioice.ice:Connection(12) Check CandidatePair(('172.17.0.2', 60268) -> ('172.17.0.2', 43778)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(12) Check CandidatePair(('172.17.0.2', 60268) -> ('172.17.0.2', 43778)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(12) Check CandidatePair(('172.17.0.2', 60268) -> ('172.17.0.2', 43778)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(12) ICE completed
+INFO:aioice.ice:Connection(14) Check CandidatePair(('172.17.0.2', 49647) -> ('172.17.0.2', 36361)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(14) Check CandidatePair(('172.17.0.2', 49647) -> ('172.17.0.2', 36361)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(16) Check CandidatePair(('172.17.0.2', 54294) -> ('172.17.0.2', 58990)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(18) Check CandidatePair(('172.17.0.2', 41708) -> ('172.17.0.2', 45062)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(14) Check CandidatePair(('172.17.0.2', 49647) -> ('172.17.0.2', 36361)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(16) Check CandidatePair(('172.17.0.2', 54294) -> ('172.17.0.2', 58990)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(18) Check CandidatePair(('172.17.0.2', 41708) -> ('172.17.0.2', 45062)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(16) Check CandidatePair(('172.17.0.2', 54294) -> ('172.17.0.2', 58990)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(18) Check CandidatePair(('172.17.0.2', 41708) -> ('172.17.0.2', 45062)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(14) ICE completed
+INFO:aioice.ice:Connection(16) ICE completed
+INFO:aioice.ice:Connection(18) ICE completed
+INFO:aioice.ice:Connection(20) Check CandidatePair(('172.17.0.2', 37084) -> ('172.17.0.2', 42029)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(20) Check CandidatePair(('172.17.0.2', 37084) -> ('172.17.0.2', 42029)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(22) Check CandidatePair(('172.17.0.2', 34522) -> ('172.17.0.2', 60692)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(22) Check CandidatePair(('172.17.0.2', 34522) -> ('172.17.0.2', 60692)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(20) Check CandidatePair(('172.17.0.2', 37084) -> ('172.17.0.2', 42029)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(22) Check CandidatePair(('172.17.0.2', 34522) -> ('172.17.0.2', 60692)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(20) ICE completed
+INFO:aioice.ice:Connection(22) ICE completed
+INFO:aioice.ice:Connection(24) Check CandidatePair(('172.17.0.2', 57966) -> ('172.17.0.2', 58739)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(24) Check CandidatePair(('172.17.0.2', 57966) -> ('172.17.0.2', 58739)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(26) Check CandidatePair(('172.17.0.2', 54302) -> ('172.17.0.2', 60891)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(28) Check CandidatePair(('172.17.0.2', 40425) -> ('172.17.0.2', 39876)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(26) Check CandidatePair(('172.17.0.2', 54302) -> ('172.17.0.2', 60891)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(28) Check CandidatePair(('172.17.0.2', 40425) -> ('172.17.0.2', 39876)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(24) Check CandidatePair(('172.17.0.2', 57966) -> ('172.17.0.2', 58739)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(26) Check CandidatePair(('172.17.0.2', 54302) -> ('172.17.0.2', 60891)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(28) Check CandidatePair(('172.17.0.2', 40425) -> ('172.17.0.2', 39876)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(24) ICE completed
+INFO:aioice.ice:Connection(26) ICE completed
+INFO:aioice.ice:Connection(28) ICE completed
+INFO:aioice.ice:Connection(30) Check CandidatePair(('172.17.0.2', 56586) -> ('172.17.0.2', 45735)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(30) Check CandidatePair(('172.17.0.2', 56586) -> ('172.17.0.2', 45735)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(30) Check CandidatePair(('172.17.0.2', 56586) -> ('172.17.0.2', 45735)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(30) ICE completed
+INFO:aioice.ice:Connection(32) Check CandidatePair(('172.17.0.2', 54431) -> ('172.17.0.2', 34338)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(32) Check CandidatePair(('172.17.0.2', 54431) -> ('172.17.0.2', 34338)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(34) Check CandidatePair(('172.17.0.2', 44329) -> ('172.17.0.2', 54089)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(36) Check CandidatePair(('172.17.0.2', 36913) -> ('172.17.0.2', 33286)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(32) Check CandidatePair(('172.17.0.2', 54431) -> ('172.17.0.2', 34338)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(34) Check CandidatePair(('172.17.0.2', 44329) -> ('172.17.0.2', 54089)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(36) Check CandidatePair(('172.17.0.2', 36913) -> ('172.17.0.2', 33286)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(34) Check CandidatePair(('172.17.0.2', 44329) -> ('172.17.0.2', 54089)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(36) Check CandidatePair(('172.17.0.2', 36913) -> ('172.17.0.2', 33286)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(32) ICE completed
+INFO:aioice.ice:Connection(34) ICE completed
+INFO:aioice.ice:Connection(36) ICE completed
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/concurrent/futures/process.py", line 240, in _process_worker
+    call_item = call_queue.get(block=True)
+  File "/usr/lib/python3.10/multiprocessing/queues.py", line 103, in get
+    res = self._recv_bytes()
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt

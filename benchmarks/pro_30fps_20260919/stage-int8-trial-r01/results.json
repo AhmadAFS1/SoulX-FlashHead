@@ -1,0 +1,2694 @@
+{
+  "candidate_policy": "benchmarks/pro_30fps_20260919/policies/stage_int8.json",
+  "captures": "benchmarks/pro_30fps_20260919/real-inputs-r01/manifest.json",
+  "dynamo_recompile_limit": 64,
+  "environment": {
+    "attention_backend_availability": {
+      "flash_attention_2": true,
+      "sageattention": true
+    },
+    "available_disk": {
+      "free_bytes": 6993514496,
+      "path": "/workspace/SoulX-FlashHead",
+      "total_bytes": 219043332096
+    },
+    "compiler_caches": {
+      "torchinductor": {
+        "existed_before_run": false,
+        "path": "/root/.cache/torch/inductor"
+      },
+      "triton": {
+        "existed_before_run": true,
+        "path": "/root/.triton/cache"
+      }
+    },
+    "cuda_compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Mon_Apr__3_17:16:06_PDT_2023\nCuda compilation tools, release 12.1, V12.1.105\nBuild cuda_12.1.r12.1/compiler.32688072_0",
+    "cuda_runtime": "12.8",
+    "date_utc": "2026-09-19T01:40:55.130943+00:00",
+    "environment_overrides": {
+      "CUDA_VERSION": "12.1.1",
+      "NCCL_VERSION": "2.17.1-1",
+      "PYTHONPATH": ".pro-sage2-deps:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "PYTHONUNBUFFERED": "1",
+      "PYTHON_VERSION": "3.10"
+    },
+    "git": {
+      "commit": "877a07fb980a3db118702ae0a6806008a651e91f",
+      "dirty": true,
+      "status": [
+        "M WEBRTC.md",
+        " M benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py",
+        " M benchmarks/pro_quantization_v2_20260918/capture.py",
+        " M benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_install.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_trial.py",
+        " M benchmarks/pro_quantization_v2_20260918/profile.py",
+        " M benchmarks/pro_quantization_v2_20260918/run.py",
+        " M benchmarks/pro_quantization_v2_20260918/sweep.py",
+        " M docs/research/README.md",
+        " M soulx_rtc/calls.py",
+        " M soulx_rtc/pro_attention_backends.py",
+        " M soulx_rtc/pro_quantization_v2.py",
+        " M soulx_rtc/server.py",
+        " M soulx_rtc/wall.html",
+        " M soulx_rtc/wall.js",
+        " M tests/test_wall.py",
+        "?? benchmarks/pro_30fps_20260919/",
+        "?? docs/research/PRO_30FPS_QUANTIZATION_ANALYSIS_AND_PLAN_2026-09-18.md",
+        "?? soulx_rtc/pro_vae_stage_backend.py",
+        "?? tests/test_pro_30fps.py"
+      ]
+    },
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "compute_capability": "8.9",
+          "driver": "595.84",
+          "name": "NVIDIA GeForce RTX 4070 SUPER",
+          "used_vram_mib": 2727,
+          "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+          "visible_vram_mib": 12282
+        }
+      ]
+    },
+    "hostname": "400445b4c77b",
+    "packages": {
+      "absl-py": "2.5.0",
+      "accelerate": "1.15.0",
+      "aiofiles": "24.1.0",
+      "aiohappyeyeballs": "2.7.1",
+      "aiohttp": "3.14.3",
+      "aioice": "0.10.2",
+      "aiortc": "1.14.0",
+      "aiosignal": "1.4.0",
+      "annotated-doc": "0.0.5",
+      "annotated-types": "0.8.0",
+      "anyio": "4.15.1",
+      "asttokens": "3.0.2",
+      "async-timeout": "5.0.1",
+      "attrs": "26.1.0",
+      "audioread": "3.1.0",
+      "av": "16.1.0",
+      "beautifulsoup4": "4.15.0",
+      "bleach": "6.4.0",
+      "blinker": "1.9.0",
+      "brotli": "1.2.0",
+      "certifi": "2026.7.22",
+      "cffi": "2.1.1",
+      "charset-normalizer": "3.5.1",
+      "click": "8.5.0",
+      "cloudpickle": "3.1.2",
+      "comm": "0.2.3",
+      "contourpy": "1.3.2",
+      "cryptography": "50.0.1",
+      "cycler": "0.12.1",
+      "debugpy": "1.8.22",
+      "decorator": "5.3.1",
+      "decord": "0.6.0",
+      "defusedxml": "0.7.1",
+      "diffusers": "0.39.0",
+      "distvae": "0.1.0",
+      "dnspython": "2.8.0",
+      "easydict": "1.13",
+      "einops": "0.8.2",
+      "exceptiongroup": "1.3.1",
+      "executing": "2.2.1",
+      "fastapi": "0.141.1",
+      "fastjsonschema": "2.22.2",
+      "ffmpy": "1.0.0",
+      "filelock": "3.32.3",
+      "flash_attn": "2.8.0.post2",
+      "flask": "3.1.3",
+      "flatbuffers": "25.12.19",
+      "fonttools": "4.65.0",
+      "frozenlist": "1.8.0",
+      "fsspec": "2026.7.0",
+      "ftfy": "6.3.1",
+      "google-crc32c": "1.8.0",
+      "gradio": "5.50.0",
+      "gradio_client": "1.14.0",
+      "groovy": "0.1.2",
+      "h11": "0.16.0",
+      "hf-xet": "1.6.0",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.19",
+      "ifaddr": "0.2.0",
+      "imageio": "2.37.4",
+      "imageio-ffmpeg": "0.6.0",
+      "importlib_metadata": "9.0.1",
+      "iniconfig": "2.3.0",
+      "ipykernel": "7.3.0",
+      "ipython": "8.39.0",
+      "itsdangerous": "2.2.0",
+      "jedi": "0.20.0",
+      "jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jupyter_client": "8.10.0",
+      "jupyter_core": "5.9.1",
+      "jupyterlab_pygments": "0.3.0",
+      "kiwisolver": "1.5.1",
+      "lazy-loader": "0.5",
+      "librosa": "0.11.0",
+      "llvmlite": "0.49.0",
+      "loguru": "0.7.3",
+      "markdown-it-py": "4.2.0",
+      "markupsafe": "3.0.3",
+      "matplotlib": "3.10.9",
+      "matplotlib-inline": "0.2.2",
+      "mdurl": "0.1.2",
+      "mediapipe": "0.10.9",
+      "mistune": "3.3.4",
+      "mpmath": "1.3.0",
+      "msgpack": "1.2.2",
+      "multidict": "6.8.0",
+      "nbclient": "0.11.0",
+      "nbconvert": "7.17.1",
+      "nbformat": "5.11.1",
+      "nest-asyncio2": "1.7.2",
+      "networkx": "3.4.2",
+      "numba": "0.67.0",
+      "numpy": "2.2.6",
+      "nvidia-cublas-cu12": "12.8.3.14",
+      "nvidia-cuda-cupti-cu12": "12.8.57",
+      "nvidia-cuda-nvrtc-cu12": "12.8.61",
+      "nvidia-cuda-runtime-cu12": "12.8.57",
+      "nvidia-cudnn-cu12": "9.7.1.26",
+      "nvidia-cufft-cu12": "11.3.3.41",
+      "nvidia-cufile-cu12": "1.13.0.11",
+      "nvidia-curand-cu12": "10.3.9.55",
+      "nvidia-cusolver-cu12": "11.7.2.55",
+      "nvidia-cusparse-cu12": "12.5.7.53",
+      "nvidia-cusparselt-cu12": "0.6.3",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.8.61",
+      "nvidia-nvtx-cu12": "12.8.55",
+      "onnx": "1.17.0",
+      "opencv-contrib-python": "5.0.0.93",
+      "opencv-python": "5.0.0.93",
+      "opencv-python-headless": "5.0.0.93",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pandocfilters": "1.5.1",
+      "parso": "0.8.7",
+      "peft": "0.20.0",
+      "pexpect": "4.9.0",
+      "pillow": "11.3.0",
+      "pip": "25.2",
+      "platformdirs": "4.11.8",
+      "pluggy": "1.6.0",
+      "pooch": "1.9.0",
+      "prompt_toolkit": "3.0.53",
+      "propcache": "0.5.2",
+      "protobuf": "3.20.3",
+      "psutil": "7.2.2",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.4",
+      "pycparser": "3.0",
+      "pydantic": "2.12.3",
+      "pydantic_core": "2.41.4",
+      "pydub": "0.25.1",
+      "pyee": "13.0.1",
+      "pygments": "2.21.0",
+      "pylibsrtp": "1.0.0",
+      "pyloudnorm": "0.2.0",
+      "pyopenssl": "26.4.0",
+      "pyparsing": "3.3.2",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-multipart": "0.0.32",
+      "pytz": "2026.3.post1",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.2.0",
+      "referencing": "0.37.0",
+      "regex": "2026.9.10",
+      "requests": "2.34.2",
+      "rich": "15.0.0",
+      "rpds-py": "0.30.0",
+      "ruff": "0.16.7",
+      "safehttpx": "0.1.7",
+      "safetensors": "0.8.0",
+      "sageattention": "1.0.6",
+      "scikit-image": "0.25.2",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.15.3",
+      "semantic-version": "2.10.0",
+      "sentencepiece": "0.2.2",
+      "setuptools": "59.6.0",
+      "shellingham": "1.5.4",
+      "six": "1.17.0",
+      "sounddevice": "0.5.6",
+      "soundfile": "0.14.0",
+      "soupsieve": "2.9.2",
+      "soxr": "1.1.0",
+      "stack-data": "0.6.3",
+      "starlette": "0.52.1",
+      "sympy": "1.14.0",
+      "tensorrt-cu12": "10.9.0.34",
+      "tensorrt_cu12_bindings": "10.9.0.34",
+      "tensorrt_cu12_libs": "10.9.0.34",
+      "threadpoolctl": "3.6.0",
+      "tifffile": "2025.5.10",
+      "tinycss2": "1.5.1",
+      "tokenizers": "0.22.2",
+      "tomli": "2.4.1",
+      "tomlkit": "0.13.3",
+      "torch": "2.7.1+cu128",
+      "torchaudio": "2.7.1+cu128",
+      "torchvision": "0.22.1+cu128",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "traitlets": "5.16.1",
+      "transformers": "4.57.3",
+      "triton": "3.3.1",
+      "typer": "0.27.2",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.4",
+      "urllib3": "2.7.0",
+      "uvicorn": "0.53.0",
+      "wcwidth": "0.8.3",
+      "webencodings": "0.6.1",
+      "websockets": "15.0.1",
+      "werkzeug": "3.1.8",
+      "wheel": "0.48.0",
+      "xformers": "0.0.31",
+      "xfuser": "0.6.0",
+      "yarl": "1.24.5",
+      "yunchang": "0.6.4",
+      "zipp": "4.1.0"
+    },
+    "physical_ram_bytes": 32455614464,
+    "physical_vram_class": "unverified in this run",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "resident_gpu_processes": [
+      {
+        "pid": "157695",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "2478"
+      },
+      {
+        "pid": "246436",
+        "process": "/workspace/experiments/ltx23-soulx-transfer/.venv/bin/python",
+        "used_memory_mib": "234"
+      }
+    ],
+    "torch": "2.7.1+cu128"
+  },
+  "execution": "fresh GPU fixed-latent decoder diagnostic; not recurrent video generation",
+  "failure": {
+    "error": "Decoder failed finite/cache-reset/BF16-adapter qualification",
+    "error_type": "RuntimeError",
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "compute_capability": "8.9",
+          "driver": "595.84",
+          "name": "NVIDIA GeForce RTX 4070 SUPER",
+          "used_vram_mib": 11864,
+          "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+          "visible_vram_mib": 12282
+        }
+      ]
+    },
+    "resident_gpu_processes": [
+      {
+        "pid": "157695",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "2478"
+      },
+      {
+        "pid": "246436",
+        "process": "/workspace/experiments/ltx23-soulx-transfer/.venv/bin/python",
+        "used_memory_mib": "234"
+      },
+      {
+        "pid": "542833",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "9132"
+      }
+    ],
+    "stage": "candidate:1",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/decoder_trial.py\", line 259, in main\n    raise RuntimeError(\"Decoder failed finite/cache-reset/BF16-adapter qualification\")\nRuntimeError: Decoder failed finite/cache-reset/BF16-adapter qualification\n"
+  },
+  "reference_policy": "benchmarks/pro_quantization_v2_20260918/policies/self_all_fp8_sage2_fp16.json",
+  "rows": [
+    {
+      "adapter_bf16": {
+        "comparison": {
+          "dtype": "bfloat16",
+          "finite": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "relative_l2": 0.0,
+          "shape": [
+            1,
+            3,
+            33,
+            576,
+            320
+          ]
+        },
+        "configuration": {
+          "modules": [
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.conv1",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.0.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.0.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.2.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.2.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.0.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.0.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.1.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.1.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.2.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.2.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.3.time_conv",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.shortcut",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.5.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.5.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.6.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.6.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.7.time_conv",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.8.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.8.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.9.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.9.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.10.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.10.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.12.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.12.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.13.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.13.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.14.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.14.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.head.2",
+              "real_quantized_compute": false
+            }
+          ],
+          "plan": {
+            "engines": {},
+            "name": "all-causal-bf16-control",
+            "protected": [],
+            "schema_version": 2,
+            "scheme": "bf16",
+            "source": {},
+            "targets": [
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.conv1"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.0.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.0.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.2.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.2.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.0.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.0.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.1.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.1.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.2.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.2.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.3.time_conv"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.shortcut"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.5.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.5.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.6.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.6.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.7.time_conv"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.8.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.8.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.9.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.9.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.10.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.10.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.12.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.12.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.13.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.13.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.14.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.14.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.head.2"
+              }
+            ]
+          },
+          "scheme": "bf16"
+        },
+        "seconds": [
+          1.6671439119963907,
+          1.6659244479960762,
+          1.6655317410477437
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.6671439119963907,
+          "min": 1.6655317410477437,
+          "p50": 1.6659244479960762,
+          "p95": 1.6670219655963592,
+          "p99": 1.6671195227163844
+        }
+      },
+      "candidate": {
+        "configuration": {
+          "cache_owner": "stock WanVAE decode",
+          "cache_storage": "bfloat16",
+          "caller_cache_dtype": "bfloat16",
+          "compile": {
+            "compiled_modules": [
+              "vae.decode"
+            ],
+            "mode": "compiled",
+            "precision_changed": false
+          },
+          "fallback": false,
+          "floating_precision": "fp16",
+          "groups": [
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              8,
+              9,
+              10
+            ]
+          ],
+          "plan": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/stage-int8-build-r02/results.json",
+          "plan_sha256": "036984dac2be8fc22e835b58069ca1251275dc5dc71d698e27a1099e43b8f394",
+          "precision": "int8"
+        },
+        "policy": "pro30-stage-int8-fp16-islands",
+        "seconds": [
+          1.9366818430135027,
+          1.471876767987851,
+          1.4725273579824716
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.9366818430135027,
+          "min": 1.471876767987851,
+          "p50": 1.4725273579824716,
+          "p95": 1.8902663945103995,
+          "p99": 1.927398753312882
+        }
+      },
+      "candidate_over_compiled_median_speedup": 0.9847709186163321,
+      "comparison_to_compiled": {
+        "dtype": "bfloat16",
+        "finite": true,
+        "max_abs": 0.17242431640625,
+        "mean_abs": 0.0026400659698992968,
+        "relative_l2": 0.006737904157489538,
+        "shape": [
+          1,
+          3,
+          33,
+          576,
+          320
+        ]
+      },
+      "comparison_to_original": {
+        "dtype": "bfloat16",
+        "finite": true,
+        "max_abs": 0.18023681640625,
+        "mean_abs": 0.0026097819209098816,
+        "relative_l2": 0.006651144474744797,
+        "shape": [
+          1,
+          3,
+          33,
+          576,
+          320
+        ]
+      },
+      "compiled_bf16": {
+        "comparison": {
+          "dtype": "bfloat16",
+          "finite": true,
+          "max_abs": 0.0517578125,
+          "mean_abs": 0.0011614261893555522,
+          "relative_l2": 0.0034896547440439463,
+          "shape": [
+            1,
+            3,
+            33,
+            576,
+            320
+          ]
+        },
+        "configuration": {
+          "compiled_modules": [
+            "vae.decode"
+          ],
+          "mode": "compiled",
+          "precision_changed": false
+        },
+        "policy": "self-all-fp8-sage2-fp16",
+        "seconds": [
+          1.4481412339955568,
+          1.4514685340109281,
+          1.4501021190080792
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.4514685340109281,
+          "min": 1.4481412339955568,
+          "p50": 1.4501021190080792,
+          "p95": 1.4513318925106433,
+          "p99": 1.4514412057108712
+        }
+      },
+      "encode_after_decode_finite": true,
+      "latent": {
+        "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-0.pt",
+        "sha256": "3b8b90cf3cf186f6dd86dfa6c2c75f9a6cfe09c61ed6d88eee92b551149d5a4b",
+        "shape": [
+          16,
+          9,
+          72,
+          40
+        ]
+      },
+      "original_bf16": {
+        "seconds": [
+          1.6617867139866576,
+          1.6627404629834928,
+          1.6633658309583552
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.6633658309583552,
+          "min": 1.6617867139866576,
+          "p50": 1.6627404629834928,
+          "p95": 1.663303294160869,
+          "p99": 1.663353323598858
+        }
+      },
+      "repeat_same_latent_exact": true,
+      "reset_after_different_latent_exact": true
+    },
+    {
+      "adapter_bf16": {
+        "comparison": {
+          "dtype": "bfloat16",
+          "finite": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "relative_l2": 0.0,
+          "shape": [
+            1,
+            3,
+            33,
+            576,
+            320
+          ]
+        },
+        "configuration": {
+          "modules": [
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.conv1",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.0.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.0.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.2.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.middle.2.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.0.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.0.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.1.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.1.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.2.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.2.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.3.time_conv",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.4.shortcut",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.5.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.5.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.6.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.6.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.7.time_conv",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.8.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.8.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.9.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.9.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.10.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.10.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.12.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.12.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.13.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.13.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.14.residual.2",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.upsamples.14.residual.6",
+              "real_quantized_compute": false
+            },
+            {
+              "backend": "pytorch_bf16_control",
+              "calibration": {},
+              "kind": "causal_conv3d",
+              "observed_shapes": [
+                [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "path": "model.decoder.head.2",
+              "real_quantized_compute": false
+            }
+          ],
+          "plan": {
+            "engines": {},
+            "name": "all-causal-bf16-control",
+            "protected": [],
+            "schema_version": 2,
+            "scheme": "bf16",
+            "source": {},
+            "targets": [
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.conv1"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.0.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.0.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.2.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.middle.2.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.0.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.0.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.1.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.1.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.2.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.2.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.3.time_conv"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.4.shortcut"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.5.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.5.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.6.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.6.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.7.time_conv"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.8.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.8.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.9.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.9.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.10.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.10.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.12.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.12.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.13.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.13.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.14.residual.2"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.upsamples.14.residual.6"
+              },
+              {
+                "calibration": {},
+                "kind": "causal_conv3d",
+                "observed_shapes": [
+                  [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ]
+                ],
+                "path": "model.decoder.head.2"
+              }
+            ]
+          },
+          "scheme": "bf16"
+        },
+        "seconds": [
+          1.6663301500375383,
+          1.6663711410365067,
+          1.667503307980951
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.667503307980951,
+          "min": 1.6663301500375383,
+          "p50": 1.6663711410365067,
+          "p95": 1.6673900912865065,
+          "p99": 1.6674806646420621
+        }
+      },
+      "candidate": {
+        "configuration": {
+          "cache_owner": "stock WanVAE decode",
+          "cache_storage": "bfloat16",
+          "caller_cache_dtype": "bfloat16",
+          "compile": {
+            "compiled_modules": [
+              "vae.decode"
+            ],
+            "mode": "compiled",
+            "precision_changed": false
+          },
+          "fallback": false,
+          "floating_precision": "fp16",
+          "groups": [
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              8,
+              9,
+              10
+            ]
+          ],
+          "plan": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/stage-int8-build-r02/results.json",
+          "plan_sha256": "036984dac2be8fc22e835b58069ca1251275dc5dc71d698e27a1099e43b8f394",
+          "precision": "int8"
+        },
+        "policy": "pro30-stage-int8-fp16-islands",
+        "seconds": [
+          1.5060843150131404,
+          1.5081184210139327,
+          1.5126805159961805
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.5126805159961805,
+          "min": 1.5060843150131404,
+          "p50": 1.5081184210139327,
+          "p95": 1.5122243064979557,
+          "p99": 1.5125892740965354
+        }
+      },
+      "candidate_over_compiled_median_speedup": 1.0079464177450423,
+      "comparison_to_compiled": {
+        "dtype": "bfloat16",
+        "finite": true,
+        "max_abs": 0.1494140625,
+        "mean_abs": 0.002536602783948183,
+        "relative_l2": 0.006426599808037281,
+        "shape": [
+          1,
+          3,
+          33,
+          576,
+          320
+        ]
+      },
+      "comparison_to_original": {
+        "dtype": "bfloat16",
+        "finite": true,
+        "max_abs": 0.14892578125,
+        "mean_abs": 0.002549664583057165,
+        "relative_l2": 0.00645926920697093,
+        "shape": [
+          1,
+          3,
+          33,
+          576,
+          320
+        ]
+      },
+      "compiled_bf16": {
+        "comparison": {
+          "dtype": "bfloat16",
+          "finite": true,
+          "max_abs": 0.03515625,
+          "mean_abs": 0.0006033741519786417,
+          "relative_l2": 0.0023939029779285192,
+          "shape": [
+            1,
+            3,
+            33,
+            576,
+            320
+          ]
+        },
+        "configuration": {
+          "compiled_modules": [
+            "vae.decode"
+          ],
+          "mode": "compiled",
+          "precision_changed": false
+        },
+        "policy": "self-all-fp8-sage2-fp16",
+        "seconds": [
+          1.5190671009477228,
+          1.5201025599963032,
+          1.5213974560028873
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.5213974560028873,
+          "min": 1.5190671009477228,
+          "p50": 1.5201025599963032,
+          "p95": 1.5212679664022288,
+          "p99": 1.5213715580827556
+        }
+      },
+      "encode_after_decode_finite": true,
+      "latent": {
+        "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-1.pt",
+        "sha256": "40090a4ea6ea70bd289d48c35ea285861fd53b13ad9ffd2a839a3ba8b9f705dd",
+        "shape": [
+          16,
+          9,
+          72,
+          40
+        ]
+      },
+      "original_bf16": {
+        "seconds": [
+          1.6658952270518057,
+          1.6671444529783912,
+          1.667627833026927
+        ],
+        "summary_s": {
+          "count": 3,
+          "max": 1.667627833026927,
+          "min": 1.6658952270518057,
+          "p50": 1.6671444529783912,
+          "p95": 1.6675794950220735,
+          "p99": 1.6676181654259563
+        }
+      },
+      "repeat_same_latent_exact": false,
+      "reset_after_different_latent_exact": false
+    }
+  ],
+  "status": "failed"
+}

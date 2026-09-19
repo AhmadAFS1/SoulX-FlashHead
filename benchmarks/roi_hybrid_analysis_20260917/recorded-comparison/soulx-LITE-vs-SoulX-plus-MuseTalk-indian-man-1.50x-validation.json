@@ -1,0 +1,148 @@
+{
+  "execution": "CPU packaging and media checks; no new GPU inference",
+  "media": {
+    "benchmarks/roi_hybrid_analysis_20260917/recorded-comparison/soulx-LITE-indian-man-1.50x-baseline/soulx-LITE-indian-man-1.50x-baseline.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/roi_hybrid_analysis_20260917/recorded-comparison/soulx-LITE-plus-MuseTalk-indian-man-1.50x-face-batch8/soulx-LITE-plus-MuseTalk-indian-man-1.50x-face-batch8.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/roi_hybrid_analysis_20260917/recorded-comparison/soulx-LITE-vs-SoulX-plus-MuseTalk-indian-man-1.50x.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    }
+  },
+  "samples": [
+    {
+      "label": "SoulX LITE",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 18.35902158039912
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 14.245695262107938
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 33.18152846515355
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 13.790978802470171
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 19.104267919279252
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 11.439818422645509
+    },
+    {
+      "label": "SoulX LITE",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 13.323971714322207
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 8.862114785452178
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 8.90064291894262
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 7.25677878546262
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 9.73188296691475
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 8.53490601528254
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 9.806138498803914
+    },
+    {
+      "label": "SoulX plus MuseTalk",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 3.5754576243092546
+    }
+  ]
+}

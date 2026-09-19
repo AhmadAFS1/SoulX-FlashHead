@@ -1,0 +1,38 @@
+{
+  "base": "pro-fp8-v1",
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "cross_attention_projections": {
+    "exclude": [],
+    "include": [],
+    "scheme": "bf16"
+  },
+  "decoder": {
+    "backend": "adapter_compile",
+    "plan": "benchmarks/pro_quantization_v2_20260918/runs/decoder-int8-twelve-target-build-r01/engine-plan.json",
+    "scheme": "int8_conservative"
+  },
+  "ffn": {
+    "exclude": [],
+    "scheme": "fp8_e4m3_w8a8"
+  },
+  "name": "self-all-fp8-sage2-fp16-decoder-int8-twelve",
+  "prepared_conditioning": true,
+  "schema_version": 1,
+  "self_attention_kernel": {
+    "backend": "sage2_fp16"
+  },
+  "self_attention_projections": {
+    "exclude": [],
+    "include": [
+      "blocks.*.self_attn.q",
+      "blocks.*.self_attn.k",
+      "blocks.*.self_attn.v",
+      "blocks.*.self_attn.o"
+    ],
+    "packing": "separate",
+    "scheme": "fp8_e4m3_w8a8"
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/README.md",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-README.md",
+    "sha256": "f6a734dacffbbd167ab6712dc23d7deeb92b2a85f477c303bae7c6c94bb92102"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/THIRD-PARTY-NOTICES.md",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-THIRD-PARTY-NOTICES.md",
+    "sha256": "b7ebb1b7b1ab944216496c29f7fed708bf22888feb67d06551badb256d22afcb"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/docker-compose.yml",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-docker-compose.yml",
+    "sha256": "e11e8834242c5c812f5db7b8657b2870abbd9813f9d25285944fde97180693fe"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/.env.example",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-.env.example",
+    "sha256": "698aac49d7153d3bc4055decad3551de7a42e1a58b81f24962380ebd359ea764"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/scripts/load_image.sh",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-scripts_load_image.sh",
+    "sha256": "57d53c3009c3b472b7255b578f13f8cba8099434b7cddd85b79b9bdf57ef27b5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/examples/headless/main.py",
+    "path": "benchmarks/ojin_components_20260917/source-audit/ojin-examples_headless_main.py",
+    "sha256": "b357f17f075193e7fb83e40e9309236a4555417705d3246fa7b04b8e978b986e"
+  },
+  {
+    "url": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+    "path": "models/ojin-components/face_landmarker.task",
+    "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+    "bytes": 3758596,
+    "license": "Apache-2.0"
+  },
+  {
+    "url": "https://github.com/Phhofm/models/releases/download/2xNomosUni_compact_multijpg_ldl/2xNomosUni_compact_multijpg_ldl.safetensors",
+    "path": "models/ojin-components/2xNomosUni_compact_multijpg_ldl.safetensors",
+    "sha256": "dec25af2672783ce2214c38d6a70caf8c3d8a640d6f4d87b543b264cafd74110",
+    "bytes": 2406816,
+    "license": "CC BY 4.0, Philip Hofmann; substitute, NOT Ojin weights"
+  }
+]

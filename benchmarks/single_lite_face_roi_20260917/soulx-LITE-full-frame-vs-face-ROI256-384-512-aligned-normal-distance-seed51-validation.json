@@ -1,0 +1,270 @@
+{
+  "execution": "CPU packaging and media checks; no new GPU inference",
+  "media": {
+    "benchmarks/single_lite_face_roi_20260917/full-frame-seed51/native/soulx-LITE-full-frame-seed51-native.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop256-seed51/aligned/soulx-LITE-face-crop256-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop384-seed51/aligned/soulx-LITE-face-crop384-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/face-crop512-seed51/aligned/soulx-LITE-face-crop512-seed51-aligned-face-normal-distance.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    },
+    "benchmarks/single_lite_face_roi_20260917/soulx-LITE-full-frame-vs-face-ROI256-384-512-aligned-normal-distance-seed51.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ]
+    }
+  },
+  "samples": [
+    {
+      "label": "Full-frame LITE",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 11.463736563959356
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 15.054916542801989
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 13.508040085003957
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 12.097671418136787
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 14.996855004572675
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 10.242895062491383
+    },
+    {
+      "label": "Full-frame LITE",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 10.086215214880262
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 20.98904107283643
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 0.15542881749147122
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 11.117022374239923
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 16.22033480158129
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 21.374235858878954
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 13.653126408071069
+    },
+    {
+      "label": "LITE ROI 256 aligned",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 16.33236545527241
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 13.538028720093708
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 9.221128860304722
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 22.1357999074849
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 8.203403495588413
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 7.709162723311182
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 7.127681229007674
+    },
+    {
+      "label": "LITE ROI 384 aligned",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 6.1778793569876616
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 0.5,
+      "source": "native PNG",
+      "opening_px": 18.55850731713841
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 1.5,
+      "source": "native PNG",
+      "opening_px": 9.846312724401232
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 2.5,
+      "source": "native PNG",
+      "opening_px": 11.710385392458353
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 3.5,
+      "source": "native PNG",
+      "opening_px": 9.970252222953432
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 4.5,
+      "source": "native PNG",
+      "opening_px": 6.83820355214393
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 6.5,
+      "source": "native PNG",
+      "opening_px": 6.401011128265697
+    },
+    {
+      "label": "LITE ROI 512 aligned",
+      "time": 8.5,
+      "source": "native PNG",
+      "opening_px": 8.564581333771454
+    }
+  ]
+}

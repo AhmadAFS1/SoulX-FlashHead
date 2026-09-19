@@ -21,3 +21,17 @@ tools/
 *.engine
 *.onnx
 .gpu-owner.lock
+# Generated benchmark/capture artifacts omitted from the GitHub source branch.
+# The complete files remain intact on the local preservation branch.
+**/*.pt
+**/*.npy
+**/*.png
+**/*.mp4
+**/*.wav
+**/*.ttir
+**/*.ttgir
+**/*.ptx
+**/*.llir
+**/*.cubin
+**/*.best_config
+.inductor-cache/

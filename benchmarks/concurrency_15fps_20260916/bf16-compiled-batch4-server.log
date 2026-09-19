@@ -1,0 +1,50 @@
+2026-09-16 19:24:36.937 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/compile_fx.py:236: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+W0916 19:24:45.679000 212489 .venv/lib/python3.10/site-packages/torch/_inductor/utils.py:1250] [3/0] Not enough SMs to use max_autotune_gemm mode
+INFO:soulx_rtc:Session isolation check: None
+INFO:soulx_rtc:READY size=512 steps=4 batch=4 max_sessions=12
+======== Running on http://127.0.0.1:8765 ========
+(Press CTRL+C to quit)
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 53877) -> ('172.17.0.2', 43389)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 53877) -> ('172.17.0.2', 43389)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 38108) -> ('172.17.0.2', 32990)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 43098) -> ('172.17.0.2', 42272)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(0) Check CandidatePair(('172.17.0.2', 53877) -> ('172.17.0.2', 43389)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 38108) -> ('172.17.0.2', 32990)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 43098) -> ('172.17.0.2', 42272)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(0) ICE completed
+INFO:aioice.ice:Connection(2) Check CandidatePair(('172.17.0.2', 38108) -> ('172.17.0.2', 32990)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(4) Check CandidatePair(('172.17.0.2', 43098) -> ('172.17.0.2', 42272)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 50776) -> ('172.17.0.2', 59351)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 50776) -> ('172.17.0.2', 59351)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 48314) -> ('172.17.0.2', 43988)) State.FROZEN -> State.WAITING
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 48314) -> ('172.17.0.2', 43988)) State.WAITING -> State.IN_PROGRESS
+INFO:aioice.ice:Connection(6) Check CandidatePair(('172.17.0.2', 50776) -> ('172.17.0.2', 59351)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(8) Check CandidatePair(('172.17.0.2', 48314) -> ('172.17.0.2', 43988)) State.IN_PROGRESS -> State.SUCCEEDED
+INFO:aioice.ice:Connection(2) ICE completed
+INFO:aioice.ice:Connection(4) ICE completed
+INFO:aioice.ice:Connection(6) ICE completed
+INFO:aioice.ice:Connection(8) ICE completed
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/concurrent/futures/process.py", line 240, in _process_worker
+    call_item = call_queue.get(block=True)
+  File "/usr/lib/python3.10/multiprocessing/queues.py", line 103, in get
+    res = self._recv_bytes()
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt

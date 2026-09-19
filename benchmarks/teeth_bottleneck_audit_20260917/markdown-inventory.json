@@ -1,0 +1,381 @@
+{
+  "execution": "CPU-only Markdown inventory and evidence review; no new GPU inference",
+  "scope": "SoulX repository and LTX fork; excludes dependencies, model trees and caches. All files inventoried and searched for quality evidence; relevant experimental/architecture reports read in depth.",
+  "files": [
+    {
+      "path": "/workspace/SoulX-FlashHead/AGENTS.md",
+      "bytes": 726,
+      "sha256": "1eeac7dcb33eb6b346b57ef0409f1dc03eac0db8cd364415720e2300ed0f2f3a"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/CONTINUOUS_WEBRTC.md",
+      "bytes": 14082,
+      "sha256": "a6a08a28d903b80613f77cff992fc6fff381cdb9d8cd002f1750c515975b6f85"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/EXACT_FRAME_BOUNDARIES.md",
+      "bytes": 9417,
+      "sha256": "7d16d93684aba4235abcb066da2e8f8fa1a02039088e1374ce3fe7977d333f2b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/EXISTING_AVATARS.md",
+      "bytes": 2203,
+      "sha256": "f65a2976d1814eaa935ade3ec47ce266b3bdf3f3235f8e4628e112877f3cd30a"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/README.md",
+      "bytes": 14334,
+      "sha256": "b8be26fa03cade429600ab28fd70ab2c1798d4a91fe0adc2bf6e1664df78166b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/TENSORRT_EXPERIMENTS.md",
+      "bytes": 8918,
+      "sha256": "0118e1523956852c48a57d75199b0fb58b4df550176c65e218689b19804ccf13"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/WEBRTC.md",
+      "bytes": 8786,
+      "sha256": "fb56d71fdcf494de252d764ba60bdb88acaf10861b9531ed17bddc57924fffea"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/WEBRTC_WALL.md",
+      "bytes": 7251,
+      "sha256": "5db1e52cd640cdf475060f19b52678dae79305d52d82c0c584ecc49fd5e617d8"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/ARCHITECTURE_REVIEW.md",
+      "bytes": 7214,
+      "sha256": "c8aff6609c2edb7a7bfc1fb0be64df32177f0a46d2861214886122d84235407b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/REPORT.md",
+      "bytes": 11712,
+      "sha256": "56c41d7bdb0b0119beba92604e15b00ad792a76441aadea7bba4ca353dadb05d"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/closer_capacity_20260916/README.md",
+      "bytes": 3361,
+      "sha256": "086d356cb5b82e6f17130c02199e90b9bc2db6f7c20ddd00b886ee524c07f93e"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/closer_capacity_20260916/TEETH_VALIDATION_20260917.md",
+      "bytes": 5587,
+      "sha256": "7081957b9ace2f018ef72b68bd59ee2f1a3dbd05179104defb2b4b7baa7ada12"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/concurrency_15fps_20260916/README.md",
+      "bytes": 6302,
+      "sha256": "bf19c34aa7a1d312964314b6b157911c133e50a76616a6eaf80ae5190b33b915"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/DITTO_CLOSER_0P5_REPORT.md",
+      "bytes": 4534,
+      "sha256": "4530c6d4068313bd031f136385bfbbaef31b4e54702c5119c333db5a4752bc0b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/DITTO_CLOSER_0P7_REPORT.md",
+      "bytes": 5460,
+      "sha256": "88f98ba6127255c5b86274f5bf283d97f9bd3080281f9563c4c874c0014b1db1"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/INDIAN_MALE_CLOSER_REPORT.md",
+      "bytes": 2919,
+      "sha256": "672ff5bdf5aa5fd1ec6856245353ca115e00f95082ac3f2492c5172b5ee297d5"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/INDIAN_MALE_CLOSER_STRENGTH_0P5_REPORT.md",
+      "bytes": 3679,
+      "sha256": "f7723d1e77bae6284130dd4df572b99e749b82e5103b1818803982ab0501880b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/INDIAN_MALE_REPORT.md",
+      "bytes": 3817,
+      "sha256": "16363750b55d0dfd91434c447ae483268382107cf2e443f20be179fcd1056f95"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/README.md",
+      "bytes": 4666,
+      "sha256": "9121b77c134eb81cdbed53363d21f60a9de5ad11b179fe20af23d7b6cc63133f"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/REPORT.md",
+      "bytes": 3620,
+      "sha256": "e02b32b8aac2def8d6e4d2b83cbdb754ba4e6eb1fe77862f8ac8e392d4100c46"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/ltx_transfer_20260917/README.md",
+      "bytes": 7806,
+      "sha256": "f8a9c940ff7a88a361c458f1fc28650164933bb15e7e9d35daad0c6593833917"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/ltx_transfer_20260917/ROOT_COMPONENTS.md",
+      "bytes": 15066,
+      "sha256": "53a98de74f0bc6a1d82662bf0701cc43f000284ce514b6a0447a8791548941a4"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/movement_ranges_20260917/README.md",
+      "bytes": 9096,
+      "sha256": "7f73e6e1859bc0475adb812e13c82d8192e06920df192af1c71cf24f4481442b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/portrait_source_detail_20260917/README.md",
+      "bytes": 5980,
+      "sha256": "f5233d6b7e17bb5a73a982cd86a77935cae5ee92855f195849ce9bbb882e597e"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/refinement_20260917/README.md",
+      "bytes": 8178,
+      "sha256": "701980290832c72090e876db3aefb32cf8007d8d9b58056881a0430095ee2f1b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/smile_reference_320_20260917/README.md",
+      "bytes": 3867,
+      "sha256": "fcb04202e3215aff78063d88d1e49d3202e3517f5c1a4ea33d502b99dddf1723"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/source_detail_20260917/README.md",
+      "bytes": 5891,
+      "sha256": "7535ede6ece66bd862c14ac3da9816dfdc4b137cc49c169b3dc1776f9d7bf61f"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/square_teeth_20260917/README.md",
+      "bytes": 6860,
+      "sha256": "cf9119cbdca4b5c2c5790de1a2b2ba51d17bb1c0c02b509a0f2c6e98cc9fe16d"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/strength_recreated_20260917/README.md",
+      "bytes": 5935,
+      "sha256": "ab4926bcc021df02da2aabb315c50cb26ebe9f79b1a26272e489013b4c84daa1"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/wall/README.md",
+      "bytes": 2709,
+      "sha256": "b159539f933c03caa3600f718fb5270b226be7fb4dfbb957cc6b626771aa7789"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/01_ENTRYPOINTS_AND_LOADING.md",
+      "bytes": 8364,
+      "sha256": "07988668c59ddfc690b49d0fc8c54d3f5b6ffed96d4ed8b292e29affa1481a11"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/02_AUDIO_AND_DIT.md",
+      "bytes": 8995,
+      "sha256": "59ff2ed36d9ae797c2bc341b47d5352477eed4c56267bc4056d684530b404d28"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/03_VAE_AND_CONTINUITY.md",
+      "bytes": 10954,
+      "sha256": "b935cbc07e41920a145e6f083e67ebb2180548878898ab3d3e68b63c2e95c5a9"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/04_ENGINE_AND_MEMORY.md",
+      "bytes": 10217,
+      "sha256": "9a8f1c115c6a6efbf8578743fd99f55cb69e1995113d6e94809c0dfb6dedf188"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/05_WEBRTC_AND_SCHEDULING.md",
+      "bytes": 11962,
+      "sha256": "2e5a4f0f9eee711df503be49bec52013b9b153924aae0608a51294505381c48f"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/06_TENSORRT_AND_TEST_TOOLING.md",
+      "bytes": 10899,
+      "sha256": "3505f7a553d13a2d91e39ec72af45ec59ec9153334e14f70611d1a54b682a511"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/README.md",
+      "bytes": 5933,
+      "sha256": "1c20e84b79727fc4bc2080266e7ec96deb75f8cdd3dd786a679a69f9ba662726"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/architecture/SOURCE_INVENTORY.md",
+      "bytes": 40964,
+      "sha256": "f3891aa013aef6129c8f33b7e032298343d8343784b05ef5daded635044e7787"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/ARCHITECTURE.md",
+      "bytes": 13066,
+      "sha256": "b695a9657c4ef58c5bd871abb7ffe2e09bc802cfb3c087a737a4ea4311fab4c0"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/CONCURRENCY_POTENTIAL_2026-09-16.md",
+      "bytes": 20569,
+      "sha256": "b55eab7ac535028dcf87adfc19032879be7fbb0f780a2dd931d7f0c47c30bdee"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/CONTINUOUS_CALLS.md",
+      "bytes": 12570,
+      "sha256": "b1422505330c877f11e0b2245b74d1958778ae23e568b455f034a577e74c6b36"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/EVIDENCE_VALIDATION_2026-09-07.md",
+      "bytes": 13804,
+      "sha256": "557d8d8a00b52619812c01081107edca8ae1f8a8490b4b5bae3bacfdee6fc142"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/GPU_RUN_PROVENANCE.md",
+      "bytes": 10916,
+      "sha256": "8428059c8b8d155a02a5f98dbde9b0f6d8b2e45ef339038cce5ff50eaa557a72"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/HEAD_MOTION_CONTROL_2026-09-16.md",
+      "bytes": 7805,
+      "sha256": "8aabcaff0f6407429d5511fcc1610b60f49be6f2af274f93e5802dbe50c158b3"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/IMPLEMENTATION_RESULTS.md",
+      "bytes": 27184,
+      "sha256": "eb49a800f185855926dffd9a107ddccd40041f9d5a265b11d44d58b70c8686df"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/IMPLEMENTATION_STATUS.md",
+      "bytes": 8521,
+      "sha256": "3b2afb68a846f346692faf169ed3035b922eab91c172cea85de1b6095645a082"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MALE_TEETH_QUALITY_2026-09-13.md",
+      "bytes": 9446,
+      "sha256": "2b383d55588a85f53e5283e539acb6e02ba944e40746448d048949683a3acf6a"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MEDIA_OPTIMIZATION_2026-09-13.md",
+      "bytes": 13955,
+      "sha256": "76fb5968a564071644c8408b1e3b292db54cf07b6c5bd84a24a33fb5c10c416e"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MODEL_CHOICE_AND_FRAMING_2026-09-16.md",
+      "bytes": 10079,
+      "sha256": "c2fc29fe9fd8c7ea6a28251de2cb46c872b45b7c53ac3db25578929b67847747"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MOUTH_MOVEMENT_CONTROL_2026-09-13.md",
+      "bytes": 13544,
+      "sha256": "a17821e14e31c2dd57df45800af667e2f488ce51db2d83c64e38c0d7577458ab"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MOVEMENT_SEED_PROTOCOL_2026-09-17.md",
+      "bytes": 3342,
+      "sha256": "78bd4110d6fef352ac42e4e669156a9c6858bd26a8339b16aefbd9abf76d5422"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MUSETALK_DOC_AUDIT.md",
+      "bytes": 22083,
+      "sha256": "d51edab5141763489311ea4d13b70dc14a6df16d0c2a59d3c997e41b25f123d8"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/MUSETALK_OPTIMIZATION_COMPARISON.md",
+      "bytes": 13162,
+      "sha256": "e321cff1a5835d79012aec7bbfd170a3f83c3fb3d8006a361ba212bd34604ed7"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/NEXT_OPTIMIZATION_PLAN.md",
+      "bytes": 23634,
+      "sha256": "38aa1b2adfdbba4c8562113e6b514b70c13eb8b8cbd75b9f598a4621020e7ade"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/OPTIMIZATION_PLAN.md",
+      "bytes": 18571,
+      "sha256": "17a8fd20fe38318f3f24dc2b9a0e4e4129235cbfddcf89a473d691ad4fa5aa83"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/PIPELINE_PROFILE_2026-09-11.md",
+      "bytes": 31721,
+      "sha256": "7a99f029ecf8aa6adc0dc020fa1b978c2e0cad32df5140bd5be0f9e590d41343"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/QUANTIZATION_TENSORRT_2026-09-16.md",
+      "bytes": 7889,
+      "sha256": "3609925262c76c7a684289d6119603f0e6c47232402f0e65b99f82c2c878c35a"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/README.md",
+      "bytes": 8428,
+      "sha256": "2d41873b51a49bb7ac39aaa00caad5fba2aecdc9023813457bb30cbae517162a"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/STILL_REFERENCE_QUALITY_2026-09-13.md",
+      "bytes": 5056,
+      "sha256": "9f282d53e1791b926721825f09ea42495135958d854238f087fa70ec0f937c25"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/TEST_CATALOG.md",
+      "bytes": 20390,
+      "sha256": "183f77d82daff8ca61ef0b3ea1fc88524122e3f48b5cb5b91a57be92cc95064b"
+    },
+    {
+      "path": "/workspace/SoulX-FlashHead/docs/research/VALIDATION.md",
+      "bytes": 11732,
+      "sha256": "fcf798a20436d8d3ed30af1481dfabca28931bdc64a1c669803a75be76b996a8"
+    },
+    {
+      "path": "/workspace/LTX-2.3/README.md",
+      "bytes": 4873,
+      "sha256": "19a31da94ddfcc8d617c04d56ca6a9cff5f5f773dc11bc90c214b5556b0bdb39"
+    },
+    {
+      "path": "/workspace/LTX-2.3/benchmarks/results/lipdub_q3_teeth_test/README.md",
+      "bytes": 1396,
+      "sha256": "3350d56fb26ea0f8de6eee43f2208fb15f74300baf116e4ef6c9788680f4084e"
+    },
+    {
+      "path": "/workspace/LTX-2.3/context.md",
+      "bytes": 43971,
+      "sha256": "38bc8511f9d4376c7efb9d7724e3c82484552736d89d846fb663636ef7acb6cb"
+    },
+    {
+      "path": "/workspace/LTX-2.3/docs/FIRST_RUN_16GB.md",
+      "bytes": 766,
+      "sha256": "8945da4fc626287121b16a456f1facb8751f74a6ffd26f536f9c2b706d487f24"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake/README.md",
+      "bytes": 3317,
+      "sha256": "d905caa0065df48c5cdd91dc0cd04bd60668522124a835dc72265e5c2206184b"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake/reference-analysis.md",
+      "bytes": 2276,
+      "sha256": "af0952437bebbe239f3584cf809403bc3beb471b54a2a99f1e6f0735271262e8"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake/source_frames/imagegen-prompts.md",
+      "bytes": 3055,
+      "sha256": "de0a582f82849ed70303f9f797d7bf62e02d68fbddea57561d67aa8c52bb6a94"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake/validation/03_english_emma_theo_a_zoom-check.md",
+      "bytes": 1388,
+      "sha256": "72360096eee7ea3a41fc7ed6dd689b4e289c3fd792f6770c7e2d2383fb3f9787"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake 2/ACCEPTED_SELFIE_VIDEO_PROMPT.md",
+      "bytes": 3309,
+      "sha256": "3a0a3f66b832c80f1bed78d982bc49bdef9610c8c3c6cfd311973552064e010a"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake 2/README.md",
+      "bytes": 1302,
+      "sha256": "e2ee0b153d999f3e166b5daf246834cde6d3f5deb35230d0a086e4f4e09ff7d4"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake 2/reference-analysis.md",
+      "bytes": 2276,
+      "sha256": "af0952437bebbe239f3584cf809403bc3beb471b54a2a99f1e6f0735271262e8"
+    },
+    {
+      "path": "/workspace/LTX-2.3/lumatalk_completed_videos_20260701T025914Z/remake 2/source_frames/imagegen-prompts.md",
+      "bytes": 3055,
+      "sha256": "de0a582f82849ed70303f9f797d7bf62e02d68fbddea57561d67aa8c52bb6a94"
+    },
+    {
+      "path": "/workspace/LTX-2.3/samples/q4/README.md",
+      "bytes": 660,
+      "sha256": "bd30bf8f7f662aace874e0af86e21c012dad8a1efdf79e9732ff50c0c76bedce"
+    },
+    {
+      "path": "/workspace/LTX-2.3/workflows/experiments/lipdub/NATIVE_RESOLUTION_EXPERIMENT_FAILURE_REPORT.md",
+      "bytes": 8691,
+      "sha256": "e55ea42d0ef4eb745ea894b7a6ae61abd509dbe9f66ce4cf248dee331eadc1f6"
+    }
+  ]
+}

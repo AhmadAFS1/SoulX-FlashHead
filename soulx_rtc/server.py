@@ -31,6 +31,33 @@ from .engine import Engine
 LOG = logging.getLogger("soulx_rtc")
 
 
+def _ice_servers(name, fallback="[]"):
+    value = json.loads(os.environ.get(name, fallback))
+    if not isinstance(value, list) or not all(isinstance(item, dict) for item in value):
+        raise ValueError(f"{name} must be a JSON list of ICE server objects")
+    return value
+
+
+def _apply_ice_transport_policy(policy):
+    """Make aiortc honor the same relay-only policy advertised to browsers."""
+    if policy not in ("all", "relay"):
+        raise ValueError("SOULX_ICE_TRANSPORT_POLICY must be 'all' or 'relay'")
+    import aiortc.rtcicetransport as rtcicetransport
+    from aioice.ice import TransportPolicy
+
+    original = getattr(rtcicetransport, "_soulx_original_connection_kwargs",
+                       rtcicetransport.connection_kwargs)
+    rtcicetransport._soulx_original_connection_kwargs = original
+    if policy == "relay":
+        def relay_connection_kwargs(servers):
+            kwargs = original(servers)
+            kwargs["transport_policy"] = TransportPolicy.RELAY
+            return kwargs
+        rtcicetransport.connection_kwargs = relay_connection_kwargs
+    else:
+        rtcicetransport.connection_kwargs = original
+
+
 @dataclass
 class Session:
     id: str
@@ -211,7 +238,11 @@ class Service:
         self.pending = 0
         self.isolation = None
         self.token = "" if getattr(args, "allow_anonymous", False) else os.environ.get("SOULX_API_TOKEN", "")
-        self.ice = json.loads(os.environ.get("SOULX_ICE_SERVERS", "[]"))
+        legacy_ice = os.environ.get("SOULX_ICE_SERVERS", "[]")
+        self.browser_ice = _ice_servers("SOULX_BROWSER_ICE_SERVERS", legacy_ice)
+        self.server_ice = _ice_servers("SOULX_SERVER_ICE_SERVERS", legacy_ice)
+        self.ice_transport_policy = os.environ.get("SOULX_ICE_TRANSPORT_POLICY", "all").strip().lower()
+        _apply_ice_transport_policy(self.ice_transport_policy)
         self.idle_asset = None
         import hashlib
         self.source_sha256 = {str(p):hashlib.sha256(p.read_bytes()).hexdigest()
@@ -454,7 +485,7 @@ class Service:
         params = await request.json()
         if params.get("type") != "offer":
             raise web.HTTPBadRequest(text="Expected an SDP offer")
-        pc = RTCPeerConnection(RTCConfiguration(iceServers=[RTCIceServer(**i) for i in self.ice]))
+        pc = RTCPeerConnection(RTCConfiguration(iceServers=[RTCIceServer(**i) for i in self.server_ice]))
         s.pc = pc  # Reserve before awaits.
         @pc.on("connectionstatechange")
         async def changed():
@@ -521,7 +552,9 @@ class Service:
             recent_chunks=list(self.chunks)[-10:]))
 
     async def config(self, request):
-        return web.json_response({"iceServers": self.ice, "authRequired": bool(self.token)})
+        return web.json_response({"iceServers": self.browser_ice,
+                                  "iceTransportPolicy": self.ice_transport_policy,
+                                  "authRequired": bool(self.token)})
 
 
 def make_app(service):
@@ -586,7 +619,8 @@ def main():
                     help="Bound simultaneously rendering calls independently from connected peers")
     ap.add_argument("--steps", type=int, choices=[2, 4], default=4)
     ap.add_argument("--fps", type=int, choices=[15, 20, 24, 25], default=25)
-    ap.add_argument("--batch", type=int, choices=[1, 2, 4], default=1)
+    ap.add_argument("--batch", type=int, choices=[1, 2, 4, 5], default=1,
+                    help="Maximum independent states per GPU render; batch 5 is an experimental 15-FPS capacity profile")
     ap.add_argument("--max-sessions", type=int, default=10)
     ap.add_argument("--eager", action="store_true")
     ap.add_argument("--validate-isolation", action="store_true")

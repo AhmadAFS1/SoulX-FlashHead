@@ -1,0 +1,16 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789785771.789242  585818 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789785771.840362  585944 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+I0000 00:00:1789785772.479699  585818 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789785772.512587  586022 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+{
+  "output": "benchmarks/pro_30fps_20260919/new-speech-correction-r01/sichuan-30s-review",
+  "paired": {
+    "detected_pairs": 250,
+    "both_open_pairs": 185,
+    "opening_correlation": 0.9404660453369555,
+    "median_mouth_center_distance_px": 4.2942358160383165,
+    "median_edge_ratio_on_both_open": 1.0272644830785909
+  }
+}

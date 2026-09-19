@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "name": "pro-fp8-reference",
+  "base": "pro-fp8-v1",
+  "ffn": {
+    "scheme": "fp8_e4m3_w8a8",
+    "exclude": []
+  },
+  "self_attention_projections": {
+    "scheme": "bf16",
+    "include": [],
+    "exclude": [],
+    "packing": "separate"
+  },
+  "self_attention_kernel": {
+    "backend": "flash2"
+  },
+  "cross_attention_projections": {
+    "scheme": "bf16",
+    "include": [],
+    "exclude": []
+  },
+  "decoder": {
+    "scheme": "bf16",
+    "backend": "torch_compile",
+    "plan": null
+  },
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "prepared_conditioning": true
+}

@@ -1,0 +1,16 @@
+{
+  "execution": "CPU environment inventory; inference GPU provenance in results.json",
+  "packages": {
+    "mediapipe": "0.10.35",
+    "tensorrt-cu13": "10.16.1.11",
+    "tensorrt-cu13-bindings": "10.16.1.11",
+    "tensorrt-cu13-libs": "10.16.1.11",
+    "onnx": "1.17.0",
+    "torch": "2.7.1+cu128",
+    "numpy": "2.2.6",
+    "protobuf": "3.20.3"
+  },
+  "system_gl": "libegl1:amd64\t1.4.0-1\nlibgles2:amd64\t1.4.0-1\n",
+  "isolated_path": "/workspace/experiments/ojin-matched-deps",
+  "serving_venv_upgraded": false
+}

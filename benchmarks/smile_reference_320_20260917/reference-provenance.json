@@ -1,0 +1,9 @@
+{
+  "date_utc": "2026-09-17",
+  "neutral_source": "../distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+  "smiling_source": "smiling-generated.png",
+  "method": "Built-in imagegen reference-image edit; external generation hardware unverified",
+  "prompt": "Edit the provided portrait. Preserve exactly the same adult Indian man, identity, hairstyle, beard, clothing, navy blue crewneck sweater, head position, camera angle, shoulder-visible upper torso framing, lighting, bookshelf background and composition. Change only his neutral closed-mouth expression into a natural relaxed friendly smile with clearly visible realistic upper teeth, distinct individual teeth with natural color and shape. Not a broad exaggerated grin. Keep eyes looking straight at camera and head still. This will be used as a controlled reference image for a talking-head teeth-quality experiment; preserve all non-expression details as closely as possible. Portrait aspect ratio 5:9 matching input; no text, no graphics. Save the generated image.",
+  "preprocessing": "Resize generated smiling portrait once to 320x576 with PIL Lanczos. Neutral reference retained exactly.",
+  "limitation": "Image editing changes facial texture and expression beyond teeth visibility; this is a practical paired reference test, not a perfect causal isolation of teeth."
+}

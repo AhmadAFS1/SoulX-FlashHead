@@ -1,0 +1,141 @@
+Processing /workspace/experiments/pro30-deps/SageAttention-sm89
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: sageattention
+  Building wheel for sageattention (pyproject.toml): started
+  Building wheel for sageattention (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Building wheel for sageattention (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [118 lines of output]
+      Target compute capabilities: {'8.9'}
+      /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/wheel/bdist_wheel.py:4: FutureWarning: The 'wheel' package is no longer the canonical location of the 'bdist_wheel' command, and will be removed in a future release. Please update to setuptools v70.1 or later which contains an integrated version of this command.
+        warn(
+      running bdist_wheel
+      running build
+      running build_py
+      running build_ext
+      /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py:490: UserWarning: There are no x86_64-linux-gnu-g++ version bounds defined for CUDA version 12.8
+        warnings.warn(f'There are no {compiler_name} version bounds defined for CUDA version {cuda_str_version}')
+      building 'sageattention._qattn_sm80' extension
+      Emitting ninja build file /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm80/build.ninja...
+      Compiling objects...
+      Using envvar MAX_JOBS (2) as the number of workers...
+      ninja: no work to do.
+      x86_64-linux-gnu-g++ -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -g -fwrapv -O2 -Wl,-Bsymbolic-functions -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm80/csrc/qattn/pybind_sm80.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm80/csrc/qattn/qk_int_sv_f16_cuda_sm80.o -L/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/lib -L/workspace/experiments/pro30-deps/cuda-12.8/lib64 -lc10 -ltorch -ltorch_cpu -ltorch_python -lcudart -lc10_cuda -ltorch_cuda -o build/lib.linux-x86_64-3.10/sageattention/_qattn_sm80.cpython-310-x86_64-linux-gnu.so
+      building 'sageattention._qattn_sm89' extension
+      Emitting ninja build file /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/build.ninja...
+      Compiling objects...
+      Using envvar MAX_JOBS (2) as the number of workers...
+      ninja: no work to do.
+      x86_64-linux-gnu-g++ -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -g -fwrapv -O2 -Wl,-Bsymbolic-functions -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/pybind_sm89.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f16_attn_inst_buf.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f16_fuse_v_scale_attn_inst_buf.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f32_attn.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f32_attn_inst_buf.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f32_fuse_v_scale_attn.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f32_fuse_v_scale_attn_inst_buf.o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._qattn_sm89/csrc/qattn/sm89_qk_int8_sv_f8_accum_f32_fuse_v_scale_fuse_v_mean_attn.o -L/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/lib -L/workspace/experiments/pro30-deps/cuda-12.8/lib64 -lc10 -ltorch -ltorch_cpu -ltorch_python -lcudart -lc10_cuda -ltorch_cuda -o build/lib.linux-x86_64-3.10/sageattention/_qattn_sm89.cpython-310-x86_64-linux-gnu.so
+      building 'sageattention._fused' extension
+      Emitting ninja build file /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/build.ninja...
+      Compiling objects...
+      Using envvar MAX_JOBS (2) as the number of workers...
+      [1/1] /workspace/experiments/pro30-deps/cuda-12.8/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/csrc/fused/fused.o.d -I/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include -I/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -I/workspace/experiments/pro30-deps/cuda-12.8/include -I/workspace/SoulX-FlashHead/.venv/include -I/usr/include/python3.10 -c -c /workspace/experiments/pro30-deps/SageAttention-sm89/csrc/fused/fused.cu -o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/csrc/fused/fused.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -O3 -std=c++17 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ --use_fast_math --threads=8 -Xptxas=-v -diag-suppress=174 --threads 2 -D_GLIBCXX_USE_CXX11_ABI=1 -gencode arch=compute_89,code=sm_89 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1016"' -DTORCH_EXTENSION_NAME=_fused -D_GLIBCXX_USE_CXX11_ABI=1
+      FAILED: /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/csrc/fused/fused.o
+      /workspace/experiments/pro30-deps/cuda-12.8/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/csrc/fused/fused.o.d -I/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include -I/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -I/workspace/experiments/pro30-deps/cuda-12.8/include -I/workspace/SoulX-FlashHead/.venv/include -I/usr/include/python3.10 -c -c /workspace/experiments/pro30-deps/SageAttention-sm89/csrc/fused/fused.cu -o /workspace/experiments/pro30-deps/SageAttention-sm89/build/temp.linux-x86_64-3.10/sageattention._fused/csrc/fused/fused.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -O3 -std=c++17 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ --use_fast_math --threads=8 -Xptxas=-v -diag-suppress=174 --threads 2 -D_GLIBCXX_USE_CXX11_ABI=1 -gencode arch=compute_89,code=sm_89 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1016"' -DTORCH_EXTENSION_NAME=_fused -D_GLIBCXX_USE_CXX11_ABI=1
+      nvcc warning : incompatible redefinition for option 'threads', the last value of this option was used
+      In file included from /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/ATen/cuda/CUDAContext.h:3,
+                       from /workspace/experiments/pro30-deps/SageAttention-sm89/csrc/fused/fused.cu:17:
+      /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/ATen/cuda/CUDAContextLight.h:7:10: fatal error: cusparse.h: No such file or directory
+          7 | #include <cusparse.h>
+            |          ^~~~~~~~~~~~
+      compilation terminated.
+      In file included from /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/ATen/cuda/CUDAContext.h:3,
+                       from /workspace/experiments/pro30-deps/SageAttention-sm89/csrc/fused/fused.cu:17:
+      /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/include/ATen/cuda/CUDAContextLight.h:7:10: fatal error: cusparse.h: No such file or directory
+          7 | #include <cusparse.h>
+            |          ^~~~~~~~~~~~
+      compilation terminated.
+      fatal   : Could not open input file /tmp/tmpxft_0007da68_00000000-7_fused.cpp1.ii
+      ninja: build stopped: subcommand failed.
+      Traceback (most recent call last):
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2506, in _run_ninja_build
+          subprocess.run(
+        File "/usr/lib/python3.10/subprocess.py", line 526, in run
+          raise CalledProcessError(retcode, process.args,
+      subprocess.CalledProcessError: Command '['ninja', '-v', '-j', '2']' returned non-zero exit status 1.
+      
+      The above exception was the direct cause of the following exception:
+      
+      Traceback (most recent call last):
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+          main()
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 280, in build_wheel
+          return _build_backend().build_wheel(
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/build_meta.py", line 230, in build_wheel
+          return self._build_with_temp_dir(['bdist_wheel'], '.whl',
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/build_meta.py", line 215, in _build_with_temp_dir
+          self.run_setup()
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/build_meta.py", line 158, in run_setup
+          exec(compile(code, __file__, 'exec'), locals())
+        File "setup.py", line 272, in <module>
+          setup(
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/__init__.py", line 153, in setup
+          return distutils.core.setup(**attrs)
+        File "/usr/lib/python3.10/distutils/core.py", line 148, in setup
+          dist.run_commands()
+        File "/usr/lib/python3.10/distutils/dist.py", line 966, in run_commands
+          self.run_command(cmd)
+        File "/usr/lib/python3.10/distutils/dist.py", line 985, in run_command
+          cmd_obj.run()
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/wheel/_bdist_wheel.py", line 390, in run
+          self.run_command("build")
+        File "/usr/lib/python3.10/distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib/python3.10/distutils/dist.py", line 985, in run_command
+          cmd_obj.run()
+        File "/usr/lib/python3.10/distutils/command/build.py", line 135, in run
+          self.run_command(cmd_name)
+        File "/usr/lib/python3.10/distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib/python3.10/distutils/dist.py", line 985, in run_command
+          cmd_obj.run()
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/command/build_ext.py", line 79, in run
+          _build_ext.run(self)
+        File "/usr/lib/python3.10/distutils/command/build_ext.py", line 340, in run
+          self.build_extensions()
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1010, in build_extensions
+          build_ext.build_extensions(self)
+        File "/usr/lib/python3.10/distutils/command/build_ext.py", line 447, in build_extensions
+          self._build_extensions_parallel()
+        File "/usr/lib/python3.10/distutils/command/build_ext.py", line 469, in _build_extensions_parallel
+          fut.result()
+        File "/usr/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+          return self.__get_result()
+        File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+          raise self._exception
+        File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+          result = self.fn(*self.args, **self.kwargs)
+        File "setup.py", line 267, in build_extension
+          objects = super().build_extension(ext)
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/setuptools/command/build_ext.py", line 202, in build_extension
+          _build_ext.build_extension(self, ext)
+        File "/usr/lib/python3.10/distutils/command/build_ext.py", line 529, in build_extension
+          objects = self.compiler.compile(sources,
+        File "setup.py", line 258, in compile_new
+          return compile_orig(*args, **{
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 815, in unix_wrap_ninja_compile
+          _write_ninja_file_and_compile_objects(
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2159, in _write_ninja_file_and_compile_objects
+          _run_ninja_build(
+        File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2522, in _run_ninja_build
+          raise RuntimeError(message) from e
+      RuntimeError: Error compiling objects for extension
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for sageattention
+Failed to build sageattention
+
+[notice] A new release of pip is available: 25.2 -> 26.2.1
+[notice] To update, run: /workspace/SoulX-FlashHead/.venv/bin/python -m pip install --upgrade pip
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> sageattention

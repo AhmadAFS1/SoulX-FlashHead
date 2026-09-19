@@ -6,6 +6,7 @@ from loguru import logger
 
 from flash_head.src.pipeline.flash_head_pipeline import FlashHeadPipeline
 from flash_head.src.distributed.usp_device import get_device, get_parallel_degree
+from flash_head.utils.latency import latency_scope
 
 with open("flash_head/configs/infer_params.yaml", "r") as f:
     infer_params = yaml.safe_load(f)
@@ -62,17 +63,20 @@ def get_audio_embedding(pipeline, audio_array, audio_start_idx=-1, audio_end_idx
         audio_start_idx = 0
         audio_end_idx = audio_embedding.shape[0]
 
-    indices = (torch.arange(2 * 2 + 1) - 2) * 1
+    with latency_scope("audio.window_indices", gpu=False):
+        indices = (torch.arange(2 * 2 + 1) - 2) * 1
 
-    center_indices = torch.arange(audio_start_idx, audio_end_idx, 1).unsqueeze(1) + indices.unsqueeze(0)
-    center_indices = torch.clamp(center_indices, min=0, max=audio_end_idx-1)
+        center_indices = torch.arange(audio_start_idx, audio_end_idx, 1).unsqueeze(1) + indices.unsqueeze(0)
+        center_indices = torch.clamp(center_indices, min=0, max=audio_end_idx-1)
 
-    audio_embedding = audio_embedding[center_indices][None,...].contiguous()
+    with latency_scope("audio.window_gather"):
+        audio_embedding = audio_embedding[center_indices][None,...].contiguous()
     return audio_embedding
 
 def run_pipeline(pipeline, audio_embedding):
-    audio_embedding = audio_embedding.to(pipeline.device)
+    with latency_scope("audio.conditioning_transfer"):
+        audio_embedding = audio_embedding.to(pipeline.device)
     sample = pipeline.generate(audio_embedding)
-    sample_frames = (((sample+1)/2).permute(1,2,3,0).clip(0,1) * 255).contiguous()
+    with latency_scope("postprocess.rgb_layout"):
+        sample_frames = (((sample+1)/2).permute(1,2,3,0).clip(0,1) * 255).contiguous()
     return sample_frames
-

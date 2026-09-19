@@ -1,0 +1,89 @@
+{
+  "excluded": 5,
+  "execution": "CPU-only artifact verification; no generation",
+  "invalid": 0,
+  "runs": [
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-decoder-build-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r02",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed50-r04",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/fixed-self-all-fp8-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/kernels-self-fp8-r01",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/pro-fp8-reference-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/pro-fp8-reference-seed51-r01",
+      "status": "valid"
+    },
+    {
+      "reason": "complete",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/profile-decoder-smoke-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r01",
+      "status": "excluded"
+    },
+    {
+      "reason": "failed",
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r02",
+      "status": "excluded"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/reference-pro-fp8-smoke-r03",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-seed50-r01",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/runs/self-all-fp8-seed51-r01",
+      "status": "valid"
+    }
+  ],
+  "status": "complete",
+  "valid": 11
+}

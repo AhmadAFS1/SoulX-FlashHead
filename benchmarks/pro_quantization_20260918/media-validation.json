@@ -1,0 +1,308 @@
+{
+  "date_utc": "2026-09-18T01:10:39.523614+00:00",
+  "execution": "CPU ffprobe/FFmpeg checks; no new GPU inference",
+  "gpu_source": "Fresh input videos: NVIDIA GeForce RTX 4070 SUPER, physical 12 GB class / 12,282 MiB visible; driver 595.84, Torch 2.7.1+cu128/CUDA 12.8. See source results.json for exact co-resident telemetry.",
+  "status": "pass",
+  "videos": [
+    {
+      "path": "benchmarks/pro_quantization_20260918/stock-seed50/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/candidate-seed50/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/comparison-seed50/comparison.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/stock-seed51/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/candidate-seed51/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/comparison-seed51/comparison.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/stock-seed0/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/candidate-seed0/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/comparison-seed0/comparison.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/stock-seed1/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/candidate-seed1/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/comparison-seed1/comparison.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "10.000000",
+          "nb_read_frames": "250"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_read_frames": "469"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/stock-long-seed50/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "60.000000",
+          "nb_read_frames": "1500"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "60.000000",
+          "nb_read_frames": "2813"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/candidate-long-seed50/video.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 320,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "60.000000",
+          "nb_read_frames": "1500"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "60.000000",
+          "nb_read_frames": "2813"
+        }
+      ],
+      "decode_status": "pass"
+    },
+    {
+      "path": "benchmarks/pro_quantization_20260918/comparison-60s-seed50/comparison.mp4",
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 576,
+          "avg_frame_rate": "25/1",
+          "duration": "60.000000",
+          "nb_read_frames": "1500"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "60.000000",
+          "nb_read_frames": "2813"
+        }
+      ],
+      "decode_status": "pass"
+    }
+  ]
+}

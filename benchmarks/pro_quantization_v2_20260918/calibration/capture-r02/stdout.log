@@ -1,0 +1,99 @@
+[generate] model denoise per step: 1.6831283569335938s
+[generate] model denoise per step: 1.6592912673950195s
+[generate] model denoise per step: 1.6356453895568848s
+[generate] model denoise per step: 1.571556806564331s
+[generate] decode video frames: 4.124511957168579s
+[generate] color correction: 0.010911703109741211s
+[generate] encode motion frames: 0.15119338035583496s
+[generate] model denoise per step: 1.5996439456939697s
+[generate] model denoise per step: 1.5294244289398193s
+[generate] model denoise per step: 1.5615229606628418s
+[generate] model denoise per step: 1.5665853023529053s
+[generate] decode video frames: 2.6737306118011475s
+[generate] color correction: 0.009400606155395508s
+[generate] encode motion frames: 0.1516401767730713s
+[generate] model denoise per step: 0.7581896781921387s
+[generate] model denoise per step: 0.7564113140106201s
+[generate] model denoise per step: 0.7566392421722412s
+[generate] model denoise per step: 0.7560124397277832s
+[generate] decode video frames: 2.698504686355591s
+[generate] color correction: 0.009440422058105469s
+[generate] encode motion frames: 0.15151476860046387s
+{
+  "output": "benchmarks/pro_quantization_v2_20260918/calibration/capture-r02",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 5.9193012429750524,
+      "useful_fps": 4.730288061150803,
+      "first_window_latency_s": 5.906035786960274,
+      "chunk_times_s": [
+        5.906035786960274
+      ],
+      "chunk_distribution_s": {
+        "count": 1,
+        "min": 5.906035786960274,
+        "p50": 5.906035786960274,
+        "p95": 5.906035786960274,
+        "p99": 5.906035786960274,
+        "max": 5.906035786960274
+      },
+      "stage_seconds": {
+        "audio": 0.007870912075042725,
+        "dit": 3.0268820190429686,
+        "vae_decode": 2.6984306640625,
+        "motion_encode": 0.15147929382324218
+      },
+      "peak_allocated_mib": 5616.80224609375,
+      "peak_reserved_mib": 7232.0,
+      "resource_summary": {
+        "sample_count": 11,
+        "gpu_utilization_percent": {
+          "mean": 99.0,
+          "min": 97.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 10194.0,
+          "min": 10194.0,
+          "max": 10194.0
+        },
+        "system_cpu_percent": {
+          "mean": 5.527272727272727,
+          "min": 0.0,
+          "max": 8.4
+        },
+        "process_cpu_percent": {
+          "mean": 90.95454545454547,
+          "min": 0.0,
+          "max": 101.1
+        },
+        "system_ram_used_mib": {
+          "mean": 13468.557173295454,
+          "min": 13167.12890625,
+          "max": 13554.30859375
+        },
+        "system_ram_percent": {
+          "mean": 43.50909090909091,
+          "min": 42.5,
+          "max": 43.8
+        },
+        "process_rss_mib": {
+          "mean": 3684.905184659091,
+          "min": 3390.0625,
+          "max": 3750.42578125
+        },
+        "torch_allocated_mib": {
+          "mean": 3479.297052556818,
+          "min": 2798.8876953125,
+          "max": 4638.53515625
+        },
+        "torch_reserved_mib": {
+          "mean": 7232.0,
+          "min": 7232.0,
+          "max": 7232.0
+        }
+      }
+    }
+  ]
+}

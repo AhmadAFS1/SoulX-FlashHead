@@ -1,0 +1,2551 @@
+{
+  "capture_contract": "All target linear pre-inputs; selected raw tensors; CausalConv3d inputs after cache concatenation and padding; Conv2d inputs before module-owned padding.",
+  "estimated_raw_bytes": 6635520,
+  "execution": "GPU activation capture diagnostic; not a throughput measurement",
+  "raw_budget_bytes": 3221225472,
+  "raw_budget_exceeded": false,
+  "raw_bytes_saved": 2511544320,
+  "raw_tensors": [
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "972431ef2e4b35c176c0675496cff13b1f914ef5b821ecf9ebdc09c2354599e0",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "7c34ff003b360950d467ee447a212d425243c94c39c7ed6e42d9ec6f7bfea91e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "5eb8b7e9e5edb1fa539f05060d5e93caad201374e333bb37b345b1ccbec253f1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 4,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.4.self_attn",
+      "path": "tensors/attention-block4-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "1bda6bfd612e7495f826ea68a341f9ca7bfec2f0ae13b86f98c685d47cfe9a5b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 4,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.4.self_attn",
+      "path": "tensors/attention-block4-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "53b81ab68653447070b6f051704dfe27a791a7c574b737981cf60dd7a0addbb0",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 4,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.4.self_attn",
+      "path": "tensors/attention-block4-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "e4cf6466af1fb9640a7f3b8304e5e79ab7fe92ce9cbcb1ed79ce261ce6f16e82",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 8,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.8.self_attn",
+      "path": "tensors/attention-block8-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "926e4158c816ea17923c25b4311d37c50c320d67f96505dea6357c057e7cc326",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 8,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.8.self_attn",
+      "path": "tensors/attention-block8-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "1b8fe9bdfef636cdab3e27a33d0f81434083d16ffd9da9be1181b8a05eeca180",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 8,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.8.self_attn",
+      "path": "tensors/attention-block8-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "ce9bedb542e7ae03f2e8ef6188cf9c60bcf5e33b4b9dfe2724f7f4328854ca80",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 12,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.12.self_attn",
+      "path": "tensors/attention-block12-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "f047a25b983bb4ce2d5e35c9b216ad26e80162f3d0b25849ff6ce8201e4498a5",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 12,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.12.self_attn",
+      "path": "tensors/attention-block12-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "8eb314a734284687e5b91539745032d21f4ec90a0cf807fdcabe71bc64b53c56",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 12,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.12.self_attn",
+      "path": "tensors/attention-block12-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "d7f353a4240b41b0476044585ac3d1cdca34962d523afbb1826f48bfd038250b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 16,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.16.self_attn",
+      "path": "tensors/attention-block16-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "e5e699c2480a0df5c3cd10c45d5715d654d8eea4920b1470e951e6208c3bc282",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 16,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.16.self_attn",
+      "path": "tensors/attention-block16-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "aa49730527c6cbf17b2df2e1e9a782f8efbe1b06a336cf48449d7d3d7da1ec3a",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 16,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.16.self_attn",
+      "path": "tensors/attention-block16-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "72992d54582b4bf5f85cf5391aeec09fe166479a476cd7cc46da97d734ccd67c",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 20,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.20.self_attn",
+      "path": "tensors/attention-block20-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "974f31eb46b35b79c2e4e96a7ea45953f5e9316419344f57fe96116e6fbe2702",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 20,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.20.self_attn",
+      "path": "tensors/attention-block20-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "609fb58523f74d6f3cd92aced44fb20793c5933b90f86c22ff0b5ae8ead1bfe2",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 20,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.20.self_attn",
+      "path": "tensors/attention-block20-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "a3a314f2466239061f1d327d8b4a2c267f5f6010257e33358bee0e91a0691fab",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 24,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.24.self_attn",
+      "path": "tensors/attention-block24-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "a4bbc137fa36a1e22acc007a3dd14d01f517700fde01e10bf170add2ec4cf385",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 24,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.24.self_attn",
+      "path": "tensors/attention-block24-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "22ba507be567131200a5aa9a8542bec5dca4e5acd16bdf8e9a3a7132a9259eb8",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 24,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.24.self_attn",
+      "path": "tensors/attention-block24-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "cbf0a0a19143f793378a2d78fb3a4da6bcf1464f758692fb5cf2e3f7aedd8810",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 28,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_q",
+      "module": "blocks.28.self_attn",
+      "path": "tensors/attention-block28-call0-q.pt",
+      "phase": "warmup",
+      "sha256": "515b2caf1307ed55c5dcd42b2224956cc29a7e44110d4a5af2991b9438be620d",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 28,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_k",
+      "module": "blocks.28.self_attn",
+      "path": "tensors/attention-block28-call0-k.pt",
+      "phase": "warmup",
+      "sha256": "ba7ef7bf7810f703c39c874c66cc6498efc20189ca03d03a1b079e427d47fc16",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 28,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 0,
+      "kind": "attention_v",
+      "module": "blocks.28.self_attn",
+      "path": "tensors/attention-block28-call0-v.pt",
+      "phase": "warmup",
+      "sha256": "bb37b75a217ab9c1711bf3fc4b956fcf56dabc35139bf138b5a2455bf81e5938",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "block": 1,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.1.self_attn",
+      "path": "tensors/attention-block1-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "1f366a11ec2c35469949e0b80e27d6b2a13e4d8d967b66ba82e4869b05087714",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 1,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.1.self_attn",
+      "path": "tensors/attention-block1-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "151c3f0c34b878c44edc4b92119a0e6ac5740af9fe5549e16385aedea7c952d7",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 1,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.1.self_attn",
+      "path": "tensors/attention-block1-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "6ef6ce6241e766aa73a028b214640ef60a86ccb1c05d30da716000a10d7d16ed",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 5,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.5.self_attn",
+      "path": "tensors/attention-block5-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "0a3a940f93c22ab74cd836b1906c2b4ad96b6f503b0e25ac2be0a7e011635f8f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 5,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.5.self_attn",
+      "path": "tensors/attention-block5-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "0c99aca7f16f2e0a38c0913b0d15d8345fa0ac36d6d5305721ae5ef8fdaa4dc0",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 5,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.5.self_attn",
+      "path": "tensors/attention-block5-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "778d873ccff454279919220d0fed7f7c0fc4f2bd044c642645bf105278e66188",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 9,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.9.self_attn",
+      "path": "tensors/attention-block9-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "afabd143e486b6639c41f4803f6ab5f51cf24c4d5af6704b618baae2cf6abc99",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 9,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.9.self_attn",
+      "path": "tensors/attention-block9-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "6eacb3a89966ba9d17254b9299473f094eb15faa84afc8bb8f1eb6c78d6f769b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 9,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.9.self_attn",
+      "path": "tensors/attention-block9-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "5ad1d59a7468ffb5cfaa2dba7c9667b294972b0c88880aca3a1029c736b827ff",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 13,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.13.self_attn",
+      "path": "tensors/attention-block13-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "c3adc96184d6b159d2df85a0f804c1141ff9d14109ed436c20ddf954ee15e991",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 13,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.13.self_attn",
+      "path": "tensors/attention-block13-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "de930afc74fe7b83d57df128cf2a78704f13606ca4908efa11c1eceb9dcad6aa",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 13,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.13.self_attn",
+      "path": "tensors/attention-block13-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "248dc78c8c57aded88557818cb0fa3da6734dd2fc2df252f52eaa21d93711af3",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 17,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.17.self_attn",
+      "path": "tensors/attention-block17-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "7eefe4fee625531d666a9b523e365892d8e4a08da11f841e11214c547cd257bc",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 17,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.17.self_attn",
+      "path": "tensors/attention-block17-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "f88a8efd991b2e295dfa6a61e4e2bf02cdfd9adf097c2b905cf68bfe52983f0e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 17,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.17.self_attn",
+      "path": "tensors/attention-block17-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "6b89da8de2fabc2747dc01d7492f87555f9116727b8057132d40995f3e2844e8",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 21,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.21.self_attn",
+      "path": "tensors/attention-block21-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "923c78eb868c01a167c45a5c39288e798da004b73fde411d7ef401c97df9c95a",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 21,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.21.self_attn",
+      "path": "tensors/attention-block21-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "582631af812e975f582c910fb80ac2b4934e44de0589f851e73ac71053440531",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 21,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.21.self_attn",
+      "path": "tensors/attention-block21-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "b523e33e09845f2ae27d75cca573b6a3997fd3132dde532c63a603a6205d07ad",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 25,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.25.self_attn",
+      "path": "tensors/attention-block25-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "9684865b235f6106fee8e928ac1fc0abd9763736fb4aaa3d2c05b1e4e6a92383",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 25,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.25.self_attn",
+      "path": "tensors/attention-block25-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "a807a09f1ba7b98232384bc48c10ba6cff2ed6f5c96b38128ec38e35e2a6b0ca",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 25,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.25.self_attn",
+      "path": "tensors/attention-block25-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "d26971503b461a85e8b81b0d74d24505f8b0e76b227bcb23c9fb953f4c7f32e9",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_q",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call1-q.pt",
+      "phase": "warmup",
+      "sha256": "72e959da2b8bffa590ca75434debf77d507ad311e2f71482cad8a69f3465dc79",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_k",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call1-k.pt",
+      "phase": "warmup",
+      "sha256": "678f02bfdb938cc9d3067f5dedf0d9b1ca5c99ef5136c7815703c6b3b749dd17",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 1,
+      "kind": "attention_v",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call1-v.pt",
+      "phase": "warmup",
+      "sha256": "d0835528a6b267eac23f91fa25d38ea161b477c239c5799ce6d614e22c2f4d8f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 0
+    },
+    {
+      "block": 2,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.2.self_attn",
+      "path": "tensors/attention-block2-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "3fd4e22a8c7b83a7813b7748d42becd8a7ac1e0ffeab9042a38c66c48415438f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 2,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.2.self_attn",
+      "path": "tensors/attention-block2-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "759196cbd96760c1f8b5a96252ab6580894eb3037cfeb79ebe39734a778bd298",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 2,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.2.self_attn",
+      "path": "tensors/attention-block2-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "6885fa01a0eeec4aed7768d978debbc8527770c6b58a74f72c682b46da3c5418",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 6,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.6.self_attn",
+      "path": "tensors/attention-block6-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "f633c5eb2a94b446d3484c75b4dccfdfee5a18bd194a899da2202346b48b3b02",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 6,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.6.self_attn",
+      "path": "tensors/attention-block6-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "e6870c07f2fa1e96ff9bebfd545f7b1c59367c3c3238cdf674c746b24dbebbbb",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 6,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.6.self_attn",
+      "path": "tensors/attention-block6-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "92cbc548a19a62e8e89e82fc9267529a5e37422190e6b4b87dffb2e71331f5bd",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 10,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.10.self_attn",
+      "path": "tensors/attention-block10-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "ebb133262a19d422c5829023d36335d7f6647ed0e050565aa3bed263addcd827",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 10,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.10.self_attn",
+      "path": "tensors/attention-block10-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "7d68309fb8110a7271e5a26c7c900152a340d58730d1d5ca88c8e3bf506eb330",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 10,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.10.self_attn",
+      "path": "tensors/attention-block10-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "cac9102290856a296990dacdab35f0ca31f5c3a0eb66671d911a2c195f3cb675",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "4c31b21db789c02afcebdfade4634324e0e89cf6d8bbded33627a804f6516e81",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "d0236027ba2d12142ce7ab63ba3c44d178859176d00af92fbd9ae7264fa89241",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "3f0e1e9bdb31084441e1f5cede2ded9ff6b114dcb259692c2291e08568086f8b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 18,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.18.self_attn",
+      "path": "tensors/attention-block18-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "b8405c10b60740a7166d657df642bf6b9429023affdfa810a409f0f02241bf94",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 18,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.18.self_attn",
+      "path": "tensors/attention-block18-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "503072c3ea48df8fb67f8354b3cdad34ad34b039aaceb6b661e7304e6785d63f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 18,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.18.self_attn",
+      "path": "tensors/attention-block18-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "cccdb7b61a69c13f3c1c806333196b42bde58f8f3ec9cafdc6a6bf209e484ea1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 22,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.22.self_attn",
+      "path": "tensors/attention-block22-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "458bd055af5690b77b2ba33dab0890177d955fad26d54af28e6d4026e9d8a260",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 22,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.22.self_attn",
+      "path": "tensors/attention-block22-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "9c846f70c11c78ae627565213bf760602a468a19cb1dfd1f8acc804d0b719b80",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 22,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.22.self_attn",
+      "path": "tensors/attention-block22-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "efc5c635a565491ae130edaf5efbef6dbcacbbce569d4ee475059d1a4e747c84",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 26,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_q",
+      "module": "blocks.26.self_attn",
+      "path": "tensors/attention-block26-call2-q.pt",
+      "phase": "warmup",
+      "sha256": "e9497408dc2604846b6f737e97ebf1bebb1e2812f509d4936808fdc7dcec824c",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 26,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_k",
+      "module": "blocks.26.self_attn",
+      "path": "tensors/attention-block26-call2-k.pt",
+      "phase": "warmup",
+      "sha256": "b9dc7d877066d10826094d418ea430a2cf666465621034775534187556739de2",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 26,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 2,
+      "kind": "attention_v",
+      "module": "blocks.26.self_attn",
+      "path": "tensors/attention-block26-call2-v.pt",
+      "phase": "warmup",
+      "sha256": "642d2d575ce44dd6a31cad906ca5154bc8ef5b0181d6e757a50995a91722109f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "block": 3,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.3.self_attn",
+      "path": "tensors/attention-block3-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "1834d01f0cfbfe5f6f6cbb198beda3cb58bdb550d5349eeca8e0fbcb02a187d4",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 3,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.3.self_attn",
+      "path": "tensors/attention-block3-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "4503bac5ddb720d7be36e4a38abfa6cc6fecf15e980b0aa74f602ea2d283cc06",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 3,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.3.self_attn",
+      "path": "tensors/attention-block3-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "47ed0da2a2916982d5098fdd22dc7b82435044623c557bef54795f25f642e461",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 7,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.7.self_attn",
+      "path": "tensors/attention-block7-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "f2a8cdf2f2ee3a7c19dbac8665d834a4e602ad06dd83fe271bf44829e40804bc",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 7,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.7.self_attn",
+      "path": "tensors/attention-block7-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "0ab6d37bd7d9894a2987594d459c5a4bfbfe0749dea3dd7274a7c13de19579fa",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 7,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.7.self_attn",
+      "path": "tensors/attention-block7-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "43a8bf69651855918103c8d6517140b9f1d5110ded421037a21de738548ad7f9",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 11,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.11.self_attn",
+      "path": "tensors/attention-block11-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "9fd074fa966fdd68e5a1d5890fc86a4326a65f038e9f4e269ad435c9e9567dff",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 11,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.11.self_attn",
+      "path": "tensors/attention-block11-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "af93a00e7138c6b51e1bed7cba62d917e57cff614ce1441700e2b24f2d556ced",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 11,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.11.self_attn",
+      "path": "tensors/attention-block11-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "1e8904db99456a927f7cccaf17d15786b4df65f72c7d87458ffd490a83d655ba",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 15,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.15.self_attn",
+      "path": "tensors/attention-block15-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "ef025af71d8a6c1b3bc537c8193093c8b3ed7f93a009fbbb5ea99f258d7ea13c",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 15,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.15.self_attn",
+      "path": "tensors/attention-block15-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "47adc0c6bf1c51474f07c197102772819b92b9dd03fae7c36617c1654a3e0dc5",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 15,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.15.self_attn",
+      "path": "tensors/attention-block15-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "0d2895c93055afcabc7ebfaf9fa7158ff501e241d2a4143cefaef2f8af0094b9",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 19,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.19.self_attn",
+      "path": "tensors/attention-block19-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "c88a91f62dee376f933b367aa4e3ac244747b297ba04f7271d7211907fe937f1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 19,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.19.self_attn",
+      "path": "tensors/attention-block19-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "988940218811266921848c761a8e386d7e1619d430ef7eeedcf5e831ab7ca9c3",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 19,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.19.self_attn",
+      "path": "tensors/attention-block19-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "c4d6f495b990634893a91829532b54431100ddc0ea82dba940da7e1f15e2229c",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 23,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.23.self_attn",
+      "path": "tensors/attention-block23-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "8e01ede8265b06ee0ac8a90a8677614cca2ef2810090cc334ff5a4cfa4294a42",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 23,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.23.self_attn",
+      "path": "tensors/attention-block23-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "ba66437f139153460322111ee411533177f504a7d3f10a8d26b43555712a47ea",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 23,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.23.self_attn",
+      "path": "tensors/attention-block23-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "1e478bc3c3da85a6b73cf9322e0786c0cbf8bcb759fdfc8fb8596bd6bba374c8",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 27,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_q",
+      "module": "blocks.27.self_attn",
+      "path": "tensors/attention-block27-call3-q.pt",
+      "phase": "warmup",
+      "sha256": "1d11ded710462c1c3d4eed059f2cdff3d86511715a13ce2a60dd9928bef8185e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 27,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_k",
+      "module": "blocks.27.self_attn",
+      "path": "tensors/attention-block27-call3-k.pt",
+      "phase": "warmup",
+      "sha256": "b2a92f505d14e82b08f88df9a78136812ab4014cc7db13d918b603995af81e9e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "block": 27,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 3,
+      "kind": "attention_v",
+      "module": "blocks.27.self_attn",
+      "path": "tensors/attention-block27-call3-v.pt",
+      "phase": "warmup",
+      "sha256": "cd2c91071c5240a530ef53a0807cd612f3c65911cc4b5b904200f3f7edd6d25d",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 0
+    },
+    {
+      "bytes": 829440,
+      "invocation": 0,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "path": "tensors/vae_public_decode-public_vae_latent-0.pt",
+      "phase": "warmup",
+      "sha256": "3b8b90cf3cf186f6dd86dfa6c2c75f9a6cfe09c61ed6d88eee92b551149d5a4b",
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "bytes": 829440,
+      "invocation": 1,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "path": "tensors/vae_public_decode-public_vae_latent-1.pt",
+      "phase": "warmup",
+      "sha256": "40090a4ea6ea70bd289d48c35ea285861fd53b13ad9ffd2a839a3ba8b9f705dd",
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 1,
+      "window": 1
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_q",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call24-q.pt",
+      "phase": "generation",
+      "sha256": "0b60c26fda24cad62e2714e44aa43b92d5781fa152e01e9c3bbc6c832ec9804b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_k",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call24-k.pt",
+      "phase": "generation",
+      "sha256": "be5b560aa3b12a191f12c2c162d0288a86d870c336e6b39ef6a22a888f2fbeb1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_v",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call24-v.pt",
+      "phase": "generation",
+      "sha256": "81eca8ed68e264762cfc5fa99646d5fa0600489f97429b8666c2fc529dd5e61f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_q",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call24-q.pt",
+      "phase": "generation",
+      "sha256": "cc6da9e09d5c9dcde86fecaa1b1e1828b075e3d3f27170e4e05f8405cba67a1e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_k",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call24-k.pt",
+      "phase": "generation",
+      "sha256": "04b903fd5bdf984e15f73ffa0a22a2980f299536e0c2ea88df38adbcee311a73",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_v",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call24-v.pt",
+      "phase": "generation",
+      "sha256": "62634b2c99a7beeb662ac9a2907ca527e427079a4d73cac061838f6170711e2c",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_q",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call24-q.pt",
+      "phase": "generation",
+      "sha256": "7743f0bd87316eee1a5e6fa40c844c0964685dc7b39e49e0efe6d03606f66820",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_k",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call24-k.pt",
+      "phase": "generation",
+      "sha256": "bfde8c68e3ebe6adb9b46e7dbe6714a0bb000b9acf84230167bba5d772c18275",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 24,
+      "kind": "attention_v",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call24-v.pt",
+      "phase": "generation",
+      "sha256": "428fc58cd91d3798af7ee874e8779cb3ecb91f1327d5203144ad7766d3b8cdf2",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 0,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_q",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call25-q.pt",
+      "phase": "generation",
+      "sha256": "d464291c7430f564ab52516505e90118238e60ef222891d966a68fc26fc5814e",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_k",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call25-k.pt",
+      "phase": "generation",
+      "sha256": "9fbe7b883b669421eef254b37d43164f0ccb327e0e7ee1ca7549fddb414bbe43",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_v",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call25-v.pt",
+      "phase": "generation",
+      "sha256": "4ed58c1eeb593dc57201712df0e09273b5224a54b5499ab7b9a840bd664cf728",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_q",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call25-q.pt",
+      "phase": "generation",
+      "sha256": "ae4d55405718b98d6faf7cb56d15a3e12bf1f8bcdf16d50cb5c08fa34a0113cd",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_k",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call25-k.pt",
+      "phase": "generation",
+      "sha256": "e08db43c55a3e43a234c41d8d75d487bad3288accb8202ce349eb861c5a4d2cb",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_v",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call25-v.pt",
+      "phase": "generation",
+      "sha256": "0c791fa5539ef512f45a7de0e2c1b8fb946a0f52a1b7a31200931a532ce8de65",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_q",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call25-q.pt",
+      "phase": "generation",
+      "sha256": "6dda64a14ed2ed3a93f952982f749b5afbb80956774668877717ca878f5270c0",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_k",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call25-k.pt",
+      "phase": "generation",
+      "sha256": "44b9c79ded39c8fc6be83e7442d016a0713c9dcedcbeddba15a47c6c0bc4f91a",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 25,
+      "kind": "attention_v",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call25-v.pt",
+      "phase": "generation",
+      "sha256": "2e07ee31857e4a22b9f3044a594dbcd29e2903e42c8e18d0270468f2e7eed3f8",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 1,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_q",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call26-q.pt",
+      "phase": "generation",
+      "sha256": "44d05bd79289988e61c4ec361f9a5154f83181985beb46dd6a5f60cb0f37f309",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_k",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call26-k.pt",
+      "phase": "generation",
+      "sha256": "b41c6c4f52896b91a800c33cac06d3b944f901ec851902cd2b90e42c65ada7e1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_v",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call26-v.pt",
+      "phase": "generation",
+      "sha256": "2ea6f3e2b47e782503fa76d41ff5407b2b541ae1e7a513a189c0c756b0b88692",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_q",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call26-q.pt",
+      "phase": "generation",
+      "sha256": "dde61076c97341090c7e7b9a836ad4793b3e28386c01ec1923d8706215b93cdf",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_k",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call26-k.pt",
+      "phase": "generation",
+      "sha256": "e4b8d4e65453576c027f1f1b1394a446b1086ba9ff5e309d6023c140832257a1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_v",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call26-v.pt",
+      "phase": "generation",
+      "sha256": "927f6e50a0545dc75f0786380f9a3bad93e438ffa0ca5d65acf47b2a96e17c52",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_q",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call26-q.pt",
+      "phase": "generation",
+      "sha256": "0739feaee882b712c4e1d86fd6e9cf1011b29c3b5229d29b3988c67ab764aacd",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_k",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call26-k.pt",
+      "phase": "generation",
+      "sha256": "eab7a8ab5cfe586d84d5cec014aec512d2ebc40e7fa5aa12d748a878f9bb3c66",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 26,
+      "kind": "attention_v",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call26-v.pt",
+      "phase": "generation",
+      "sha256": "e8829a6a5147fad34ef47eb1fc2b10024ce78dc34cef6e8f21f7b53daf61d654",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_q",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call27-q.pt",
+      "phase": "generation",
+      "sha256": "7c38195ae35c42eb9214f3dfe4abb2749254a2c337b86eacc9398eae609b98bd",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_k",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call27-k.pt",
+      "phase": "generation",
+      "sha256": "03ba1f47da5b24a3dabf5db3453e4951aae46489e780ecc3728347bb1b331d9f",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 0,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_v",
+      "module": "blocks.0.self_attn",
+      "path": "tensors/attention-block0-call27-v.pt",
+      "phase": "generation",
+      "sha256": "00505c3fd06eabdbec1b7e9a2cb1087e18a518afd3ad5c0b17f83737f1b39b9b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_q",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call27-q.pt",
+      "phase": "generation",
+      "sha256": "982baba63215c36920030829d838e1b0217f167c64dd211ba88db38bcb3f56b8",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_k",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call27-k.pt",
+      "phase": "generation",
+      "sha256": "b1202ea96d904793aacdd544761ff297f18be0f5a4aa2a849b4c328b4c8e015b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 14,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_v",
+      "module": "blocks.14.self_attn",
+      "path": "tensors/attention-block14-call27-v.pt",
+      "phase": "generation",
+      "sha256": "3951c2508181cf3cc38849ab49bc28a97ee55ea1c2f9be1128a7ec3e75aae9d1",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_q",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call27-q.pt",
+      "phase": "generation",
+      "sha256": "40432c6cecc9f684e69f7eaf58722d74ffc5b82f9d71f9d71c1c7b94e20f217b",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_k",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call27-k.pt",
+      "phase": "generation",
+      "sha256": "ec72b07b8e82f1e1296e5890a880f8cdb71235467115657e3251f9405f53d68d",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "block": 29,
+      "bytes": 19906560,
+      "dtype": "torch.bfloat16",
+      "invocation": 27,
+      "kind": "attention_v",
+      "module": "blocks.29.self_attn",
+      "path": "tensors/attention-block29-call27-v.pt",
+      "phase": "generation",
+      "sha256": "6e6963ebb786fc7e53bfc35971e05226247572bb85ebc0212e7e90c91e5d15d2",
+      "shape": [
+        1,
+        6480,
+        1536
+      ],
+      "step": 3,
+      "window": 4
+    },
+    {
+      "bytes": 829440,
+      "invocation": 6,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "path": "tensors/vae_public_decode-public_vae_latent-6.pt",
+      "phase": "generation",
+      "sha256": "6db6754a453d6eabaa04e20afb83f783179b31f1cdb8c36e470300c6b309da89",
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "bytes": 829440,
+      "invocation": 10,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "path": "tensors/vae_public_decode-public_vae_latent-10.pt",
+      "phase": "generation",
+      "sha256": "c0d960935b564b48ecb8852732216e6357865b4ed158cad8e17e326ff8cbedbe",
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 2,
+      "window": 8
+    }
+  ],
+  "records": [
+    {
+      "absmax": 3.1875,
+      "dtype": "bfloat16",
+      "invocation": 0,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 1.9921875,
+      "phase": "warmup",
+      "raw_tensor": "tensors/vae_public_decode-public_vae_latent-0.pt",
+      "rms": 0.6825226545333862,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 0,
+      "window": 0
+    },
+    {
+      "absmax": 2.75,
+      "dtype": "bfloat16",
+      "invocation": 1,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.0,
+      "phase": "warmup",
+      "raw_tensor": "tensors/vae_public_decode-public_vae_latent-1.pt",
+      "rms": 0.6856335997581482,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 1,
+      "window": 1
+    },
+    {
+      "absmax": 3.1875,
+      "dtype": "bfloat16",
+      "invocation": 2,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 1.9921875,
+      "phase": "generation",
+      "rms": 0.6825226545333862,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 2,
+      "window": 0
+    },
+    {
+      "absmax": 2.75,
+      "dtype": "bfloat16",
+      "invocation": 3,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.0,
+      "phase": "generation",
+      "rms": 0.6856335997581482,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 3,
+      "window": 1
+    },
+    {
+      "absmax": 2.75,
+      "dtype": "bfloat16",
+      "invocation": 4,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.0294189453125,
+      "phase": "generation",
+      "rms": 0.6834267377853394,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 0,
+      "window": 2
+    },
+    {
+      "absmax": 3.03125,
+      "dtype": "bfloat16",
+      "invocation": 5,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.078125,
+      "phase": "generation",
+      "rms": 0.6873238682746887,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 1,
+      "window": 3
+    },
+    {
+      "absmax": 3.09375,
+      "dtype": "bfloat16",
+      "invocation": 6,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.03125,
+      "phase": "generation",
+      "raw_tensor": "tensors/vae_public_decode-public_vae_latent-6.pt",
+      "rms": 0.6777907609939575,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 2,
+      "window": 4
+    },
+    {
+      "absmax": 2.84375,
+      "dtype": "bfloat16",
+      "invocation": 7,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.03125,
+      "phase": "generation",
+      "rms": 0.6774789094924927,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 3,
+      "window": 5
+    },
+    {
+      "absmax": 3.078125,
+      "dtype": "bfloat16",
+      "invocation": 8,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 1.99127197265625,
+      "phase": "generation",
+      "rms": 0.6763800382614136,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 0,
+      "window": 6
+    },
+    {
+      "absmax": 3.25,
+      "dtype": "bfloat16",
+      "invocation": 9,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.0294189453125,
+      "phase": "generation",
+      "rms": 0.680946409702301,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 1,
+      "window": 7
+    },
+    {
+      "absmax": 2.734375,
+      "dtype": "bfloat16",
+      "invocation": 10,
+      "kind": "public_vae_latent",
+      "module": "vae.public_decode",
+      "p999_abs": 2.0294189453125,
+      "phase": "generation",
+      "raw_tensor": "tensors/vae_public_decode-public_vae_latent-10.pt",
+      "rms": 0.6700242161750793,
+      "shape": [
+        16,
+        9,
+        72,
+        40
+      ],
+      "step": 2,
+      "window": 8
+    }
+  ],
+  "status": "complete"
+}

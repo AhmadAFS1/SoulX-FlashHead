@@ -447,7 +447,8 @@ class CallService:
         params = await request.json()
         if params.get("type") != "offer":
             raise web.HTTPBadRequest(text="Expected offer")
-        pc = c.pc = RTCPeerConnection(RTCConfiguration(iceServers=[RTCIceServer(**i) for i in service.ice]))
+        pc = c.pc = RTCPeerConnection(RTCConfiguration(
+            iceServers=[RTCIceServer(**i) for i in service.server_ice]))
         @pc.on("connectionstatechange")
         async def changed():
             c.connected = pc.connectionState == "connected"

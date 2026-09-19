@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "self-qkv-fp8",
+  "base": "pro-fp8-v1",
+  "ffn": {
+    "scheme": "fp8_e4m3_w8a8",
+    "exclude": []
+  },
+  "self_attention_projections": {
+    "scheme": "fp8_e4m3_w8a8",
+    "include": [
+      "blocks.*.self_attn.q",
+      "blocks.*.self_attn.k",
+      "blocks.*.self_attn.v"
+    ],
+    "exclude": [],
+    "packing": "separate"
+  },
+  "self_attention_kernel": {
+    "backend": "flash2"
+  },
+  "cross_attention_projections": {
+    "scheme": "bf16",
+    "include": [],
+    "exclude": []
+  },
+  "decoder": {
+    "scheme": "bf16",
+    "backend": "torch_compile",
+    "plan": null
+  },
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "prepared_conditioning": true
+}

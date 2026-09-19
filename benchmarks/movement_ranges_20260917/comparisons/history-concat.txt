@@ -1,0 +1,6 @@
+file 'soulx-LITE-motion-history-1-2-3-4-seed7.mp4'
+duration 10.0
+file 'soulx-LITE-motion-history-1-2-3-4-seed50.mp4'
+duration 10.0
+file 'soulx-LITE-motion-history-1-2-3-4-seed99.mp4'
+duration 10.0

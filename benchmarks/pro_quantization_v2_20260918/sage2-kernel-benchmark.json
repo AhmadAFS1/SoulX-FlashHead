@@ -1,0 +1,31 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-18",
+  "execution": "fresh GPU direct attention kernel benchmark; 20 warmups, 100 timed calls per kernel, CUDA events",
+  "shape": [
+    1,
+    6480,
+    12,
+    128
+  ],
+  "dtype": "bfloat16",
+  "device": "NVIDIA GeForce RTX 4070 SUPER",
+  "package_version": "2.2.0",
+  "results": {
+    "flash_attention_2": {
+      "median_ms": 3.6545279026031494,
+      "mean_ms": 3.743848943710327,
+      "rel_l2_vs_flash2": 0.0,
+      "max_abs_vs_flash2": 0.0,
+      "finite": true
+    },
+    "sageattention2_int8_qk_fp16_pv": {
+      "median_ms": 2.4169280529022217,
+      "mean_ms": 2.4167424201965333,
+      "rel_l2_vs_flash2": 0.0022003748454153538,
+      "max_abs_vs_flash2": 3.0517578125e-05,
+      "finite": true
+    }
+  },
+  "limitations": "Synthetic random inputs; isolates attention kernel only and does not predict end-to-end gain."
+}

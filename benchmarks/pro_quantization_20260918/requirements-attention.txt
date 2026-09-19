@@ -1,0 +1,3 @@
+# Optional, isolated rejected/promoted-by-measurement attention experiment only.
+# Install with --no-deps --target .pro-quant-deps; do not change serving .venv.
+sageattention==1.0.6

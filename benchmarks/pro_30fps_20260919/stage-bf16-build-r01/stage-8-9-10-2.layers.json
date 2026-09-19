@@ -1,0 +1,494 @@
+{"Layers": [{
+  "Name": "__myl_MoveMulSumSqrtMax_myl0_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "x",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_8",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MoveMulSumSqrtMax_0xfd18d7aefd5a739185438a98e2d99a36",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0/ReduceL2]"
+},{
+  "Name": "__myl_MoveMinReplDivMulMulAddSiluConcMoveSlic_myl0_1",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "x",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_0",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_8",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Add_output_0'.1_11",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_0",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_10",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MoveMinReplDivMulMulAddSiluConcMoveSlic_0xb2dd27af7afa7901e0df6f9452282329",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2/Concat]\u001f[ONNX Layer: /Slice]\u001f[ONNX Layer: /residual.0/Expand]\u001f[ONNX Layer: /residual.0/Div]\u001f[ONNX Layer: /residual.0/Mul_1]\u001f[ONNX Layer: /residual.0/Mul]\u001f[ONNX Layer: /residual.1/Mul]\u001f[ONNX Layer: /residual.1/Sigmoid]\u001f[ONNX Layer: /residual.0/Add]\u001f[ONNX Layer: /residual.6/Conv]\u001f[ONNX Layer: /Add]"
+},{
+  "Name": "/residual_2/Conv_myl0_2",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_10",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_12",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2/Conv]"
+},{
+  "Name": "__myl_MulSumSqrtMax_myl0_3",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_12",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_12",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_13",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MulSumSqrtMax_0xc887bad3ce0c903dcf6ea8fa6db4992d",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3/ReduceL2]"
+},{
+  "Name": "__myl_MinReplDivMulMulAddSiluConcSlic_myl0_4",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_12",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_1",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_13",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Add_output_0'.1_15",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_1",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MinReplDivMulMulAddSiluConcSlic_0xb298d3e49d2d2a8492c1fff7a7f5dcc7",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_1]\u001f[ONNX Layer: /residual.6/Concat]\u001f[ONNX Layer: /residual.3/Add]\u001f[ONNX Layer: /residual.4/Mul]\u001f[ONNX Layer: /residual.4/Sigmoid]\u001f[ONNX Layer: /residual.3/Mul]\u001f[ONNX Layer: /residual.3/Mul_1]\u001f[ONNX Layer: /residual.3/Div]\u001f[ONNX Layer: /residual.3/Expand]"
+},{
+  "Name": "/residual_6/Conv_myl0_5",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "/Add_output_0'.1_15",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "/Add_output_0'.1_11",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_16",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6/Conv]\u001f[ONNX Layer: /Add]"
+},{
+  "Name": "__myl_MulSumSqrtMax_myl0_6",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_16",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_16",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_17",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MulSumSqrtMax_0xc887bad3ce0c903dcf6ea8fa6db4992d",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_1/ReduceL2]"
+},{
+  "Name": "__myl_MinReplDivMulMulAddSiluConcSlic_myl0_7",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_16",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_2",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_17",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual_2_1/Conv_output_0'.1_19",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_2",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MinReplDivMulMulAddSiluConcSlic_0xb298d3e49d2d2a8492c1fff7a7f5dcc7",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_2]\u001f[ONNX Layer: /residual.2_1/Concat]\u001f[ONNX Layer: /residual.0_1/Add]\u001f[ONNX Layer: /residual.1_1/Mul]\u001f[ONNX Layer: /residual.1_1/Sigmoid]\u001f[ONNX Layer: /residual.0_1/Mul]\u001f[ONNX Layer: /residual.0_1/Mul_1]\u001f[ONNX Layer: /residual.0_1/Div]\u001f[ONNX Layer: /residual.0_1/Expand]"
+},{
+  "Name": "/residual_2_1/Conv_myl0_8",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "/residual_2_1/Conv_output_0'.1_19",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_20",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2_1/Conv]"
+},{
+  "Name": "__myl_MulSumSqrtMax_myl0_9",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_20",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_20",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_21",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MulSumSqrtMax_0xc887bad3ce0c903dcf6ea8fa6db4992d",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_1/ReduceL2]"
+},{
+  "Name": "__myl_MinReplDivMulMulAddSiluConcSlic_myl0_10",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_20",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_3",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_21",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Add_1_output_0'.1_23",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_3",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MinReplDivMulMulAddSiluConcSlic_0xb298d3e49d2d2a8492c1fff7a7f5dcc7",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_3]\u001f[ONNX Layer: /residual.6_1/Concat]\u001f[ONNX Layer: /residual.3_1/Add]\u001f[ONNX Layer: /residual.4_1/Mul]\u001f[ONNX Layer: /residual.4_1/Sigmoid]\u001f[ONNX Layer: /residual.3_1/Mul]\u001f[ONNX Layer: /residual.3_1/Mul_1]\u001f[ONNX Layer: /residual.3_1/Div]\u001f[ONNX Layer: /residual.3_1/Expand]"
+},{
+  "Name": "/residual_6_1/Conv_myl0_11",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "/Add_1_output_0'.1_23",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_16",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_24",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6_1/Conv]\u001f[ONNX Layer: /Add_1]"
+},{
+  "Name": "__myl_MulSumSqrtMax_myl0_12",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_24",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_24",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_25",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MulSumSqrtMax_0xc887bad3ce0c903dcf6ea8fa6db4992d",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_2/ReduceL2]"
+},{
+  "Name": "__myl_MinReplDivMulMulAddSiluConcSlic_myl0_13",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_24",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_4",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_25",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual_2_2/Conv_output_0'.1_27",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_4",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MinReplDivMulMulAddSiluConcSlic_0xb298d3e49d2d2a8492c1fff7a7f5dcc7",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_4]\u001f[ONNX Layer: /residual.2_2/Concat]\u001f[ONNX Layer: /residual.0_2/Add]\u001f[ONNX Layer: /residual.1_2/Mul]\u001f[ONNX Layer: /residual.1_2/Sigmoid]\u001f[ONNX Layer: /residual.0_2/Mul]\u001f[ONNX Layer: /residual.0_2/Mul_1]\u001f[ONNX Layer: /residual.0_2/Div]\u001f[ONNX Layer: /residual.0_2/Expand]"
+},{
+  "Name": "/residual_2_2/Conv_myl0_14",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "/residual_2_2/Conv_output_0'.1_27",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_28",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2_2/Conv]"
+},{
+  "Name": "__myl_MulSumSqrtMax_myl0_15",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_28",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_28",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_29",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MulSumSqrtMax_0xc887bad3ce0c903dcf6ea8fa6db4992d",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_2/ReduceL2]"
+},{
+  "Name": "__myl_MinReplDivMulMulAddSiluConcSlic_myl0_16",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_28",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_in_5",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_29",
+    "Dimensions": [1,1,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__mye22551_31",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "cache_out_5",
+    "Dimensions": [1,192,2,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_MinReplDivMulMulAddSiluConcSlic_0xb298d3e49d2d2a8492c1fff7a7f5dcc7",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_5]\u001f[ONNX Layer: /residual.6_2/Concat]\u001f[ONNX Layer: /residual.3_2/Add]\u001f[ONNX Layer: /residual.4_2/Mul]\u001f[ONNX Layer: /residual.4_2/Sigmoid]\u001f[ONNX Layer: /residual.3_2/Mul]\u001f[ONNX Layer: /residual.3_2/Mul_1]\u001f[ONNX Layer: /residual.3_2/Div]\u001f[ONNX Layer: /residual.3_2/Expand]"
+},{
+  "Name": "/residual_6_2/Conv_myl0_17",
+  "LayerType": "correlation",
+  "Inputs": [
+  {
+    "Name": "__mye22551_31",
+    "Dimensions": [1,192,6,288,160],
+    "Format/Datatype": "BFloat16"
+  },
+  {
+    "Name": "__myln_k_arg__bb1_24",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_32",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage2_warpsize2x2x1_g1_tensor16x8x16_t3r3s3",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6_2/Conv]\u001f[ONNX Layer: /Add_2]"
+},{
+  "Name": "__myl_Tran_myl0_18",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_32",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "Outputs": [
+  {
+    "Name": "y",
+    "Dimensions": [1,192,4,288,160],
+    "Format/Datatype": "BFloat16"
+  }],
+  "TacticName": "__myl_Tran_0x203d1b23038fd1d1113e63baae0cf96c",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6_2/Conv]\u001f[ONNX Layer: /Add_2]"
+}],
+"Bindings": ["x"
+,"cache_in_0"
+,"cache_in_1"
+,"cache_in_2"
+,"cache_in_3"
+,"cache_in_4"
+,"cache_in_5"
+,"y"
+,"cache_out_0"
+,"cache_out_1"
+,"cache_out_2"
+,"cache_out_3"
+,"cache_out_4"
+,"cache_out_5"
+]}
+

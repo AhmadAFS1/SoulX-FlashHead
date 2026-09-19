@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-16T17:43:24.092267+00:00",
+  "status": "complete",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84",
+  "torch": "2.5.1+cu121",
+  "cuda": "12.1",
+  "seed": 50,
+  "fps": 25,
+  "vad_alpha": 0.5,
+  "fade_type": "s",
+  "fade_out_frames": 15,
+  "config": "/workspace/ditto-talkinghead/checkpoints/ditto_cfg/v0.4_hubert_cfg_trt.pkl",
+  "config_sha256": "be6729ca19e25269c4447d8ff4062e18de053b0f6dd38fdb6ef8166de6e8f3e3",
+  "models": "/workspace/ditto-talkinghead/checkpoints/ditto_trt_Ampere_Plus",
+  "ditto_revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "references": {
+    "close-100": {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/evidence-indian-male-20260916/reference-close.png",
+      "sha256": "94f10ba31e16ec9af66d31ec44e1393fb20573d66c531d52914e77a751a04556"
+    },
+    "closer-125": {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+      "sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0"
+    },
+    "closest-150": {
+      "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closest-150.png",
+      "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+    }
+  },
+  "rows": [
+    {
+      "label": "close-100",
+      "video": "close-100-seed-50.mp4",
+      "sha256": "844e057ff77ed0a72fa14bf5f0d4fc56550e5f4eb32d607711786a1dc1a8c345",
+      "seconds": 7.7037722719833255
+    },
+    {
+      "label": "closer-125",
+      "video": "closer-125-seed-50.mp4",
+      "sha256": "6730f3b57cc3eb2ad4024f60a69e611000b5913043fb4a4096392b6af28b151f",
+      "seconds": 7.661939626996173
+    },
+    {
+      "label": "closest-150",
+      "video": "closest-150-seed-50.mp4",
+      "sha256": "a4a9ce695a0b8b89543e9cee0c2505db26d2d9d02693eafb260778a401fe1f2d",
+      "seconds": 7.660772068018559
+    }
+  ]
+}

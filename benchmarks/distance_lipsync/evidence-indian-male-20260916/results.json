@@ -1,0 +1,135 @@
+{
+  "status": "complete",
+  "created_at_utc": "2026-09-16T02:37:15.212593+00:00",
+  "question": "Does apparent character distance (face scale) affect SoulX FlashHead lip-sync output?",
+  "distance_definition": "Controlled apparent scale of one fitted portrait: close=1.00, medium=0.72, far=0.50.",
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 4070 SUPER",
+    "visible_vram_mib": 12282.0,
+    "used_vram_before_model_load_mib": 2487.0,
+    "driver": "595.84",
+    "evidence": "nvidia-smi query at experiment start"
+  },
+  "co_resident_load": "Existing non-experiment GPU allocation is included in used_vram_before_model_load_mib; no service was stopped.",
+  "profile": {
+    "model": "SoulX-FlashHead Lite",
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "optimized": true,
+    "real_rope": true,
+    "lean": true,
+    "fused_qkv": true,
+    "compiled": true,
+    "memory_mode": "compact",
+    "int8_weight_storage": true,
+    "torch_allocator_cap_mib": 3584
+  },
+  "inputs": {
+    "source": {
+      "path": "/workspace/benchmarks/same-avatar/shared.png",
+      "sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9"
+    },
+    "audio": {
+      "path": "benchmarks/comparison-10s.wav",
+      "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "seconds": 10
+    },
+    "references": {
+      "close": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-20260916/reference-close.png",
+        "sha256": "94f10ba31e16ec9af66d31ec44e1393fb20573d66c531d52914e77a751a04556",
+        "scale": 1.0
+      },
+      "medium": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-20260916/reference-medium.png",
+        "sha256": "d8e5c12f043afb1a620d4d5567f83b647c96902efde2830a882ebd476d0ca1f9",
+        "scale": 0.72
+      },
+      "far": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-20260916/reference-far.png",
+        "sha256": "b1a507c53e4565663cbc52cab98dc5b5cad2ef757f085e87db1db44141646704",
+        "scale": 0.5
+      }
+    }
+  },
+  "seeds": [
+    50,
+    51
+  ],
+  "rows": [
+    {
+      "distance": "close",
+      "scale": 1.0,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.027983820007648,
+      "useful_fps": 35.57207961809564,
+      "peak_torch_mib": 3297.67236328125,
+      "raw_sha256": "ca101d88faff160eaef5f43baa9f0de366176ef88e8973019bfe752a2c534957",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/close-seed-50.mp4",
+      "video_sha256": "631ebd4070bb2e26de246ea924e0a0e86a57a1b90f8df70152419002d41b22f3"
+    },
+    {
+      "distance": "medium",
+      "scale": 0.72,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.082312986982288,
+      "useful_fps": 35.299202458224435,
+      "peak_torch_mib": 3299.314453125,
+      "raw_sha256": "822c83072d0f6c50f6c4faf26002b2a5c2080afcc87a59d32dccd64be4dc7c24",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/medium-seed-50.mp4",
+      "video_sha256": "f6150a44323b2449eebddaef1f0c386506602939e9687a1ff8ef490f7f616a53"
+    },
+    {
+      "distance": "far",
+      "scale": 0.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.10150856297696,
+      "useful_fps": 35.20378772805418,
+      "peak_torch_mib": 3300.99267578125,
+      "raw_sha256": "14d31204b888f4ba3a745b20b1ceac8f0b94d1e08c6dcad6f6f588f966d8e521",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/far-seed-50.mp4",
+      "video_sha256": "b07d6e04d5ad0515a07978e904d879e25c79e07da3907b34000fe478b7377dea"
+    },
+    {
+      "distance": "close",
+      "scale": 1.0,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.086881508992519,
+      "useful_fps": 35.27644700744268,
+      "peak_torch_mib": 3300.99267578125,
+      "raw_sha256": "6a3858309e29d57d666c9f7f4fca4c3d1d05585cfa9a004689af1bbf0f1ad7d2",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/close-seed-51.mp4",
+      "video_sha256": "d9ccaa306a4267c56b6991f3ff54e05ebdc77f3834e92fbc163767f0f6378572"
+    },
+    {
+      "distance": "medium",
+      "scale": 0.72,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.0928200380003545,
+      "useful_fps": 35.246911476761696,
+      "peak_torch_mib": 3300.99267578125,
+      "raw_sha256": "2dee096802e1426eebbf2c800c17cf32e16ee27c447186615fee1663da0b0844",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/medium-seed-51.mp4",
+      "video_sha256": "c18c7839433f3535360b0a46c31f365fb11dcfa33af185889b469098b034e909"
+    },
+    {
+      "distance": "far",
+      "scale": 0.5,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.105037320987321,
+      "useful_fps": 35.1863035626194,
+      "peak_torch_mib": 3300.99267578125,
+      "raw_sha256": "dceccfbe05018d0ea3d4bd40a87e1e3c720cfb1ac59ea229ae01b082fa52c2eb",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-20260916/far-seed-51.mp4",
+      "video_sha256": "27a5fcb84060da79c249b076a844efd9200128c99d2a308f12da20408e3e75a8"
+    }
+  ]
+}

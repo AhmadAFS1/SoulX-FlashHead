@@ -1,0 +1,23 @@
+{
+  "status": "restored",
+  "date_utc": "2026-09-19T02:44:43Z",
+  "execution": "service restoration after completed GPU validation; not a benchmark",
+  "pid": 586976,
+  "exact_saved_command_and_environment_used": true,
+  "health": {
+    "ready": true,
+    "size": 512,
+    "width": 512,
+    "height": 512,
+    "steps": 4,
+    "fps": 25,
+    "max_active_calls": 2,
+    "sessions": 0,
+    "compiled": true
+  },
+  "settings_match_previous_health": true,
+  "note": "Interim startup was stopped to complete the duplicate-audio correction; this is the final verified restoration.",
+  "gpu_lease_owner_pid": 586984,
+  "worker_parent_verified": true,
+  "final_health_ready": true
+}

@@ -1,0 +1,10 @@
+{
+  "aggregated": "aggregated.csv",
+  "component": "decoder",
+  "decoder_inventory": "decoder-inventory.json",
+  "execution": "GPU profiling diagnostic; not a throughput measurement",
+  "mode": "trace",
+  "rows": 267,
+  "status": "complete",
+  "trace": "trace.json"
+}

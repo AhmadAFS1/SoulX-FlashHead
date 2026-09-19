@@ -1,0 +1,11 @@
+{
+  "seed": 50,
+  "strength": 0.75,
+  "directory": "seed50-strength0.75",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+  "wall_s": 8.057782807998592,
+  "useful_fps": 31.02590451455659,
+  "raw_sha256": "ae80700e6e9adf7512370e9678c0386237b78ffeae6d3b8edd760b1d444617f0",
+  "frames": 250,
+  "peak_allocated_mib": 3301.47265625
+}

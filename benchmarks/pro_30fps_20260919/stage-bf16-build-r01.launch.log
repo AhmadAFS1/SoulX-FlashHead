@@ -1,0 +1,10 @@
+/workspace/SoulX-FlashHead/soulx_rtc/pro_vae_stage_backend.py:45: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.shape[2] < 2 and previous is not None:
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/_internal/jit_utils.py:309: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/utils.py:691: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/utils.py:1161: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/decoder_stages.py:184: DeprecationWarning: Use Deprecated in TensorRT 10.1. Superseded by get_device_memory_size_v2 instead.
+  'build_s':time.perf_counter()-begin,'workspace_bytes':engine.device_memory_size,

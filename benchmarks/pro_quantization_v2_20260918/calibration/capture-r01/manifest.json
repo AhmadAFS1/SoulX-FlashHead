@@ -1,0 +1,13 @@
+{
+  "capture_contract": "All target linear pre-inputs; selected raw tensors; CausalConv3d inputs after cache concatenation and padding; Conv2d inputs before module-owned padding.",
+  "error": "Decoder plan path cannot be resolved: model.decoder.conv1",
+  "error_type": "DecoderPlanError",
+  "estimated_raw_bytes": 0,
+  "execution": "GPU activation capture diagnostic; not a throughput measurement",
+  "raw_budget_bytes": 6442450944,
+  "raw_budget_exceeded": false,
+  "raw_bytes_saved": 0,
+  "raw_tensors": [],
+  "records": [],
+  "status": "failed"
+}

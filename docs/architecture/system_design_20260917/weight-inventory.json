@@ -1,0 +1,83 @@
+{
+  "date_utc": "2026-09-18T00:01:15.410684+00:00",
+  "execution": "Static source audit, CPU-only metadata reads and Graphviz rendering; no model inference",
+  "source_commit": "1349991d26189898f5ba4158f112b86afb49ba06",
+  "source_note": "Local modifications are present; diagram describes inspected working tree",
+  "torch": "2.7.1+cu128",
+  "compiled_cuda_runtime": "12.8",
+  "gpu_snapshot": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84",
+  "resident_processes": "157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+  "count_note": "Stored tensor elements, including inactive modules/buffers; not runtime active-parameter or VRAM measurement",
+  "weights": [
+    {
+      "path": "models/SoulX-FlashHead-1_3B/Model_Lite/diffusion_pytorch_model.safetensors",
+      "stored_tensor_elements": 1526864256,
+      "tensor_count": 843,
+      "dtypes": [
+        "F32"
+      ],
+      "file_bytes": 6107542048,
+      "hypothetical_all_bf16_weight_bytes": 3053728512
+    },
+    {
+      "path": "models/SoulX-FlashHead-1_3B/Model_Pro/diffusion_pytorch_model.safetensors",
+      "stored_tensor_elements": 1507694912,
+      "tensor_count": 843,
+      "dtypes": [
+        "F32"
+      ],
+      "file_bytes": 6030864656,
+      "hypothetical_all_bf16_weight_bytes": 3015389824
+    },
+    {
+      "path": "models/SoulX-FlashHead-1_3B/VAE_LTX/diffusion_pytorch_model.safetensors",
+      "stored_tensor_elements": 419193905,
+      "tensor_count": 190,
+      "dtypes": [
+        "F32"
+      ],
+      "file_bytes": 1676798532,
+      "hypothetical_all_bf16_weight_bytes": 838387810
+    },
+    {
+      "path": "models/SoulX-FlashHead-1_3B/VAE_Wan/Wan2.1_VAE.pth",
+      "stored_tensor_elements": 126892531,
+      "tensor_count": 194,
+      "dtypes": [
+        "torch.float32"
+      ],
+      "file_bytes": 507609880,
+      "hypothetical_all_bf16_weight_bytes": 253785062
+    },
+    {
+      "path": "models/wav2vec2-base-960h/pytorch_model.bin",
+      "stored_tensor_elements": 94395552,
+      "tensor_count": 212,
+      "dtypes": [
+        "torch.float32"
+      ],
+      "file_bytes": 377667514,
+      "hypothetical_all_bf16_weight_bytes": 188791104
+    },
+    {
+      "path": "models/mouth-sr/realesr-general-x4v3.pth",
+      "stored_tensor_elements": 1213296,
+      "tensor_count": 101,
+      "dtypes": [
+        "torch.float32"
+      ],
+      "file_bytes": 4885111,
+      "hypothetical_all_bf16_weight_bytes": 2426592
+    },
+    {
+      "path": "models/ojin-components/2xNomosUni_compact_multijpg_ldl.safetensors",
+      "stored_tensor_elements": 600652,
+      "tensor_count": 53,
+      "dtypes": [
+        "F32"
+      ],
+      "file_bytes": 2406816,
+      "hypothetical_all_bf16_weight_bytes": 1201304
+    }
+  ]
+}

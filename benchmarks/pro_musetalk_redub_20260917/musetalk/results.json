@@ -1,0 +1,59 @@
+{
+  "date_utc": "2026-09-17T20:34:56.078807+00:00",
+  "execution": "Fresh GPU inference",
+  "gpu": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 3156 MiB, 595.84\n",
+  "torch": "2.5.1+cu121",
+  "cuda": "12.1",
+  "co_resident": "pid, process_name, used_gpu_memory [MiB]\n157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB\n310789, /workspace/.venvs/musetalk_trt_stagewise/bin/python, 424 MiB\n",
+  "profile": {
+    "model": "MuseTalk V1.5",
+    "precision": "FP16",
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "batch": 8,
+    "bbox_shift": 0,
+    "extra_margin": 10,
+    "parsing_mode": "jaw",
+    "left_cheek_width": 90,
+    "right_cheek_width": 90,
+    "preprocessing": "native DWPose + S3FD, BiSeNet cached masks; stock VAE+UNet+Whisper",
+    "boundary_postprocessing": "none; raw MuseTalk output retained"
+  },
+  "runs": [
+    {
+      "name": "pro-redub-A",
+      "base": "pro-base",
+      "audio": "A",
+      "frames": 250,
+      "face_detections": 250,
+      "render_and_encode_seconds": 8.09767076105345,
+      "first_last_rgb_equal": false,
+      "source_sha256": "43c23676ec4e8e60b26997498005937a4c67197440fd7fec5f5119401d3a7118",
+      "audio_sha256": "23756378f1254017b6115e82159932c76c8e04e616a83b62e9aee675729037ef"
+    },
+    {
+      "name": "pro-redub-B",
+      "base": "pro-base",
+      "audio": "B",
+      "frames": 250,
+      "face_detections": 250,
+      "render_and_encode_seconds": 6.195627373992465,
+      "first_last_rgb_equal": false,
+      "source_sha256": "43c23676ec4e8e60b26997498005937a4c67197440fd7fec5f5119401d3a7118",
+      "audio_sha256": "bc3003f393221d170cbd5717dda7b64d95056ca75d7132e4805fab9c973f126b"
+    },
+    {
+      "name": "silent-redub-B",
+      "base": "silent-control-base",
+      "audio": "B",
+      "frames": 250,
+      "face_detections": 250,
+      "render_and_encode_seconds": 6.262722356012091,
+      "first_last_rgb_equal": false,
+      "source_sha256": "42025b7f1db91a5a4ace7979e0c6c815513994339a3b4510e235f17b9925b768",
+      "audio_sha256": "bc3003f393221d170cbd5717dda7b64d95056ca75d7132e4805fab9c973f126b"
+    }
+  ],
+  "status": "complete"
+}

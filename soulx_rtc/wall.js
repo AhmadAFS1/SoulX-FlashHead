@@ -8,8 +8,10 @@ function status(message, error = false) {
   $('status').textContent = message;
   $('status').classList.toggle('error', error);
 }
-async function request(path, options = {}) {
-  const response = await fetch(path, {...options, cache: 'no-store'});
+async function request(path, options = {}, credential = '') {
+  const headers = {...options.headers};
+  if (credential) headers.Authorization = `Bearer ${credential}`;
+  const response = await fetch(path, {...options, headers, cache: 'no-store'});
   if (!response.ok) {
     const error = new Error(`${response.status}: ${(await response.text()).slice(0, 600)}`);
     error.status = response.status;
@@ -164,7 +166,15 @@ async function connect(p, config, run) {
   }
 }
 async function refreshServer() {
-  const results = await Promise.allSettled([api('/health'), api('/webrtc/tts/kokoro/status'), api('/avatars'), api('/config')]);
+  const credential = $('token').value.trim();
+  const results = await Promise.allSettled([
+    api('/health', {}, credential),
+    api('/webrtc/tts/kokoro/status', {}, credential),
+    api('/avatars', {}, credential),
+    api('/config', {}, credential),
+  ]);
+  if (results[3].status === 'fulfilled') $('tokenRow').hidden = !results[3].value.authRequired;
+  else if (results.some(result => result.status === 'rejected' && result.reason.status === 401)) $('tokenRow').hidden = false;
   if (results[2].status === 'fulfilled') {
     const previous = $('avatar').value;
     const avatars = results[2].value.avatars.slice(0,4);
@@ -215,7 +225,7 @@ async function createWall(run) {
   const count = Number($('count').value), seed = Number($('seed').value);
   if (!Number.isInteger(count) || count < 1 || count > health.max_sessions) throw new Error(`Choose 1–${health.max_sessions} peers.`);
   if (!Number.isSafeInteger(seed) || seed < 0 || seed > 2147483647) throw new Error('First seed must be an integer from 0 to 2147483647.');
-  const credential = '', config = await api('/config');
+  const credential = $('token').value.trim(), config = await api('/config', {}, credential);
   if (run !== epoch) return;
   status(`Connecting ${count} independent calls…`);
   const tiles = Array.from({length: count}, (_, i) => makeTile(i, seed + i, credential));
@@ -260,7 +270,8 @@ async function speak(run, targets = null) {
   if (targets.some(p => p.pending)) throw new Error('Retry failed sends or interrupt before synthesizing another turn.');
   if (!$('text').value.trim()) throw new Error('Enter text for Kokoro.');
   status('Synthesizing Kokoro speech on CPU… first use may take a minute to download the model.');
-  const response = await request('/webrtc/tts/kokoro', json({text: $('text').value, voice: $('voice').value, speed: Number($('speed').value)}));
+  const credential = targets[0]?.credential || $('token').value.trim();
+  const response = await request('/webrtc/tts/kokoro', json({text: $('text').value, voice: $('voice').value, speed: Number($('speed').value)}), credential);
   const blob = await response.blob();
   if (run !== epoch) return;
   $('ttsMetric').textContent = `${fmt(Number(response.headers.get('X-Kokoro-Synthesis-Ms')) / 1000, 2)}s / ${fmt(Number(response.headers.get('X-Kokoro-Audio-Seconds')), 2)}s`;

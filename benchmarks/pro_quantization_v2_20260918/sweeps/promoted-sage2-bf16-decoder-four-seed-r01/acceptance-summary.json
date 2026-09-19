@@ -1,0 +1,679 @@
+{
+  "status": "complete",
+  "execution": "CPU aggregation of predeclared balanced fresh-process GPU sweep; three independent process runs per role and seed",
+  "schedule_status": "complete",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+    "physical_vram": "12 GB",
+    "visible_vram_mib": 12282,
+    "driver": "595.84",
+    "torch": "2.7.1+cu128",
+    "cuda_runtime": "12.8",
+    "host_nvcc": "12.1.105",
+    "initial_co_resident_vram_mib": 2727
+  },
+  "fixture": "indian150-a",
+  "profile": {
+    "frames": 250,
+    "resolution": [
+      320,
+      576
+    ],
+    "fps": 25,
+    "steps": 4,
+    "shift": 5,
+    "motion_latents": 2
+  },
+  "policy": "self-all-fp8-sage2-fp16",
+  "reference_policy": "pro-fp8-reference",
+  "seeds": {
+    "50": {
+      "reference": {
+        "values": [
+          9.324750624724638,
+          9.414836235016418,
+          9.405522819941247
+        ],
+        "median": 9.405522819941247,
+        "min": 9.324750624724638,
+        "max": 9.414836235016418
+      },
+      "candidate": {
+        "values": [
+          10.406539967671065,
+          10.39364515969826,
+          10.394113588320806
+        ],
+        "median": 10.394113588320806,
+        "min": 10.39364515969826,
+        "max": 10.406539967671065
+      },
+      "median_gain_percent": 10.510747645878716,
+      "reference_raw_hashes": [
+        "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d"
+      ],
+      "candidate_raw_hashes": [
+        "61851bb2a28ad3d58625adbfc43da6f45efb9ddb21255d3278459f186da97869"
+      ]
+    },
+    "51": {
+      "reference": {
+        "values": [
+          9.41202286513472,
+          9.39039284417036,
+          9.406200194010417
+        ],
+        "median": 9.406200194010417,
+        "min": 9.39039284417036,
+        "max": 9.41202286513472
+      },
+      "candidate": {
+        "values": [
+          10.395087473835371,
+          10.397486244003876,
+          10.28786373662799
+        ],
+        "median": 10.395087473835371,
+        "min": 10.28786373662799,
+        "max": 10.397486244003876
+      },
+      "median_gain_percent": 10.5131430272412,
+      "reference_raw_hashes": [
+        "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100"
+      ],
+      "candidate_raw_hashes": [
+        "eb80e17d695ae4709a8359e0c235803bbd987a6adba25a01945e4cdb45b2f5af"
+      ]
+    },
+    "0": {
+      "reference": {
+        "values": [
+          9.410988528647545,
+          9.322223739088622,
+          9.410206269785045
+        ],
+        "median": 9.410206269785045,
+        "min": 9.322223739088622,
+        "max": 9.410988528647545
+      },
+      "candidate": {
+        "values": [
+          10.382164372520633,
+          10.401106055979978,
+          10.389655505641631
+        ],
+        "median": 10.389655505641631,
+        "min": 10.382164372520633,
+        "max": 10.401106055979978
+      },
+      "median_gain_percent": 10.40837158906358,
+      "reference_raw_hashes": [
+        "a516de61901a6b6377164ef97c548efccdad16f06c04682afdc50ab88c7920ec"
+      ],
+      "candidate_raw_hashes": [
+        "c3b79fa22ad9ae892040c01b499685128f47fcc8409624c594e13b1fbb2657ed"
+      ]
+    },
+    "1": {
+      "reference": {
+        "values": [
+          9.410993682158317,
+          9.32890854040217,
+          9.414668051285611
+        ],
+        "median": 9.410993682158317,
+        "min": 9.32890854040217,
+        "max": 9.414668051285611
+      },
+      "candidate": {
+        "values": [
+          10.292239298365407,
+          10.271362228453633,
+          10.388017732633802
+        ],
+        "median": 10.292239298365407,
+        "min": 10.271362228453633,
+        "max": 10.388017732633802
+      },
+      "median_gain_percent": 9.364001783125042,
+      "reference_raw_hashes": [
+        "fe1ea6b09203e8568abef34f5f2d17cda2b376cc735613ebf5a7121da437af4a"
+      ],
+      "candidate_raw_hashes": [
+        "425509be53f4fcc9dea8eaa6906efa84822fa7ca23fed2d2456dcc854719cbe2"
+      ]
+    }
+  },
+  "all_runs": {
+    "reference": {
+      "values": [
+        9.324750624724638,
+        9.414836235016418,
+        9.405522819941247,
+        9.41202286513472,
+        9.39039284417036,
+        9.406200194010417,
+        9.410988528647545,
+        9.322223739088622,
+        9.410206269785045,
+        9.410993682158317,
+        9.32890854040217,
+        9.414668051285611
+      ],
+      "median": 9.40820323189773,
+      "min": 9.322223739088622,
+      "max": 9.414836235016418
+    },
+    "candidate": {
+      "values": [
+        10.406539967671065,
+        10.39364515969826,
+        10.394113588320806,
+        10.395087473835371,
+        10.397486244003876,
+        10.28786373662799,
+        10.382164372520633,
+        10.401106055979978,
+        10.389655505641631,
+        10.292239298365407,
+        10.271362228453633,
+        10.388017732633802
+      ],
+      "median": 10.391650332669945,
+      "min": 10.271362228453633,
+      "max": 10.406539967671065
+    },
+    "median_gain_percent": 10.453080960644211
+  },
+  "rows": [
+    {
+      "sequence": 0,
+      "role": "reference",
+      "seed": 50,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/000-reference-seed50-r01",
+      "useful_fps": 9.324750624724638,
+      "generation_s": 26.810368455015123,
+      "first_window_latency_s": 2.9469384260009974,
+      "stage_seconds": {
+        "audio": 0.0723549437522888,
+        "dit": 11.734717315673826,
+        "motion_encode": 1.3789710388183594,
+        "vae_decode": 13.0248203125
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d",
+      "video_sha256": "079d544d05754032bb6e91f3367e3de0757c5cc53ba3e0cbbcf61d377707d04f"
+    },
+    {
+      "sequence": 1,
+      "role": "candidate",
+      "seed": 50,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/001-candidate-seed50-r01",
+      "useful_fps": 10.406539967671065,
+      "generation_s": 24.02335461898474,
+      "first_window_latency_s": 2.670899985008873,
+      "stage_seconds": {
+        "audio": 0.07242793560028075,
+        "dit": 9.181321807861329,
+        "motion_encode": 1.378699249267578,
+        "vae_decode": 13.056386596679689
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "61851bb2a28ad3d58625adbfc43da6f45efb9ddb21255d3278459f186da97869",
+      "video_sha256": "4d8cccb79c7c11042518d5da99d21b69512fb72161f6ffffe366bd36b2c5f735"
+    },
+    {
+      "sequence": 2,
+      "role": "candidate",
+      "seed": 50,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/002-candidate-seed50-r02",
+      "useful_fps": 10.39364515969826,
+      "generation_s": 24.053159036964644,
+      "first_window_latency_s": 2.6743674249737523,
+      "stage_seconds": {
+        "audio": 0.0747139196395874,
+        "dit": 9.203542861938477,
+        "motion_encode": 1.3798864440917968,
+        "vae_decode": 13.06017419433594
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "61851bb2a28ad3d58625adbfc43da6f45efb9ddb21255d3278459f186da97869",
+      "video_sha256": "7ddd5cbfa6be0b3fbb7936f7b572a405c7372f4071c20150d49cd5cf4f7abf73"
+    },
+    {
+      "sequence": 3,
+      "role": "reference",
+      "seed": 50,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/003-reference-seed50-r02",
+      "useful_fps": 9.414836235016418,
+      "generation_s": 26.55383415700635,
+      "first_window_latency_s": 2.9351052040001377,
+      "stage_seconds": {
+        "audio": 0.07202723169326782,
+        "dit": 11.752332366943357,
+        "motion_encode": 1.3806087188720704,
+        "vae_decode": 13.034080322265625
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d",
+      "video_sha256": "c3f2d79bbf8fefbf97851d7ab1aeca4bec37a91b45417ef3ed890194aa06695e"
+    },
+    {
+      "sequence": 4,
+      "role": "reference",
+      "seed": 50,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/004-reference-seed50-r03",
+      "useful_fps": 9.405522819941247,
+      "generation_s": 26.580127950990573,
+      "first_window_latency_s": 2.9488496279809624,
+      "stage_seconds": {
+        "audio": 0.07247804832458496,
+        "dit": 11.753461120605468,
+        "motion_encode": 1.3799747467041015,
+        "vae_decode": 13.040134887695313
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d",
+      "video_sha256": "404d4c9e270d4e84f2c81e8c5761a6a345ff48abbf6001f8758ce4b85820d029"
+    },
+    {
+      "sequence": 5,
+      "role": "candidate",
+      "seed": 50,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/005-candidate-seed50-r03",
+      "useful_fps": 10.394113588320806,
+      "generation_s": 24.05207503994461,
+      "first_window_latency_s": 2.6808860230376013,
+      "stage_seconds": {
+        "audio": 0.07294022321701049,
+        "dit": 9.20393620300293,
+        "motion_encode": 1.3800988464355468,
+        "vae_decode": 13.060141845703125
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "61851bb2a28ad3d58625adbfc43da6f45efb9ddb21255d3278459f186da97869",
+      "video_sha256": "5b744edf26b6f39374628a87614a21b050a6ef8ecf7666be00e28f453769f719"
+    },
+    {
+      "sequence": 6,
+      "role": "candidate",
+      "seed": 51,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/006-candidate-seed51-r01",
+      "useful_fps": 10.395087473835371,
+      "generation_s": 24.049821670982055,
+      "first_window_latency_s": 2.656716469966341,
+      "stage_seconds": {
+        "audio": 0.07541567993164063,
+        "dit": 9.20048274230957,
+        "motion_encode": 1.3808191986083982,
+        "vae_decode": 13.070558349609373
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "eb80e17d695ae4709a8359e0c235803bbd987a6adba25a01945e4cdb45b2f5af",
+      "video_sha256": "f63d30088657cbbc4f996ad1bb6a5b4c21530ace5869be3357728889d1232a85"
+    },
+    {
+      "sequence": 7,
+      "role": "reference",
+      "seed": 51,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/007-reference-seed51-r01",
+      "useful_fps": 9.41202286513472,
+      "generation_s": 26.561771426000632,
+      "first_window_latency_s": 2.9373718249844387,
+      "stage_seconds": {
+        "audio": 0.07251526403427125,
+        "dit": 11.753788543701175,
+        "motion_encode": 1.3807044677734377,
+        "vae_decode": 13.035329711914061
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100",
+      "video_sha256": "54f33d0612a7d349beed00533b512c76e209d7f9f11f7a1acac77aa42bcd2b39"
+    },
+    {
+      "sequence": 8,
+      "role": "reference",
+      "seed": 51,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/008-reference-seed51-r02",
+      "useful_fps": 9.39039284417036,
+      "generation_s": 26.622954347985797,
+      "first_window_latency_s": 2.9342700580018573,
+      "stage_seconds": {
+        "audio": 0.07164425563812256,
+        "dit": 11.747548614501953,
+        "motion_encode": 1.3804496307373049,
+        "vae_decode": 13.041025390625
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100",
+      "video_sha256": "4ec05f61cd3a2a67d5ab6c8147f83aef858f76852ac76a25cd474920d13cf3c3"
+    },
+    {
+      "sequence": 9,
+      "role": "candidate",
+      "seed": 51,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/009-candidate-seed51-r02",
+      "useful_fps": 10.397486244003876,
+      "generation_s": 24.044273214996792,
+      "first_window_latency_s": 2.6529499830212444,
+      "stage_seconds": {
+        "audio": 0.07307584047317504,
+        "dit": 9.198763549804688,
+        "motion_encode": 1.380117630004883,
+        "vae_decode": 13.071381591796873
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "eb80e17d695ae4709a8359e0c235803bbd987a6adba25a01945e4cdb45b2f5af",
+      "video_sha256": "f63d30088657cbbc4f996ad1bb6a5b4c21530ace5869be3357728889d1232a85"
+    },
+    {
+      "sequence": 10,
+      "role": "candidate",
+      "seed": 51,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/010-candidate-seed51-r03",
+      "useful_fps": 10.28786373662799,
+      "generation_s": 24.300477378012147,
+      "first_window_latency_s": 2.6737777850357816,
+      "stage_seconds": {
+        "audio": 0.0715756163597107,
+        "dit": 9.192093673706054,
+        "motion_encode": 1.382064987182617,
+        "vae_decode": 13.070837890624999
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "eb80e17d695ae4709a8359e0c235803bbd987a6adba25a01945e4cdb45b2f5af",
+      "video_sha256": "97211e29a6ad164a9fd3fd349786442be3bf636a2baa43cb24a9707badd95dbb"
+    },
+    {
+      "sequence": 11,
+      "role": "reference",
+      "seed": 51,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/011-reference-seed51-r03",
+      "useful_fps": 9.406200194010417,
+      "generation_s": 26.57821382104885,
+      "first_window_latency_s": 2.937559093988966,
+      "stage_seconds": {
+        "audio": 0.07270601511001588,
+        "dit": 11.754155761718753,
+        "motion_encode": 1.3798374938964844,
+        "vae_decode": 13.051630981445314
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100",
+      "video_sha256": "2c1c27acffba93dbc23f2b3eacd1cb490df47358a934f57d3ce3322f3e561025"
+    },
+    {
+      "sequence": 12,
+      "role": "reference",
+      "seed": 0,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/012-reference-seed0-r01",
+      "useful_fps": 9.410988528647545,
+      "generation_s": 26.56469075899804,
+      "first_window_latency_s": 2.934738148993347,
+      "stage_seconds": {
+        "audio": 0.07265894412994384,
+        "dit": 11.754197998046877,
+        "motion_encode": 1.3792099609375001,
+        "vae_decode": 13.036300903320312
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "a516de61901a6b6377164ef97c548efccdad16f06c04682afdc50ab88c7920ec",
+      "video_sha256": "622304b9848a0cd167055287625dd395ccaa3b8113a7f2a62acf73cac5d0e39f"
+    },
+    {
+      "sequence": 13,
+      "role": "candidate",
+      "seed": 0,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/013-candidate-seed0-r01",
+      "useful_fps": 10.382164372520633,
+      "generation_s": 24.079757459985558,
+      "first_window_latency_s": 2.674357271986082,
+      "stage_seconds": {
+        "audio": 0.0750657262802124,
+        "dit": 9.201478286743162,
+        "motion_encode": 1.3808964538574218,
+        "vae_decode": 13.073327392578125
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "c3b79fa22ad9ae892040c01b499685128f47fcc8409624c594e13b1fbb2657ed",
+      "video_sha256": "a4fa457bf1cc83a5ea598b90ba44e731450b337eb7c33e652894c18140de08d1"
+    },
+    {
+      "sequence": 14,
+      "role": "candidate",
+      "seed": 0,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/014-candidate-seed0-r02",
+      "useful_fps": 10.401106055979978,
+      "generation_s": 24.03590528300265,
+      "first_window_latency_s": 2.655671018001158,
+      "stage_seconds": {
+        "audio": 0.07169308853149414,
+        "dit": 9.205109786987306,
+        "motion_encode": 1.3809107666015625,
+        "vae_decode": 13.062710205078124
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "c3b79fa22ad9ae892040c01b499685128f47fcc8409624c594e13b1fbb2657ed",
+      "video_sha256": "6a869839857470a0234ade371f128b1968debbb41bb933eb427885ed8bf989c9"
+    },
+    {
+      "sequence": 15,
+      "role": "reference",
+      "seed": 0,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/015-reference-seed0-r02",
+      "useful_fps": 9.322223739088622,
+      "generation_s": 26.817635684041306,
+      "first_window_latency_s": 2.9558873329660855,
+      "stage_seconds": {
+        "audio": 0.07127379131317138,
+        "dit": 11.742631866455078,
+        "motion_encode": 1.3808658294677736,
+        "vae_decode": 13.044108642578125
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "a516de61901a6b6377164ef97c548efccdad16f06c04682afdc50ab88c7920ec",
+      "video_sha256": "28327a5df57b8a04ecd7ce16448f08720451c4f91d32a17b5f7850a1f2d7d1e8"
+    },
+    {
+      "sequence": 16,
+      "role": "reference",
+      "seed": 0,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/016-reference-seed0-r03",
+      "useful_fps": 9.410206269785045,
+      "generation_s": 26.566899049037602,
+      "first_window_latency_s": 2.9343490279861726,
+      "stage_seconds": {
+        "audio": 0.07547088050842285,
+        "dit": 11.745241302490236,
+        "motion_encode": 1.3802782745361328,
+        "vae_decode": 13.036684204101563
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "a516de61901a6b6377164ef97c548efccdad16f06c04682afdc50ab88c7920ec",
+      "video_sha256": "95043a36ae64e78a2bfcd90a3ce335b688e566dfa33734e6b2aa0eb607c5e6f0"
+    },
+    {
+      "sequence": 17,
+      "role": "candidate",
+      "seed": 0,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/017-candidate-seed0-r03",
+      "useful_fps": 10.389655505641631,
+      "generation_s": 24.06239551102044,
+      "first_window_latency_s": 2.6714278489816934,
+      "stage_seconds": {
+        "audio": 0.07159993600845338,
+        "dit": 9.204109741210939,
+        "motion_encode": 1.3802625732421876,
+        "vae_decode": 13.06737707519531
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "c3b79fa22ad9ae892040c01b499685128f47fcc8409624c594e13b1fbb2657ed",
+      "video_sha256": "65aa4ade1b448e735b404a2c14231c975685b0b6d58d16c1955e6ce2fe5127df"
+    },
+    {
+      "sequence": 18,
+      "role": "candidate",
+      "seed": 1,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/018-candidate-seed1-r01",
+      "useful_fps": 10.292239298365407,
+      "generation_s": 24.29014646401629,
+      "first_window_latency_s": 2.673007012985181,
+      "stage_seconds": {
+        "audio": 0.07136944007873536,
+        "dit": 9.18891815185547,
+        "motion_encode": 1.3798392639160157,
+        "vae_decode": 13.068854858398439
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "425509be53f4fcc9dea8eaa6906efa84822fa7ca23fed2d2456dcc854719cbe2",
+      "video_sha256": "eb8dcaa71ddca9876a70c40fb1318dbe042e82edc7dea55a780c450a2da2d634"
+    },
+    {
+      "sequence": 19,
+      "role": "reference",
+      "seed": 1,
+      "repeat": 0,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/019-reference-seed1-r01",
+      "useful_fps": 9.410993682158317,
+      "generation_s": 26.564676212030463,
+      "first_window_latency_s": 2.9300298540038057,
+      "stage_seconds": {
+        "audio": 0.07155891180038453,
+        "dit": 11.74542318725586,
+        "motion_encode": 1.3793152313232422,
+        "vae_decode": 13.045353271484375
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "fe1ea6b09203e8568abef34f5f2d17cda2b376cc735613ebf5a7121da437af4a",
+      "video_sha256": "0bae11e463464557081b76cde0bec0c032fa32fc74e739aedefde6adc085dfb1"
+    },
+    {
+      "sequence": 20,
+      "role": "reference",
+      "seed": 1,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/020-reference-seed1-r02",
+      "useful_fps": 9.32890854040217,
+      "generation_s": 26.798419013037346,
+      "first_window_latency_s": 2.9490191859658808,
+      "stage_seconds": {
+        "audio": 0.07109004783630372,
+        "dit": 11.743095031738278,
+        "motion_encode": 1.3800911865234373,
+        "vae_decode": 13.027204833984376
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "fe1ea6b09203e8568abef34f5f2d17cda2b376cc735613ebf5a7121da437af4a",
+      "video_sha256": "5077632d98864e2e7c8e92c06322f3c5b61c132d9e63e7d9a971e2d7a674ff63"
+    },
+    {
+      "sequence": 21,
+      "role": "candidate",
+      "seed": 1,
+      "repeat": 1,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/021-candidate-seed1-r02",
+      "useful_fps": 10.271362228453633,
+      "generation_s": 24.339517431042623,
+      "first_window_latency_s": 2.675971889984794,
+      "stage_seconds": {
+        "audio": 0.0715638403892517,
+        "dit": 9.186046554565431,
+        "motion_encode": 1.3797210845947268,
+        "vae_decode": 13.069062011718751
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "425509be53f4fcc9dea8eaa6906efa84822fa7ca23fed2d2456dcc854719cbe2",
+      "video_sha256": "35998dca4f07e7181fa9e42183a91a3be286e4c8dbd898ace1b427e0bae97a0a"
+    },
+    {
+      "sequence": 22,
+      "role": "candidate",
+      "seed": 1,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/022-candidate-seed1-r03",
+      "useful_fps": 10.388017732633802,
+      "generation_s": 24.066189183969982,
+      "first_window_latency_s": 2.6760534059721977,
+      "stage_seconds": {
+        "audio": 0.07566428852081299,
+        "dit": 9.196412704467772,
+        "motion_encode": 1.3798417053222656,
+        "vae_decode": 13.07172265625
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "425509be53f4fcc9dea8eaa6906efa84822fa7ca23fed2d2456dcc854719cbe2",
+      "video_sha256": "35998dca4f07e7181fa9e42183a91a3be286e4c8dbd898ace1b427e0bae97a0a"
+    },
+    {
+      "sequence": 23,
+      "role": "reference",
+      "seed": 1,
+      "repeat": 2,
+      "run": "benchmarks/pro_quantization_v2_20260918/sweeps/promoted-sage2-bf16-decoder-four-seed-r01/runs/023-reference-seed1-r03",
+      "useful_fps": 9.414668051285611,
+      "generation_s": 26.55430851498386,
+      "first_window_latency_s": 2.933962179988157,
+      "stage_seconds": {
+        "audio": 0.07241651344299317,
+        "dit": 11.745122863769536,
+        "motion_encode": 1.3792820281982423,
+        "vae_decode": 13.035582763671876
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "fe1ea6b09203e8568abef34f5f2d17cda2b376cc735613ebf5a7121da437af4a",
+      "video_sha256": "8b982e49dd5415ae41e09f0f43795d4a2ba4bde660428e06a4e5de8b205305cd"
+    }
+  ],
+  "decision_gate": {
+    "required_combined_gain_percent": 5,
+    "all_seed_medians_pass": true,
+    "runtime_failures": 0
+  },
+  "limitations": [
+    "The 12 observations per role span four deterministic seeds; frames within a clip are not independent timing samples.",
+    "Quality, sync, recurrence, and matched MuseTalk evidence are separate gates."
+  ]
+}

@@ -1,0 +1,6 @@
+file 'soulx-LITE-sampling-shift-0.5-1-2-5-seed7.mp4'
+duration 10.0
+file 'soulx-LITE-sampling-shift-0.5-1-2-5-seed50.mp4'
+duration 10.0
+file 'soulx-LITE-sampling-shift-0.5-1-2-5-seed99.mp4'
+duration 10.0

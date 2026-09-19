@@ -1,0 +1,71 @@
+{
+  "execution": "CPU FFmpeg packaging and ffprobe validation; no GPU inference.",
+  "comparison": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_teeth_20260917/soulx-LITE-vs-PRO-indian-man-square-closeup-512x512-seed42.mp4",
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1024,
+          "height": 512,
+          "avg_frame_rate": "25/1",
+          "duration": "9.960000",
+          "nb_read_frames": "249"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "9.920000",
+          "nb_read_frames": "155"
+        }
+      ]
+    }
+  },
+  "inputs": {
+    "lite": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 512,
+          "height": 512,
+          "avg_frame_rate": "25/1",
+          "duration": "9.960000",
+          "nb_read_frames": "249"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "9.920000",
+          "nb_read_frames": "155"
+        }
+      ]
+    },
+    "pro": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 512,
+          "height": 512,
+          "avg_frame_rate": "25/1",
+          "duration": "9.160000",
+          "nb_read_frames": "229"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "9.216000",
+          "nb_read_frames": "144"
+        }
+      ]
+    }
+  }
+}

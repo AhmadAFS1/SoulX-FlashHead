@@ -1,0 +1,2 @@
+{'name': 'bf16-optimized-dit-seed50', 'exit_code': 0}
+{'name': 'fp8-sage-optimized-seed50', 'exit_code': 0}

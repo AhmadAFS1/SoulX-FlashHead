@@ -1,0 +1,25 @@
+........                                                                 [100%]
+=============================== warnings summary ===============================
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+  /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/utils.py:185: DeprecationWarning: The feature will be removed. Please remove usage of this function
+    setup_onnx_logging(verbose) as log_ctx,
+
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+  /workspace/SoulX-FlashHead/soulx_rtc/pro_vae_stage_backend.py:45: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+    if x.shape[2] < 2 and previous is not None:
+
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+  /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/_internal/jit_utils.py:309: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+    _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+  /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/utils.py:691: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+    _C._jit_pass_onnx_graph_shape_type_inference(
+
+tests/test_pro_30fps.py::test_stage_int8_export_has_bf16_cache_bindings_and_all_convolution_qdq
+  /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/onnx/utils.py:1161: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+    _C._jit_pass_onnx_graph_shape_type_inference(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+8 passed, 6 warnings in 1.53s

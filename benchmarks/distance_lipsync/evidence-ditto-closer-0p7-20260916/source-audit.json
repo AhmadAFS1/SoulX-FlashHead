@@ -1,0 +1,94 @@
+{
+  "source_excerpts": [
+    {
+      "repo": "ditto",
+      "revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+      "path": "core/atomic_components/source2info.py",
+      "sha256": "ce296bdcdb505a6b745b02f052d1be2f3beffbea583fb8a316c1da8d24fc1d36",
+      "start_line": 67,
+      "end_line": 118,
+      "excerpt": "    def _crop(self, img, last_lmk=None, **kwargs):\n        # img_rgb -> det->landmark106->landmark203->crop\n\n        if last_lmk is None:  # det for first frame or image\n            det, _ = self.insightface_det(img)\n            boxes = det[np.argsort(-(det[:, 2] - det[:, 0]) * (det[:, 3] - det[:, 1]))]\n            if len(boxes) == 0:\n                return None\n            lmk_for_track = self.landmark106(img, boxes[0])  # 106\n        else:  # track for video frames\n            lmk_for_track = last_lmk  # 203\n\n        crop_dct = crop_image(\n            img,\n            lmk_for_track,\n            dsize=self.landmark203.dsize,\n            scale=1.5,\n            vy_ratio=-0.1,\n            pt_crop_flag=False,\n        )\n        lmk203 = self.landmark203(crop_dct[\"img_crop\"], crop_dct[\"M_c2o\"])\n\n        ret_dct = crop_image(\n            img,\n            lmk203,\n            dsize=512,\n            scale=kwargs.get(\"crop_scale\", 2.3),\n            vx_ratio=kwargs.get(\"crop_vx_ratio\", 0),\n            vy_ratio=kwargs.get(\"crop_vy_ratio\", -0.125),\n            flag_do_rot=kwargs.get(\"crop_flag_do_rot\", True),\n            pt_crop_flag=False,\n        )\n\n        img_crop = ret_dct[\"img_crop\"]\n        M_c2o = ret_dct[\"M_c2o\"]\n\n        return img_crop, M_c2o, lmk203\n    \n    @staticmethod\n    def _img_crop_to_bchw256(img_crop):\n        rgb_256 = cv2.resize(img_crop, (256, 256), interpolation=cv2.INTER_AREA)\n        rgb_256_bchw = (rgb_256.astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)\n        return rgb_256_bchw\n\n    def _get_kp_info(self, img):\n        # rgb_256_bchw_norm01\n        kp_info = self.motion_extractor(img)\n        return kp_info\n\n    def _get_f3d(self, img):\n        # rgb_256_bchw_norm01\n        fs = self.appearance_extractor(img)"
+    },
+    {
+      "repo": "ditto",
+      "revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+      "path": "core/atomic_components/source2info.py",
+      "sha256": "ce296bdcdb505a6b745b02f052d1be2f3beffbea583fb8a316c1da8d24fc1d36",
+      "start_line": 139,
+      "end_line": 145,
+      "excerpt": "        img_crop, M_c2o, lmk203 = self._crop(img, last_lmk=last_lmk, **kwargs)\n\n        eye_open, eye_ball = self._get_eye_info(img_crop)\n\n        rgb_256_bchw = self._img_crop_to_bchw256(img_crop)\n        kp_info = self._get_kp_info(rgb_256_bchw)\n        fs = self._get_f3d(rgb_256_bchw)"
+    },
+    {
+      "repo": "ditto",
+      "revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+      "path": "core/atomic_components/motion_stitch.py",
+      "sha256": "417578cdbb64022919aa3db59c3ab31dee3bc2eda092ba5c0b4a81519f388e5d",
+      "start_line": 59,
+      "end_line": 71,
+      "excerpt": "def ctrl_vad(x_d_info, dst, alpha):\n    exp = x_d_info[\"exp\"]\n    exp_dst = dst[\"exp\"]\n\n    _lip = [6, 12, 14, 17, 19, 20]\n    _a1 = np.zeros((21, 3), dtype=np.float32)\n    _a1[_lip] = alpha\n    _a1 = _a1.reshape(1, -1)\n    x_d_info[\"exp\"] = exp * alpha + exp_dst * (1 - alpha)\n\n    return x_d_info\n    \n    "
+    },
+    {
+      "repo": "ditto",
+      "revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+      "path": "core/atomic_components/audio2motion.py",
+      "sha256": "60dee54260bb948489356d41a3c35e21caace15b3b4bc55a2bec30d896617918",
+      "start_line": 153,
+      "end_line": 165,
+      "excerpt": "    def _smo(self, res_kp_seq, s, e):\n        if self.smo_k_d <= 1:\n            return res_kp_seq\n        new_res_kp_seq = res_kp_seq.copy()\n        n = res_kp_seq.shape[1]\n        half_k = self.smo_k_d // 2\n        for i in range(s, e):\n            ss = max(0, i - half_k)\n            ee = min(n, i + half_k + 1)\n            res_kp_seq[:, i, :202] = np.mean(new_res_kp_seq[:, ss:ee, :202], axis=1)\n        return res_kp_seq\n    \n    def __call__(self, aud_cond, res_kp_seq=None):"
+    },
+    {
+      "repo": "ditto",
+      "revision": "c3e47eee2e626500017a0556b470d6d4182f85e8",
+      "path": "core/atomic_components/putback.py",
+      "sha256": "416e89c2013b0a5b0521666ee80d64cd1c3a1cf695b5672f471f8380fdba4b38",
+      "start_line": 55,
+      "end_line": 79,
+      "excerpt": "        self.result_buffer = np.empty((h, w, 3), dtype=np.uint8)\n\n        # Use Cython implementation for blending\n        blend_images_cy(mask_warped, frame_warped, frame_rgb, self.result_buffer)\n\n        return self.result_buffer"
+    },
+    {
+      "repo": "soulx",
+      "revision": "c9056febcf85ee507672c6c4dcccf411efccda2f",
+      "path": "soulx_rtc/engine.py",
+      "sha256": "c0d0d284e55b0e706287b8cb417e322d816098fdfcaa9d3067093a70330590b0",
+      "start_line": 165,
+      "end_line": 173,
+      "excerpt": "            self.move_dit(\"cpu\", preparation=True)\n            p = copy.copy(self.pipeline)\n            with torch.no_grad(), torch.random.fork_rng(devices=[0]):\n                torch.manual_seed(0)\n                p.prepare_params(image_path, (self.height, self.width), 33, 9,\n                                 self.steps, seed=0, shift=5,\n                                 color_correction_strength=1., use_face_crop=False)\n                from flash_head.utils.utils import prepare_reference_color_stats\n                p.reference_color_stats = prepare_reference_color_stats(p.original_color_reference)"
+    },
+    {
+      "repo": "soulx",
+      "revision": "c9056febcf85ee507672c6c4dcccf411efccda2f",
+      "path": "flash_head/src/pipeline/flash_head_pipeline.py",
+      "sha256": "b437720e341799c4fa72d8da1ae876fa99015aa9c6bd2d4ead67a44c4069c24c",
+      "start_line": 158,
+      "end_line": 196,
+      "excerpt": "                        color_correction_strength=0.0,\n                        use_face_crop=False,\n                        ):\n        self.cond_image_dict = get_cond_image_dict(cond_image_path_or_dir, use_face_crop)\n\n        self.frame_num = frame_num\n        self.motion_frames_num = motion_frames_num\n        self.color_correction_strength = color_correction_strength\n\n        self.target_h, self.target_w = target_size\n        self.lat_h, self.lat_w = self.target_h // self.config.vae_stride[1], self.target_w // self.config.vae_stride[2]\n\n        self.generator = torch.Generator(device=self.device).manual_seed(seed)\n\n        # prepare timesteps\n        if sampling_steps == 2:\n            timesteps = [1000, 500]\n        elif sampling_steps == 4:\n            timesteps = [1000, 750, 500, 250]\n        else:\n            timesteps = list(np.linspace(self.num_timesteps, 1, sampling_steps, dtype=np.float32))\n            \n        timesteps.append(0.)\n        timesteps = [torch.tensor([t], device=self.device) for t in timesteps]\n        if self.use_timestep_transform:\n            timesteps = [timestep_transform(t, shift=shift, num_timesteps=self.num_timesteps) for t in timesteps]\n        self.timesteps = timesteps\n\n        self.cond_image_tensor_dict = {}\n        self.ref_img_latent_dict = {}\n        for i, (person_name, cond_image_pil) in enumerate(self.cond_image_dict.items()):\n            cond_image_tensor = resize_and_centercrop(cond_image_pil, (self.target_h, self.target_w)).to(self.device, dtype=self.param_dtype) # 1 C 1 H W\n            cond_image_tensor = (cond_image_tensor / 255 - 0.5) * 2\n\n            self.cond_image_tensor_dict[person_name] = cond_image_tensor\n\n            video_frames = cond_image_tensor.repeat(1, 1, self.frame_num, 1, 1)\n            self.ref_img_latent_dict[person_name] = self.vae.encode(video_frames) # (16, 9, 64, 64) / (128, 5, 16, 16)\n            if i == 0:"
+    },
+    {
+      "repo": "soulx",
+      "revision": "c9056febcf85ee507672c6c4dcccf411efccda2f",
+      "path": "models/SoulX-FlashHead-1_3B/Model_Lite/config.json",
+      "sha256": "2ac56ba975a80da49f8ef1b27bfe740be473a1b250fced52f8f1df9ac101bc2c",
+      "start_line": 1,
+      "end_line": 25,
+      "excerpt": "{\n  \"_class_name\": \"WanModelAudioProject\",\n  \"_diffusers_version\": \"0.36.0\",\n  \"dim\": 1536,\n  \"eps\": 1e-06,\n  \"ffn_dim\": 8960,\n  \"freq_dim\": 256,\n  \"has_image_input\": false,\n  \"in_dim\": 256,\n  \"num_heads\": 12,\n  \"num_layers\": 30,\n  \"out_dim\": 128,\n  \"patch_size\": [\n    1,\n    1,\n    1\n  ],\n  \"text_dim\": 4096,\n  \"vae_stride\": [\n    8,\n    32,\n    32\n  ]\n}"
+    }
+  ],
+  "run_log_settings": [
+    "crop_scale <class 'float'> 2.3",
+    "crop_vy_ratio <class 'float'> -0.125",
+    "sampling_timesteps <class 'int'> 50",
+    "online_mode <class 'bool'> False",
+    "smo_k_d <class 'int'> 3",
+    "crop_scale <class 'float'> 2.3",
+    "crop_vy_ratio <class 'float'> -0.125",
+    "sampling_timesteps <class 'int'> 50",
+    "online_mode <class 'bool'> False",
+    "smo_k_d <class 'int'> 3",
+    "crop_scale <class 'float'> 2.3",
+    "crop_vy_ratio <class 'float'> -0.125",
+    "sampling_timesteps <class 'int'> 50",
+    "online_mode <class 'bool'> False",
+    "smo_k_d <class 'int'> 3"
+  ],
+  "note": "Read-only source audit. Source hashes identify local files; revision alone does not prove a clean checkout. Settings extracted from the 0.7 generation log."
+}

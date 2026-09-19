@@ -1,0 +1,257 @@
+{
+  "execution": "CPU analysis of seven pre-encode PNG samples per treatment",
+  "warning": "Sobel/Laplacian values measure local contrast, not correct teeth, lip-sync, or temporal stability",
+  "treatments": {
+    "LTX23-distant-indian-man-bicubic2-480x832-to-960x1664": {
+      "samples": [
+        {
+          "time_s": 0.5,
+          "box": [
+            400,
+            616,
+            619,
+            883
+          ],
+          "sobel_mean": 30.126712799072266,
+          "laplacian_variance": 22.722076416015625
+        },
+        {
+          "time_s": 1.5,
+          "box": [
+            327,
+            638,
+            597,
+            884
+          ],
+          "sobel_mean": 41.62646484375,
+          "laplacian_variance": 63.88420486450195
+        },
+        {
+          "time_s": 2.5,
+          "box": [
+            371,
+            675,
+            560,
+            904
+          ],
+          "sobel_mean": 33.868167877197266,
+          "laplacian_variance": 28.16064453125
+        },
+        {
+          "time_s": 3.5,
+          "box": [
+            361,
+            632,
+            616,
+            936
+          ],
+          "sobel_mean": 29.989076614379883,
+          "laplacian_variance": 17.656578063964844
+        },
+        {
+          "time_s": 4.5,
+          "box": [
+            310,
+            671,
+            586,
+            840
+          ],
+          "sobel_mean": 40.34788131713867,
+          "laplacian_variance": 56.92850112915039
+        },
+        {
+          "time_s": 6.5,
+          "box": [
+            360,
+            642,
+            607,
+            817
+          ],
+          "sobel_mean": 39.56705856323242,
+          "laplacian_variance": 50.85422897338867
+        },
+        {
+          "time_s": 7.5,
+          "box": [
+            356,
+            669,
+            595,
+            831
+          ],
+          "sobel_mean": 39.493099212646484,
+          "laplacian_variance": 50.58839416503906
+        }
+      ],
+      "sobel_mean": 36.431208746773855,
+      "laplacian_variance_mean": 41.54208973475865
+    },
+    "LTX23-distant-indian-man-legacy-general4x-resized2x-480x832-to-960x1664": {
+      "samples": [
+        {
+          "time_s": 0.5,
+          "box": [
+            400,
+            616,
+            619,
+            883
+          ],
+          "sobel_mean": 30.979928970336914,
+          "laplacian_variance": 100.15585327148438
+        },
+        {
+          "time_s": 1.5,
+          "box": [
+            327,
+            638,
+            597,
+            884
+          ],
+          "sobel_mean": 47.31523895263672,
+          "laplacian_variance": 303.3067932128906
+        },
+        {
+          "time_s": 2.5,
+          "box": [
+            371,
+            675,
+            560,
+            904
+          ],
+          "sobel_mean": 34.54679870605469,
+          "laplacian_variance": 80.68600463867188
+        },
+        {
+          "time_s": 3.5,
+          "box": [
+            361,
+            632,
+            616,
+            936
+          ],
+          "sobel_mean": 32.57136917114258,
+          "laplacian_variance": 100.14746856689453
+        },
+        {
+          "time_s": 4.5,
+          "box": [
+            310,
+            671,
+            586,
+            840
+          ],
+          "sobel_mean": 45.1641845703125,
+          "laplacian_variance": 194.79959106445312
+        },
+        {
+          "time_s": 6.5,
+          "box": [
+            360,
+            642,
+            607,
+            817
+          ],
+          "sobel_mean": 43.21881103515625,
+          "laplacian_variance": 148.98326110839844
+        },
+        {
+          "time_s": 7.5,
+          "box": [
+            356,
+            669,
+            595,
+            831
+          ],
+          "sobel_mean": 41.22814178466797,
+          "laplacian_variance": 125.26673889160156
+        }
+      ],
+      "sobel_mean": 39.28921045575823,
+      "laplacian_variance_mean": 150.47795867919922,
+      "full_frame_mae_vs_bicubic": 3.5023996829986572
+    },
+    "LTX23-distant-indian-man-FaceLandmarker-native2x-TRT-480x832-to-960x1664": {
+      "samples": [
+        {
+          "time_s": 0.5,
+          "box": [
+            400,
+            616,
+            619,
+            883
+          ],
+          "sobel_mean": 29.91057586669922,
+          "laplacian_variance": 40.47929763793945
+        },
+        {
+          "time_s": 1.5,
+          "box": [
+            327,
+            638,
+            597,
+            884
+          ],
+          "sobel_mean": 43.58717727661133,
+          "laplacian_variance": 175.324462890625
+        },
+        {
+          "time_s": 2.5,
+          "box": [
+            371,
+            675,
+            560,
+            904
+          ],
+          "sobel_mean": 34.550968170166016,
+          "laplacian_variance": 62.835304260253906
+        },
+        {
+          "time_s": 3.5,
+          "box": [
+            361,
+            632,
+            616,
+            936
+          ],
+          "sobel_mean": 29.906339645385742,
+          "laplacian_variance": 31.0372314453125
+        },
+        {
+          "time_s": 4.5,
+          "box": [
+            310,
+            671,
+            586,
+            840
+          ],
+          "sobel_mean": 41.50640106201172,
+          "laplacian_variance": 151.51107788085938
+        },
+        {
+          "time_s": 6.5,
+          "box": [
+            360,
+            642,
+            607,
+            817
+          ],
+          "sobel_mean": 41.01253890991211,
+          "laplacian_variance": 125.48121643066406
+        },
+        {
+          "time_s": 7.5,
+          "box": [
+            356,
+            669,
+            595,
+            831
+          ],
+          "sobel_mean": 40.9033203125,
+          "laplacian_variance": 123.5815658569336
+        }
+      ],
+      "sobel_mean": 37.33961732046945,
+      "laplacian_variance_mean": 101.46430805751255,
+      "full_frame_mae_vs_bicubic": 1.9250246286392212
+    }
+  }
+}

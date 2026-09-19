@@ -1,6 +1,7 @@
 """Wall/TTS HTTP contracts without loading neural model weights."""
 import asyncio
 import io
+import json
 import sys
 import threading
 from types import SimpleNamespace
@@ -88,3 +89,35 @@ def test_wall_auth_tts_busy_and_responsive_status(monkeypatch):
             assert response.status == 200 and response.content_type == 'audio/wav'
             assert await response.read() == b'RIFF-test'
     asyncio.run(run())
+
+
+def test_anonymous_split_browser_and_server_ice(monkeypatch):
+    browser = '[{"urls":["turn:public.example:50685?transport=tcp"],"username":"web","credential":"secret"}]'
+    server = '[{"urls":["turn:127.0.0.1:1455?transport=tcp"],"username":"web","credential":"secret"}]'
+    monkeypatch.setenv('SOULX_API_TOKEN', 'ignored-in-anonymous-mode')
+    monkeypatch.setenv('SOULX_BROWSER_ICE_SERVERS', browser)
+    monkeypatch.setenv('SOULX_SERVER_ICE_SERVERS', server)
+    monkeypatch.setenv('SOULX_ICE_TRANSPORT_POLICY', 'relay')
+
+    async def run():
+        service = Service(SimpleNamespace(batch=1, max_sessions=1, size=64, steps=4,
+                                          fps=25, allow_anonymous=True))
+        async def startup(app):
+            service.ready = True
+        service.startup = startup
+        async with TestClient(TestServer(make_app(service))) as client:
+            response = await client.get('/config')
+            assert response.status == 200
+            config = await response.json()
+            assert config == {
+                'iceServers': json.loads(browser),
+                'iceTransportPolicy': 'relay',
+                'authRequired': False,
+            }
+            assert service.server_ice == json.loads(server)
+
+    try:
+        asyncio.run(run())
+    finally:
+        from soulx_rtc.server import _apply_ice_transport_policy
+        _apply_ice_transport_policy('all')

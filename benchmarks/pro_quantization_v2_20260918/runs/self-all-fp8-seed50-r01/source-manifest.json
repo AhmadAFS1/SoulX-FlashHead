@@ -1,0 +1,11 @@
+{
+  "benchmarks/pro_quantization_v2_20260918/common.py": "f1b140f09d6b9c1c5a29dbcce7f36ba616fe05fc901a7b9fe36c7d9bbac8b314",
+  "benchmarks/pro_quantization_v2_20260918/run.py": "bdece6ed289a600799820c81781f4e7b77db2aa1e3d2f7adbb30798401eaf298",
+  "flash_head/src/modules/flash_head_model.py": "2ed6b94c2952053e015f4d1ca4c96628ea439da38b72eaf89967062d27b6ae2e",
+  "flash_head/src/pipeline/flash_head_pipeline.py": "b437720e341799c4fa72d8da1ae876fa99015aa9c6bd2d4ead67a44c4069c24c",
+  "flash_head/wan/modules/vae.py": "7071d15350f30eed21a363c624e36c646ae8f7ec81303b83575dcf63bfbc49eb",
+  "soulx_rtc/gpu_lease.py": "163f862da0ce5d1dbd5525cddc4a4b165d9ffc46dcc50e1630a219708c008f0b",
+  "soulx_rtc/pro_attention_backends.py": "86cfbcc70c357f7f698dd301624df022d293327f40a93421d76573d6a814e2ea",
+  "soulx_rtc/pro_quantization_v2.py": "6bb5a9360a927a1cca7b05fb2249f82d4cfd90f90a9b318baffc220ea5336cc2",
+  "soulx_rtc/pro_vae_quantization.py": "010addb76d54a2b7db20a6815c3309208ff7a938f0e77f20cc653d65b24f9ff8"
+}

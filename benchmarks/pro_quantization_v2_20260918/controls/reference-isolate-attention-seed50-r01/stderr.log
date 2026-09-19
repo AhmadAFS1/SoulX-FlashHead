@@ -1,0 +1,22 @@
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):

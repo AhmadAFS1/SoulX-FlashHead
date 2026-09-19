@@ -1,0 +1,1152 @@
+{
+  "all_pairs_at_least_5_percent_faster": true,
+  "all_seed_medians_at_least_30fps": false,
+  "date_utc": "2026-09-19T02:20:26.650761+00:00",
+  "environment": {
+    "attention_backend_availability": {
+      "flash_attention_2": true,
+      "sageattention": true
+    },
+    "available_disk": {
+      "free_bytes": 6017388544,
+      "path": "/workspace/SoulX-FlashHead",
+      "total_bytes": 219043332096
+    },
+    "compiler_caches": {
+      "torchinductor": {
+        "existed_before_run": false,
+        "path": "/root/.cache/torch/inductor"
+      },
+      "triton": {
+        "existed_before_run": true,
+        "path": "/root/.triton/cache"
+      }
+    },
+    "cuda_compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Mon_Apr__3_17:16:06_PDT_2023\nCuda compilation tools, release 12.1, V12.1.105\nBuild cuda_12.1.r12.1/compiler.32688072_0",
+    "cuda_runtime": "12.8",
+    "date_utc": "2026-09-19T02:01:03.222100+00:00",
+    "environment_overrides": {
+      "CUDA_VERSION": "12.1.1",
+      "NCCL_VERSION": "2.17.1-1",
+      "PYTHONPATH": ".pro-sage2-deps:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "PYTHONUNBUFFERED": "1",
+      "PYTHON_VERSION": "3.10"
+    },
+    "git": {
+      "commit": "877a07fb980a3db118702ae0a6806008a651e91f",
+      "dirty": true,
+      "status": [
+        "M WEBRTC.md",
+        " M benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py",
+        " M benchmarks/pro_quantization_v2_20260918/capture.py",
+        " M benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_install.py",
+        " M benchmarks/pro_quantization_v2_20260918/decoder_trial.py",
+        " M benchmarks/pro_quantization_v2_20260918/profile.py",
+        " M benchmarks/pro_quantization_v2_20260918/review.py",
+        " M benchmarks/pro_quantization_v2_20260918/run.py",
+        " M benchmarks/pro_quantization_v2_20260918/sweep.py",
+        " M docs/research/README.md",
+        " M soulx_rtc/calls.py",
+        " M soulx_rtc/pro_attention_backends.py",
+        " M soulx_rtc/pro_quantization_v2.py",
+        " M soulx_rtc/server.py",
+        " M soulx_rtc/wall.html",
+        " M soulx_rtc/wall.js",
+        " M tests/test_wall.py",
+        "?? benchmarks/pro_30fps_20260919/",
+        "?? docs/research/PRO_30FPS_QUANTIZATION_ANALYSIS_AND_PLAN_2026-09-18.md",
+        "?? soulx_rtc/pro_vae_stage_backend.py",
+        "?? tests/test_pro_30fps.py"
+      ]
+    },
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "compute_capability": "8.9",
+          "driver": "595.84",
+          "name": "NVIDIA GeForce RTX 4070 SUPER",
+          "used_vram_mib": 2727,
+          "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+          "visible_vram_mib": 12282
+        }
+      ]
+    },
+    "hostname": "400445b4c77b",
+    "packages": {
+      "absl-py": "2.5.0",
+      "accelerate": "1.15.0",
+      "aiofiles": "24.1.0",
+      "aiohappyeyeballs": "2.7.1",
+      "aiohttp": "3.14.3",
+      "aioice": "0.10.2",
+      "aiortc": "1.14.0",
+      "aiosignal": "1.4.0",
+      "annotated-doc": "0.0.5",
+      "annotated-types": "0.8.0",
+      "anyio": "4.15.1",
+      "asttokens": "3.0.2",
+      "async-timeout": "5.0.1",
+      "attrs": "26.1.0",
+      "audioread": "3.1.0",
+      "av": "16.1.0",
+      "beautifulsoup4": "4.15.0",
+      "bleach": "6.4.0",
+      "blinker": "1.9.0",
+      "brotli": "1.2.0",
+      "certifi": "2026.7.22",
+      "cffi": "2.1.1",
+      "charset-normalizer": "3.5.1",
+      "click": "8.5.0",
+      "cloudpickle": "3.1.2",
+      "comm": "0.2.3",
+      "contourpy": "1.3.2",
+      "cryptography": "50.0.1",
+      "cycler": "0.12.1",
+      "debugpy": "1.8.22",
+      "decorator": "5.3.1",
+      "decord": "0.6.0",
+      "defusedxml": "0.7.1",
+      "diffusers": "0.39.0",
+      "distvae": "0.1.0",
+      "dnspython": "2.8.0",
+      "easydict": "1.13",
+      "einops": "0.8.2",
+      "exceptiongroup": "1.3.1",
+      "executing": "2.2.1",
+      "fastapi": "0.141.1",
+      "fastjsonschema": "2.22.2",
+      "ffmpy": "1.0.0",
+      "filelock": "3.32.3",
+      "flash_attn": "2.8.0.post2",
+      "flask": "3.1.3",
+      "flatbuffers": "25.12.19",
+      "fonttools": "4.65.0",
+      "frozenlist": "1.8.0",
+      "fsspec": "2026.7.0",
+      "ftfy": "6.3.1",
+      "google-crc32c": "1.8.0",
+      "gradio": "5.50.0",
+      "gradio_client": "1.14.0",
+      "groovy": "0.1.2",
+      "h11": "0.16.0",
+      "hf-xet": "1.6.0",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.19",
+      "ifaddr": "0.2.0",
+      "imageio": "2.37.4",
+      "imageio-ffmpeg": "0.6.0",
+      "importlib_metadata": "9.0.1",
+      "iniconfig": "2.3.0",
+      "ipykernel": "7.3.0",
+      "ipython": "8.39.0",
+      "itsdangerous": "2.2.0",
+      "jedi": "0.20.0",
+      "jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jupyter_client": "8.10.0",
+      "jupyter_core": "5.9.1",
+      "jupyterlab_pygments": "0.3.0",
+      "kiwisolver": "1.5.1",
+      "lazy-loader": "0.5",
+      "librosa": "0.11.0",
+      "llvmlite": "0.49.0",
+      "loguru": "0.7.3",
+      "markdown-it-py": "4.2.0",
+      "markupsafe": "3.0.3",
+      "matplotlib": "3.10.9",
+      "matplotlib-inline": "0.2.2",
+      "mdurl": "0.1.2",
+      "mediapipe": "0.10.9",
+      "mistune": "3.3.4",
+      "mpmath": "1.3.0",
+      "msgpack": "1.2.2",
+      "multidict": "6.8.0",
+      "nbclient": "0.11.0",
+      "nbconvert": "7.17.1",
+      "nbformat": "5.11.1",
+      "nest-asyncio2": "1.7.2",
+      "networkx": "3.4.2",
+      "numba": "0.67.0",
+      "numpy": "2.2.6",
+      "nvidia-cublas-cu12": "12.8.3.14",
+      "nvidia-cuda-cupti-cu12": "12.8.57",
+      "nvidia-cuda-nvrtc-cu12": "12.8.61",
+      "nvidia-cuda-runtime-cu12": "12.8.57",
+      "nvidia-cudnn-cu12": "9.7.1.26",
+      "nvidia-cufft-cu12": "11.3.3.41",
+      "nvidia-cufile-cu12": "1.13.0.11",
+      "nvidia-curand-cu12": "10.3.9.55",
+      "nvidia-cusolver-cu12": "11.7.2.55",
+      "nvidia-cusparse-cu12": "12.5.7.53",
+      "nvidia-cusparselt-cu12": "0.6.3",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.8.61",
+      "nvidia-nvtx-cu12": "12.8.55",
+      "onnx": "1.17.0",
+      "opencv-contrib-python": "5.0.0.93",
+      "opencv-python": "5.0.0.93",
+      "opencv-python-headless": "5.0.0.93",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pandocfilters": "1.5.1",
+      "parso": "0.8.7",
+      "peft": "0.20.0",
+      "pexpect": "4.9.0",
+      "pillow": "11.3.0",
+      "pip": "25.2",
+      "platformdirs": "4.11.8",
+      "pluggy": "1.6.0",
+      "pooch": "1.9.0",
+      "prompt_toolkit": "3.0.53",
+      "propcache": "0.5.2",
+      "protobuf": "3.20.3",
+      "psutil": "7.2.2",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.4",
+      "pycparser": "3.0",
+      "pydantic": "2.12.3",
+      "pydantic_core": "2.41.4",
+      "pydub": "0.25.1",
+      "pyee": "13.0.1",
+      "pygments": "2.21.0",
+      "pylibsrtp": "1.0.0",
+      "pyloudnorm": "0.2.0",
+      "pyopenssl": "26.4.0",
+      "pyparsing": "3.3.2",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-multipart": "0.0.32",
+      "pytz": "2026.3.post1",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.2.0",
+      "referencing": "0.37.0",
+      "regex": "2026.9.10",
+      "requests": "2.34.2",
+      "rich": "15.0.0",
+      "rpds-py": "0.30.0",
+      "ruff": "0.16.7",
+      "safehttpx": "0.1.7",
+      "safetensors": "0.8.0",
+      "sageattention": "1.0.6",
+      "scikit-image": "0.25.2",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.15.3",
+      "semantic-version": "2.10.0",
+      "sentencepiece": "0.2.2",
+      "setuptools": "59.6.0",
+      "shellingham": "1.5.4",
+      "six": "1.17.0",
+      "sounddevice": "0.5.6",
+      "soundfile": "0.14.0",
+      "soupsieve": "2.9.2",
+      "soxr": "1.1.0",
+      "stack-data": "0.6.3",
+      "starlette": "0.52.1",
+      "sympy": "1.14.0",
+      "tensorrt-cu12": "10.9.0.34",
+      "tensorrt_cu12_bindings": "10.9.0.34",
+      "tensorrt_cu12_libs": "10.9.0.34",
+      "threadpoolctl": "3.6.0",
+      "tifffile": "2025.5.10",
+      "tinycss2": "1.5.1",
+      "tokenizers": "0.22.2",
+      "tomli": "2.4.1",
+      "tomlkit": "0.13.3",
+      "torch": "2.7.1+cu128",
+      "torchaudio": "2.7.1+cu128",
+      "torchvision": "0.22.1+cu128",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "traitlets": "5.16.1",
+      "transformers": "4.57.3",
+      "triton": "3.3.1",
+      "typer": "0.27.2",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.4",
+      "urllib3": "2.7.0",
+      "uvicorn": "0.53.0",
+      "wcwidth": "0.8.3",
+      "webencodings": "0.6.1",
+      "websockets": "15.0.1",
+      "werkzeug": "3.1.8",
+      "wheel": "0.48.0",
+      "xformers": "0.0.31",
+      "xfuser": "0.6.0",
+      "yarl": "1.24.5",
+      "yunchang": "0.6.4",
+      "zipp": "4.1.0"
+    },
+    "physical_ram_bytes": 32455614464,
+    "physical_vram_class": "unverified in this run",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "resident_gpu_processes": [
+      {
+        "pid": "157695",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "2478"
+      },
+      {
+        "pid": "246436",
+        "process": "/workspace/experiments/ltx23-soulx-transfer/.venv/bin/python",
+        "used_memory_mib": "234"
+      }
+    ],
+    "torch": "2.7.1+cu128"
+  },
+  "excluded": [],
+  "execution": "CPU aggregation of fresh sequential GPU observations; no new inference",
+  "limitations": [
+    "Quality and recurrence require separate review; no automatic promotion.",
+    "Three pairs per seed; observed ranges are not population confidence intervals.",
+    "Chunk and frame observations are dependent; not independent timing replicates."
+  ],
+  "observations": [
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.678876457037404,
+        "min": 2.6656176740070805,
+        "p50": 2.6737271299934946,
+        "p95": 2.678583828615956,
+        "p99": 2.6788179313531146
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.32243184198159724,
+      "fps": 10.300551388248513,
+      "generation_s": 24.27054538897937,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 0,
+      "results_sha256": "b3c280a841c00c73d313dbb0ee521622099c9e59972916660c8873a6a1d012fd",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/000-reference-seed50-r01",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.0713820481300354,
+        "dit": 9.168642227172851,
+        "motion_encode": 1.3792262725830078,
+        "vae_decode": 13.065597412109375
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3571171989897266,
+        "min": 2.3435285559971817,
+        "p50": 2.353134831006173,
+        "p95": 2.357101837801747,
+        "p99": 2.3571141267521307
+      },
+      "device_peak_mib": 11852.0,
+      "encode_mux_s": 0.3182144340244122,
+      "fps": 11.697098937084174,
+      "generation_s": 21.37282084597973,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 0,
+      "results_sha256": "98d14d3b3ea603a7693cb6d4df57453907a8ef58a05e10fbc95ba271a9a2e99c",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/001-candidate-seed50-r01",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.07251683044433595,
+        "dit": 8.393401824951173,
+        "motion_encode": 1.375827117919922,
+        "vae_decode": 10.9461630859375
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.368317355052568,
+        "min": 2.3291913099819794,
+        "p50": 2.343917900987435,
+        "p95": 2.362099146633409,
+        "p99": 2.367073713368736
+      },
+      "device_peak_mib": 11848.0,
+      "encode_mux_s": 0.31926704099169,
+      "fps": 11.785239609802396,
+      "generation_s": 21.212975575996097,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8670.0,
+      "repeat": 1,
+      "results_sha256": "5a315e5213bc1b6b1237593a71c65378793358da5c1c4886d8111c2654eeb0d4",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/002-candidate-seed50-r02",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.0733957438468933,
+        "dit": 8.437107696533202,
+        "motion_encode": 1.3777011718750003,
+        "vae_decode": 10.988222900390625
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.661936810007319,
+        "min": 2.6515597559628077,
+        "p50": 2.6556472619995475,
+        "p95": 2.661761522409506,
+        "p99": 2.6619017524877564
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3173914890503511,
+      "fps": 10.401839925633169,
+      "generation_s": 24.034209504025057,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 1,
+      "results_sha256": "79d71073ec46fdf6285492d167219ce33fdd42d17e42fdb43febb46e1028dc5f",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/003-reference-seed50-r02",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.07378944206237792,
+        "dit": 9.189716842651366,
+        "motion_encode": 1.379464111328125,
+        "vae_decode": 13.054897705078126
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6799587520072237,
+        "min": 2.6693946010200307,
+        "p50": 2.677090031967964,
+        "p95": 2.679259269195609,
+        "p99": 2.6798188554449007
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3155906140455045,
+      "fps": 10.292188988565213,
+      "generation_s": 24.29026519798208,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 2,
+      "results_sha256": "db422b76f854bedcad61c8a99dc011049ddeedf6d46cee71375dd541788af1b0",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/004-reference-seed50-r03",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.07115183925628663,
+        "dit": 9.184394577026366,
+        "motion_encode": 1.379977600097656,
+        "vae_decode": 13.054894897460937
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3772087229881436,
+        "min": 2.360168621002231,
+        "p50": 2.3657535719685256,
+        "p95": 2.374667567387223,
+        "p99": 2.3767004918679593
+      },
+      "device_peak_mib": 11856.0,
+      "encode_mux_s": 0.3068122810218483,
+      "fps": 11.614594739368554,
+      "generation_s": 21.524642538977787,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5041.466796875,
+      "peak_reserved_mib": 8676.0,
+      "repeat": 2,
+      "results_sha256": "02e4d4872ace43868d93588f26486c2fd9e7d9c9e43672e479acee665316d849",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/005-candidate-seed50-r03",
+      "seed": 50,
+      "stage_seconds": {
+        "audio": 0.07161702346801758,
+        "dit": 8.408587585449219,
+        "motion_encode": 1.3776822814941407,
+        "vae_decode": 11.048747680664063
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.364101347979158,
+        "min": 2.319531392015051,
+        "p50": 2.338094580976758,
+        "p95": 2.3579818964004517,
+        "p99": 2.362877457663417
+      },
+      "device_peak_mib": 11846.0,
+      "encode_mux_s": 0.31743237999035046,
+      "fps": 11.811185771981869,
+      "generation_s": 21.166376079956535,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5041.27783203125,
+      "peak_reserved_mib": 8666.0,
+      "repeat": 0,
+      "results_sha256": "94d8b411b7fae9252f9dcb60d4c4ed60a06cc99880f01ae8dac19ad1326831e6",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/006-candidate-seed51-r01",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07271705532073974,
+        "dit": 8.417980407714843,
+        "motion_encode": 1.375307586669922,
+        "vae_decode": 10.988117797851563
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6650122140417807,
+        "min": 2.652987491048407,
+        "p50": 2.6556380419642664,
+        "p95": 2.6626794324372893,
+        "p99": 2.6645456577208826
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.31655256397789344,
+      "fps": 10.40808007085529,
+      "generation_s": 24.019799838017207,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 0,
+      "results_sha256": "8d9e494924dc73e3d3af3d242debaa608dbbacf05fb2dd64d34946aba73e1b3a",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/007-reference-seed51-r01",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07280723094940185,
+        "dit": 9.189734802246095,
+        "motion_encode": 1.379933349609375,
+        "vae_decode": 13.054628173828126
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6725642509991303,
+        "min": 2.6508668499882333,
+        "p50": 2.655480359971989,
+        "p95": 2.667720607412048,
+        "p99": 2.671595522281714
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3049122250522487,
+      "fps": 10.402854350939188,
+      "generation_s": 24.0318658289616,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 1,
+      "results_sha256": "a7d7f0ce2f3b2d24ad56df7da6f645f6016c8e59155b24331938b4e475dbebfc",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/008-reference-seed51-r02",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07303580713272095,
+        "dit": 9.192933532714843,
+        "motion_encode": 1.3796622619628904,
+        "vae_decode": 13.051920898437501
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3697157399728894,
+        "min": 2.32656955299899,
+        "p50": 2.339525384013541,
+        "p95": 2.36419820478186,
+        "p99": 2.3686122329346837
+      },
+      "device_peak_mib": 11852.0,
+      "encode_mux_s": 0.3204427339951508,
+      "fps": 11.780691159286691,
+      "generation_s": 21.221165772003587,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 1,
+      "results_sha256": "25a2d0cb6b328154dd93ed45879dfcd38fafb2d669782d83035ec26c624b0ecf",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/009-candidate-seed51-r02",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07334051370620728,
+        "dit": 8.42290199279785,
+        "motion_encode": 1.3777069702148437,
+        "vae_decode": 11.027159057617187
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.36753432394471,
+        "min": 2.3412342650117353,
+        "p50": 2.358955522009637,
+        "p95": 2.3668362995842473,
+        "p99": 2.3673947190726174
+      },
+      "device_peak_mib": 11854.0,
+      "encode_mux_s": 0.30314298102166504,
+      "fps": 11.67088837845588,
+      "generation_s": 21.420820068975445,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.27783203125,
+      "peak_reserved_mib": 8674.0,
+      "repeat": 2,
+      "results_sha256": "0ce3d8cb56f7e46427c858cb01cc7018d40295f609e8116a576b9ef2f71d46a3",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/010-candidate-seed51-r03",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07212175941467286,
+        "dit": 8.387407669067382,
+        "motion_encode": 1.3748304901123047,
+        "vae_decode": 10.990507202148438
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6770884440047666,
+        "min": 2.670080265030265,
+        "p50": 2.6754067619913258,
+        "p95": 2.67701939761173,
+        "p99": 2.6770746347261594
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.30378497298806906,
+      "fps": 10.286053048864499,
+      "generation_s": 24.304755071003456,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 2,
+      "results_sha256": "ec567485694d88b21341a3d7a8dd49d3e82050da09d40aa474ff3ccda4f2cafc",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/011-reference-seed51-r03",
+      "seed": 51,
+      "stage_seconds": {
+        "audio": 0.07120329618453979,
+        "dit": 9.176564163208006,
+        "motion_encode": 1.379891128540039,
+        "vae_decode": 13.051760864257812
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6651298090000637,
+        "min": 2.651235721015837,
+        "p50": 2.657189110002946,
+        "p95": 2.664950229402166,
+        "p99": 2.665093893080484
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3211444140179083,
+      "fps": 10.40299384542575,
+      "generation_s": 24.03154358395841,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 0,
+      "results_sha256": "786761a0a123080e3929e95c917472260c9c1e6a293e51428692c467447afeb9",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/012-reference-seed0-r01",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.07285056018829346,
+        "dit": 9.196050201416014,
+        "motion_encode": 1.3794080352783205,
+        "vae_decode": 13.057997802734377
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3706978720147163,
+        "min": 2.3183342600241303,
+        "p50": 2.352987959049642,
+        "p95": 2.3673785920022055,
+        "p99": 2.370034016012214
+      },
+      "device_peak_mib": 11852.0,
+      "encode_mux_s": 0.3144199980306439,
+      "fps": 11.751187233611526,
+      "generation_s": 21.274446149996947,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 0,
+      "results_sha256": "711888feb67188a8daad8547e709bf9b9fa0d366096ee79115a6c8dc72e152c7",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/013-candidate-seed0-r01",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.07159699296951294,
+        "dit": 8.430189056396488,
+        "motion_encode": 1.3782041625976564,
+        "vae_decode": 11.082938354492187
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.355795231007505,
+        "min": 2.3122382260044105,
+        "p50": 2.333621288998984,
+        "p95": 2.355236385401804,
+        "p99": 2.355683461886365
+      },
+      "device_peak_mib": 11782.0,
+      "encode_mux_s": 0.3192933910177089,
+      "fps": 11.812720091777752,
+      "generation_s": 21.163626841036603,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 1,
+      "results_sha256": "90769ec8228f61130aa99df2dc16062d011cb4a49d9033db452f3df5de2b02ea",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/014-candidate-seed0-r02",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.07234268712997437,
+        "dit": 8.420764160156248,
+        "motion_encode": 1.3783369140625,
+        "vae_decode": 10.963520751953125
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.659357263997663,
+        "min": 2.6504200299968943,
+        "p50": 2.655170351965353,
+        "p95": 2.659327413595747,
+        "p99": 2.65935129391728
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3141040680347942,
+      "fps": 10.406818148714748,
+      "generation_s": 24.022712459031027,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 1,
+      "results_sha256": "d93a129f957a2fafa91fa3930428f78865cae46adcf473d2c209491a65f6277f",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/015-reference-seed0-r02",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.07298460865020753,
+        "dit": 9.18752574157715,
+        "motion_encode": 1.3792581481933592,
+        "vae_decode": 13.061337036132809
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6736883529811166,
+        "min": 2.649316960014403,
+        "p50": 2.6574560499866493,
+        "p95": 2.668217706202995,
+        "p99": 2.6725942236254925
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3062820329796523,
+      "fps": 10.40081527423372,
+      "generation_s": 24.036577269027475,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 2,
+      "results_sha256": "11010f967c32e7c1a17532e61d869129531e6d064dbde06b95f48b8cfda4e16c",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/016-reference-seed0-r03",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.0725142378807068,
+        "dit": 9.194837219238282,
+        "motion_encode": 1.3791985015869141,
+        "vae_decode": 13.055695190429688
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.374254673020914,
+        "min": 2.349286455020774,
+        "p50": 2.357894374988973,
+        "p95": 2.372018612222746,
+        "p99": 2.3738074608612805
+      },
+      "device_peak_mib": 11852.0,
+      "encode_mux_s": 0.3009854090050794,
+      "fps": 11.657591904017842,
+      "generation_s": 21.445252334990073,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5041.466796875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 2,
+      "results_sha256": "d44892a82cea449f24cc8cf347889c6b3c8dc65fb7b78ae8521968aa3f1eb414",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/017-candidate-seed0-r03",
+      "seed": 0,
+      "stage_seconds": {
+        "audio": 0.07155840015411377,
+        "dit": 8.407350479125975,
+        "motion_encode": 1.3756029815673827,
+        "vae_decode": 10.99362353515625
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3686562340008095,
+        "min": 2.32132529100636,
+        "p50": 2.345343327964656,
+        "p95": 2.36134942159988,
+        "p99": 2.3671948715206237
+      },
+      "device_peak_mib": 11854.0,
+      "encode_mux_s": 0.31335157301509753,
+      "fps": 11.78743336795849,
+      "generation_s": 21.209027631033678,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8674.0,
+      "repeat": 0,
+      "results_sha256": "5a2ce4bc1fa3bf06aa6da88f956e550b553e505b52e0e82902fd5af6c98e2b7b",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/018-candidate-seed1-r01",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07206636762619019,
+        "dit": 8.423432846069336,
+        "motion_encode": 1.379350158691406,
+        "vae_decode": 11.027101806640625
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.681709691998549,
+        "min": 2.6680875350139104,
+        "p50": 2.6739642430329695,
+        "p95": 2.680888393195346,
+        "p99": 2.6815454322379084
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3005146220093593,
+      "fps": 10.293866949799465,
+      "generation_s": 24.286305740999524,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 0,
+      "results_sha256": "ba5d5c830c1d6941d11f01ce529a4acef8a1b97779dbea34a3dae24382d2457e",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/019-reference-seed1-r01",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07194736051559449,
+        "dit": 9.176425521850586,
+        "motion_encode": 1.3786375579833983,
+        "vae_decode": 13.051953002929688
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.6664861330064014,
+        "min": 2.6540515110245906,
+        "p50": 2.658266746031586,
+        "p95": 2.6644579653861,
+        "p99": 2.6660804994823413
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.314817832026165,
+      "fps": 10.394802784206517,
+      "generation_s": 24.050480340025388,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 1,
+      "results_sha256": "a2a09817c5e7b08d4b93b5368cbc3cbb5abd2a8cd02b87f6f8e97612309e6f5b",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/020-reference-seed1-r02",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07280595350265504,
+        "dit": 9.205905639648437,
+        "motion_encode": 1.3787561645507815,
+        "vae_decode": 13.05814208984375
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.3681654629763216,
+        "min": 2.3328730469802395,
+        "p50": 2.3392149340361357,
+        "p95": 2.3621611757902428,
+        "p99": 2.366964605539106
+      },
+      "device_peak_mib": 11854.0,
+      "encode_mux_s": 0.31970230996375903,
+      "fps": 11.791372155917205,
+      "generation_s": 21.20194297103444,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5040.27783203125,
+      "peak_reserved_mib": 8674.0,
+      "repeat": 1,
+      "results_sha256": "1288a27f95414f69f90598a2fea9d812bd9c059f7758a5334d6c44d0950cdaf6",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/021-candidate-seed1-r02",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07256284666061402,
+        "dit": 8.430587158203128,
+        "motion_encode": 1.3767283477783203,
+        "vae_decode": 11.015463989257812
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.358260662003886,
+        "min": 2.317176108015701,
+        "p50": 2.338233893038705,
+        "p95": 2.358085306396242,
+        "p99": 2.3582255908823573
+      },
+      "device_peak_mib": 11852.0,
+      "encode_mux_s": 0.32556732499506325,
+      "fps": 11.810169902248887,
+      "generation_s": 21.168196737999097,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 5041.33154296875,
+      "peak_reserved_mib": 8672.0,
+      "repeat": 2,
+      "results_sha256": "4c16127f2d474356e0a075d48c0455d95cd5ed64494dde996db507f82f3f0325",
+      "role": "candidate",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/022-candidate-seed1-r03",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07292547178268434,
+        "dit": 8.428017990112304,
+        "motion_encode": 1.3760016021728518,
+        "vae_decode": 10.96816357421875
+      },
+      "windows": 9
+    },
+    {
+      "chunk_distribution_s": {
+        "count": 9,
+        "max": 2.681765682005789,
+        "min": 2.671557181980461,
+        "p50": 2.6746752039762214,
+        "p95": 2.6796781004057264,
+        "p99": 2.6813481656857765
+      },
+      "device_peak_mib": 10608.0,
+      "encode_mux_s": 0.3237140949931927,
+      "fps": 10.291971815073662,
+      "generation_s": 24.290777752990834,
+      "missed_25fps_window_deadlines": 9,
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "repeat": 2,
+      "results_sha256": "54ade35391aff3661b113bb48d1b27faafb2290804aa5d1f1a3da34be1f4b3a4",
+      "role": "reference",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/023-reference-seed1-r03",
+      "seed": 1,
+      "stage_seconds": {
+        "audio": 0.07109004735946656,
+        "dit": 9.174538803100587,
+        "motion_encode": 1.377285888671875,
+        "vae_decode": 13.063574462890625
+      },
+      "windows": 9
+    }
+  ],
+  "overall_fps": {
+    "candidate": {
+      "max": 11.812720091777752,
+      "median": 11.782965384544543,
+      "min": 11.614594739368554,
+      "n": 12
+    },
+    "reference": {
+      "max": 10.40808007085529,
+      "median": 10.397809029220118,
+      "min": 10.286053048864499,
+      "n": 12
+    }
+  },
+  "paired_ratios": [
+    {
+      "candidate_over_reference": 1.1355798826875352,
+      "repeat": 0,
+      "seed": 50
+    },
+    {
+      "candidate_over_reference": 1.1329956713485012,
+      "repeat": 1,
+      "seed": 50
+    },
+    {
+      "candidate_over_reference": 1.128486345545399,
+      "repeat": 2,
+      "seed": 50
+    },
+    {
+      "candidate_over_reference": 1.134809272370565,
+      "repeat": 0,
+      "seed": 51
+    },
+    {
+      "candidate_over_reference": 1.1324479572496475,
+      "repeat": 1,
+      "seed": 51
+    },
+    {
+      "candidate_over_reference": 1.1346323339975635,
+      "repeat": 2,
+      "seed": 51
+    },
+    {
+      "candidate_over_reference": 1.1295966726711641,
+      "repeat": 0,
+      "seed": 0
+    },
+    {
+      "candidate_over_reference": 1.1350943124951822,
+      "repeat": 1,
+      "seed": 0
+    },
+    {
+      "candidate_over_reference": 1.120834434286856,
+      "repeat": 2,
+      "seed": 0
+    },
+    {
+      "candidate_over_reference": 1.1450928427035985,
+      "repeat": 0,
+      "seed": 1
+    },
+    {
+      "candidate_over_reference": 1.134352656871238,
+      "repeat": 1,
+      "seed": 1
+    },
+    {
+      "candidate_over_reference": 1.1475128492823568,
+      "repeat": 2,
+      "seed": 1
+    }
+  ],
+  "paired_speedup": {
+    "max": 1.1475128492823568,
+    "median": 1.134492495434401,
+    "min": 1.120834434286856,
+    "n": 12
+  },
+  "per_seed_fps": {
+    "0": {
+      "candidate": {
+        "max": 11.812720091777752,
+        "median": 11.751187233611526,
+        "min": 11.657591904017842,
+        "n": 3
+      },
+      "reference": {
+        "max": 10.406818148714748,
+        "median": 10.40299384542575,
+        "min": 10.40081527423372,
+        "n": 3
+      }
+    },
+    "1": {
+      "candidate": {
+        "max": 11.810169902248887,
+        "median": 11.791372155917205,
+        "min": 11.78743336795849,
+        "n": 3
+      },
+      "reference": {
+        "max": 10.394802784206517,
+        "median": 10.293866949799465,
+        "min": 10.291971815073662,
+        "n": 3
+      }
+    },
+    "50": {
+      "candidate": {
+        "max": 11.785239609802396,
+        "median": 11.697098937084174,
+        "min": 11.614594739368554,
+        "n": 3
+      },
+      "reference": {
+        "max": 10.401839925633169,
+        "median": 10.300551388248513,
+        "min": 10.292188988565213,
+        "n": 3
+      }
+    },
+    "51": {
+      "candidate": {
+        "max": 11.811185771981869,
+        "median": 11.780691159286691,
+        "min": 11.67088837845588,
+        "n": 3
+      },
+      "reference": {
+        "max": 10.40808007085529,
+        "median": 10.402854350939188,
+        "min": 10.286053048864499,
+        "n": 3
+      }
+    }
+  },
+  "quality_qualified": false,
+  "source": "benchmarks/pro_30fps_20260919/acceptance-r01/schedule.json",
+  "status": "complete"
+}

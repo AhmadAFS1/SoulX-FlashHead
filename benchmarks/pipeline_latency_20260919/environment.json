@@ -1,0 +1,23 @@
+{
+  "date_utc": "2026-09-19T03:41:37.317275+00:00",
+  "execution": "CPU-only tests and read-only hardware/process snapshot; no GPU inference",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "physical_vram_gb": 12,
+  "physical_memory_source": "benchmarks/pro_30fps_20260919/sage-sm89-build-manifest.json",
+  "gpu": {
+    "returncode": 0,
+    "csv": "GPU-69894a01-4488-37ac-5fd8-878224044365, NVIDIA GeForce RTX 4070 SUPER, 12282, 7590, 595.84",
+    "error": ""
+  },
+  "residents": {
+    "returncode": 0,
+    "csv": "157695, .venv/bin/python, 2876\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234\n586984, /workspace/SoulX-FlashHead/.venv/bin/python, 4460",
+    "error": ""
+  },
+  "gpu_validation": {
+    "status": "not_run",
+    "reason": "Another SoulX GPU owner from this checkout is running; stop it before loading a second model",
+    "service_interrupted": false
+  }
+}

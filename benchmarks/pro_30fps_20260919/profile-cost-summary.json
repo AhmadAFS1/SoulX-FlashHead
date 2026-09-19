@@ -1,0 +1,38 @@
+{
+  "source": "compiled-profile-r01/aggregated.csv",
+  "scope": "exclusive CUDA kernels only, not full-pipeline wall time",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "visible_vram_mib": 12282,
+  "date": "2026-09-19",
+  "total_device_ms": 5349.836576000012,
+  "categories": {
+    "other": {
+      "ms": 1437.15012800002,
+      "percent": 26.86343980014721
+    },
+    "cuDNN layout conversion": {
+      "ms": 417.04763200000014,
+      "percent": 7.795520967330558
+    },
+    "convolution": {
+      "ms": 1771.9702840000036,
+      "percent": 33.12195164893948
+    },
+    "remaining BF16 GEMM": {
+      "ms": 231.68958099999037,
+      "percent": 4.330778664144185
+    },
+    "activation scaling/reductions (mixed kernels)": {
+      "ms": 107.2820210000047,
+      "percent": 2.0053326765397714
+    },
+    "FP8 GEMM": {
+      "ms": 875.4056809999936,
+      "percent": 16.363222849220573
+    },
+    "self attention core": {
+      "ms": 509.2912490000015,
+      "percent": 9.51975339367825
+    }
+  }
+}

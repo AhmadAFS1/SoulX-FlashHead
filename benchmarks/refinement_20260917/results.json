@@ -1,0 +1,356 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T02:04:12.008231+00:00",
+  "execution": "Fresh local GPU inference",
+  "gpu": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n",
+  "coresident": "pid, used_gpu_memory [MiB]\n157695, 2478 MiB\n246436, 234 MiB\n",
+  "physical_vram": "12 GB class; visible capacity recorded by nvidia-smi",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "seconds": 10,
+    "precision": "INT8 weight storage / BF16 compute",
+    "memory_mode": "compact",
+    "allocator_cap_mib": 3584,
+    "compile": false,
+    "color_correction": 1.0
+  },
+  "reference": "benchmarks/smile_reference_320_20260917/neutral-reference.png",
+  "reference_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+  "audio": "benchmarks/comparison-10s.wav",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "runs": [
+    {
+      "seed": 50,
+      "arm": "baseline4",
+      "frames": 250,
+      "wall_s": 7.939252373995259,
+      "useful_fps": 31.489111092987315,
+      "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 4,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [],
+      "refinement_transformed_times": [],
+      "peak_allocated_mib": 3301.47216796875,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 50,
+      "arm": "continuous6",
+      "frames": 250,
+      "wall_s": 9.455086617002962,
+      "useful_fps": 26.440794265218912,
+      "raw_sha256": "937eb5df12670d2bdec1cbf809c4462c838264611d33b170a795b5dbfecaae44",
+      "base_rng_sha256": "c683067ae66bea89987c4be197107d7465cc67c7db79e2966c89bbde5c46ab78",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        961.5385131835938,
+        909.0909423828125,
+        833.3333129882812,
+        714.2857055664062,
+        500.00006103515625,
+        0.0
+      ],
+      "refinement_raw_times": [],
+      "refinement_transformed_times": [],
+      "peak_allocated_mib": 3301.5166015625,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 50,
+      "arm": "refine100",
+      "frames": 250,
+      "wall_s": 9.479430648003472,
+      "useful_fps": 26.372891926020284,
+      "raw_sha256": "4533915da7e5a518c946a7e27c3a3c2d6de9cc16b205335484b86631227a7792",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        100,
+        50
+      ],
+      "refinement_transformed_times": [
+        357.1428527832031,
+        208.3333282470703
+      ],
+      "peak_allocated_mib": 3301.47314453125,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 50,
+      "arm": "refine50",
+      "frames": 250,
+      "wall_s": 9.479474731022492,
+      "useful_fps": 26.372769282442516,
+      "raw_sha256": "2fca87c2b7a47a116dcf0e953bdcad3def76f5379900dc9fa0dec7c6eb26b2d2",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        50,
+        25
+      ],
+      "refinement_transformed_times": [
+        208.3333282470703,
+        113.63636016845703
+      ],
+      "peak_allocated_mib": 3301.47314453125,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 50,
+      "arm": "restored4",
+      "frames": 250,
+      "wall_s": 8.026836555014597,
+      "useful_fps": 31.145520191739518,
+      "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 4,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [],
+      "refinement_transformed_times": [],
+      "peak_allocated_mib": 3301.47216796875,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 51,
+      "arm": "baseline4",
+      "frames": 250,
+      "wall_s": 8.043282514991006,
+      "useful_fps": 31.081837487872892,
+      "raw_sha256": "211cf11f481539c6da9ab5ec8b0ae87dd9edbda79f8bba13bfe76e34c90e1dd2",
+      "base_rng_sha256": "8b2fab2429185dbd62a301c53eea7faf2c2bda823ff7d2ef3dd1d422c12688d5",
+      "model_evaluations_per_chunk": 4,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [],
+      "refinement_transformed_times": [],
+      "peak_allocated_mib": 3301.47216796875,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 51,
+      "arm": "continuous6",
+      "frames": 250,
+      "wall_s": 9.508155649993569,
+      "useful_fps": 26.293217023657906,
+      "raw_sha256": "fe31b90286009a2910c8b29ed9d805de27574878ae7769e04cced6ce6e93931c",
+      "base_rng_sha256": "3e57a0d90b5a77da82150a5977d4ec703baa03fdae48472920e5310ad859d500",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        961.5385131835938,
+        909.0909423828125,
+        833.3333129882812,
+        714.2857055664062,
+        500.00006103515625,
+        0.0
+      ],
+      "refinement_raw_times": [],
+      "refinement_transformed_times": [],
+      "peak_allocated_mib": 3301.5166015625,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 51,
+      "arm": "refine100",
+      "frames": 250,
+      "wall_s": 9.52794061700115,
+      "useful_fps": 26.238618611236234,
+      "raw_sha256": "9bbe9ccad54663985032e2e005c626a5f2b816839b5fa9af4ce3081742ea7f90",
+      "base_rng_sha256": "8b2fab2429185dbd62a301c53eea7faf2c2bda823ff7d2ef3dd1d422c12688d5",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        100,
+        50
+      ],
+      "refinement_transformed_times": [
+        357.1428527832031,
+        208.3333282470703
+      ],
+      "peak_allocated_mib": 3301.47314453125,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 51,
+      "arm": "refine50",
+      "frames": 250,
+      "wall_s": 9.553348727000412,
+      "useful_fps": 26.168834316016405,
+      "raw_sha256": "92aa62a8091c3fdad631114fa03c02f8c47aa9afc5dab27c978212e0c88e389f",
+      "base_rng_sha256": "8b2fab2429185dbd62a301c53eea7faf2c2bda823ff7d2ef3dd1d422c12688d5",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        50,
+        25
+      ],
+      "refinement_transformed_times": [
+        208.3333282470703,
+        113.63636016845703
+      ],
+      "peak_allocated_mib": 3301.47314453125,
+      "peak_reserved_mib": 3544.0
+    },
+    {
+      "seed": 50,
+      "arm": "refine250",
+      "frames": 250,
+      "wall_s": 9.510359078005422,
+      "useful_fps": 26.287125223081663,
+      "raw_sha256": "9da835643c2946a18fee8c3c6c7600040c2a5987ab77a915b5de4e4b614e8175",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        250,
+        125
+      ],
+      "refinement_transformed_times": [
+        625.0,
+        416.6666564941406
+      ],
+      "peak_allocated_mib": 3303.67041015625,
+      "peak_reserved_mib": 3530.0
+    },
+    {
+      "seed": 50,
+      "arm": "refine500",
+      "frames": 250,
+      "wall_s": 9.522932957013836,
+      "useful_fps": 26.252416259621974,
+      "raw_sha256": "aeff403e523b6c95c735428f45b933bf8b225aa67a538126c2a2ce336fa7fbcc",
+      "base_rng_sha256": "79298d8e02023747796967852b0df91788e21e0e1f1973d1fa635e4941e586bb",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        500,
+        250
+      ],
+      "refinement_transformed_times": [
+        833.3333129882812,
+        625.0
+      ],
+      "peak_allocated_mib": 3303.67041015625,
+      "peak_reserved_mib": 3530.0
+    },
+    {
+      "seed": 51,
+      "arm": "refine250",
+      "frames": 250,
+      "wall_s": 9.540744401019765,
+      "useful_fps": 26.203406096203423,
+      "raw_sha256": "b5e5fd742508a74b5a17c159ebb55230dae777f9944c637ddbeeb0a71ade823a",
+      "base_rng_sha256": "8b2fab2429185dbd62a301c53eea7faf2c2bda823ff7d2ef3dd1d422c12688d5",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        250,
+        125
+      ],
+      "refinement_transformed_times": [
+        625.0,
+        416.6666564941406
+      ],
+      "peak_allocated_mib": 3303.67041015625,
+      "peak_reserved_mib": 3530.0
+    },
+    {
+      "seed": 51,
+      "arm": "refine500",
+      "frames": 250,
+      "wall_s": 9.565244567987975,
+      "useful_fps": 26.136289377971114,
+      "raw_sha256": "7d4a29675f7016ec8fa03a0f4e4b17573e3983c90bff00e68c6262eb3771e5fc",
+      "base_rng_sha256": "8b2fab2429185dbd62a301c53eea7faf2c2bda823ff7d2ef3dd1d422c12688d5",
+      "model_evaluations_per_chunk": 6,
+      "base_transformed_times": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ],
+      "refinement_raw_times": [
+        500,
+        250
+      ],
+      "refinement_transformed_times": [
+        833.3333129882812,
+        625.0
+      ],
+      "peak_allocated_mib": 3303.67041015625,
+      "peak_reserved_mib": 3530.0
+    }
+  ],
+  "disabled_restoration_identical": true,
+  "refinement_preserves_base_rng": true,
+  "extra_started_utc": "2026-09-17T02:06:47.283930+00:00",
+  "extra_gpu": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n"
+}

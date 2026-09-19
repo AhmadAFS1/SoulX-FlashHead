@@ -1,0 +1,8 @@
+Collecting sageattention==1.0.6
+  Downloading sageattention-1.0.6-py3-none-any.whl.metadata (5.6 kB)
+Downloading sageattention-1.0.6-py3-none-any.whl (20 kB)
+Installing collected packages: sageattention
+Successfully installed sageattention-1.0.6
+
+[notice] A new release of pip is available: 25.2 -> 26.2.1
+[notice] To update, run: /workspace/SoulX-FlashHead/.venv/bin/python -m pip install --upgrade pip

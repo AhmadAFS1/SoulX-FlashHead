@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "name": "decoder-fp8-conservative",
+  "base": "pro-fp8-v1",
+  "ffn": {
+    "scheme": "fp8_e4m3_w8a8",
+    "exclude": []
+  },
+  "self_attention_projections": {
+    "scheme": "bf16",
+    "include": [],
+    "exclude": [],
+    "packing": "separate"
+  },
+  "self_attention_kernel": {
+    "backend": "flash2"
+  },
+  "cross_attention_projections": {
+    "scheme": "bf16",
+    "include": [],
+    "exclude": []
+  },
+  "decoder": {
+    "scheme": "fp8_conservative",
+    "backend": "adapter",
+    "plan": "benchmarks/pro_quantization_v2_20260918/calibration/decoder-fp8-conservative-plan.json"
+  },
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "prepared_conditioning": true
+}

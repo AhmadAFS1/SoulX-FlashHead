@@ -1,0 +1,16 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789785088.155953  575389 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789785088.205246  575516 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+I0000 00:00:1789785092.160737  575389 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789785092.199768  575594 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+{
+  "output": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/extended-r01/recurrence-review",
+  "paired": {
+    "detected_pairs": 1500,
+    "both_open_pairs": 1174,
+    "opening_correlation": 0.9266570103940881,
+    "median_mouth_center_distance_px": 4.810736613910452,
+    "median_edge_ratio_on_both_open": 0.9831174140181352
+  }
+}

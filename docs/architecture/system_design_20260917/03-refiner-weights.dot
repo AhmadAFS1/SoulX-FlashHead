@@ -1,0 +1,34 @@
+digraph Refiner {
+ graph [rankdir=TB,bgcolor="white",pad="0.35",nodesep="0.4",ranksep="0.6",fontname="DejaVu Sans",fontsize=20,labelloc=t,label="Where custom refiner weights would fit\nProposed design only · Ojin's architecture and checkpoint remain unavailable"];
+ node [shape=box,style="rounded,filled",fillcolor="#fff2db",color="#c58c2f",fontname="DejaVu Sans",fontsize=12,margin="0.16,0.13"];
+ edge [color="#987034",fontname="DejaVu Sans",fontsize=10,arrowsize=0.75];
+ subgraph cluster_training {
+  label="OFFLINE TRAINING | proposed, not performed"; color="#c58c2f";fontname="DejaVu Sans";
+  targets [label="Vetted clear mouth sequences\nCorrect teeth, lip geometry and timing\nSame-character references where available"];
+  inputs [label="Aligned degraded / corrected training pairs\nSynthetic corruptions + curated SoulX defects\nWhole-clip train/test split"];
+  architecture [label="OUR NETWORK CODE + CONFIG\nSmall residual CNN / U-Net\nProposed budget: 0.5–2M parameters"];
+  train [label="Training forward pass → prediction\nCompare with clean target + temporal / boundary losses\nBackpropagation + optimizer updates OUR weights"];
+  checkpoint [label="OUR refiner checkpoint\nLearned tensor values + architecture/version metadata\nExample: mouth_refiner_v1.pt",shape=folder];
+  targets -> inputs; inputs -> train; architecture -> train; train -> checkpoint;
+ }
+ subgraph cluster_runtime {
+  label="RUNTIME INSERTION | proposed; no training at inference"; color="#c58c2f";fontname="DejaVu Sans";
+  soulx [label="Existing SoulX LITE generator\nOwn DiT + VAE + speech-encoder weights\nOutputs native whole-frame RGB",fillcolor="#e8f3ee",color="#548876"];
+  native [label="Retain native RGB history\nRegular motion feedback AND sent-frame reconditioning\nMust remain separate from refined display history",fillcolor="#e8f3ee",color="#548876"];
+  tracker [label="FaceLandmarker + crop transform\nExisting detector has its own task weights\nAdd inner-mouth geometry / visibility handling",fillcolor="#f1ebfb",color="#9271bd"];
+  crop [label="Current 128×128 mouth/context crop\n+ prior aligned crops + visibility mask\n+ optional cached identity-reference features"];
+  infer [label="Instantiate OUR architecture, load OUR checkpoint\nRun fixed weights on each crop\nPredict RGB correction + confidence mask"];
+  blend [label="Blend into mouth interior at delivery resolution\nPreserve lips / tongue occlusions / closed mouth\nNo direct changes outside the chosen mask"];
+  base [label="Full-frame delivery base\nBicubic initially; learned SR is a separate option",fillcolor="#edf4fb",color="#6384a6"];
+  out [label="Refined display frame → encoder → receiver\nSame timestamps and original audio"];
+  history [label="Per-call crop / temporal feature state\nPast-only context; reset on cuts or tracking loss\nState is NOT learned weights"];
+  soulx -> native; soulx -> tracker -> crop -> infer -> blend -> out;
+  soulx -> base -> blend;
+  infer -> history; history -> crop [label="next frame",style=dashed,constraint=false];
+ }
+ checkpoint -> infer [label="load once",style=dashed];
+ compiled [label="Optional ONNX → TensorRT export\nCompiled network + trained weights + device tactics\n.engine accelerates evaluation; does not teach teeth",fillcolor="#f1ebfb",color="#9271bd"];
+ checkpoint -> compiled [style=dashed]; compiled -> infer [style=dashed,label="alternative runtime"];
+ note [label="Weights = learned numbers used by network code\nActivations / latent history = transient data produced for this call\nSteps = repeated inference operations with the same weights\nCheckpoint extension (.pt / .safetensors) does not define architecture\nOjin's refiner_weights.pt cannot be assumed compatible with OUR network",shape=note,fillcolor="#fffaf0",color="#c7bfae"];
+ out -> note [style=invis];
+}

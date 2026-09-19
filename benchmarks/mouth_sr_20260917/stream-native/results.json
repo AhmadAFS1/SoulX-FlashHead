@@ -1,0 +1,76 @@
+{
+  "status": "complete",
+  "execution": "Fresh combined SoulX + native mouth SR GPU inference",
+  "date_utc": "2026-09-17T14:11:40.055208+00:00",
+  "gpu": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n",
+  "coresident": "pid, used_gpu_memory [MiB]\n157695, 2478 MiB\n246436, 234 MiB\n",
+  "physical_vram": "12 GB class; visible capacity recorded by nvidia-smi",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "profile": "320x576, 25 FPS, 10 seconds, seed 50, steps 4, shift 5, history 2, strength 1; INT8/BF16 compact eager; 3584 MiB allocator cap; SR FP16 strength .65",
+  "wall_s": 10.311126269982196,
+  "useful_fps": 24.245654010445133,
+  "frames": 250,
+  "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+  "source_matches_unenhanced_capture": true,
+  "output_sha256": "0e7849d23e38ae9e7db33b4cd652d50110148685a31944746dc77b41903bd832",
+  "chunks": [
+    {
+      "generation_s": 0.7120012560044415,
+      "enhancement_s": 0.23240014194743708,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7156546320184134,
+      "enhancement_s": 0.2316627610125579,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7118669010233134,
+      "enhancement_s": 0.22916806302964687,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7208797420025803,
+      "enhancement_s": 0.2135504040052183,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7203607289702632,
+      "enhancement_s": 0.22402792505454272,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7202753279707395,
+      "enhancement_s": 0.22068566601956263,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7165097370161675,
+      "enhancement_s": 0.21851901698391885,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7170247940230183,
+      "enhancement_s": 0.2543972299899906,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7159411419997923,
+      "enhancement_s": 0.2234902829513885,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7196223069913685,
+      "enhancement_s": 0.2016444380278699,
+      "frames": 24
+    },
+    {
+      "generation_s": 0.7255624500103295,
+      "enhancement_s": 0.16578192403540015,
+      "frames": 24
+    }
+  ],
+  "peak_allocated_mib": 3306.00830078125,
+  "peak_reserved_mib": 3554.0
+}

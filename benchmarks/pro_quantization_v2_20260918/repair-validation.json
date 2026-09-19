@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-18",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "physical_vram": "12 GB",
+  "visible_vram_mib": 12282,
+  "driver": "595.84",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "initial_gpu_used_mib": 2727,
+  "hardware_evidence": "per-run results.json environment and resource records",
+  "cpu_tests": {
+    "passed": 43,
+    "warnings": 4,
+    "onnx_export_test_included": true
+  },
+  "fresh_gpu_reference_checks": [
+    {
+      "seed": 50,
+      "run": "fixed-reference-seed50-r04",
+      "approved_raw_rgb_sha256": "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d",
+      "actual_raw_rgb_sha256": "c6c423d1605b5373ea06deca5c33a65f9e9634b5cbd09a9e1a7fc5f0adfc776d",
+      "exact": true,
+      "useful_fps": 9.40263081491003
+    },
+    {
+      "seed": 51,
+      "run": "fixed-reference-seed51-r01",
+      "approved_raw_rgb_sha256": "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100",
+      "actual_raw_rgb_sha256": "5d80b3483a5ab2df95fad2204fcbf8742f3099a08ccb4c93d8c70e047867d100",
+      "exact": true,
+      "useful_fps": 9.31917278959692
+    }
+  ],
+  "fresh_gpu_candidate": {
+    "run": "fixed-self-all-fp8-seed50-r01",
+    "useful_fps": 9.842386525304242,
+    "relative_fps_gain": 0.046769432837550085,
+    "repeats": 1
+  },
+  "decoder_feasibility": {
+    "run": "fixed-decoder-build-r01",
+    "status": "rejected_float_convolution",
+    "tensorrt": "10.9.0.34",
+    "onnx": "1.17.0"
+  },
+  "qualification": "Implementation regression checks only; no faster-than-MuseTalk or final visual acceptance claim",
+  "media_verification": {
+    "valid": 11,
+    "invalid": 0,
+    "excluded": 5
+  },
+  "review": "runs/fixed-review-seed50-r01/review.json"
+}

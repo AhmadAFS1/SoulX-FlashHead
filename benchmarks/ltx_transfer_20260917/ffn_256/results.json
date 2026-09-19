@@ -1,0 +1,44 @@
+{
+  "date_utc": "2026-09-17T00:32:19.826991+00:00",
+  "hardware": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2675 MiB, 595.84\n",
+  "coresident": "pid, used_gpu_memory [MiB]\n157695, 2478 MiB\n231131, 182 MiB\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "cpu_check": "passed: batch, tail, short sequence, input preservation, restoration",
+  "workload": "GPU inference: 512 square, 25 FPS, 4 steps, BF16, staged, seed 50, 2 seconds; no compile",
+  "runs": [
+    {
+      "label": "baseline",
+      "wall_s": 3.0044952080061194,
+      "useful_fps": 16.641730653044252,
+      "peak_allocated_mib": 3835.9130859375,
+      "peak_reserved_mib": 4186.0
+    },
+    {
+      "label": "chunked",
+      "wall_s": 3.0945311129908077,
+      "useful_fps": 16.157536691132478,
+      "peak_allocated_mib": 3825.6630859375,
+      "peak_reserved_mib": 4162.0
+    },
+    {
+      "label": "restored",
+      "wall_s": 3.037765588000184,
+      "useful_fps": 16.459466193675564,
+      "peak_allocated_mib": 3835.9130859375,
+      "peak_reserved_mib": 4186.0
+    }
+  ],
+  "status": "complete",
+  "reference": "/workspace/SoulX-FlashHead/benchmarks/square_teeth_20260917/512-25/reference.png",
+  "chunked_vs_baseline": {
+    "max_pixel_difference": 73,
+    "mean_absolute_difference": 0.889123280843099,
+    "identical": false
+  },
+  "restored_vs_baseline": {
+    "max_pixel_difference": 0,
+    "mean_absolute_difference": 0.0,
+    "identical": true
+  }
+}

@@ -1,0 +1,33 @@
+2026-09-17 00:54:34.840 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Traceback (most recent call last):
+  File "/workspace/SoulX-FlashHead/benchmarks/closer_capacity_20260916/run_portrait_source_detail.py", line 101, in <module>
+    main()
+  File "/workspace/SoulX-FlashHead/benchmarks/closer_capacity_20260916/run_portrait_source_detail.py", line 66, in main
+    engine = Engine(width=WIDTH, height=HEIGHT, steps=4, fps=25, compile_model=False,
+  File "/workspace/SoulX-FlashHead/soulx_rtc/engine.py", line 93, in __init__
+    self.pipeline = get_pipeline(1, "models/SoulX-FlashHead-1_3B", "lite",
+  File "/workspace/SoulX-FlashHead/flash_head/inference.py", line 19, in get_pipeline
+    pipeline = FlashHeadPipeline(
+  File "/workspace/SoulX-FlashHead/flash_head/src/pipeline/flash_head_pipeline.py", line 145, in __init__
+    self.audio_encoder = Wav2Vec2Model.from_pretrained(wav2vec_dir, local_files_only=True).to(self.device)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4343, in to
+    return super().to(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1355, in to
+    return self._apply(convert)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 942, in _apply
+    param_applied = fn(param)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1341, in convert
+    return t.to(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 11.60 GiB of which 2.94 MiB is free. Process 157695 has 2.42 GiB memory in use. Process 231131 has 5.06 GiB memory in use. Including non-PyTorch memory, this process has 4.10 GiB memory in use. 8.50 GiB allowed; Of the allocated memory 3.67 GiB is allocated by PyTorch, and 225.47 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

@@ -1,0 +1,235 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T02:16:35.679053+00:00",
+  "execution": "Fresh GPU inference on NVIDIA GeForce RTX 4070 SUPER; per-run nvidia-smi evidence",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "co_resident_load": "pid, process_name, used_gpu_memory [MiB]\n157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB\n",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "seconds": 10,
+    "precision": "INT8 weight storage / BF16 compute",
+    "memory_mode": "compact",
+    "compiled": false,
+    "allocator_cap_mib": 3584,
+    "shift": 5,
+    "motion_frames_latent_num": 2
+  },
+  "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "runs": [
+    {
+      "name": "baseline",
+      "seed": 50,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.008390843984671,
+      "useful_fps": 31.217257607723038,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    },
+    {
+      "name": "seed52",
+      "seed": 52,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.027909046999412,
+      "useful_fps": 31.14135929248506,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "efc9b820814f7ecef9a875569efb4e8d543ab88f95f2bd6fb02b79cdfc14a752",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    },
+    {
+      "name": "seed53",
+      "seed": 53,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.050893616018584,
+      "useful_fps": 31.052453544111383,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "429de2bd4a6f750bdb08abdc40d83d5864693602c7c0d71dbcb9a14d392275b6",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shift1",
+      "seed": 50,
+      "strength": 1,
+      "shift": 1,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.04743430801318,
+      "useful_fps": 31.06580189801166,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "2771e14956dbf75673d4880bd493e60bce3e0c2e2c43e41a34c2a1ef5b28fa25",
+      "effective_timesteps": [
+        1000.0,
+        750.0000610351562,
+        500.0,
+        250.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shift3",
+      "seed": 50,
+      "strength": 1,
+      "shift": 3,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.07901339000091,
+      "useful_fps": 30.944372528137603,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "df4dd15432ca64bb7b4f91fff9400ab415096011350fe4cfb2616997cf2720e0",
+      "effective_timesteps": [
+        1000.0,
+        900.0001220703125,
+        750.0,
+        500.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shift7",
+      "seed": 50,
+      "strength": 1,
+      "shift": 7,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.078067109017866,
+      "useful_fps": 30.947997413999584,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "ab9fe946d66d74505455ba9abcaae4484163267644c83be6450112783f099ca3",
+      "effective_timesteps": [
+        1000.0,
+        954.54541015625,
+        875.0,
+        700.0,
+        0.0
+      ]
+    },
+    {
+      "name": "history2-control",
+      "seed": 50,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 2,
+      "overlap_frames": 9,
+      "useful_frames_per_chunk": 24,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 8.075654422020307,
+      "useful_fps": 30.957243454884846,
+      "peak_allocated_mib": 3303.671875,
+      "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    },
+    {
+      "name": "history1",
+      "seed": 50,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 1,
+      "overlap_frames": 1,
+      "useful_frames_per_chunk": 32,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 5.68164759001229,
+      "useful_fps": 44.00132110260982,
+      "peak_allocated_mib": 3303.6279296875,
+      "raw_sha256": "9c04b3d3ceeb41d790dc3eecc09df7c6f120d6e53b52f62b76fbacb40e38ae8e",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    },
+    {
+      "name": "history3",
+      "seed": 50,
+      "strength": 1,
+      "shift": 5,
+      "history_latents": 3,
+      "overlap_frames": 17,
+      "useful_frames_per_chunk": 16,
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6512 MiB, 595.84\n",
+      "frames": 250,
+      "wall_s": 12.291661024995847,
+      "useful_fps": 20.33899238610711,
+      "peak_allocated_mib": 3303.7158203125,
+      "raw_sha256": "435b963329e3acb495f3493f176b98ebb74547b62f4bb6b339180b54f568303b",
+      "effective_timesteps": [
+        1000.0,
+        937.5000610351562,
+        833.3333129882812,
+        625.0,
+        0.0
+      ]
+    }
+  ],
+  "baseline_matches_strength_control": true,
+  "history_adaptation": {
+    "original_sha256": "240061e6358314d91c5856a828fd5731da14c08cfda18d815808d08cc5b097d3",
+    "replacements": {
+      "output_offset = 9": "output_offset = self.motion_frames",
+      "if self.lean:": "if False:  # Retain full decoded context for 17-frame history.",
+      "videos[:, :, -9:]": "videos[:, :, -self.motion_frames:]"
+    },
+    "note": "Keep 33-frame model window; change overlap, motion re-encoding length, output offset and chunk advance together. Out-of-training-history experiment."
+  },
+  "history_adapter_identity": true
+}

@@ -1,0 +1,305 @@
+{
+  "execution": "Fresh GPU inference on RTX 4070 SUPER 12282 MiB, driver 595.84, Torch 2.7.1+cu128/CUDA 12.8, 2026-09-17; CPU packaging and decode validation.",
+  "rows": [
+    {
+      "detail_width": 1280,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:59:06.742691+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2675 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          1280,
+          2304
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; resize with Lanczos to the treatment dimensions unless native. Engine preprocessing returns every reference to the fixed 320x576 generation canvas. Widths above 320 add no captured detail.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "b8eb020e89ab0e2c74d46be6ae974af235f8970a29a9d307de1d5367d828b522",
+        "wall_s": 8.039167021022877,
+        "useful_fps": 31.09774922529111,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "2ae20c24da2492921995a7e3f230b04544f4335033416310e9e3d0793c62049a"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "detail_width": 640,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:58:42.604073+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2675 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          640,
+          1152
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; resize with Lanczos to the treatment dimensions unless native. Engine preprocessing returns every reference to the fixed 320x576 generation canvas. Widths above 320 add no captured detail.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "b9398ef51eeafe761045ec304f46fa19de6c96ba918db430b7488a305739217f",
+        "wall_s": 8.04458337201504,
+        "useful_fps": 31.076811369707883,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "91f91f08a09ad520bc6d98ade590dad9b6d23b44f06d54bc3bb7bfe62c845810"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "detail_width": 320,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:55:23.046855+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 7705 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          320,
+          576
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; downsample with Lanczos to effective dimensions unless native, then upscale to 320x576 with Lanczos.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "wall_s": 12.56449424600578,
+        "useful_fps": 19.89733889045907,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "detail_width": 256,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:55:56.488485+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6937 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          256,
+          461
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; downsample with Lanczos to effective dimensions unless native, then upscale to 320x576 with Lanczos.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "a770f5e23bf4269b00633f7af2d7870b538e27ce1a0781cafc07fe3089bbf395",
+        "wall_s": 8.074401458987268,
+        "useful_fps": 30.96204731333191,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "b1a21808eb8cc74562c9de347b3a8fed813235119a1a08034f143bb111b4c51d"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "detail_width": 128,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:56:26.695160+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          128,
+          230
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; downsample with Lanczos to effective dimensions unless native, then upscale to 320x576 with Lanczos.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "9b88c2e1151cd83ffb1f741150c219607672727d4ec808d90029400449c2173f",
+        "wall_s": 8.03459640199435,
+        "useful_fps": 31.115439717413178,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "fab507058988ba1432a62e35a107bf33feb776880be1416add9feec24c5ce8ed"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "detail_width": 64,
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:56:52.258699+00:00",
+        "execution": "fresh local GPU inference",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "width": 320,
+          "height": 576,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "INT8 weight storage / BF16 compute",
+          "memory_mode": "compact",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 3584
+        },
+        "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "source_dimensions": [
+          320,
+          576
+        ],
+        "effective_source_dimensions": [
+          64,
+          115
+        ],
+        "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; downsample with Lanczos to effective dimensions unless native, then upscale to 320x576 with Lanczos.",
+        "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+        "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "reference_sha256": "3f5be062ba17a47076dcebae6c7ffcd201102521969b973db1c2ce6d07fbe8ee",
+        "wall_s": 8.047195582999848,
+        "useful_fps": 31.066723484158757,
+        "frames": 250,
+        "peak_allocated_mib": 3301.47216796875,
+        "peak_reserved_mib": 3544.0,
+        "raw_sha256": "69d871046ec152c7a6cb5e08ef72b08f084d44ef6967045aba9f61821ac96bfb"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    }
+  ]
+}

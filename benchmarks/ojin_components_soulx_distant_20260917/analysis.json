@@ -1,0 +1,224 @@
+{
+  "execution": "CPU analysis of six speaking-section pre-encode PNG samples per treatment",
+  "warning": "Sobel/Laplacian values measure local contrast, not correct teeth, lip-sync, or temporal stability",
+  "treatments": {
+    "SoulX-LITE-default-closeup-character-bicubic2-320x576-to-640x1152": {
+      "samples": [
+        {
+          "time_s": 2.5,
+          "box": [
+            229,
+            458,
+            423,
+            674
+          ],
+          "sobel_mean": 28.770479202270508,
+          "laplacian_variance": 15.777798652648926
+        },
+        {
+          "time_s": 4.0,
+          "box": [
+            234,
+            430,
+            418,
+            691
+          ],
+          "sobel_mean": 25.642364501953125,
+          "laplacian_variance": 10.112480163574219
+        },
+        {
+          "time_s": 6.0,
+          "box": [
+            228,
+            450,
+            380,
+            657
+          ],
+          "sobel_mean": 27.496061325073242,
+          "laplacian_variance": 13.189535140991211
+        },
+        {
+          "time_s": 8.0,
+          "box": [
+            226,
+            462,
+            407,
+            650
+          ],
+          "sobel_mean": 26.523128509521484,
+          "laplacian_variance": 11.746664047241211
+        },
+        {
+          "time_s": 10.0,
+          "box": [
+            242,
+            495,
+            387,
+            685
+          ],
+          "sobel_mean": 25.99312973022461,
+          "laplacian_variance": 9.42656421661377
+        },
+        {
+          "time_s": 11.5,
+          "box": [
+            236,
+            464,
+            396,
+            685
+          ],
+          "sobel_mean": 26.02634048461914,
+          "laplacian_variance": 10.336477279663086
+        }
+      ],
+      "sobel_mean": 26.74191729227702,
+      "laplacian_variance_mean": 11.764919916788736
+    },
+    "SoulX-LITE-default-closeup-character-legacy-general4x-resized2x-320x576-to-640x1152": {
+      "samples": [
+        {
+          "time_s": 2.5,
+          "box": [
+            229,
+            458,
+            423,
+            674
+          ],
+          "sobel_mean": 29.801836013793945,
+          "laplacian_variance": 29.987655639648438
+        },
+        {
+          "time_s": 4.0,
+          "box": [
+            234,
+            430,
+            418,
+            691
+          ],
+          "sobel_mean": 26.06358528137207,
+          "laplacian_variance": 19.380340576171875
+        },
+        {
+          "time_s": 6.0,
+          "box": [
+            228,
+            450,
+            380,
+            657
+          ],
+          "sobel_mean": 27.966463088989258,
+          "laplacian_variance": 18.268434524536133
+        },
+        {
+          "time_s": 8.0,
+          "box": [
+            226,
+            462,
+            407,
+            650
+          ],
+          "sobel_mean": 27.4781494140625,
+          "laplacian_variance": 14.080816268920898
+        },
+        {
+          "time_s": 10.0,
+          "box": [
+            242,
+            495,
+            387,
+            685
+          ],
+          "sobel_mean": 26.57364845275879,
+          "laplacian_variance": 17.13701820373535
+        },
+        {
+          "time_s": 11.5,
+          "box": [
+            236,
+            464,
+            396,
+            685
+          ],
+          "sobel_mean": 27.008272171020508,
+          "laplacian_variance": 14.098759651184082
+        }
+      ],
+      "sobel_mean": 27.48199240366618,
+      "laplacian_variance_mean": 18.825504144032795,
+      "full_frame_mae_vs_bicubic": 1.9711246490478516
+    },
+    "SoulX-LITE-default-closeup-character-FaceLandmarker-native2x-TRT-320x576-to-640x1152": {
+      "samples": [
+        {
+          "time_s": 2.5,
+          "box": [
+            229,
+            458,
+            423,
+            674
+          ],
+          "sobel_mean": 29.111465454101562,
+          "laplacian_variance": 37.23987579345703
+        },
+        {
+          "time_s": 4.0,
+          "box": [
+            234,
+            430,
+            418,
+            691
+          ],
+          "sobel_mean": 25.595197677612305,
+          "laplacian_variance": 19.74604606628418
+        },
+        {
+          "time_s": 6.0,
+          "box": [
+            228,
+            450,
+            380,
+            657
+          ],
+          "sobel_mean": 27.702392578125,
+          "laplacian_variance": 28.498306274414062
+        },
+        {
+          "time_s": 8.0,
+          "box": [
+            226,
+            462,
+            407,
+            650
+          ],
+          "sobel_mean": 26.634130477905273,
+          "laplacian_variance": 25.749366760253906
+        },
+        {
+          "time_s": 10.0,
+          "box": [
+            242,
+            495,
+            387,
+            685
+          ],
+          "sobel_mean": 25.862642288208008,
+          "laplacian_variance": 16.52419090270996
+        },
+        {
+          "time_s": 11.5,
+          "box": [
+            236,
+            464,
+            396,
+            685
+          ],
+          "sobel_mean": 25.953941345214844,
+          "laplacian_variance": 19.088634490966797
+        }
+      ],
+      "sobel_mean": 26.809961636861164,
+      "laplacian_variance_mean": 24.474403381347656,
+      "full_frame_mae_vs_bicubic": 1.4868121147155762
+    }
+  }
+}

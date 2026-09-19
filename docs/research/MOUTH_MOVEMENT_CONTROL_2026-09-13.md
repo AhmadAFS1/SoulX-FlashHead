@@ -4,6 +4,10 @@
 
 ## Findings from the deployed pipeline
 
+September 16 follow-up: [head-motion measurement and control analysis](HEAD_MOTION_CONTROL_2026-09-16.md). CPU reanalysis of six retained RTX 4070 SUPER (12,282 MiB, driver 595.84) clips shows that lowering the audio residual to 0.5 does **not** consistently reduce head movement. At 1.25× the robust image-plane roll range rises from 8.28° to 10.20°, while at 1.50× it falls from 5.15° to 2.93°. These are 2D proxies and cross-strength results include the retracing caveat; this scalar is not an independent head-motion dial. No production change or new GPU generation accompanies the analysis.
+
+Evidence availability checked September 16: the five historical MP4 links below under `/workspace/experiments/flashhead-mouth-3lwV6k/` are unavailable in this workspace. They remain historical references, not clips newly reviewed here. The six September 16 framing clips used by the linked head-motion analysis are present and hash-verified.
+
 Lite has no jaw-opening, viseme, or expression-strength parameter. Wav2Vec2
 extracts features from normalized eight-second rolling audio; the audio adapter
 projects them into normalized conditioning tokens. Thirty DiT blocks inject
@@ -142,6 +146,29 @@ that observation. Male teeth smearing persists. A smaller mouth is not proof of
 better phoneme accuracy. Strength 0.75 is a reasonable moderate candidate for
 further lip-sync review; 0.5 is a stronger reduction with more visible changes
 outside the mouth. Neither is promoted to a production default.
+
+## September 16 framing interaction follow-up
+
+The Indian male was subsequently tested at 1.00×, 1.25× and 1.50× close
+framings with the same experimental strength fixed at 0.5. This was fresh GPU
+inference on an NVIDIA GeForce RTX 4070 SUPER with 12,282 MiB visible, driver
+595.84, Torch 2.7.1+cu128 / CUDA 12.8. The pre-load allocation was 2,487 MiB;
+the profile remained 320×576, four steps, seed 50, compiled optimized Lite with
+INT8 weight storage. Exact provenance and hashes are in the checked-in
+[run evidence](../../benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/results.json).
+
+All 30 audio cross-attention hooks were active, `torch._dynamo.reset()` preceded
+warmup, and all three raw output hashes differ from their matching unmodified
+clips. Strength 0.5 reduced p95 opening by 25.2%, 24.6% and 32.1% at 1.00×,
+1.25× and 1.50× respectively. The 1.25× framing best preserved its unmodified
+mouth trajectory (0.928 zero-lag correlation) and was the best visual balance
+of mouth visibility, moderated peaks and composition headroom. The 1.50× frame
+was clearest but more attenuated and retained the hair/head-cropping tradeoff.
+
+See the [full interaction report](../../benchmarks/distance_lipsync/INDIAN_MALE_CLOSER_STRENGTH_0P5_REPORT.md)
+and [labeled comparison video](../../benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/soulx-LITE-indian-man-framing-1.00x-vs-1.25x-vs-1.50x-audio-strength0.5.mp4).
+This one-seed/utterance follow-up still does not establish phoneme accuracy,
+naturalness, a universal framing threshold, or a production strength default.
 
 ## Evidence and playback
 

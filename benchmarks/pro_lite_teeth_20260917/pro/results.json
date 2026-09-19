@@ -1,0 +1,93 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T03:31:29.374176+00:00",
+  "execution": "fresh local GPU inference",
+  "variant": "pro",
+  "gpu_before_load": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "processes_before_load": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB"
+  ],
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "seed": 50,
+    "frames": 250,
+    "precision": "BF16",
+    "compile_model": false,
+    "compile_vae": false,
+    "audio_mode": "official streaming window",
+    "color_correction_strength": 1.0
+  },
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+    "sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+    "framing": "1.25x"
+  },
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/comparison-10s.wav",
+    "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+    "sample_rate": 16000
+  },
+  "checkpoint": {
+    "model_config": "/workspace/SoulX-FlashHead/models/SoulX-FlashHead-1_3B/Model_Pro/config.json",
+    "model_config_sha256": "94b480d3af70e73989371ed0c106656c2c887201286b1210e835cd09e71e32b1",
+    "model_weights": "/workspace/SoulX-FlashHead/models/SoulX-FlashHead-1_3B/Model_Pro/diffusion_pytorch_model.safetensors",
+    "model_weights_bytes": 6030864656,
+    "model_weights_sha256": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+    "vae_files": [
+      {
+        "path": "/workspace/SoulX-FlashHead/models/SoulX-FlashHead-1_3B/VAE_Wan/Wan2.1_VAE.pth",
+        "bytes": 507609880,
+        "sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+      }
+    ]
+  },
+  "note": "Allocator peaks are process-local Torch values; whole-device snapshots include co-resident processes.",
+  "model_load_s": 1.3905045909923501,
+  "gpu_after_load": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6696 MiB, 595.84, 0 %",
+  "architecture": {
+    "vae_stride": [
+      4,
+      8,
+      8
+    ],
+    "patch_size": [
+      1,
+      2,
+      2
+    ],
+    "latent_channels": 16,
+    "motion_frames": 5,
+    "new_frames_per_chunk": 28,
+    "vae_family": "Wan2.1"
+  },
+  "reference_prepare_s": 1.1580521520227194,
+  "generation_s": 34.96434591800789,
+  "useful_fps": 7.150140906003364,
+  "chunk_times_s": [
+    3.97810347401537,
+    3.866924720001407,
+    3.8706803289824165,
+    3.872065973991994,
+    3.872594702988863,
+    3.872842781012878,
+    3.875063474988565,
+    3.8746717459871434,
+    3.8774358069931623
+  ],
+  "peak_allocated_mib_generation": 5397.4921875,
+  "peak_reserved_mib_generation": 6620.0,
+  "raw_rgb_sha256": "77ddbf13c3b07ba648a784f62ff11dc6c549e03ac343842bfba09508c541984c",
+  "gpu_after_generation": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 9582 MiB, 595.84, 14 %",
+  "processes_after_generation": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+    "268921, .venv/bin/python, 6850 MiB"
+  ],
+  "video_sha256": "e41caeb714c044bc7255284694b533f30642378eb207abd1329d36fb1157395b"
+}

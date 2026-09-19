@@ -1,0 +1,108 @@
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at /workspace/SoulX-FlashHead/models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.08025455474853516s
+[generate] model denoise per step: 0.05627799034118652s
+[generate] model denoise per step: 0.05462932586669922s
+[generate] model denoise per step: 0.05347132682800293s
+[generate] decode video frames: 0.12152624130249023s
+[generate] color correction: 0.01491403579711914s
+[generate] encode motion frames: 0.03457212448120117s
+{"variant": "lite", "chunk": 0, "frames": 24, "seconds": 0.48053954500937834}
+[generate] model denoise per step: 0.05264544486999512s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.05383872985839844s
+[generate] model denoise per step: 0.05376124382019043s
+[generate] model denoise per step: 0.05392599105834961s
+[generate] decode video frames: 0.11987948417663574s
+[generate] color correction: 0.009357452392578125s
+[generate] encode motion frames: 0.03413581848144531s
+{"variant": "lite", "chunk": 1, "frames": 48, "seconds": 0.3952892660163343}
+[generate] model denoise per step: 0.05251193046569824s
+[generate] model denoise per step: 0.0540776252746582s
+[generate] model denoise per step: 0.05373644828796387s
+[generate] model denoise per step: 0.053960561752319336s
+[generate] decode video frames: 0.1201479434967041s
+[generate] color correction: 0.009386539459228516s
+[generate] encode motion frames: 0.034327030181884766s
+{"variant": "lite", "chunk": 2, "frames": 72, "seconds": 0.39529930596472695}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.053141117095947266s
+[generate] model denoise per step: 0.05405139923095703s
+[generate] model denoise per step: 0.05386161804199219s
+[generate] model denoise per step: 0.05385136604309082s
+[generate] decode video frames: 0.12006211280822754s
+[generate] color correction: 0.009477853775024414s
+[generate] encode motion frames: 0.034261465072631836s
+{"variant": "lite", "chunk": 3, "frames": 96, "seconds": 0.3961944830371067}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.05337810516357422s
+[generate] model denoise per step: 0.05403947830200195s
+[generate] model denoise per step: 0.054080963134765625s
+[generate] model denoise per step: 0.05382704734802246s
+[generate] decode video frames: 0.11966085433959961s
+[generate] color correction: 0.009371280670166016s
+[generate] encode motion frames: 0.03439950942993164s
+{"variant": "lite", "chunk": 4, "frames": 120, "seconds": 0.3959822530159727}
+[generate] model denoise per step: 0.053041934967041016s
+[generate] model denoise per step: 0.05401158332824707s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.05414938926696777s
+[generate] model denoise per step: 0.05401945114135742s
+[generate] decode video frames: 0.11975669860839844s
+[generate] color correction: 0.009365320205688477s
+[generate] encode motion frames: 0.03424692153930664s
+{"variant": "lite", "chunk": 5, "frames": 144, "seconds": 0.3958590039983392}
+[generate] model denoise per step: 0.053040266036987305s
+[generate] model denoise per step: 0.05424642562866211s
+[generate] model denoise per step: 0.0541539192199707s
+[generate] model denoise per step: 0.05420494079589844s
+[generate] decode video frames: 0.11984801292419434s
+[generate] color correction: 0.009596586227416992s
+[generate] encode motion frames: 0.034417152404785156s
+{"variant": "lite", "chunk": 6, "frames": 168, "seconds": 0.3969455109909177}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.052703857421875s
+[generate] model denoise per step: 0.05414986610412598s
+[generate] model denoise per step: 0.05413103103637695s
+[generate] model denoise per step: 0.05411267280578613s
+[generate] decode video frames: 0.12009453773498535s
+[generate] color correction: 0.009508848190307617s
+[generate] encode motion frames: 0.03424978256225586s
+{"variant": "lite", "chunk": 7, "frames": 192, "seconds": 0.39647207205416635}
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.05283236503601074s
+[generate] model denoise per step: 0.054322004318237305s
+[generate] model denoise per step: 0.05426430702209473s
+[generate] model denoise per step: 0.054215192794799805s
+[generate] decode video frames: 0.11988401412963867s
+[generate] color correction: 0.009492158889770508s
+[generate] encode motion frames: 0.03433394432067871s
+{"variant": "lite", "chunk": 8, "frames": 216, "seconds": 0.3968253619968891}
+[generate] model denoise per step: 0.053009748458862305s
+[generate] model denoise per step: 0.05396723747253418s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.05502152442932129s
+[generate] model denoise per step: 0.05386018753051758s
+[generate] decode video frames: 0.11990928649902344s
+[generate] color correction: 0.009488105773925781s
+[generate] encode motion frames: 0.03428912162780762s
+{"variant": "lite", "chunk": 9, "frames": 240, "seconds": 0.3971862510079518}
+[generate] model denoise per step: 0.053179025650024414s
+[generate] model denoise per step: 0.054140329360961914s
+[generate] model denoise per step: 0.05405759811401367s
+[generate] model denoise per step: 0.05405759811401367s
+[generate] decode video frames: 0.12006020545959473s
+[generate] color correction: 0.009444236755371094s
+[generate] encode motion frames: 0.03456401824951172s
+{"variant": "lite", "chunk": 10, "frames": 264, "seconds": 0.39721701003145427}

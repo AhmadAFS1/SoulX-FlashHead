@@ -1,0 +1,56 @@
+{
+  "name": "PRO FP8-PV with fused FP16 decoder stages",
+  "status": "experimental offline-tested recipe; not production promoted",
+  "date_utc": "2026-09-19T02:48:21Z",
+  "artifact_kind": "Load-time recipe from original PRO weights, engine/binary references and tested source snapshots; not a standalone quantized checkpoint",
+  "hardware": "NVIDIA GeForce RTX 4070 SUPER, 12 GB physical /12282 MiB visible, driver595.84, Torch2.7.1+cu128 CUDA12.8, TensorRT10.9.0.34",
+  "policy": {
+    "path": "benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+    "sha256": "01379ff5d2c93202493f3a0a1426973453a262aede026a003a0c62458d0f9a31"
+  },
+  "decoder_plan": {
+    "path": "benchmarks/pro_30fps_20260919/stage-fp16-build-r01/results.json",
+    "sha256": "dcbc617f4afa97137e316ef5296b91f028e878fb205406f4ab5657313e06f651"
+  },
+  "native_sage_build": {
+    "path": "benchmarks/pro_30fps_20260919/sage-sm89-build-manifest.json",
+    "sha256": "d3bf6e30de7e4f9bafd7016697393297c79da5797f0fbc64d439e5c5fef3d14f"
+  },
+  "checkpoint_sha256": {
+    "Model_Pro/config.json": "94b480d3af70e73989371ed0c106656c2c887201286b1210e835cd09e71e32b1",
+    "Model_Pro/diffusion_pytorch_model.safetensors": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+    "VAE_Wan/Wan2.1_VAE.pth": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+  },
+  "runtime_source_sha256": {
+    "benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py": "ceff9bd9a051ca2fc4432d7166b6e497fa22eb8d80ca9bdfae2896e6c37839e0",
+    "benchmarks/pro_quantization_v2_20260918/common.py": "f1b140f09d6b9c1c5a29dbcce7f36ba616fe05fc901a7b9fe36c7d9bbac8b314",
+    "benchmarks/pro_quantization_v2_20260918/decoder_install.py": "1b5a58f51bf02c2a36833d022de17e35a793134d6fb3443f751a30456a974f21",
+    "benchmarks/pro_quantization_v2_20260918/profile.py": "d27ffc533328fd8aeb02abebb7869de4be2ef4a660bba67f40f796eed8b7b93b",
+    "benchmarks/pro_quantization_v2_20260918/run.py": "4a156e4510065d48212e3eb8507d1759d715305b9f41f509d4bae6c839c97eb5",
+    "flash_head/src/modules/flash_head_model.py": "23790368dca641e4dbe52851678cb4b0f88f5f00a31bcd3c6cd66a86b4ca9b86",
+    "flash_head/src/pipeline/flash_head_pipeline.py": "b437720e341799c4fa72d8da1ae876fa99015aa9c6bd2d4ead67a44c4069c24c",
+    "flash_head/wan/modules/vae.py": "7071d15350f30eed21a363c624e36c646ae8f7ec81303b83575dcf63bfbc49eb",
+    "soulx_rtc/gpu_lease.py": "163f862da0ce5d1dbd5525cddc4a4b165d9ffc46dcc50e1630a219708c008f0b",
+    "soulx_rtc/pro_attention_backends.py": "b4a91e4d2717b147437b9dcf76b24bbe737e143eded3f440a3e47314e3904246",
+    "soulx_rtc/pro_quantization.py": "8382958cf1e37bdbff8b5579b67a119d366be31c5e25a5613a15d58683f8a228",
+    "soulx_rtc/pro_quantization_v2.py": "bb57c74d1445b938ec0e6a6170430e927dd75736a1bbdfa80be43d27ad137652",
+    "soulx_rtc/pro_vae_quantization.py": "88b57f2addfd41a8c418df0e7dc7848e277c4e3cd972d38f136ca2213cc6e146",
+    "soulx_rtc/pro_vae_stage_backend.py": "aeb722d5aabdb1c93a88c0d2e779397653c531c418f52724b4820329bd327153"
+  },
+  "tested_runtime_source_snapshot": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/001-candidate-seed50-r01/sources",
+  "previous_fp8_v1_preserved": "benchmarks/pro_quantization_20260918/PRO_FP8/manifest.json",
+  "previous_v2_policy_preserved": "benchmarks/pro_quantization_v2_20260918/policies/self_all_fp8_sage2_fp16.json",
+  "acceptance": "benchmarks/pro_30fps_20260919/acceptance-r01/acceptance-summary.json",
+  "qualification": "benchmarks/pro_30fps_20260919/qualification-summary.json",
+  "matched_musetalk": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/schedule.json",
+  "reproduction_pythonpath": "/workspace/experiments/pro30-deps/sage-sm89:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+  "quality_qualified": false,
+  "30fps_qualified": false,
+  "production_deployed": false,
+  "main_limitations": [
+    "11.78 FPS median, below 30 FPS and matched native MuseTalk.",
+    "INT8 decoder variant slower; winning decoder regions use FP16, not INT8.",
+    "Selected teeth samples retain visible detail; relative sync scores decline on two utterances.",
+    "Higher whole-device VRAM than accepted V2; no multi-session/long-duration bounded serving test."
+  ]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "repo": "xinntao/Real-ESRGAN",
+    "commit": "a4abfb2979a7bbff3f69f58f58ae324608821e27",
+    "path": "realesrgan/archs/srvgg_arch.py",
+    "url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/a4abfb2979a7bbff3f69f58f58ae324608821e27/realesrgan/archs/srvgg_arch.py",
+    "sha256": "7419a75e789ca09295266563d74a6d7c08d6c24502af6b0a919b1811d0a0be59"
+  },
+  {
+    "repo": "xinntao/Real-ESRGAN",
+    "commit": "a4abfb2979a7bbff3f69f58f58ae324608821e27",
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/a4abfb2979a7bbff3f69f58f58ae324608821e27/LICENSE",
+    "sha256": "4a699ec4863d96a91fc265948a0c90033f7e8735d515524dcf3444736406e0c2"
+  },
+  {
+    "repo": "xinntao/Real-ESRGAN",
+    "commit": "a4abfb2979a7bbff3f69f58f58ae324608821e27",
+    "path": "inference_realesrgan.py",
+    "url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/a4abfb2979a7bbff3f69f58f58ae324608821e27/inference_realesrgan.py",
+    "sha256": "389af1172b8ae830dc940283a5e7197d05ab6d9ec15c673bb383c03d957f84bf"
+  },
+  {
+    "repo": "ojinai/kit-example",
+    "commit": "819fe6e95613fdcc7bffd8676e8814282cd445f5",
+    "path": "THIRD-PARTY-NOTICES.md",
+    "url": "https://raw.githubusercontent.com/ojinai/kit-example/819fe6e95613fdcc7bffd8676e8814282cd445f5/THIRD-PARTY-NOTICES.md",
+    "sha256": "b7ebb1b7b1ab944216496c29f7fed708bf22888feb67d06551badb256d22afcb"
+  },
+  {
+    "repo": "kegeai888/SoulX-FlashHead",
+    "commit": "bde99904fd77583edbdd6bffbcb59f24debfb069",
+    "path": "webui.py",
+    "url": "https://raw.githubusercontent.com/kegeai888/SoulX-FlashHead/bde99904fd77583edbdd6bffbcb59f24debfb069/webui.py",
+    "sha256": "312a176b0e7b4b6e5fb41acf884069116d654d61a91b02cf3be93ece1f4c53c7"
+  },
+  {
+    "repo": "kegeai888/SoulX-FlashHead",
+    "commit": "bde99904fd77583edbdd6bffbcb59f24debfb069",
+    "path": "\u7528\u6237\u4f7f\u7528\u624b\u518c.md",
+    "url": "https://raw.githubusercontent.com/kegeai888/SoulX-FlashHead/bde99904fd77583edbdd6bffbcb59f24debfb069/%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md",
+    "sha256": "ab8edfccd3665f3e329d0614e8c74eb5909d1dd57013cc5cd1802d01cc6827d0"
+  }
+]

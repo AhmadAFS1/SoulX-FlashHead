@@ -1,0 +1,215 @@
+{
+  "date_utc": "2026-09-17T22:27:50.839689+00:00",
+  "execution": "CPU media inspection and public repository metadata audit; no GPU inference or training",
+  "gpu_snapshot": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84",
+  "residents": "157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+  "exact_soulx_recording": "benchmarks/concurrency_15fps_20260916/bf16-batch5-c5-recorded-peer0.mp4",
+  "recording_sha256": "3159007d619d4b4cc7bf4b1c62b9538d99b0493de979a7b1c48fe43a84d64533",
+  "assets": [
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/empathetic_head_tilt.mp4",
+      "sha256": "d8260d60bdd4288150502c214eed1f9587dfb493afbd391471a9c4441e039327",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "241"
+          }
+        ],
+        "format": {
+          "duration": "10.042000"
+        }
+      }
+    },
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/idle_active_listening.mp4",
+      "sha256": "099877cef231ce12dede03843c558d10c2fa1e9c4e054c83be595e81a00f6ae4",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "241"
+          }
+        ],
+        "format": {
+          "duration": "10.042000"
+        }
+      }
+    },
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/light_smile.mp4",
+      "sha256": "55561a4f0bb7e5e7ea1a5598ceb6e36b5f579239958fd25a27bccda3bc1a2ed6",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "145"
+          }
+        ],
+        "format": {
+          "duration": "6.042000"
+        }
+      }
+    },
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/nod_agree.mp4",
+      "sha256": "96b71f04ccfec8750f8534c2b9e8d3c2064c492cb9fd1e89e69d0f6505b5b604",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "145"
+          }
+        ],
+        "format": {
+          "duration": "6.042000"
+        }
+      }
+    },
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/speaking_direct_v14_subtle.mp4",
+      "sha256": "20f98455436b4f6f77525edc89a2c89495b67c15b710cd1332ec0e783e6670e0",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "289"
+          }
+        ],
+        "format": {
+          "duration": "12.042000"
+        }
+      }
+    },
+    {
+      "path": "/workspace/MuseTalk/assets/ltx23_pose_banks/sample_ai_human_facetime_closeup_production_v1/certified/speaking_direct_v15_reference_paced.mp4",
+      "sha256": "c8ce2774f916a7466e7ff28fb25583ab617bc01f744069c90e997dbf45605db0",
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 480,
+            "height": 832,
+            "avg_frame_rate": "24/1",
+            "nb_frames": "289"
+          }
+        ],
+        "format": {
+          "duration": "12.042000"
+        }
+      }
+    }
+  ],
+  "public_repositories": {
+    "TKing-Su/OrthoNet-io": {
+      "branch": "main",
+      "commit": "4a8649b9fdd7d86a82ed7d4339a2d460745f491c",
+      "paths": [
+        "LICENSE",
+        "README.md",
+        "index.html",
+        "static",
+        "static/css",
+        "static/css/bulma-carousel.min.css",
+        "static/css/bulma-slider.min.css",
+        "static/css/bulma.css.map.txt",
+        "static/css/bulma.min.css",
+        "static/css/fontawesome.all.min.css",
+        "static/css/index.css",
+        "static/gif",
+        "static/gif/README.md",
+        "static/gif/aniportraint.gif",
+        "static/gif/audio2head.gif",
+        "static/gif/echomimic.gif",
+        "static/gif/hallo2.gif",
+        "static/gif/joyhallo.gif",
+        "static/icons",
+        "static/icons/optic.ico",
+        "static/images",
+        "static/images/Qualitative-Results-1.png",
+        "static/images/Qualitative-Results-2.png",
+        "static/images/framework.png",
+        "static/images/framework2.png",
+        "static/images/result.jpg",
+        "static/js",
+        "static/js/bulma-carousel.js",
+        "static/js/bulma-carousel.min.js",
+        "static/js/bulma-slider.js",
+        "static/js/bulma-slider.min.js",
+        "static/js/fontawesome.all.min.js",
+        "static/js/index.js",
+        "static/pdfs",
+        "static/pdfs/orthonet_poster.pdf",
+        "static/videos",
+        "static/videos/aniportrait_stitch.mp4",
+        "static/videos/audio2head_stitch.mp4",
+        "static/videos/echomimic_stitch.mp4",
+        "static/videos/hallo2_stitch2.mp4",
+        "static/videos/joyhallo_stitch.mp4"
+      ],
+      "releases": []
+    },
+    "ojinai/kit-example": {
+      "branch": "main",
+      "commit": "819fe6e95613fdcc7bffd8676e8814282cd445f5",
+      "paths": [
+        ".env.example",
+        ".gitignore",
+        "README.md",
+        "THIRD-PARTY-NOTICES.md",
+        "avatars",
+        "avatars/sample.png",
+        "docker-compose.yml",
+        "examples",
+        "examples/headless",
+        "examples/headless/Dockerfile",
+        "examples/headless/main.py",
+        "examples/headless/mp4_writer.py",
+        "examples/headless/requirements.txt",
+        "examples/headless/sample_audio_16k.wav",
+        "examples/live-mic",
+        "examples/live-mic/README.md",
+        "examples/live-mic/bot.py",
+        "examples/live-mic/requirements.txt",
+        "scripts",
+        "scripts/load_image.sh"
+      ],
+      "releases": []
+    }
+  },
+  "sample_times_s": [
+    1.0,
+    3.0,
+    5.0,
+    7.0,
+    9.0,
+    11.0
+  ],
+  "capacity_arithmetic": {
+    "historical_generator_fps": 77.36,
+    "historical_profile": "320x576 BF16 batch5, four steps, RTX 4070 SUPER; not a fresh refiner run",
+    "five_streams_15fps_serial_extra_ms_per_output": 0.4067562909341616,
+    "note": "Illustrative serial arithmetic only; CPU/GPU overlap and changed batching require measurement"
+  }
+}

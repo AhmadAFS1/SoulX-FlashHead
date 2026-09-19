@@ -1,0 +1,99 @@
+{
+  "status": "complete",
+  "created_at_utc": "2026-09-16T03:26:50.836449+00:00",
+  "question": "How do close 1.00x, closer 1.25x, and closest 1.50x behave with audio-conditioning strength 0.5?",
+  "intervention": "Multiply every Lite audio cross-attention block output by a shared scalar 0.5.",
+  "intervention_scope": "Process-local experimental hooks only; production code/defaults/checkpoints unchanged.",
+  "strength": 0.5,
+  "seed": 50,
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 4070 SUPER",
+    "visible_vram_mib": 12282.0,
+    "used_vram_before_model_load_mib": 2487.0,
+    "driver": "595.84",
+    "evidence": "nvidia-smi query at experiment start"
+  },
+  "profile": {
+    "model": "SoulX-FlashHead Lite",
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "optimized": true,
+    "real_rope": true,
+    "lean": true,
+    "fused_qkv": true,
+    "compiled": true,
+    "memory_mode": "compact",
+    "int8_weight_storage": true,
+    "torch_allocator_cap_mib": 3584
+  },
+  "inputs": {
+    "audio": {
+      "path": "benchmarks/comparison-10s.wav",
+      "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "seconds": 10
+    },
+    "references": {
+      "close-100": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-20260916/reference-close.png",
+        "sha256": "94f10ba31e16ec9af66d31ec44e1393fb20573d66c531d52914e77a751a04556"
+      },
+      "closer-125": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0"
+      },
+      "closest-150": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closest-150.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+      }
+    }
+  },
+  "unmodified_raw_hashes": {
+    "close-100": "ca101d88faff160eaef5f43baa9f0de366176ef88e8973019bfe752a2c534957",
+    "closer-125": "0dbb9063285c10abbfb71b9f64fc274007b904d5b22afde37719d556ae8ff30a",
+    "closest-150": "6a4a1debbb59b5fdce1d3d1ae3720b3e21e8f69535f6fccc70c03aaeb715dabb"
+  },
+  "rows": [
+    {
+      "label": "close-100",
+      "strength": 0.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.032939242984867,
+      "useful_fps": 35.5470154600535,
+      "peak_torch_mib": 3332.8291015625,
+      "raw_sha256": "26f6a565749ff6419957206ec5899c2ab337b6b64a72bb5dd5328f7c02bdc535",
+      "differs_from_unmodified": true,
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/close-100-strength-0p5-seed-50.mp4",
+      "video_sha256": "1361a748772c76b488aaf6194aa99504af23f19477221ed66a8c1dfe31c1f5a5"
+    },
+    {
+      "label": "closer-125",
+      "strength": 0.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.078691795992199,
+      "useful_fps": 35.31726019510336,
+      "peak_torch_mib": 3334.34619140625,
+      "raw_sha256": "73513ebc1e632b68d0cb4c7487f96dbcb691bf6789b231355a7143ef2149de9e",
+      "differs_from_unmodified": true,
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/closer-125-strength-0p5-seed-50.mp4",
+      "video_sha256": "233e7df6097bd55064ff8df2091f6b82757e26df88d216d41541e2cfe306c9bd"
+    },
+    {
+      "label": "closest-150",
+      "strength": 0.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.099244871002156,
+      "useful_fps": 35.21501294048321,
+      "peak_torch_mib": 3335.98828125,
+      "raw_sha256": "2827a45ab363fd8613849f274052a8fd73c8ab4feeceb00ca8731c5460faf18b",
+      "differs_from_unmodified": true,
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-strength-0p5-20260916/closest-150-strength-0p5-seed-50.mp4",
+      "video_sha256": "213c9225b2346e1cecd7cfa70b7aee0edcad346c4f67fcbb9d32cc434476a91e"
+    }
+  ],
+  "hook_count": 30
+}

@@ -1,0 +1,55 @@
+# Runs the delivered avatar-service image plus (optionally) the demo client.
+#
+# The image is NOT built here — it is a pre-built, run-only image you load once from the
+# encrypted tarball we ship you (see README "1. Load the image"). Compose only runs it with
+# the right GPU, port, volume and shared-memory settings.
+#
+#   docker compose up avatar              # just the service
+#   docker compose --profile demo up      # service + demo client -> out/avatar.mp4
+
+services:
+  avatar:
+    image: oj-avatar-service:kit-clean
+    # Frames are handed between the internal processes over POSIX shared memory; the default
+    # 64 MB is far too small for 1024x1024 frames.
+    shm_size: "1g"
+    ports:
+      - "8000:8000" # the only client-facing port (the websocket API)
+    volumes:
+      # Any face image you drop in here can be driven by filename (see OJIN_CONFIG_ID).
+      - ./avatars:/avatars:ro
+    # No env_file on purpose: the image ships working defaults (1024x1024 output, local mode,
+    # 1 session), so a fresh clone runs with zero configuration. To override anything from
+    # kit.env.example, add an `environment:` entry here or `--env-file your.env` on the CLI.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # Readiness, not just liveness: the internal inference server binds its port only after
+    # the model has finished loading (~2 min cold), so this flips to healthy at the moment
+    # the service can actually serve a session. (The public :8000/health answers immediately
+    # and would let clients in far too early.)
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8765/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 300s
+
+  # Tier 1 demo: plays a bundled WAV through the avatar and writes out/avatar.mp4.
+  # Under a profile so `docker compose up` alone doesn't run it.
+  demo:
+    profiles: ["demo"]
+    build: ./examples/headless
+    depends_on:
+      avatar:
+        condition: service_healthy
+    environment:
+      # Service DNS, not localhost — this runs in its own container on the compose network.
+      OJIN_WS_URL: ws://avatar:8000/realtime
+      OJIN_CONFIG_ID: ${OJIN_CONFIG_ID:-sample.png}
+    volumes:
+      - ./out:/out

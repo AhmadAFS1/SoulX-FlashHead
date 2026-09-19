@@ -1,0 +1,193 @@
+{
+  "gpu_inference_provenance": [
+    "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84",
+    "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84"
+  ],
+  "analysis": "CPU NumPy statistics and FFmpeg; no new GPU inference in this script",
+  "alpha_order": [
+    0.5,
+    0.7
+  ],
+  "matched_controls": "pass",
+  "limits": "One avatar/audio/seed; no replicate determinism test or phoneme scoring. Correlation is motion agreement, not audio sync.",
+  "comparisons": [
+    {
+      "label": "close-100",
+      "window": "all_frames",
+      "frames": 250,
+      "mean_opening": [
+        0.043695376575438746,
+        0.060969596324417355
+      ],
+      "p95_opening": [
+        0.0861738534300994,
+        0.10901519290504326
+      ],
+      "mean_change_pct": 39.53328956704423,
+      "p95_change_pct": 26.50611358986261,
+      "zero_lag_correlation": 0.9712129613817847
+    },
+    {
+      "label": "close-100",
+      "window": "before_final_15_frame_fade",
+      "frames": 235,
+      "mean_opening": [
+        0.045972637751722605,
+        0.06394634513017526
+      ],
+      "p95_opening": [
+        0.08744997061962097,
+        0.10946306390432037
+      ],
+      "mean_change_pct": 39.09653275829095,
+      "p95_change_pct": 25.172213471001868,
+      "zero_lag_correlation": 0.9687717474518357
+    },
+    {
+      "label": "closer-125",
+      "window": "all_frames",
+      "frames": 250,
+      "mean_opening": [
+        0.04353398448527262,
+        0.060092005077872185
+      ],
+      "p95_opening": [
+        0.08546237558946201,
+        0.10950668623995241
+      ],
+      "mean_change_pct": 38.03470044925725,
+      "p95_change_pct": 28.134381339915837,
+      "zero_lag_correlation": 0.9697913993500299
+    },
+    {
+      "label": "closer-125",
+      "window": "before_final_15_frame_fade",
+      "frames": 235,
+      "mean_opening": [
+        0.04570606306850668,
+        0.06290478025727594
+      ],
+      "p95_opening": [
+        0.08636927813738525,
+        0.1096920499548857
+      ],
+      "mean_change_pct": 37.62896218602534,
+      "p95_change_pct": 27.003550707465163,
+      "zero_lag_correlation": 0.9668625020632345
+    },
+    {
+      "label": "closest-150",
+      "window": "all_frames",
+      "frames": 250,
+      "mean_opening": [
+        0.044467963948559355,
+        0.0610996976362618
+      ],
+      "p95_opening": [
+        0.08419675019852309,
+        0.10791205988947694
+      ],
+      "mean_change_pct": 37.4016082835321,
+      "p95_change_pct": 28.166538061192114,
+      "zero_lag_correlation": 0.9677584077542213
+    },
+    {
+      "label": "closest-150",
+      "window": "before_final_15_frame_fade",
+      "frames": 235,
+      "mean_opening": [
+        0.046734090850150324,
+        0.06399998604842672
+      ],
+      "p95_opening": [
+        0.08442523391239351,
+        0.10812287364055236
+      ],
+      "mean_change_pct": 36.94496861753085,
+      "p95_change_pct": 28.06938000639647,
+      "zero_lag_correlation": 0.9643097715352148
+    }
+  ],
+  "validation": [
+    {
+      "video": "close-100-seed-50.mp4",
+      "sha256": "1222706ecce458f91c2bcee946522e9cd41f5091fd06066701583b043df182d0",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": "10.000000",
+      "full_decode": "pass"
+    },
+    {
+      "video": "close-100-seed-50.mp4.tmp.mp4",
+      "sha256": "f045f49c4435eaecb3351da66e8421c79250b27789e15ef46493ed05004ef1da",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": null,
+      "full_decode": "pass"
+    },
+    {
+      "video": "closer-125-seed-50.mp4",
+      "sha256": "580d1cd5864715d8c171dd0b1bfe4ee86f3de1d31afb1dcd3b479917ae910e97",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": "10.000000",
+      "full_decode": "pass"
+    },
+    {
+      "video": "closer-125-seed-50.mp4.tmp.mp4",
+      "sha256": "0edb6ae9c8a02af086e0a590df1b52a2155dabfe4340fcd4c0e41ecc1b5c7f12",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": null,
+      "full_decode": "pass"
+    },
+    {
+      "video": "closest-150-seed-50.mp4",
+      "sha256": "3708d659842f928ebbc8d4fbc91a6ecb23cf00345f2084f2d8409a1797fdb662",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": "10.000000",
+      "full_decode": "pass"
+    },
+    {
+      "video": "closest-150-seed-50.mp4.tmp.mp4",
+      "sha256": "cdada5e21fb81de4d3d08ad69d16150195951e16148ff5528078a1c7f46cc4b8",
+      "frames": 250,
+      "width": 320,
+      "height": 576,
+      "video_duration": "10.000000",
+      "audio_duration": null,
+      "full_decode": "pass"
+    },
+    {
+      "video": "ditto-indian-man-vad-alpha0.5-vs-0.7-three-framings.mp4",
+      "sha256": "0e4f53a1394d76d1314c9dda815369247fe24cfe8085e9d033c9c62f76d69537",
+      "frames": 250,
+      "width": 960,
+      "height": 1224,
+      "video_duration": "10.000000",
+      "audio_duration": "10.000000",
+      "full_decode": "pass"
+    },
+    {
+      "video": "ditto-indian-man-framing-1.00x-vs-1.25x-vs-1.50x-vad-alpha0p7.mp4",
+      "sha256": "7e7f0b4b79d9de07cf598dbdfc680ab08b9c2844e330597e487778ed3c6df218",
+      "frames": 250,
+      "width": 960,
+      "height": 612,
+      "video_duration": "10.000000",
+      "audio_duration": "10.000000",
+      "full_decode": "pass"
+    }
+  ]
+}

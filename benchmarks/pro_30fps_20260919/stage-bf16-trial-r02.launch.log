@@ -1,0 +1,5 @@
+W0919 01:28:42.820000 523380 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] torch._dynamo hit config.recompile_limit (8)
+W0919 01:28:42.820000 523380 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8]    function: 'forward' (/workspace/SoulX-FlashHead/flash_head/wan/modules/vae.py:34)
+W0919 01:28:42.820000 523380 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8]    last reason: 4/7: tensor 'x' stride mismatch at index 1. expected 184320, actual 737280
+W0919 01:28:42.820000 523380 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+W0919 01:28:42.820000 523380 .venv/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py:964] [4/8] To diagnose recompilation issues, see https://pytorch.org/docs/main/torch.compiler_troubleshooting.html.

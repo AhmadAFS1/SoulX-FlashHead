@@ -1,0 +1,11 @@
+............                                                             [100%]
+=============================== warnings summary ===============================
+tests/test_optimizations.py::test_prepared_rotary_preserves_complex_baseline
+tests/test_optimizations.py::test_prepared_rotary_preserves_complex_baseline
+tests/test_optimizations.py::test_prepared_rotary_preserves_complex_baseline
+tests/test_optimizations.py::test_prepared_rotary_preserves_complex_baseline
+  /workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/triton/runtime/autotuner.py:108: DeprecationWarning: warmup, rep, and use_cuda_graph parameters are deprecated. See https://github.com/triton-lang/triton/pull/4496 for details.
+    warnings.warn(("warmup, rep, and use_cuda_graph parameters are deprecated. See "
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 4 warnings in 3.55s

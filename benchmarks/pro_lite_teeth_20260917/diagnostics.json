@@ -1,0 +1,4820 @@
+{
+  "execution": "CPU MediaPipe/XNNPACK analysis of fresh retained RTX 4070 SUPER outputs; no additional SoulX inference.",
+  "limitations": "Laplacian variance is an edge-energy measure, not a validated tooth-blur or dental-accuracy score. Whole-mouth values include lips, beard, pose and H264. The central oral strip reduces but does not remove those confounds. Variant-specific mouth poses make same-time sharpness comparisons imperfect.",
+  "rows": [
+    {
+      "variant": "lite",
+      "path": "benchmarks/pro_lite_teeth_20260917/lite/video.mp4",
+      "fps": 25.0,
+      "decoded_frames": 249,
+      "detected_frames": 249,
+      "median_mouth_width_px": 100.6688551874151,
+      "median_normalized_opening": 0.08066806070820963,
+      "p95_normalized_opening": 0.1702318142135393,
+      "median_whole_mouth_laplacian_variance": 51.31343382585214,
+      "open_frame_count_ge_4px": 194,
+      "open_frame_median_central_oral_laplacian_variance": 125.33134129919014,
+      "open_frame_median_central_oral_mean_luma": 102.37143007646017,
+      "samples": [
+        {
+          "frame": 0,
+          "time_s": 0.0,
+          "normalized_opening": 0.0017543664582997933,
+          "opening_px": 0.29639927022082935,
+          "mouth_width_px": 98.98006608584669,
+          "whole_mouth_laplacian_variance": 52.46478965704101,
+          "central_oral_laplacian_variance": 185.80908585919573,
+          "central_oral_mean_luma": 90.13846153846154
+        },
+        {
+          "frame": 1,
+          "time_s": 0.04,
+          "normalized_opening": 0.0011354441484828681,
+          "opening_px": 0.1930877651542524,
+          "mouth_width_px": 97.13201219873844,
+          "whole_mouth_laplacian_variance": 52.27611770981006,
+          "central_oral_laplacian_variance": 357.1189884873072,
+          "central_oral_mean_luma": 67.52380952380952
+        },
+        {
+          "frame": 2,
+          "time_s": 0.08,
+          "normalized_opening": 0.06400812655449149,
+          "opening_px": 10.894740173539375,
+          "mouth_width_px": 88.33226723149274,
+          "whole_mouth_laplacian_variance": 49.88991617357002,
+          "central_oral_laplacian_variance": 106.70548830036604,
+          "central_oral_mean_luma": 58.696594427244584
+        },
+        {
+          "frame": 3,
+          "time_s": 0.12,
+          "normalized_opening": 0.06460991037999042,
+          "opening_px": 10.997349265305258,
+          "mouth_width_px": 81.94271778393926,
+          "whole_mouth_laplacian_variance": 46.581425111909816,
+          "central_oral_laplacian_variance": 122.18876300965387,
+          "central_oral_mean_luma": 58.94672586015538
+        },
+        {
+          "frame": 4,
+          "time_s": 0.16,
+          "normalized_opening": 0.0550057972673728,
+          "opening_px": 9.33916600319825,
+          "mouth_width_px": 82.89078249955135,
+          "whole_mouth_laplacian_variance": 47.71604936488124,
+          "central_oral_laplacian_variance": 180.80140459136823,
+          "central_oral_mean_luma": 61.77454545454545
+        },
+        {
+          "frame": 5,
+          "time_s": 0.2,
+          "normalized_opening": 0.0650056458407251,
+          "opening_px": 11.040262501449343,
+          "mouth_width_px": 88.26837566269097,
+          "whole_mouth_laplacian_variance": 43.05362710946489,
+          "central_oral_laplacian_variance": 98.08036968521589,
+          "central_oral_mean_luma": 64.28792569659443
+        },
+        {
+          "frame": 6,
+          "time_s": 0.24,
+          "normalized_opening": 0.09258239382984847,
+          "opening_px": 15.653593263501865,
+          "mouth_width_px": 96.04870485158771,
+          "whole_mouth_laplacian_variance": 35.54919951248922,
+          "central_oral_laplacian_variance": 58.15980488788107,
+          "central_oral_mean_luma": 64.6368253968254
+        },
+        {
+          "frame": 7,
+          "time_s": 0.28,
+          "normalized_opening": 0.09021642289969535,
+          "opening_px": 15.17028650661745,
+          "mouth_width_px": 99.83635208694078,
+          "whole_mouth_laplacian_variance": 35.83973841319187,
+          "central_oral_laplacian_variance": 75.38250534110357,
+          "central_oral_mean_luma": 74.81137123745819
+        },
+        {
+          "frame": 8,
+          "time_s": 0.32,
+          "normalized_opening": 0.040450779098114356,
+          "opening_px": 6.705507798946748,
+          "mouth_width_px": 100.42222845049776,
+          "whole_mouth_laplacian_variance": 30.91733789287219,
+          "central_oral_laplacian_variance": 59.76404909775538,
+          "central_oral_mean_luma": 96.26853146853146
+        },
+        {
+          "frame": 9,
+          "time_s": 0.36,
+          "normalized_opening": 0.016483457004957253,
+          "opening_px": 2.827555404453018,
+          "mouth_width_px": 100.73578106574149,
+          "whole_mouth_laplacian_variance": 28.62592226889947,
+          "central_oral_laplacian_variance": 51.537852916314456,
+          "central_oral_mean_luma": 102.50549450549451
+        },
+        {
+          "frame": 10,
+          "time_s": 0.4,
+          "normalized_opening": 0.015368940687459864,
+          "opening_px": 2.5649890343328736,
+          "mouth_width_px": 99.46480150376118,
+          "whole_mouth_laplacian_variance": 26.305076543944672,
+          "central_oral_laplacian_variance": 59.808747735780706,
+          "central_oral_mean_luma": 96.90989010989011
+        },
+        {
+          "frame": 11,
+          "time_s": 0.44,
+          "normalized_opening": 0.08580669342318073,
+          "opening_px": 14.241159508183342,
+          "mouth_width_px": 107.6631639213653,
+          "whole_mouth_laplacian_variance": 26.76465935239974,
+          "central_oral_laplacian_variance": 51.69681592999835,
+          "central_oral_mean_luma": 70.96030245746692
+        },
+        {
+          "frame": 12,
+          "time_s": 0.48,
+          "normalized_opening": 0.12901056011153686,
+          "opening_px": 21.46591187781635,
+          "mouth_width_px": 114.34830682847536,
+          "whole_mouth_laplacian_variance": 45.1755866678352,
+          "central_oral_laplacian_variance": 76.28969190898887,
+          "central_oral_mean_luma": 100.60969696969697
+        },
+        {
+          "frame": 13,
+          "time_s": 0.52,
+          "normalized_opening": 0.13092566443265446,
+          "opening_px": 22.050122115388263,
+          "mouth_width_px": 116.96789405507701,
+          "whole_mouth_laplacian_variance": 77.45501969818376,
+          "central_oral_laplacian_variance": 119.88652698412697,
+          "central_oral_mean_luma": 122.21333333333334
+        },
+        {
+          "frame": 14,
+          "time_s": 0.56,
+          "normalized_opening": 0.10960336099139736,
+          "opening_px": 18.568670380491504,
+          "mouth_width_px": 118.77947719146373,
+          "whole_mouth_laplacian_variance": 109.65036907609868,
+          "central_oral_laplacian_variance": 199.31669504114183,
+          "central_oral_mean_luma": 129.28884908195252
+        },
+        {
+          "frame": 15,
+          "time_s": 0.6,
+          "normalized_opening": 0.102104448725511,
+          "opening_px": 17.303771237583092,
+          "mouth_width_px": 116.98404707754558,
+          "whole_mouth_laplacian_variance": 110.62234559269189,
+          "central_oral_laplacian_variance": 203.21597415028197,
+          "central_oral_mean_luma": 130.04345679012346
+        },
+        {
+          "frame": 16,
+          "time_s": 0.64,
+          "normalized_opening": 0.10190644723937549,
+          "opening_px": 17.245422252248932,
+          "mouth_width_px": 114.86608717182999,
+          "whole_mouth_laplacian_variance": 102.33169284797984,
+          "central_oral_laplacian_variance": 178.62117213839355,
+          "central_oral_mean_luma": 129.59802469135803
+        },
+        {
+          "frame": 17,
+          "time_s": 0.68,
+          "normalized_opening": 0.10190698606968987,
+          "opening_px": 17.314036714373522,
+          "mouth_width_px": 115.60576326130841,
+          "whole_mouth_laplacian_variance": 92.86161448060486,
+          "central_oral_laplacian_variance": 165.99519244017682,
+          "central_oral_mean_luma": 128.5446913580247
+        },
+        {
+          "frame": 18,
+          "time_s": 0.72,
+          "normalized_opening": 0.11634440023270896,
+          "opening_px": 19.667267560179358,
+          "mouth_width_px": 114.5971433998385,
+          "whole_mouth_laplacian_variance": 97.99631140594181,
+          "central_oral_laplacian_variance": 158.90406752225692,
+          "central_oral_mean_luma": 126.54537634408602
+        },
+        {
+          "frame": 19,
+          "time_s": 0.76,
+          "normalized_opening": 0.11273657702846716,
+          "opening_px": 19.00681907311731,
+          "mouth_width_px": 108.83240319532943,
+          "whole_mouth_laplacian_variance": 79.31356693144929,
+          "central_oral_laplacian_variance": 136.4560874314568,
+          "central_oral_mean_luma": 119.41719281204468
+        },
+        {
+          "frame": 20,
+          "time_s": 0.8,
+          "normalized_opening": 0.008675170021390524,
+          "opening_px": 1.4633923607285046,
+          "mouth_width_px": 98.90054529791759,
+          "whole_mouth_laplacian_variance": 39.342418021077314,
+          "central_oral_laplacian_variance": 224.23955560922596,
+          "central_oral_mean_luma": 78.68351648351648
+        },
+        {
+          "frame": 21,
+          "time_s": 0.84,
+          "normalized_opening": 0.0010963959038972615,
+          "opening_px": 0.18563060377152402,
+          "mouth_width_px": 97.99584184594124,
+          "whole_mouth_laplacian_variance": 39.83957597380167,
+          "central_oral_laplacian_variance": 362.61400342449906,
+          "central_oral_mean_luma": 77.31519274376417
+        },
+        {
+          "frame": 22,
+          "time_s": 0.88,
+          "normalized_opening": 0.0530657141877774,
+          "opening_px": 8.976502670484198,
+          "mouth_width_px": 103.14114251895552,
+          "whole_mouth_laplacian_variance": 42.49173035831689,
+          "central_oral_laplacian_variance": 120.97793024925124,
+          "central_oral_mean_luma": 71.25572139303483
+        },
+        {
+          "frame": 23,
+          "time_s": 0.92,
+          "normalized_opening": 0.16014488308028244,
+          "opening_px": 26.797116622325518,
+          "mouth_width_px": 111.01675403202145,
+          "whole_mouth_laplacian_variance": 69.36287960576666,
+          "central_oral_laplacian_variance": 98.42380165591861,
+          "central_oral_mean_luma": 96.8994320080187
+        },
+        {
+          "frame": 24,
+          "time_s": 0.96,
+          "normalized_opening": 0.17068531654241895,
+          "opening_px": 28.676073173178438,
+          "mouth_width_px": 118.060611727999,
+          "whole_mouth_laplacian_variance": 98.45736411431368,
+          "central_oral_laplacian_variance": 125.09140100239667,
+          "central_oral_mean_luma": 106.67503607503608
+        },
+        {
+          "frame": 25,
+          "time_s": 1.0,
+          "normalized_opening": 0.1334301810228336,
+          "opening_px": 22.45892129608145,
+          "mouth_width_px": 116.90241320925742,
+          "whole_mouth_laplacian_variance": 104.30110725237303,
+          "central_oral_laplacian_variance": 169.56465574603178,
+          "central_oral_mean_luma": 119.07657142857143
+        },
+        {
+          "frame": 26,
+          "time_s": 1.04,
+          "normalized_opening": 0.12150420769599841,
+          "opening_px": 20.638384102558458,
+          "mouth_width_px": 114.88957360200526,
+          "whole_mouth_laplacian_variance": 127.71194291475335,
+          "central_oral_laplacian_variance": 238.3317192739045,
+          "central_oral_mean_luma": 127.22494623655913
+        },
+        {
+          "frame": 27,
+          "time_s": 1.08,
+          "normalized_opening": 0.113100144668473,
+          "opening_px": 19.091616844343076,
+          "mouth_width_px": 115.48574293972558,
+          "whole_mouth_laplacian_variance": 130.70555179954593,
+          "central_oral_laplacian_variance": 253.82289528339277,
+          "central_oral_mean_luma": 130.5158620689655
+        },
+        {
+          "frame": 28,
+          "time_s": 1.12,
+          "normalized_opening": 0.11164057943466124,
+          "opening_px": 18.899647324486146,
+          "mouth_width_px": 115.58964562575952,
+          "whole_mouth_laplacian_variance": 118.6860457501233,
+          "central_oral_laplacian_variance": 219.6795171885322,
+          "central_oral_mean_luma": 131.1567816091954
+        },
+        {
+          "frame": 29,
+          "time_s": 1.16,
+          "normalized_opening": 0.1179784417547753,
+          "opening_px": 19.849532104638506,
+          "mouth_width_px": 114.82938830845194,
+          "whole_mouth_laplacian_variance": 113.91393051799544,
+          "central_oral_laplacian_variance": 199.48265445716268,
+          "central_oral_mean_luma": 128.73763440860216
+        },
+        {
+          "frame": 30,
+          "time_s": 1.2,
+          "normalized_opening": 0.11864913622238439,
+          "opening_px": 19.700119215165387,
+          "mouth_width_px": 112.45117472754212,
+          "whole_mouth_laplacian_variance": 107.46820004154081,
+          "central_oral_laplacian_variance": 194.04750360708658,
+          "central_oral_mean_luma": 127.68007070260715
+        },
+        {
+          "frame": 31,
+          "time_s": 1.24,
+          "normalized_opening": 0.10188982986065818,
+          "opening_px": 17.065223917505058,
+          "mouth_width_px": 106.02472590419225,
+          "whole_mouth_laplacian_variance": 94.64247154421432,
+          "central_oral_laplacian_variance": 203.72624337718815,
+          "central_oral_mean_luma": 124.69779924852389
+        },
+        {
+          "frame": 32,
+          "time_s": 1.28,
+          "normalized_opening": 0.06245467528001537,
+          "opening_px": 10.449581982413536,
+          "mouth_width_px": 94.01628545462998,
+          "whole_mouth_laplacian_variance": 43.63911232330703,
+          "central_oral_laplacian_variance": 112.53243305321244,
+          "central_oral_mean_luma": 120.13886210221794
+        },
+        {
+          "frame": 33,
+          "time_s": 1.32,
+          "normalized_opening": 0.014535484814446983,
+          "opening_px": 2.4069895306509426,
+          "mouth_width_px": 90.3435125751777,
+          "whole_mouth_laplacian_variance": 27.336726221890924,
+          "central_oral_laplacian_variance": 161.69117483247246,
+          "central_oral_mean_luma": 81.62469733656174
+        },
+        {
+          "frame": 34,
+          "time_s": 1.36,
+          "normalized_opening": 0.020472974055446753,
+          "opening_px": 3.3466483460587564,
+          "mouth_width_px": 90.15144240390737,
+          "whole_mouth_laplacian_variance": 29.086580676518324,
+          "central_oral_laplacian_variance": 142.4111180812457,
+          "central_oral_mean_luma": 84.01694915254237
+        },
+        {
+          "frame": 35,
+          "time_s": 1.4,
+          "normalized_opening": 0.04540663711805987,
+          "opening_px": 7.502089394474135,
+          "mouth_width_px": 94.91528246016529,
+          "whole_mouth_laplacian_variance": 34.37814092291256,
+          "central_oral_laplacian_variance": 63.37443806064731,
+          "central_oral_mean_luma": 95.17402269861286
+        },
+        {
+          "frame": 36,
+          "time_s": 1.44,
+          "normalized_opening": 0.07034840979551751,
+          "opening_px": 11.734605275811303,
+          "mouth_width_px": 99.51335695240233,
+          "whole_mouth_laplacian_variance": 55.714542627177835,
+          "central_oral_laplacian_variance": 140.9383704043666,
+          "central_oral_mean_luma": 118.97732793522268
+        },
+        {
+          "frame": 37,
+          "time_s": 1.48,
+          "normalized_opening": 0.09109953768827007,
+          "opening_px": 15.25364643771944,
+          "mouth_width_px": 105.91846379609848,
+          "whole_mouth_laplacian_variance": 90.09841114372742,
+          "central_oral_laplacian_variance": 212.8210170140266,
+          "central_oral_mean_luma": 133.16950220541904
+        },
+        {
+          "frame": 38,
+          "time_s": 1.52,
+          "normalized_opening": 0.10304368154690638,
+          "opening_px": 17.278811081759905,
+          "mouth_width_px": 108.20302093215096,
+          "whole_mouth_laplacian_variance": 111.5256823979264,
+          "central_oral_laplacian_variance": 234.37465131599893,
+          "central_oral_mean_luma": 130.12467396974438
+        },
+        {
+          "frame": 39,
+          "time_s": 1.56,
+          "normalized_opening": 0.1193221715769547,
+          "opening_px": 20.109635474037876,
+          "mouth_width_px": 109.34886221113273,
+          "whole_mouth_laplacian_variance": 101.88208629801272,
+          "central_oral_laplacian_variance": 204.76683371174266,
+          "central_oral_mean_luma": 122.93366651522035
+        },
+        {
+          "frame": 40,
+          "time_s": 1.6,
+          "normalized_opening": 0.12511970946976955,
+          "opening_px": 21.109479753601768,
+          "mouth_width_px": 109.29938307422708,
+          "whole_mouth_laplacian_variance": 85.07913009372689,
+          "central_oral_laplacian_variance": 160.80067231985143,
+          "central_oral_mean_luma": 118.04396073410157
+        },
+        {
+          "frame": 41,
+          "time_s": 1.64,
+          "normalized_opening": 0.11994727380774381,
+          "opening_px": 20.311186211078837,
+          "mouth_width_px": 109.7035950777433,
+          "whole_mouth_laplacian_variance": 83.48982731344509,
+          "central_oral_laplacian_variance": 161.91785403396622,
+          "central_oral_mean_luma": 112.78555202180827
+        },
+        {
+          "frame": 42,
+          "time_s": 1.68,
+          "normalized_opening": 0.13416357088856265,
+          "opening_px": 22.69358145128841,
+          "mouth_width_px": 113.16425915752181,
+          "whole_mouth_laplacian_variance": 91.37092938445102,
+          "central_oral_laplacian_variance": 157.39111691514663,
+          "central_oral_mean_luma": 107.97181996086105
+        },
+        {
+          "frame": 43,
+          "time_s": 1.72,
+          "normalized_opening": 0.1460253790318848,
+          "opening_px": 24.71458622435531,
+          "mouth_width_px": 116.25261684111437,
+          "whole_mouth_laplacian_variance": 104.07052758773011,
+          "central_oral_laplacian_variance": 159.57295767404486,
+          "central_oral_mean_luma": 107.47076923076924
+        },
+        {
+          "frame": 44,
+          "time_s": 1.76,
+          "normalized_opening": 0.1375018839789682,
+          "opening_px": 23.39147902295244,
+          "mouth_width_px": 116.76099641514283,
+          "whole_mouth_laplacian_variance": 98.85305330676518,
+          "central_oral_laplacian_variance": 160.80645713821932,
+          "central_oral_mean_luma": 112.36216216216216
+        },
+        {
+          "frame": 45,
+          "time_s": 1.8,
+          "normalized_opening": 0.12697032227594868,
+          "opening_px": 21.50823082469006,
+          "mouth_width_px": 113.64008278522665,
+          "whole_mouth_laplacian_variance": 96.529521593524,
+          "central_oral_laplacian_variance": 180.6927033173131,
+          "central_oral_mean_luma": 117.09962640099626
+        },
+        {
+          "frame": 46,
+          "time_s": 1.84,
+          "normalized_opening": 0.16955156072021987,
+          "opening_px": 28.682885955843485,
+          "mouth_width_px": 113.90169875127096,
+          "whole_mouth_laplacian_variance": 94.54671063445102,
+          "central_oral_laplacian_variance": 129.43317964364567,
+          "central_oral_mean_luma": 107.76925418569255
+        },
+        {
+          "frame": 47,
+          "time_s": 1.88,
+          "normalized_opening": 0.21700334645054875,
+          "opening_px": 36.54117536629673,
+          "mouth_width_px": 110.95186855786343,
+          "whole_mouth_laplacian_variance": 82.5911201512163,
+          "central_oral_laplacian_variance": 99.91814320381611,
+          "central_oral_mean_luma": 93.92228661749209
+        },
+        {
+          "frame": 48,
+          "time_s": 1.92,
+          "normalized_opening": 0.13191577438167407,
+          "opening_px": 22.343582683070988,
+          "mouth_width_px": 99.92978430770529,
+          "whole_mouth_laplacian_variance": 43.75740989268728,
+          "central_oral_laplacian_variance": 67.2929074266393,
+          "central_oral_mean_luma": 74.42285714285714
+        },
+        {
+          "frame": 49,
+          "time_s": 1.96,
+          "normalized_opening": 0.06186452368431858,
+          "opening_px": 10.499160588294473,
+          "mouth_width_px": 92.60682531843192,
+          "whole_mouth_laplacian_variance": 42.97002796622031,
+          "central_oral_laplacian_variance": 94.23138848153518,
+          "central_oral_mean_luma": 58.529411764705884
+        },
+        {
+          "frame": 50,
+          "time_s": 2.0,
+          "normalized_opening": 0.0007699758648560585,
+          "opening_px": 0.13079446634670724,
+          "mouth_width_px": 94.13340711886657,
+          "whole_mouth_laplacian_variance": 45.37921311117018,
+          "central_oral_laplacian_variance": 243.19229524650493,
+          "central_oral_mean_luma": 68.3864168618267
+        },
+        {
+          "frame": 51,
+          "time_s": 2.04,
+          "normalized_opening": 0.03623782570831861,
+          "opening_px": 6.144856334985075,
+          "mouth_width_px": 100.4463110104047,
+          "whole_mouth_laplacian_variance": 52.00270416640984,
+          "central_oral_laplacian_variance": 222.6941953151743,
+          "central_oral_mean_luma": 100.86433566433567
+        },
+        {
+          "frame": 52,
+          "time_s": 2.08,
+          "normalized_opening": 0.036571595472112,
+          "opening_px": 6.207668942754015,
+          "mouth_width_px": 103.52531289340263,
+          "whole_mouth_laplacian_variance": 46.13085612460706,
+          "central_oral_laplacian_variance": 184.00147283810375,
+          "central_oral_mean_luma": 112.09633649932158
+        },
+        {
+          "frame": 53,
+          "time_s": 2.12,
+          "normalized_opening": 0.06155246283505745,
+          "opening_px": 10.396472320051585,
+          "mouth_width_px": 107.1130000050068,
+          "whole_mouth_laplacian_variance": 43.80654030423035,
+          "central_oral_laplacian_variance": 115.15705388868174,
+          "central_oral_mean_luma": 128.0460358056266
+        },
+        {
+          "frame": 54,
+          "time_s": 2.16,
+          "normalized_opening": 0.09359461986865406,
+          "opening_px": 15.862385043619588,
+          "mouth_width_px": 107.95468730224214,
+          "whole_mouth_laplacian_variance": 61.38379805124096,
+          "central_oral_laplacian_variance": 116.73283745288634,
+          "central_oral_mean_luma": 124.61633802816901
+        },
+        {
+          "frame": 55,
+          "time_s": 2.2,
+          "normalized_opening": 0.12001358138341843,
+          "opening_px": 20.34242817480111,
+          "mouth_width_px": 107.66648502925696,
+          "whole_mouth_laplacian_variance": 67.28698224852072,
+          "central_oral_laplacian_variance": 134.61923043213798,
+          "central_oral_mean_luma": 114.09069658719028
+        },
+        {
+          "frame": 56,
+          "time_s": 2.24,
+          "normalized_opening": 0.13632418011197742,
+          "opening_px": 23.031767416569277,
+          "mouth_width_px": 109.6097837244278,
+          "whole_mouth_laplacian_variance": 81.13695181521202,
+          "central_oral_laplacian_variance": 141.83423664724768,
+          "central_oral_mean_luma": 106.33722334004024
+        },
+        {
+          "frame": 57,
+          "time_s": 2.28,
+          "normalized_opening": 0.10395879987499862,
+          "opening_px": 17.546776804496393,
+          "mouth_width_px": 106.23460651477052,
+          "whole_mouth_laplacian_variance": 38.25101685132109,
+          "central_oral_laplacian_variance": 69.97578058349605,
+          "central_oral_mean_luma": 87.020397208803
+        },
+        {
+          "frame": 58,
+          "time_s": 2.32,
+          "normalized_opening": 0.06771757117049013,
+          "opening_px": 11.415193341877236,
+          "mouth_width_px": 101.26819537254669,
+          "whole_mouth_laplacian_variance": 34.12124768218894,
+          "central_oral_laplacian_variance": 67.36075923224443,
+          "central_oral_mean_luma": 66.16518218623482
+        },
+        {
+          "frame": 59,
+          "time_s": 2.36,
+          "normalized_opening": 0.0415682326269334,
+          "opening_px": 7.032332215206131,
+          "mouth_width_px": 96.17575427478137,
+          "whole_mouth_laplacian_variance": 33.34853357519467,
+          "central_oral_laplacian_variance": 231.66880097616027,
+          "central_oral_mean_luma": 40.702741702741704
+        },
+        {
+          "frame": 60,
+          "time_s": 2.4,
+          "normalized_opening": 0.008825518494159676,
+          "opening_px": 1.4926545416456718,
+          "mouth_width_px": 92.60481200464734,
+          "whole_mouth_laplacian_variance": 35.248317460179884,
+          "central_oral_laplacian_variance": 207.9960072177218,
+          "central_oral_mean_luma": 39.90632318501171
+        },
+        {
+          "frame": 61,
+          "time_s": 2.44,
+          "normalized_opening": 0.0022191249824073697,
+          "opening_px": 0.37538652566662223,
+          "mouth_width_px": 89.30333758876479,
+          "whole_mouth_laplacian_variance": 38.6225754476393,
+          "central_oral_laplacian_variance": 305.55537055385213,
+          "central_oral_mean_luma": 46.14527845036319
+        },
+        {
+          "frame": 62,
+          "time_s": 2.48,
+          "normalized_opening": 0.0028039553822489993,
+          "opening_px": 0.4730623408088109,
+          "mouth_width_px": 85.76600871174816,
+          "whole_mouth_laplacian_variance": 36.91837320321489,
+          "central_oral_laplacian_variance": 435.6259470399731,
+          "central_oral_mean_luma": 51.275324675324676
+        },
+        {
+          "frame": 63,
+          "time_s": 2.52,
+          "normalized_opening": 0.0018720877472651076,
+          "opening_px": 0.3156305461929745,
+          "mouth_width_px": 84.19142528169759,
+          "whole_mouth_laplacian_variance": 33.36539388502373,
+          "central_oral_laplacian_variance": 379.8545184685444,
+          "central_oral_mean_luma": 62.51428571428571
+        },
+        {
+          "frame": 64,
+          "time_s": 2.56,
+          "normalized_opening": 0.0022458397984378687,
+          "opening_px": 0.3779853279594856,
+          "mouth_width_px": 82.61203316575093,
+          "whole_mouth_laplacian_variance": 33.23415525738618,
+          "central_oral_laplacian_variance": 310.0002906110824,
+          "central_oral_mean_luma": 65.3099730458221
+        },
+        {
+          "frame": 65,
+          "time_s": 2.6,
+          "normalized_opening": 0.0038479799109118443,
+          "opening_px": 0.6464038990386948,
+          "mouth_width_px": 82.37581026277854,
+          "whole_mouth_laplacian_variance": 31.743876701119227,
+          "central_oral_laplacian_variance": 223.59847719792796,
+          "central_oral_mean_luma": 70.40431266846362
+        },
+        {
+          "frame": 66,
+          "time_s": 2.64,
+          "normalized_opening": 0.002727944677830321,
+          "opening_px": 0.46014074488068996,
+          "mouth_width_px": 89.13211204685176,
+          "whole_mouth_laplacian_variance": 37.36071556638057,
+          "central_oral_laplacian_variance": 214.5449759334932,
+          "central_oral_mean_luma": 69.60532687651332
+        },
+        {
+          "frame": 67,
+          "time_s": 2.68,
+          "normalized_opening": 0.021795309603946482,
+          "opening_px": 3.6936017411562014,
+          "mouth_width_px": 97.4747213748137,
+          "whole_mouth_laplacian_variance": 39.5701352532642,
+          "central_oral_laplacian_variance": 235.91245417290122,
+          "central_oral_mean_luma": 90.86621315192744
+        },
+        {
+          "frame": 68,
+          "time_s": 2.72,
+          "normalized_opening": 0.06811165870383318,
+          "opening_px": 11.623889103487969,
+          "mouth_width_px": 103.83414629203432,
+          "whole_mouth_laplacian_variance": 44.927785378079285,
+          "central_oral_laplacian_variance": 93.20736006575629,
+          "central_oral_mean_luma": 123.23095051060487
+        },
+        {
+          "frame": 69,
+          "time_s": 2.76,
+          "normalized_opening": 0.07661505696776343,
+          "opening_px": 13.131528646132267,
+          "mouth_width_px": 107.23050639470827,
+          "whole_mouth_laplacian_variance": 52.83508421166174,
+          "central_oral_laplacian_variance": 101.82163753970397,
+          "central_oral_mean_luma": 126.7184265010352
+        },
+        {
+          "frame": 70,
+          "time_s": 2.8,
+          "normalized_opening": 0.08706680287711388,
+          "opening_px": 14.845713870111508,
+          "mouth_width_px": 107.59857980311902,
+          "whole_mouth_laplacian_variance": 47.35193168043228,
+          "central_oral_laplacian_variance": 81.78510971905078,
+          "central_oral_mean_luma": 124.18210459987398
+        },
+        {
+          "frame": 71,
+          "time_s": 2.84,
+          "normalized_opening": 0.08458661255406341,
+          "opening_px": 14.385569087351707,
+          "mouth_width_px": 106.31553871633675,
+          "whole_mouth_laplacian_variance": 48.095925235183984,
+          "central_oral_laplacian_variance": 94.90519259150732,
+          "central_oral_mean_luma": 117.49023314429742
+        },
+        {
+          "frame": 72,
+          "time_s": 2.88,
+          "normalized_opening": 0.014184304309819857,
+          "opening_px": 2.408335412546284,
+          "mouth_width_px": 98.06539668473995,
+          "whole_mouth_laplacian_variance": 26.820215830906374,
+          "central_oral_laplacian_variance": 104.34826024136034,
+          "central_oral_mean_luma": 97.69160997732426
+        },
+        {
+          "frame": 73,
+          "time_s": 2.92,
+          "normalized_opening": 0.0008626910729085884,
+          "opening_px": 0.14605398210578097,
+          "mouth_width_px": 95.15784559242339,
+          "whole_mouth_laplacian_variance": 29.46402573444434,
+          "central_oral_laplacian_variance": 109.99511871397308,
+          "central_oral_mean_luma": 97.4168618266979
+        },
+        {
+          "frame": 74,
+          "time_s": 2.96,
+          "normalized_opening": 0.0010536967901348267,
+          "opening_px": 0.17838248832879344,
+          "mouth_width_px": 94.53531325704652,
+          "whole_mouth_laplacian_variance": 25.87731893465442,
+          "central_oral_laplacian_variance": 86.337653362877,
+          "central_oral_mean_luma": 98.40515222482436
+        },
+        {
+          "frame": 75,
+          "time_s": 3.0,
+          "normalized_opening": 0.0006719064037857807,
+          "opening_px": 0.1138544379763615,
+          "mouth_width_px": 91.85556745114764,
+          "whole_mouth_laplacian_variance": 31.332589795917055,
+          "central_oral_laplacian_variance": 128.4070141702185,
+          "central_oral_mean_luma": 86.15738498789347
+        },
+        {
+          "frame": 76,
+          "time_s": 3.04,
+          "normalized_opening": 0.004692810279570005,
+          "opening_px": 0.7940183573080037,
+          "mouth_width_px": 89.32766509514903,
+          "whole_mouth_laplacian_variance": 33.32285787869566,
+          "central_oral_laplacian_variance": 180.57561456067634,
+          "central_oral_mean_luma": 73.63680387409201
+        },
+        {
+          "frame": 77,
+          "time_s": 3.08,
+          "normalized_opening": 0.014586202094694689,
+          "opening_px": 2.4517978814907044,
+          "mouth_width_px": 84.38872667103982,
+          "whole_mouth_laplacian_variance": 37.8640805657642,
+          "central_oral_laplacian_variance": 171.84642266824082,
+          "central_oral_mean_luma": 71.79220779220779
+        },
+        {
+          "frame": 78,
+          "time_s": 3.12,
+          "normalized_opening": 0.015587502682126404,
+          "opening_px": 2.572972924189194,
+          "mouth_width_px": 82.5536608392813,
+          "whole_mouth_laplacian_variance": 39.80199842183391,
+          "central_oral_laplacian_variance": 139.72147833857645,
+          "central_oral_mean_luma": 75.21832884097034
+        },
+        {
+          "frame": 79,
+          "time_s": 3.16,
+          "normalized_opening": 0.02904925059626456,
+          "opening_px": 4.795098899518052,
+          "mouth_width_px": 81.10927150576899,
+          "whole_mouth_laplacian_variance": 40.0397244565664,
+          "central_oral_laplacian_variance": 97.26973704450862,
+          "central_oral_mean_luma": 72.70440251572327
+        },
+        {
+          "frame": 80,
+          "time_s": 3.2,
+          "normalized_opening": 0.03547672899176721,
+          "opening_px": 5.8370542342676766,
+          "mouth_width_px": 83.48062123329053,
+          "whole_mouth_laplacian_variance": 39.62385393552761,
+          "central_oral_laplacian_variance": 103.950927456382,
+          "central_oral_mean_luma": 71.3030303030303
+        },
+        {
+          "frame": 81,
+          "time_s": 3.24,
+          "normalized_opening": 0.042082805956004846,
+          "opening_px": 6.993294625035005,
+          "mouth_width_px": 91.76954747241254,
+          "whole_mouth_laplacian_variance": 38.402258356960886,
+          "central_oral_laplacian_variance": 90.20424927766076,
+          "central_oral_mean_luma": 118.91833590138675
+        },
+        {
+          "frame": 82,
+          "time_s": 3.28,
+          "normalized_opening": 0.09043656820558522,
+          "opening_px": 15.159773207099638,
+          "mouth_width_px": 100.78020679693687,
+          "whole_mouth_laplacian_variance": 41.96130668043228,
+          "central_oral_laplacian_variance": 58.14738806053624,
+          "central_oral_mean_luma": 126.83879598662207
+        },
+        {
+          "frame": 83,
+          "time_s": 3.32,
+          "normalized_opening": 0.10374917976975502,
+          "opening_px": 17.42758014480426,
+          "mouth_width_px": 103.72676175636731,
+          "whole_mouth_laplacian_variance": 50.76790456878442,
+          "central_oral_laplacian_variance": 87.56801643768138,
+          "central_oral_mean_luma": 128.39524599226093
+        },
+        {
+          "frame": 84,
+          "time_s": 3.36,
+          "normalized_opening": 0.09953808379822297,
+          "opening_px": 16.776362495015345,
+          "mouth_width_px": 105.26541185122662,
+          "whole_mouth_laplacian_variance": 56.64623333230605,
+          "central_oral_laplacian_variance": 95.09619971827567,
+          "central_oral_mean_luma": 126.60923242082663
+        },
+        {
+          "frame": 85,
+          "time_s": 3.4,
+          "normalized_opening": 0.08907498865851239,
+          "opening_px": 15.05978858310419,
+          "mouth_width_px": 105.89966161510525,
+          "whole_mouth_laplacian_variance": 62.68552275788697,
+          "central_oral_laplacian_variance": 120.23119874817802,
+          "central_oral_mean_luma": 126.80844360428482
+        },
+        {
+          "frame": 86,
+          "time_s": 3.44,
+          "normalized_opening": 0.0827624346089348,
+          "opening_px": 14.025446919859599,
+          "mouth_width_px": 106.82567174998258,
+          "whole_mouth_laplacian_variance": 62.490860336474256,
+          "central_oral_laplacian_variance": 122.90152622381996,
+          "central_oral_mean_luma": 124.84183994959042
+        },
+        {
+          "frame": 87,
+          "time_s": 3.48,
+          "normalized_opening": 0.08297916882045908,
+          "opening_px": 14.086959040221236,
+          "mouth_width_px": 106.04052452984293,
+          "whole_mouth_laplacian_variance": 57.898385493713015,
+          "central_oral_laplacian_variance": 118.77751056254561,
+          "central_oral_mean_luma": 123.1902961562697
+        },
+        {
+          "frame": 88,
+          "time_s": 3.52,
+          "normalized_opening": 0.08158194663675128,
+          "opening_px": 13.905205267769832,
+          "mouth_width_px": 105.80366452708078,
+          "whole_mouth_laplacian_variance": 64.54401850653355,
+          "central_oral_laplacian_variance": 147.18708554625377,
+          "central_oral_mean_luma": 125.7336093857833
+        },
+        {
+          "frame": 89,
+          "time_s": 3.56,
+          "normalized_opening": 0.08321544155872992,
+          "opening_px": 14.238207090738047,
+          "mouth_width_px": 104.38192549719021,
+          "whole_mouth_laplacian_variance": 63.745191665639375,
+          "central_oral_laplacian_variance": 130.3459033023804,
+          "central_oral_mean_luma": 122.82608695652173
+        },
+        {
+          "frame": 90,
+          "time_s": 3.6,
+          "normalized_opening": 0.07850587253604113,
+          "opening_px": 13.418878040363023,
+          "mouth_width_px": 104.65577894738891,
+          "whole_mouth_laplacian_variance": 65.20249257786817,
+          "central_oral_laplacian_variance": 152.0847463363455,
+          "central_oral_mean_luma": 123.9182658137882
+        },
+        {
+          "frame": 91,
+          "time_s": 3.64,
+          "normalized_opening": 0.080417969093773,
+          "opening_px": 13.75750716503257,
+          "mouth_width_px": 105.44522994438707,
+          "whole_mouth_laplacian_variance": 58.41354227661694,
+          "central_oral_laplacian_variance": 128.86457665051597,
+          "central_oral_mean_luma": 122.79227053140097
+        },
+        {
+          "frame": 92,
+          "time_s": 3.68,
+          "normalized_opening": 0.08299566920139102,
+          "opening_px": 14.178611960257077,
+          "mouth_width_px": 105.33723274894679,
+          "whole_mouth_laplacian_variance": 55.35652412449663,
+          "central_oral_laplacian_variance": 110.88679960723728,
+          "central_oral_mean_luma": 120.35223692501576
+        },
+        {
+          "frame": 93,
+          "time_s": 3.72,
+          "normalized_opening": 0.08752838523272849,
+          "opening_px": 14.918752863065263,
+          "mouth_width_px": 104.22682397792595,
+          "whole_mouth_laplacian_variance": 58.66713372004182,
+          "central_oral_laplacian_variance": 127.80783776852553,
+          "central_oral_mean_luma": 123.30759247242051
+        },
+        {
+          "frame": 94,
+          "time_s": 3.76,
+          "normalized_opening": 0.08813634227544018,
+          "opening_px": 15.02564109354601,
+          "mouth_width_px": 104.0519540686821,
+          "whole_mouth_laplacian_variance": 61.69439175597623,
+          "central_oral_laplacian_variance": 134.43096483275016,
+          "central_oral_mean_luma": 117.0123296560675
+        },
+        {
+          "frame": 95,
+          "time_s": 3.8,
+          "normalized_opening": 0.01264515031693263,
+          "opening_px": 2.1537547767451826,
+          "mouth_width_px": 100.6688551874151,
+          "whole_mouth_laplacian_variance": 40.211875499196154,
+          "central_oral_laplacian_variance": 174.0916121241396,
+          "central_oral_mean_luma": 90.67032967032966
+        },
+        {
+          "frame": 96,
+          "time_s": 3.84,
+          "normalized_opening": 0.001420470817656006,
+          "opening_px": 0.2417825304808279,
+          "mouth_width_px": 97.12200791995862,
+          "whole_mouth_laplacian_variance": 34.485024075379584,
+          "central_oral_laplacian_variance": 158.24028054154388,
+          "central_oral_mean_luma": 77.97278911564626
+        },
+        {
+          "frame": 97,
+          "time_s": 3.88,
+          "normalized_opening": 0.0017397940737083955,
+          "opening_px": 0.2961452779623243,
+          "mouth_width_px": 95.05113746640359,
+          "whole_mouth_laplacian_variance": 37.20471969895423,
+          "central_oral_laplacian_variance": 162.46818662966396,
+          "central_oral_mean_luma": 95.75409836065573
+        },
+        {
+          "frame": 98,
+          "time_s": 3.92,
+          "normalized_opening": 0.001973823170160307,
+          "opening_px": 0.33104670073290865,
+          "mouth_width_px": 94.56899773638254,
+          "whole_mouth_laplacian_variance": 40.151010848126234,
+          "central_oral_laplacian_variance": 254.82993928557718,
+          "central_oral_mean_luma": 96.30210772833723
+        },
+        {
+          "frame": 99,
+          "time_s": 3.96,
+          "normalized_opening": 0.0019910041536355,
+          "opening_px": 0.331610202292542,
+          "mouth_width_px": 93.69115047378295,
+          "whole_mouth_laplacian_variance": 40.78246669029422,
+          "central_oral_laplacian_variance": 277.59817692193786,
+          "central_oral_mean_luma": 100.21779859484778
+        },
+        {
+          "frame": 100,
+          "time_s": 4.0,
+          "normalized_opening": 0.0017474322495407274,
+          "opening_px": 0.29145202941884946,
+          "mouth_width_px": 94.20054996304407,
+          "whole_mouth_laplacian_variance": 37.32959558209802,
+          "central_oral_laplacian_variance": 222.48400419022755,
+          "central_oral_mean_luma": 96.66042154566745
+        },
+        {
+          "frame": 101,
+          "time_s": 4.04,
+          "normalized_opening": 0.0022861057214989574,
+          "opening_px": 0.38344328958520985,
+          "mouth_width_px": 93.62381579170996,
+          "whole_mouth_laplacian_variance": 34.0050339758357,
+          "central_oral_laplacian_variance": 163.98961218456748,
+          "central_oral_mean_luma": 99.97423887587821
+        },
+        {
+          "frame": 102,
+          "time_s": 4.08,
+          "normalized_opening": 0.0011187673012285305,
+          "opening_px": 0.18792522661016686,
+          "mouth_width_px": 97.77707156632523,
+          "whole_mouth_laplacian_variance": 39.12582632211539,
+          "central_oral_laplacian_variance": 181.30269794992824,
+          "central_oral_mean_luma": 105.35374149659864
+        },
+        {
+          "frame": 103,
+          "time_s": 4.12,
+          "normalized_opening": 0.001137884301880217,
+          "opening_px": 0.19131170097970587,
+          "mouth_width_px": 97.60140749709883,
+          "whole_mouth_laplacian_variance": 37.40113155407627,
+          "central_oral_laplacian_variance": 91.40247119255865,
+          "central_oral_mean_luma": 103.43990929705215
+        },
+        {
+          "frame": 104,
+          "time_s": 4.16,
+          "normalized_opening": 0.0015403862309451544,
+          "opening_px": 0.2584562518807768,
+          "mouth_width_px": 97.81644507999643,
+          "whole_mouth_laplacian_variance": 34.38291635206073,
+          "central_oral_laplacian_variance": 133.15493030167474,
+          "central_oral_mean_luma": 99.19274376417233
+        },
+        {
+          "frame": 105,
+          "time_s": 4.2,
+          "normalized_opening": 0.0016875468483062528,
+          "opening_px": 0.28514320036670826,
+          "mouth_width_px": 96.12083151849167,
+          "whole_mouth_laplacian_variance": 31.628563353609362,
+          "central_oral_laplacian_variance": 107.90788817416612,
+          "central_oral_mean_luma": 91.45578231292517
+        },
+        {
+          "frame": 106,
+          "time_s": 4.24,
+          "normalized_opening": 0.04453138448722362,
+          "opening_px": 7.50357104882758,
+          "mouth_width_px": 92.26344377651556,
+          "whole_mouth_laplacian_variance": 33.79477255756647,
+          "central_oral_laplacian_variance": 60.20159370532513,
+          "central_oral_mean_luma": 90.13619167717529
+        },
+        {
+          "frame": 107,
+          "time_s": 4.28,
+          "normalized_opening": 0.07665182399226611,
+          "opening_px": 12.92549538710559,
+          "mouth_width_px": 87.24111858338505,
+          "whole_mouth_laplacian_variance": 46.139669264091786,
+          "central_oral_laplacian_variance": 80.1631410746303,
+          "central_oral_mean_luma": 91.56975772765246
+        },
+        {
+          "frame": 108,
+          "time_s": 4.32,
+          "normalized_opening": 0.07707932761821763,
+          "opening_px": 12.993320734583987,
+          "mouth_width_px": 83.957931890627,
+          "whole_mouth_laplacian_variance": 53.16240199062089,
+          "central_oral_laplacian_variance": 122.0075440865051,
+          "central_oral_mean_luma": 89.45800865800865
+        },
+        {
+          "frame": 109,
+          "time_s": 4.36,
+          "normalized_opening": 0.06330545411911898,
+          "opening_px": 10.667338261197937,
+          "mouth_width_px": 81.34989762128069,
+          "whole_mouth_laplacian_variance": 56.6113679322814,
+          "central_oral_laplacian_variance": 183.104642640253,
+          "central_oral_mean_luma": 84.08768035516093
+        },
+        {
+          "frame": 110,
+          "time_s": 4.4,
+          "normalized_opening": 0.06381344805986229,
+          "opening_px": 10.735672383575343,
+          "mouth_width_px": 80.1670643003254,
+          "whole_mouth_laplacian_variance": 53.98369887814093,
+          "central_oral_laplacian_variance": 201.07289101639444,
+          "central_oral_mean_luma": 75.39400665926748
+        },
+        {
+          "frame": 111,
+          "time_s": 4.44,
+          "normalized_opening": 0.07717741453877455,
+          "opening_px": 12.841302578228179,
+          "mouth_width_px": 86.64130640890623,
+          "whole_mouth_laplacian_variance": 53.650332679723455,
+          "central_oral_laplacian_variance": 134.8995923392441,
+          "central_oral_mean_luma": 75.81620718462824
+        },
+        {
+          "frame": 112,
+          "time_s": 4.48,
+          "normalized_opening": 0.06823868083837736,
+          "opening_px": 11.34789086200277,
+          "mouth_width_px": 96.90347755162263,
+          "whole_mouth_laplacian_variance": 71.66584415674052,
+          "central_oral_laplacian_variance": 208.5576653971325,
+          "central_oral_mean_luma": 106.78195488721805
+        },
+        {
+          "frame": 113,
+          "time_s": 4.52,
+          "normalized_opening": 0.08020908574007135,
+          "opening_px": 13.197530655904615,
+          "mouth_width_px": 105.5152130365046,
+          "whole_mouth_laplacian_variance": 95.34009507359211,
+          "central_oral_laplacian_variance": 252.299166365419,
+          "central_oral_mean_luma": 118.53347135955832
+        },
+        {
+          "frame": 114,
+          "time_s": 4.56,
+          "normalized_opening": 0.09409590769965694,
+          "opening_px": 15.486846639142602,
+          "mouth_width_px": 106.0125327653759,
+          "whole_mouth_laplacian_variance": 110.21355643388397,
+          "central_oral_laplacian_variance": 274.05871169922284,
+          "central_oral_mean_luma": 123.0968115942029
+        },
+        {
+          "frame": 115,
+          "time_s": 4.6,
+          "normalized_opening": 0.11247145787778695,
+          "opening_px": 18.871762972373432,
+          "mouth_width_px": 108.55720387247634,
+          "whole_mouth_laplacian_variance": 109.02602224456565,
+          "central_oral_laplacian_variance": 254.86458932119285,
+          "central_oral_mean_luma": 120.356483729966
+        },
+        {
+          "frame": 116,
+          "time_s": 4.64,
+          "normalized_opening": 0.11119007686449446,
+          "opening_px": 18.860339725167528,
+          "mouth_width_px": 111.51859053212364,
+          "whole_mouth_laplacian_variance": 97.60771449062089,
+          "central_oral_laplacian_variance": 212.05912369198307,
+          "central_oral_mean_luma": 119.2470477090222
+        },
+        {
+          "frame": 117,
+          "time_s": 4.68,
+          "normalized_opening": 0.10376917360373218,
+          "opening_px": 17.63365702472178,
+          "mouth_width_px": 112.85186401061918,
+          "whole_mouth_laplacian_variance": 102.44886718589487,
+          "central_oral_laplacian_variance": 219.8136932759925,
+          "central_oral_mean_luma": 120.8650431253171
+        },
+        {
+          "frame": 118,
+          "time_s": 4.72,
+          "normalized_opening": 0.09793285198832333,
+          "opening_px": 16.760272071922998,
+          "mouth_width_px": 113.71926182817923,
+          "whole_mouth_laplacian_variance": 102.74153160280807,
+          "central_oral_laplacian_variance": 211.60734969590777,
+          "central_oral_mean_luma": 122.97260273972603
+        },
+        {
+          "frame": 119,
+          "time_s": 4.76,
+          "normalized_opening": 0.09199732854954769,
+          "opening_px": 15.67993353939082,
+          "mouth_width_px": 112.4462959590168,
+          "whole_mouth_laplacian_variance": 97.79800950751972,
+          "central_oral_laplacian_variance": 206.6207525614562,
+          "central_oral_mean_luma": 124.22465753424657
+        },
+        {
+          "frame": 120,
+          "time_s": 4.8,
+          "normalized_opening": 0.09509694772259276,
+          "opening_px": 16.14014941353357,
+          "mouth_width_px": 112.31239954062583,
+          "whole_mouth_laplacian_variance": 95.68963402341181,
+          "central_oral_laplacian_variance": 201.27777819478325,
+          "central_oral_mean_luma": 123.88054794520548
+        },
+        {
+          "frame": 121,
+          "time_s": 4.84,
+          "normalized_opening": 0.10464322867466232,
+          "opening_px": 17.759157404804387,
+          "mouth_width_px": 113.58092410391775,
+          "whole_mouth_laplacian_variance": 83.74049886067708,
+          "central_oral_laplacian_variance": 168.0086181133282,
+          "central_oral_mean_luma": 122.2105530187722
+        },
+        {
+          "frame": 122,
+          "time_s": 4.88,
+          "normalized_opening": 0.10657577926094264,
+          "opening_px": 18.072156093863896,
+          "mouth_width_px": 113.26878261496877,
+          "whole_mouth_laplacian_variance": 87.84399398011176,
+          "central_oral_laplacian_variance": 163.50583228778257,
+          "central_oral_mean_luma": 121.00236183278224
+        },
+        {
+          "frame": 123,
+          "time_s": 4.92,
+          "normalized_opening": 0.10091631266707833,
+          "opening_px": 17.129915540009442,
+          "mouth_width_px": 112.88785074158909,
+          "whole_mouth_laplacian_variance": 96.87738647059655,
+          "central_oral_laplacian_variance": 191.83061752076853,
+          "central_oral_mean_luma": 119.84170471841705
+        },
+        {
+          "frame": 124,
+          "time_s": 4.96,
+          "normalized_opening": 0.08837500158304346,
+          "opening_px": 14.988223051054362,
+          "mouth_width_px": 111.78737549493106,
+          "whole_mouth_laplacian_variance": 79.53398707162228,
+          "central_oral_laplacian_variance": 174.0000404392841,
+          "central_oral_mean_luma": 118.77903513996426
+        },
+        {
+          "frame": 125,
+          "time_s": 5.0,
+          "normalized_opening": 0.08355366771365938,
+          "opening_px": 14.161256297560726,
+          "mouth_width_px": 111.3098845219317,
+          "whole_mouth_laplacian_variance": 77.75459950664653,
+          "central_oral_laplacian_variance": 171.31302311672655,
+          "central_oral_mean_luma": 118.44609886837404
+        },
+        {
+          "frame": 126,
+          "time_s": 5.04,
+          "normalized_opening": 0.08243472403786822,
+          "opening_px": 13.970041363511541,
+          "mouth_width_px": 111.067237100088,
+          "whole_mouth_laplacian_variance": 75.84988830686791,
+          "central_oral_laplacian_variance": 180.3782801417308,
+          "central_oral_mean_luma": 118.92041748206132
+        },
+        {
+          "frame": 127,
+          "time_s": 5.08,
+          "normalized_opening": 0.08314901178095592,
+          "opening_px": 14.074373226955112,
+          "mouth_width_px": 111.0824513233633,
+          "whole_mouth_laplacian_variance": 66.15501324555186,
+          "central_oral_laplacian_variance": 141.91914342501582,
+          "central_oral_mean_luma": 116.85288862418106
+        },
+        {
+          "frame": 128,
+          "time_s": 5.12,
+          "normalized_opening": 0.08394664279896587,
+          "opening_px": 14.199657459808048,
+          "mouth_width_px": 111.03338457485808,
+          "whole_mouth_laplacian_variance": 63.802092602972444,
+          "central_oral_laplacian_variance": 133.06906426689076,
+          "central_oral_mean_luma": 117.43001786777845
+        },
+        {
+          "frame": 129,
+          "time_s": 5.16,
+          "normalized_opening": 0.006249211773019842,
+          "opening_px": 1.0605680101793178,
+          "mouth_width_px": 102.13124562209765,
+          "whole_mouth_laplacian_variance": 25.393837792711928,
+          "central_oral_laplacian_variance": 120.46658271238992,
+          "central_oral_mean_luma": 106.47334754797441
+        },
+        {
+          "frame": 130,
+          "time_s": 5.2,
+          "normalized_opening": 0.0023392548618783853,
+          "opening_px": 0.3970047866186811,
+          "mouth_width_px": 95.87188775594898,
+          "whole_mouth_laplacian_variance": 17.258583886461928,
+          "central_oral_laplacian_variance": 55.426051902242385,
+          "central_oral_mean_luma": 112.20861678004535
+        },
+        {
+          "frame": 131,
+          "time_s": 5.24,
+          "normalized_opening": 0.033228615187800625,
+          "opening_px": 5.677538761529446,
+          "mouth_width_px": 98.1235222002708,
+          "whole_mouth_laplacian_variance": 21.414262178459897,
+          "central_oral_laplacian_variance": 62.5490203397317,
+          "central_oral_mean_luma": 63.74074074074074
+        },
+        {
+          "frame": 132,
+          "time_s": 5.28,
+          "normalized_opening": 0.15876994362582994,
+          "opening_px": 26.9094332060953,
+          "mouth_width_px": 107.50075988205106,
+          "whole_mouth_laplacian_variance": 27.363983294745957,
+          "central_oral_laplacian_variance": 34.747522909781175,
+          "central_oral_mean_luma": 95.00388829975256
+        },
+        {
+          "frame": 133,
+          "time_s": 5.32,
+          "normalized_opening": 0.1278152366107622,
+          "opening_px": 21.87038627132354,
+          "mouth_width_px": 106.29751296741156,
+          "whole_mouth_laplacian_variance": 30.5480640418901,
+          "central_oral_laplacian_variance": 46.60400881126092,
+          "central_oral_mean_luma": 101.4826526130874
+        },
+        {
+          "frame": 134,
+          "time_s": 5.36,
+          "normalized_opening": 0.08245758753408244,
+          "opening_px": 14.038686040407939,
+          "mouth_width_px": 109.43055773900034,
+          "whole_mouth_laplacian_variance": 37.79064050557815,
+          "central_oral_laplacian_variance": 82.36990965200667,
+          "central_oral_mean_luma": 112.05878750765463
+        },
+        {
+          "frame": 135,
+          "time_s": 5.4,
+          "normalized_opening": 0.07115980478693468,
+          "opening_px": 12.129426929528428,
+          "mouth_width_px": 108.31723674590937,
+          "whole_mouth_laplacian_variance": 48.54215876010591,
+          "central_oral_laplacian_variance": 110.99425926241385,
+          "central_oral_mean_luma": 121.25055596738325
+        },
+        {
+          "frame": 136,
+          "time_s": 5.44,
+          "normalized_opening": 0.06348971790008291,
+          "opening_px": 10.819148232813069,
+          "mouth_width_px": 106.40347840329115,
+          "whole_mouth_laplacian_variance": 50.56150413578392,
+          "central_oral_laplacian_variance": 141.4096890173839,
+          "central_oral_mean_luma": 118.03324808184144
+        },
+        {
+          "frame": 137,
+          "time_s": 5.48,
+          "normalized_opening": 0.07256930505428864,
+          "opening_px": 12.348947118324253,
+          "mouth_width_px": 105.062644136379,
+          "whole_mouth_laplacian_variance": 55.915263781024,
+          "central_oral_laplacian_variance": 141.40875336951143,
+          "central_oral_mean_luma": 111.83905415713195
+        },
+        {
+          "frame": 138,
+          "time_s": 5.52,
+          "normalized_opening": 0.07609332442167137,
+          "opening_px": 12.954633615856995,
+          "mouth_width_px": 104.49139810981444,
+          "whole_mouth_laplacian_variance": 54.125824235443375,
+          "central_oral_laplacian_variance": 129.3002890916521,
+          "central_oral_mean_luma": 109.97441364605544
+        },
+        {
+          "frame": 139,
+          "time_s": 5.56,
+          "normalized_opening": 0.08461989754386144,
+          "opening_px": 14.386437367266076,
+          "mouth_width_px": 102.18088741711381,
+          "whole_mouth_laplacian_variance": 57.839544192181854,
+          "central_oral_laplacian_variance": 126.7970956941164,
+          "central_oral_mean_luma": 106.4192083062946
+        },
+        {
+          "frame": 140,
+          "time_s": 5.6,
+          "normalized_opening": 0.08388330156818455,
+          "opening_px": 14.270053156999923,
+          "mouth_width_px": 100.30297928406401,
+          "whole_mouth_laplacian_variance": 61.084149382601915,
+          "central_oral_laplacian_variance": 145.2562168208409,
+          "central_oral_mean_luma": 100.57658862876254
+        },
+        {
+          "frame": 141,
+          "time_s": 5.64,
+          "normalized_opening": 0.07351480616948071,
+          "opening_px": 12.490677526097281,
+          "mouth_width_px": 97.19218326149017,
+          "whole_mouth_laplacian_variance": 62.38115792961045,
+          "central_oral_laplacian_variance": 186.41203258773498,
+          "central_oral_mean_luma": 88.18128654970761
+        },
+        {
+          "frame": 142,
+          "time_s": 5.68,
+          "normalized_opening": 0.08459643808364856,
+          "opening_px": 14.32145052915398,
+          "mouth_width_px": 97.17359013090105,
+          "whole_mouth_laplacian_variance": 55.18057541906795,
+          "central_oral_laplacian_variance": 156.81524727793519,
+          "central_oral_mean_luma": 80.65907522429262
+        },
+        {
+          "frame": 143,
+          "time_s": 5.72,
+          "normalized_opening": 0.08873368566719146,
+          "opening_px": 15.015884795730031,
+          "mouth_width_px": 94.79648446143328,
+          "whole_mouth_laplacian_variance": 48.460607765694334,
+          "central_oral_laplacian_variance": 135.050760284067,
+          "central_oral_mean_luma": 70.93727726300784
+        },
+        {
+          "frame": 144,
+          "time_s": 5.76,
+          "normalized_opening": 0.07677128925895686,
+          "opening_px": 12.972593419803882,
+          "mouth_width_px": 89.34962628925054,
+          "whole_mouth_laplacian_variance": 42.97779508110413,
+          "central_oral_laplacian_variance": 115.74436282221401,
+          "central_oral_mean_luma": 60.77643260694108
+        },
+        {
+          "frame": 145,
+          "time_s": 5.8,
+          "normalized_opening": 0.05417237431866424,
+          "opening_px": 9.14980472110772,
+          "mouth_width_px": 80.92185286802358,
+          "whole_mouth_laplacian_variance": 35.22702718580498,
+          "central_oral_laplacian_variance": 84.18022071911713,
+          "central_oral_mean_luma": 56.550943396226415
+        },
+        {
+          "frame": 146,
+          "time_s": 5.84,
+          "normalized_opening": 0.027580523460833034,
+          "opening_px": 4.668955207882839,
+          "mouth_width_px": 78.14523558804689,
+          "whole_mouth_laplacian_variance": 35.84006654236522,
+          "central_oral_laplacian_variance": 115.61331111965482,
+          "central_oral_mean_luma": 58.592592592592595
+        },
+        {
+          "frame": 147,
+          "time_s": 5.88,
+          "normalized_opening": 0.03426903490587642,
+          "opening_px": 5.793332224360375,
+          "mouth_width_px": 79.2059772434684,
+          "whole_mouth_laplacian_variance": 33.37135149412136,
+          "central_oral_laplacian_variance": 149.2648981161092,
+          "central_oral_mean_luma": 55.53812636165577
+        },
+        {
+          "frame": 148,
+          "time_s": 5.92,
+          "normalized_opening": 0.06376943975685875,
+          "opening_px": 10.789143268048438,
+          "mouth_width_px": 88.61062787221114,
+          "whole_mouth_laplacian_variance": 31.564156135393553,
+          "central_oral_laplacian_variance": 66.45809144362758,
+          "central_oral_mean_luma": 92.72549019607843
+        },
+        {
+          "frame": 149,
+          "time_s": 5.96,
+          "normalized_opening": 0.10336517620918001,
+          "opening_px": 17.350750413387644,
+          "mouth_width_px": 93.44143468889888,
+          "whole_mouth_laplacian_variance": 56.029302653476336,
+          "central_oral_laplacian_variance": 104.62860441737088,
+          "central_oral_mean_luma": 110.54159077109897
+        },
+        {
+          "frame": 150,
+          "time_s": 6.0,
+          "normalized_opening": 0.11354644121732803,
+          "opening_px": 18.56632397444032,
+          "mouth_width_px": 97.49133983747349,
+          "whole_mouth_laplacian_variance": 56.22989844648873,
+          "central_oral_laplacian_variance": 123.08769000179453,
+          "central_oral_mean_luma": 109.90749863163656
+        },
+        {
+          "frame": 151,
+          "time_s": 6.04,
+          "normalized_opening": 0.10166055658975501,
+          "opening_px": 16.642651424155886,
+          "mouth_width_px": 94.72525487864895,
+          "whole_mouth_laplacian_variance": 56.28455910065079,
+          "central_oral_laplacian_variance": 148.80640000000002,
+          "central_oral_mean_luma": 102.02426229508197
+        },
+        {
+          "frame": 152,
+          "time_s": 6.08,
+          "normalized_opening": 0.07408038561870164,
+          "opening_px": 12.221702177009512,
+          "mouth_width_px": 94.61331732060977,
+          "whole_mouth_laplacian_variance": 61.101623495027944,
+          "central_oral_laplacian_variance": 172.2080621999418,
+          "central_oral_mean_luma": 84.04918032786885
+        },
+        {
+          "frame": 153,
+          "time_s": 6.12,
+          "normalized_opening": 0.06540041153312305,
+          "opening_px": 10.774433235762343,
+          "mouth_width_px": 104.21295347109435,
+          "whole_mouth_laplacian_variance": 53.19256178475304,
+          "central_oral_laplacian_variance": 164.13018057982566,
+          "central_oral_mean_luma": 109.92186128182617
+        },
+        {
+          "frame": 154,
+          "time_s": 6.16,
+          "normalized_opening": 0.0675537799278764,
+          "opening_px": 11.255575180478901,
+          "mouth_width_px": 106.76045236441497,
+          "whole_mouth_laplacian_variance": 53.29512986001962,
+          "central_oral_laplacian_variance": 206.63596450107528,
+          "central_oral_mean_luma": 117.12787723785166
+        },
+        {
+          "frame": 155,
+          "time_s": 6.2,
+          "normalized_opening": 0.09245914027864048,
+          "opening_px": 15.486981060401096,
+          "mouth_width_px": 109.38044677935696,
+          "whole_mouth_laplacian_variance": 59.27774037819485,
+          "central_oral_laplacian_variance": 151.92484856179328,
+          "central_oral_mean_luma": 106.5425352112676
+        },
+        {
+          "frame": 156,
+          "time_s": 6.24,
+          "normalized_opening": 0.12933199813155968,
+          "opening_px": 21.743329784122416,
+          "mouth_width_px": 113.0205758231339,
+          "whole_mouth_laplacian_variance": 78.45737539036817,
+          "central_oral_laplacian_variance": 135.6689293522061,
+          "central_oral_mean_luma": 106.81569115815691
+        },
+        {
+          "frame": 157,
+          "time_s": 6.28,
+          "normalized_opening": 0.1244085564367888,
+          "opening_px": 20.9609905123218,
+          "mouth_width_px": 115.264126079666,
+          "whole_mouth_laplacian_variance": 75.6094449436406,
+          "central_oral_laplacian_variance": 130.69227482909906,
+          "central_oral_mean_luma": 110.66222222222223
+        },
+        {
+          "frame": 158,
+          "time_s": 6.32,
+          "normalized_opening": 0.10176266166265921,
+          "opening_px": 17.249821847410555,
+          "mouth_width_px": 115.82862114247263,
+          "whole_mouth_laplacian_variance": 79.32119945598856,
+          "central_oral_laplacian_variance": 160.8693245541838,
+          "central_oral_mean_luma": 116.21876543209876
+        },
+        {
+          "frame": 159,
+          "time_s": 6.36,
+          "normalized_opening": 0.10021365092901974,
+          "opening_px": 16.898103516360575,
+          "mouth_width_px": 114.35822357449874,
+          "whole_mouth_laplacian_variance": 70.6037157849996,
+          "central_oral_laplacian_variance": 151.59814662399023,
+          "central_oral_mean_luma": 120.27308641975308
+        },
+        {
+          "frame": 160,
+          "time_s": 6.4,
+          "normalized_opening": 0.11072896789987131,
+          "opening_px": 18.78471938308133,
+          "mouth_width_px": 116.07313596731471,
+          "whole_mouth_laplacian_variance": 71.06190638194188,
+          "central_oral_laplacian_variance": 125.57128159598362,
+          "central_oral_mean_luma": 116.76735632183907
+        },
+        {
+          "frame": 161,
+          "time_s": 6.44,
+          "normalized_opening": 0.10058308372427466,
+          "opening_px": 17.068323207826293,
+          "mouth_width_px": 117.16499427523536,
+          "whole_mouth_laplacian_variance": 68.597878360184,
+          "central_oral_laplacian_variance": 121.7293202865417,
+          "central_oral_mean_luma": 114.21382716049382
+        },
+        {
+          "frame": 162,
+          "time_s": 6.48,
+          "normalized_opening": 0.082900690121533,
+          "opening_px": 14.015239599307682,
+          "mouth_width_px": 116.65086697593841,
+          "whole_mouth_laplacian_variance": 73.44731245473528,
+          "central_oral_laplacian_variance": 143.0727339634531,
+          "central_oral_mean_luma": 114.03710144927537
+        },
+        {
+          "frame": 163,
+          "time_s": 6.52,
+          "normalized_opening": 0.08590354678343796,
+          "opening_px": 14.551210599011728,
+          "mouth_width_px": 116.14518612508253,
+          "whole_mouth_laplacian_variance": 63.338737974348696,
+          "central_oral_laplacian_variance": 118.585456836799,
+          "central_oral_mean_luma": 112.45855072463767
+        },
+        {
+          "frame": 164,
+          "time_s": 6.56,
+          "normalized_opening": 0.08920661712231089,
+          "opening_px": 15.107247887369612,
+          "mouth_width_px": 115.74711939188495,
+          "whole_mouth_laplacian_variance": 65.11344397028836,
+          "central_oral_laplacian_variance": 122.82782474270111,
+          "central_oral_mean_luma": 114.80289855072463
+        },
+        {
+          "frame": 165,
+          "time_s": 6.6,
+          "normalized_opening": 0.09154286343723546,
+          "opening_px": 15.53995973946391,
+          "mouth_width_px": 115.37661094233222,
+          "whole_mouth_laplacian_variance": 57.47102029914531,
+          "central_oral_laplacian_variance": 97.87456170666668,
+          "central_oral_mean_luma": 114.36373333333333
+        },
+        {
+          "frame": 166,
+          "time_s": 6.64,
+          "normalized_opening": 0.1020900385302506,
+          "opening_px": 17.312357217237775,
+          "mouth_width_px": 114.2671986146432,
+          "whole_mouth_laplacian_variance": 61.635353063298716,
+          "central_oral_laplacian_variance": 105.66686200274349,
+          "central_oral_mean_luma": 113.68987654320988
+        },
+        {
+          "frame": 167,
+          "time_s": 6.68,
+          "normalized_opening": 0.14391940289640182,
+          "opening_px": 24.271438015655402,
+          "mouth_width_px": 114.01343303038271,
+          "whole_mouth_laplacian_variance": 62.462284486909816,
+          "central_oral_laplacian_variance": 83.8487397745511,
+          "central_oral_mean_luma": 103.8108108108108
+        },
+        {
+          "frame": 168,
+          "time_s": 6.72,
+          "normalized_opening": 0.1495024453223126,
+          "opening_px": 24.929056352454978,
+          "mouth_width_px": 114.713999834139,
+          "whole_mouth_laplacian_variance": 70.4719544861522,
+          "central_oral_laplacian_variance": 91.35608140843013,
+          "central_oral_mean_luma": 99.65367521367521
+        },
+        {
+          "frame": 169,
+          "time_s": 6.76,
+          "normalized_opening": 0.1443627731545546,
+          "opening_px": 24.12005970381339,
+          "mouth_width_px": 115.70923267188185,
+          "whole_mouth_laplacian_variance": 70.99015921467938,
+          "central_oral_laplacian_variance": 100.44343881178476,
+          "central_oral_mean_luma": 101.05081081081082
+        },
+        {
+          "frame": 170,
+          "time_s": 6.8,
+          "normalized_opening": 0.15383409280378216,
+          "opening_px": 25.592215722613794,
+          "mouth_width_px": 114.121056546973,
+          "whole_mouth_laplacian_variance": 67.39101275983882,
+          "central_oral_laplacian_variance": 93.16444397691578,
+          "central_oral_mean_luma": 101.63008547008548
+        },
+        {
+          "frame": 171,
+          "time_s": 6.84,
+          "normalized_opening": 0.18512498700707888,
+          "opening_px": 30.937497013777048,
+          "mouth_width_px": 116.16085384539528,
+          "whole_mouth_laplacian_variance": 75.61132294844829,
+          "central_oral_laplacian_variance": 85.66727500628741,
+          "central_oral_mean_luma": 99.11886524822695
+        },
+        {
+          "frame": 172,
+          "time_s": 6.88,
+          "normalized_opening": 0.17899373344823183,
+          "opening_px": 30.106978629929905,
+          "mouth_width_px": 113.68498103721153,
+          "whole_mouth_laplacian_variance": 63.529597195255995,
+          "central_oral_laplacian_variance": 76.3380258909436,
+          "central_oral_mean_luma": 93.17196152725153
+        },
+        {
+          "frame": 173,
+          "time_s": 6.92,
+          "normalized_opening": 0.013175791422580102,
+          "opening_px": 2.2228066164333975,
+          "mouth_width_px": 98.91333673952748,
+          "whole_mouth_laplacian_variance": 30.59233680138221,
+          "central_oral_laplacian_variance": 160.4398792416375,
+          "central_oral_mean_luma": 52.55164835164835
+        },
+        {
+          "frame": 174,
+          "time_s": 6.96,
+          "normalized_opening": 0.0001795584657289501,
+          "opening_px": 0.030436905089406,
+          "mouth_width_px": 92.70862628131208,
+          "whole_mouth_laplacian_variance": 32.74880542040342,
+          "central_oral_laplacian_variance": 162.23325965699368,
+          "central_oral_mean_luma": 84.62060889929742
+        },
+        {
+          "frame": 175,
+          "time_s": 7.0,
+          "normalized_opening": 0.0006844692164283073,
+          "opening_px": 0.11610826797506899,
+          "mouth_width_px": 89.76349432944356,
+          "whole_mouth_laplacian_variance": 31.197140906219175,
+          "central_oral_laplacian_variance": 200.24843904812715,
+          "central_oral_mean_luma": 74.28329297820824
+        },
+        {
+          "frame": 176,
+          "time_s": 7.04,
+          "normalized_opening": 0.000691455260028493,
+          "opening_px": 0.11734567537137727,
+          "mouth_width_px": 88.40423437840104,
+          "whole_mouth_laplacian_variance": 31.282382420847718,
+          "central_oral_laplacian_variance": 230.50815007443418,
+          "central_oral_mean_luma": 70.32080200501254
+        },
+        {
+          "frame": 177,
+          "time_s": 7.08,
+          "normalized_opening": 0.0004537721403692376,
+          "opening_px": 0.07679962422018517,
+          "mouth_width_px": 86.2332342224642,
+          "whole_mouth_laplacian_variance": 29.774423051240962,
+          "central_oral_laplacian_variance": 275.57470116393745,
+          "central_oral_mean_luma": 69.54385964912281
+        },
+        {
+          "frame": 178,
+          "time_s": 7.12,
+          "normalized_opening": 0.0005935698689326975,
+          "opening_px": 0.10044014188227114,
+          "mouth_width_px": 85.98832589017134,
+          "whole_mouth_laplacian_variance": 29.09608434392464,
+          "central_oral_laplacian_variance": 234.41110294533325,
+          "central_oral_mean_luma": 72.94736842105263
+        },
+        {
+          "frame": 179,
+          "time_s": 7.16,
+          "normalized_opening": 0.0009809649358942967,
+          "opening_px": 0.1663099064889955,
+          "mouth_width_px": 86.08655383232859,
+          "whole_mouth_laplacian_variance": 26.343795224602953,
+          "central_oral_laplacian_variance": 193.61486422823975,
+          "central_oral_mean_luma": 78.19548872180451
+        },
+        {
+          "frame": 180,
+          "time_s": 7.2,
+          "normalized_opening": 0.028161333420900835,
+          "opening_px": 4.761591533701432,
+          "mouth_width_px": 88.62182267212704,
+          "whole_mouth_laplacian_variance": 23.677125548313196,
+          "central_oral_laplacian_variance": 115.68857274223028,
+          "central_oral_mean_luma": 60.79727095516569
+        },
+        {
+          "frame": 181,
+          "time_s": 7.24,
+          "normalized_opening": 0.13399637075489854,
+          "opening_px": 22.632360237451586,
+          "mouth_width_px": 99.50509133350938,
+          "whole_mouth_laplacian_variance": 26.93480622682189,
+          "central_oral_laplacian_variance": 38.155510880328464,
+          "central_oral_mean_luma": 73.39824175824175
+        },
+        {
+          "frame": 182,
+          "time_s": 7.28,
+          "normalized_opening": 0.16760416387734423,
+          "opening_px": 28.433051702519272,
+          "mouth_width_px": 102.83155481571495,
+          "whole_mouth_laplacian_variance": 47.258361936791175,
+          "central_oral_laplacian_variance": 65.37682124479271,
+          "central_oral_mean_luma": 80.15723707046165
+        },
+        {
+          "frame": 183,
+          "time_s": 7.32,
+          "normalized_opening": 0.16681817088677706,
+          "opening_px": 28.22643121072291,
+          "mouth_width_px": 104.97498380153165,
+          "whole_mouth_laplacian_variance": 68.84758494199693,
+          "central_oral_laplacian_variance": 101.0067397932703,
+          "central_oral_mean_luma": 81.45298281092012
+        },
+        {
+          "frame": 184,
+          "time_s": 7.36,
+          "normalized_opening": 0.16726490068133315,
+          "opening_px": 28.397041249631428,
+          "mouth_width_px": 108.1955436562665,
+          "whole_mouth_laplacian_variance": 72.29366409331854,
+          "central_oral_laplacian_variance": 103.67900726213789,
+          "central_oral_mean_luma": 82.68096953815919
+        },
+        {
+          "frame": 185,
+          "time_s": 7.4,
+          "normalized_opening": 0.1671301245074288,
+          "opening_px": 28.460841320961336,
+          "mouth_width_px": 110.0731719278935,
+          "whole_mouth_laplacian_variance": 90.63243011735443,
+          "central_oral_laplacian_variance": 132.8309849499115,
+          "central_oral_mean_luma": 85.54929577464789
+        },
+        {
+          "frame": 186,
+          "time_s": 7.44,
+          "normalized_opening": 0.17237164643274042,
+          "opening_px": 29.387197726803535,
+          "mouth_width_px": 112.00251037808435,
+          "whole_mouth_laplacian_variance": 88.61429810132108,
+          "central_oral_laplacian_variance": 120.19389828309576,
+          "central_oral_mean_luma": 86.0572298325723
+        },
+        {
+          "frame": 187,
+          "time_s": 7.48,
+          "normalized_opening": 0.18329931254190993,
+          "opening_px": 31.386159711522495,
+          "mouth_width_px": 114.32898668003256,
+          "whole_mouth_laplacian_variance": 89.66157065246703,
+          "central_oral_laplacian_variance": 108.94728707482993,
+          "central_oral_mean_luma": 87.47074829931972
+        },
+        {
+          "frame": 188,
+          "time_s": 7.52,
+          "normalized_opening": 0.215172109642415,
+          "opening_px": 36.72464098608452,
+          "mouth_width_px": 116.67226635822472,
+          "whole_mouth_laplacian_variance": 95.85678608209034,
+          "central_oral_laplacian_variance": 111.77311216305064,
+          "central_oral_mean_luma": 87.47923076923077
+        },
+        {
+          "frame": 189,
+          "time_s": 7.56,
+          "normalized_opening": 0.25083813715183484,
+          "opening_px": 42.20066077866346,
+          "mouth_width_px": 116.36790006153159,
+          "whole_mouth_laplacian_variance": 105.75021556926978,
+          "central_oral_laplacian_variance": 121.89152998027613,
+          "central_oral_mean_luma": 86.33641025641026
+        },
+        {
+          "frame": 190,
+          "time_s": 7.6,
+          "normalized_opening": 0.26351340918537,
+          "opening_px": 43.54852402073582,
+          "mouth_width_px": 119.86563374403991,
+          "whole_mouth_laplacian_variance": 103.42856005506245,
+          "central_oral_laplacian_variance": 117.93904166512807,
+          "central_oral_mean_luma": 87.47277722277722
+        },
+        {
+          "frame": 191,
+          "time_s": 7.64,
+          "normalized_opening": 0.22544775393844635,
+          "opening_px": 37.830854134372814,
+          "mouth_width_px": 123.23460984380067,
+          "whole_mouth_laplacian_variance": 115.95071328869781,
+          "central_oral_laplacian_variance": 131.4036653017031,
+          "central_oral_mean_luma": 102.71859785783836
+        },
+        {
+          "frame": 192,
+          "time_s": 7.68,
+          "normalized_opening": 0.1290660316056376,
+          "opening_px": 21.316436880910892,
+          "mouth_width_px": 124.69414634901713,
+          "whole_mouth_laplacian_variance": 55.37989950587606,
+          "central_oral_laplacian_variance": 72.80994786652184,
+          "central_oral_mean_luma": 119.90123456790124
+        },
+        {
+          "frame": 193,
+          "time_s": 7.72,
+          "normalized_opening": 0.08726947035499247,
+          "opening_px": 14.639804348424892,
+          "mouth_width_px": 121.59065029309349,
+          "whole_mouth_laplacian_variance": 60.90837888698841,
+          "central_oral_laplacian_variance": 115.24946289386395,
+          "central_oral_mean_luma": 123.03522289488167
+        },
+        {
+          "frame": 194,
+          "time_s": 7.76,
+          "normalized_opening": 0.09133251387634092,
+          "opening_px": 15.298553330159542,
+          "mouth_width_px": 123.08696095019421,
+          "whole_mouth_laplacian_variance": 57.030273397371694,
+          "central_oral_laplacian_variance": 105.28769049359244,
+          "central_oral_mean_luma": 125.34672537149147
+        },
+        {
+          "frame": 195,
+          "time_s": 7.8,
+          "normalized_opening": 0.09604779542666296,
+          "opening_px": 16.143537146309722,
+          "mouth_width_px": 123.9983253851575,
+          "whole_mouth_laplacian_variance": 57.31375778168145,
+          "central_oral_laplacian_variance": 96.50555073921657,
+          "central_oral_mean_luma": 123.18617283950617
+        },
+        {
+          "frame": 196,
+          "time_s": 7.84,
+          "normalized_opening": 0.10597858798749063,
+          "opening_px": 17.943562634887325,
+          "mouth_width_px": 125.4587743620363,
+          "whole_mouth_laplacian_variance": 58.18471633941228,
+          "central_oral_laplacian_variance": 90.8235700461366,
+          "central_oral_mean_luma": 123.10333790580704
+        },
+        {
+          "frame": 197,
+          "time_s": 7.88,
+          "normalized_opening": 0.1643688391147411,
+          "opening_px": 28.00143913673832,
+          "mouth_width_px": 122.1715183475139,
+          "whole_mouth_laplacian_variance": 79.9112329326281,
+          "central_oral_laplacian_variance": 95.38546895306418,
+          "central_oral_mean_luma": 111.32558139534883
+        },
+        {
+          "frame": 198,
+          "time_s": 7.92,
+          "normalized_opening": 0.2808609790528132,
+          "opening_px": 47.403997395613345,
+          "mouth_width_px": 122.60794819658207,
+          "whole_mouth_laplacian_variance": 87.17396484214487,
+          "central_oral_laplacian_variance": 91.21804481293299,
+          "central_oral_mean_luma": 95.23149951314508
+        },
+        {
+          "frame": 199,
+          "time_s": 7.96,
+          "normalized_opening": 0.27335117120011065,
+          "opening_px": 46.34939083835347,
+          "mouth_width_px": 122.60026428970139,
+          "whole_mouth_laplacian_variance": 85.06250830655972,
+          "central_oral_laplacian_variance": 97.9081607692592,
+          "central_oral_mean_luma": 88.10199610516067
+        },
+        {
+          "frame": 200,
+          "time_s": 8.0,
+          "normalized_opening": 0.23734311316613727,
+          "opening_px": 40.09394328704875,
+          "mouth_width_px": 118.53836007626893,
+          "whole_mouth_laplacian_variance": 83.75450576691937,
+          "central_oral_laplacian_variance": 95.48842366424785,
+          "central_oral_mean_luma": 87.44655344655345
+        },
+        {
+          "frame": 201,
+          "time_s": 8.04,
+          "normalized_opening": 0.15121426418823544,
+          "opening_px": 25.548322008814694,
+          "mouth_width_px": 111.97845636470808,
+          "whole_mouth_laplacian_variance": 64.81463402341181,
+          "central_oral_laplacian_variance": 95.81801732645447,
+          "central_oral_mean_luma": 87.57709870038637
+        },
+        {
+          "frame": 202,
+          "time_s": 8.08,
+          "normalized_opening": 0.08391764647019305,
+          "opening_px": 14.187435156201648,
+          "mouth_width_px": 97.73966789712237,
+          "whole_mouth_laplacian_variance": 37.58066175110946,
+          "central_oral_laplacian_variance": 72.86465666571887,
+          "central_oral_mean_luma": 94.648033126294
+        },
+        {
+          "frame": 203,
+          "time_s": 8.12,
+          "normalized_opening": 0.061777972708936466,
+          "opening_px": 10.298346148326148,
+          "mouth_width_px": 87.62657949637828,
+          "whole_mouth_laplacian_variance": 36.292583357731345,
+          "central_oral_laplacian_variance": 90.65996351286155,
+          "central_oral_mean_luma": 82.85964912280701
+        },
+        {
+          "frame": 204,
+          "time_s": 8.16,
+          "normalized_opening": 0.006895381174790151,
+          "opening_px": 1.1457623461567543,
+          "mouth_width_px": 83.17086068310586,
+          "whole_mouth_laplacian_variance": 28.724012105265857,
+          "central_oral_laplacian_variance": 170.73905211671445,
+          "central_oral_mean_luma": 64.24415584415584
+        },
+        {
+          "frame": 205,
+          "time_s": 8.2,
+          "normalized_opening": 0.00117399611560545,
+          "opening_px": 0.19497710040015556,
+          "mouth_width_px": 81.80396766824649,
+          "whole_mouth_laplacian_variance": 21.118455514399965,
+          "central_oral_laplacian_variance": 81.28410865948372,
+          "central_oral_mean_luma": 84.31266846361186
+        },
+        {
+          "frame": 206,
+          "time_s": 8.24,
+          "normalized_opening": 0.0016448278517376712,
+          "opening_px": 0.2702623572313267,
+          "mouth_width_px": 84.40709980150268,
+          "whole_mouth_laplacian_variance": 18.499636437530818,
+          "central_oral_laplacian_variance": 47.16764378478664,
+          "central_oral_mean_luma": 91.23376623376623
+        },
+        {
+          "frame": 207,
+          "time_s": 8.28,
+          "normalized_opening": 0.08066806070820963,
+          "opening_px": 13.491894324829143,
+          "mouth_width_px": 88.30856550247186,
+          "whole_mouth_laplacian_variance": 22.85859875801282,
+          "central_oral_laplacian_variance": 41.24605722046693,
+          "central_oral_mean_luma": 55.8078529657477
+        },
+        {
+          "frame": 208,
+          "time_s": 8.32,
+          "normalized_opening": 0.12344835627676799,
+          "opening_px": 20.609982138384115,
+          "mouth_width_px": 93.13263018021311,
+          "whole_mouth_laplacian_variance": 23.94662228796844,
+          "central_oral_laplacian_variance": 27.842235242168293,
+          "central_oral_mean_luma": 43.83870967741935
+        },
+        {
+          "frame": 209,
+          "time_s": 8.36,
+          "normalized_opening": 0.12193633938816083,
+          "opening_px": 20.43098113142765,
+          "mouth_width_px": 95.15664908203776,
+          "whole_mouth_laplacian_variance": 23.1902529624322,
+          "central_oral_laplacian_variance": 26.7062941971503,
+          "central_oral_mean_luma": 44.4865150713908
+        },
+        {
+          "frame": 210,
+          "time_s": 8.4,
+          "normalized_opening": 0.051035465738753866,
+          "opening_px": 8.60566059408228,
+          "mouth_width_px": 90.9098807694498,
+          "whole_mouth_laplacian_variance": 31.60694803994083,
+          "central_oral_laplacian_variance": 168.13558642095975,
+          "central_oral_mean_luma": 45.40026075619296
+        },
+        {
+          "frame": 211,
+          "time_s": 8.44,
+          "normalized_opening": 0.044006536247128254,
+          "opening_px": 7.527871230026401,
+          "mouth_width_px": 92.66006356978414,
+          "whole_mouth_laplacian_variance": 40.998362604526214,
+          "central_oral_laplacian_variance": 140.68260584019373,
+          "central_oral_mean_luma": 83.00756620428751
+        },
+        {
+          "frame": 212,
+          "time_s": 8.48,
+          "normalized_opening": 0.06205501276706783,
+          "opening_px": 10.507784631578723,
+          "mouth_width_px": 91.8218145306509,
+          "whole_mouth_laplacian_variance": 44.627017972345506,
+          "central_oral_laplacian_variance": 123.70529488304776,
+          "central_oral_mean_luma": 93.37886340977069
+        },
+        {
+          "frame": 213,
+          "time_s": 8.52,
+          "normalized_opening": 0.08756903594034905,
+          "opening_px": 14.846200793908991,
+          "mouth_width_px": 95.22761463596886,
+          "whole_mouth_laplacian_variance": 59.571365105643395,
+          "central_oral_laplacian_variance": 139.62590091794948,
+          "central_oral_mean_luma": 97.79686386315039
+        },
+        {
+          "frame": 214,
+          "time_s": 8.56,
+          "normalized_opening": 0.09910006675088037,
+          "opening_px": 16.79924771173306,
+          "mouth_width_px": 94.35882973794217,
+          "whole_mouth_laplacian_variance": 63.22289878549269,
+          "central_oral_laplacian_variance": 139.31572519297845,
+          "central_oral_mean_luma": 98.82756527018822
+        },
+        {
+          "frame": 215,
+          "time_s": 8.6,
+          "normalized_opening": 0.1033342011405392,
+          "opening_px": 17.59957453344116,
+          "mouth_width_px": 92.38064875296737,
+          "whole_mouth_laplacian_variance": 65.39590937647672,
+          "central_oral_laplacian_variance": 134.18920308824457,
+          "central_oral_mean_luma": 98.79234972677595
+        },
+        {
+          "frame": 216,
+          "time_s": 8.64,
+          "normalized_opening": 0.08793941730641693,
+          "opening_px": 14.90115155595196,
+          "mouth_width_px": 90.10051582014181,
+          "whole_mouth_laplacian_variance": 47.50413209211661,
+          "central_oral_laplacian_variance": 97.82522024775054,
+          "central_oral_mean_luma": 69.4620486366986
+        },
+        {
+          "frame": 217,
+          "time_s": 8.68,
+          "normalized_opening": 0.08358765744454823,
+          "opening_px": 14.155428667128579,
+          "mouth_width_px": 88.47370407448115,
+          "whole_mouth_laplacian_variance": 46.712077745867745,
+          "central_oral_laplacian_variance": 102.89497713706879,
+          "central_oral_mean_luma": 51.58657513348589
+        },
+        {
+          "frame": 218,
+          "time_s": 8.72,
+          "normalized_opening": 0.0781648771488043,
+          "opening_px": 13.230825173337248,
+          "mouth_width_px": 85.27786263112496,
+          "whole_mouth_laplacian_variance": 44.10277967183391,
+          "central_oral_laplacian_variance": 105.8928760705384,
+          "central_oral_mean_luma": 48.204329004329004
+        },
+        {
+          "frame": 219,
+          "time_s": 8.76,
+          "normalized_opening": 0.06950606733635817,
+          "opening_px": 11.777517958004227,
+          "mouth_width_px": 87.02592751978858,
+          "whole_mouth_laplacian_variance": 46.15519639114891,
+          "central_oral_laplacian_variance": 123.1108485116665,
+          "central_oral_mean_luma": 49.56694367497692
+        },
+        {
+          "frame": 220,
+          "time_s": 8.8,
+          "normalized_opening": 0.060951258398761136,
+          "opening_px": 10.327519090687876,
+          "mouth_width_px": 88.12084491050041,
+          "whole_mouth_laplacian_variance": 45.82828451002373,
+          "central_oral_laplacian_variance": 139.22103686947594,
+          "central_oral_mean_luma": 51.85242518059856
+        },
+        {
+          "frame": 221,
+          "time_s": 8.84,
+          "normalized_opening": 0.05056471815160157,
+          "opening_px": 8.57038009726869,
+          "mouth_width_px": 91.20282150240604,
+          "whole_mouth_laplacian_variance": 51.31343382585214,
+          "central_oral_laplacian_variance": 211.93452877752262,
+          "central_oral_mean_luma": 51.14993481095176
+        },
+        {
+          "frame": 222,
+          "time_s": 8.88,
+          "normalized_opening": 0.04590978720231781,
+          "opening_px": 7.748058006621438,
+          "mouth_width_px": 92.17309205427067,
+          "whole_mouth_laplacian_variance": 57.37753285866361,
+          "central_oral_laplacian_variance": 249.40147784507278,
+          "central_oral_mean_luma": 61.13820078226858
+        },
+        {
+          "frame": 223,
+          "time_s": 8.92,
+          "normalized_opening": 0.04586251448180083,
+          "opening_px": 7.732238869502003,
+          "mouth_width_px": 93.45689835980538,
+          "whole_mouth_laplacian_variance": 58.87647828673313,
+          "central_oral_laplacian_variance": 243.59541638771788,
+          "central_oral_mean_luma": 67.21815889029004
+        },
+        {
+          "frame": 224,
+          "time_s": 8.96,
+          "normalized_opening": 0.04949076700266313,
+          "opening_px": 8.35873863508641,
+          "mouth_width_px": 94.44275270328224,
+          "whole_mouth_laplacian_variance": 59.78913697813938,
+          "central_oral_laplacian_variance": 243.79325720482976,
+          "central_oral_mean_luma": 70.66078184110971
+        },
+        {
+          "frame": 225,
+          "time_s": 9.0,
+          "normalized_opening": 0.05759807736998073,
+          "opening_px": 9.65644640321587,
+          "mouth_width_px": 95.91419463365764,
+          "whole_mouth_laplacian_variance": 50.761736085429,
+          "central_oral_laplacian_variance": 157.69205341395815,
+          "central_oral_mean_luma": 79.92380952380952
+        },
+        {
+          "frame": 226,
+          "time_s": 9.04,
+          "normalized_opening": 0.05801542026017072,
+          "opening_px": 9.620173119305036,
+          "mouth_width_px": 96.6497165782177,
+          "whole_mouth_laplacian_variance": 43.37944842356745,
+          "central_oral_laplacian_variance": 128.19747935388148,
+          "central_oral_mean_luma": 84.94603174603175
+        },
+        {
+          "frame": 227,
+          "time_s": 9.08,
+          "normalized_opening": 0.05831145589388622,
+          "opening_px": 9.621829905217274,
+          "mouth_width_px": 96.2485162015278,
+          "whole_mouth_laplacian_variance": 38.90759056638057,
+          "central_oral_laplacian_variance": 115.90490299823632,
+          "central_oral_mean_luma": 89.61058201058201
+        },
+        {
+          "frame": 228,
+          "time_s": 9.12,
+          "normalized_opening": 0.021267259456506878,
+          "opening_px": 3.46702180052177,
+          "mouth_width_px": 94.96929560009204,
+          "whole_mouth_laplacian_variance": 31.77953150521604,
+          "central_oral_laplacian_variance": 166.57726417629667,
+          "central_oral_mean_luma": 78.25058548009368
+        },
+        {
+          "frame": 229,
+          "time_s": 9.16,
+          "normalized_opening": 0.000885669984395355,
+          "opening_px": 0.14667408738195353,
+          "mouth_width_px": 92.21520872547852,
+          "whole_mouth_laplacian_variance": 25.389345388519068,
+          "central_oral_laplacian_variance": 98.45540753253734,
+          "central_oral_mean_luma": 85.63231850117096
+        },
+        {
+          "frame": 230,
+          "time_s": 9.2,
+          "normalized_opening": 0.0009792815278809425,
+          "opening_px": 0.16260521959922666,
+          "mouth_width_px": 94.63570041826046,
+          "whole_mouth_laplacian_variance": 23.007888101732,
+          "central_oral_laplacian_variance": 74.67220244722452,
+          "central_oral_mean_luma": 86.51990632318501
+        },
+        {
+          "frame": 231,
+          "time_s": 9.24,
+          "normalized_opening": 0.03133205905572811,
+          "opening_px": 5.2378935673998654,
+          "mouth_width_px": 98.74503644219386,
+          "whole_mouth_laplacian_variance": 33.18365631003195,
+          "central_oral_laplacian_variance": 155.0682328877201,
+          "central_oral_mean_luma": 71.27350427350427
+        },
+        {
+          "frame": 232,
+          "time_s": 9.28,
+          "normalized_opening": 0.06553364808483826,
+          "opening_px": 10.978480916442596,
+          "mouth_width_px": 100.41522203668168,
+          "whole_mouth_laplacian_variance": 48.799515121630506,
+          "central_oral_laplacian_variance": 166.64552650437133,
+          "central_oral_mean_luma": 91.62533936651583
+        },
+        {
+          "frame": 233,
+          "time_s": 9.32,
+          "normalized_opening": 0.06712875135300499,
+          "opening_px": 11.28406437547101,
+          "mouth_width_px": 100.97904841445526,
+          "whole_mouth_laplacian_variance": 54.08969314846061,
+          "central_oral_laplacian_variance": 193.95637271964128,
+          "central_oral_mean_luma": 97.09592760180996
+        },
+        {
+          "frame": 234,
+          "time_s": 9.36,
+          "normalized_opening": 0.07924978261995047,
+          "opening_px": 13.354078664566572,
+          "mouth_width_px": 98.92849656923312,
+          "whole_mouth_laplacian_variance": 51.278108916574205,
+          "central_oral_laplacian_variance": 124.35958298112143,
+          "central_oral_mean_luma": 96.32087912087913
+        },
+        {
+          "frame": 235,
+          "time_s": 9.4,
+          "normalized_opening": 0.068027867801891,
+          "opening_px": 11.449545277483487,
+          "mouth_width_px": 97.45448913281939,
+          "whole_mouth_laplacian_variance": 54.912102954470754,
+          "central_oral_laplacian_variance": 148.9602633707633,
+          "central_oral_mean_luma": 90.32748538011695
+        },
+        {
+          "frame": 236,
+          "time_s": 9.44,
+          "normalized_opening": 0.04143399914751573,
+          "opening_px": 6.982138940440682,
+          "mouth_width_px": 93.5889372781127,
+          "whole_mouth_laplacian_variance": 41.72086102989142,
+          "central_oral_laplacian_variance": 171.09022945489193,
+          "central_oral_mean_luma": 62.69746646795827
+        },
+        {
+          "frame": 237,
+          "time_s": 9.48,
+          "normalized_opening": 0.00879869329854246,
+          "opening_px": 1.4827686681313723,
+          "mouth_width_px": 88.66415193703162,
+          "whole_mouth_laplacian_variance": 39.62115438387317,
+          "central_oral_laplacian_variance": 305.03258145363407,
+          "central_oral_mean_luma": 58.43859649122807
+        },
+        {
+          "frame": 238,
+          "time_s": 9.52,
+          "normalized_opening": 0.001252737862407026,
+          "opening_px": 0.21099056353530068,
+          "mouth_width_px": 88.65142561155449,
+          "whole_mouth_laplacian_variance": 39.172262759838816,
+          "central_oral_laplacian_variance": 239.57813079063575,
+          "central_oral_mean_luma": 74.75438596491227
+        },
+        {
+          "frame": 239,
+          "time_s": 9.56,
+          "normalized_opening": 0.014164601517711763,
+          "opening_px": 2.3849119312183293,
+          "mouth_width_px": 89.01069875404833,
+          "whole_mouth_laplacian_variance": 41.299694254396776,
+          "central_oral_laplacian_variance": 433.5495505681497,
+          "central_oral_mean_luma": 51.145363408521305
+        },
+        {
+          "frame": 240,
+          "time_s": 9.6,
+          "normalized_opening": 0.08646515459399545,
+          "opening_px": 14.604665131981326,
+          "mouth_width_px": 92.77217299497687,
+          "whole_mouth_laplacian_variance": 42.15669670832306,
+          "central_oral_laplacian_variance": 85.91086608524957,
+          "central_oral_mean_luma": 56.17961511047755
+        },
+        {
+          "frame": 241,
+          "time_s": 9.64,
+          "normalized_opening": 0.1384776286020318,
+          "opening_px": 23.535013480505285,
+          "mouth_width_px": 97.1498973325152,
+          "whole_mouth_laplacian_variance": 49.03730568268204,
+          "central_oral_laplacian_variance": 75.48893773346798,
+          "central_oral_mean_luma": 66.89489489489489
+        },
+        {
+          "frame": 242,
+          "time_s": 9.68,
+          "normalized_opening": 0.11842902765567655,
+          "opening_px": 19.942948233764834,
+          "mouth_width_px": 96.77970578865062,
+          "whole_mouth_laplacian_variance": 51.10205495459402,
+          "central_oral_laplacian_variance": 100.56933062661223,
+          "central_oral_mean_luma": 67.36200716845879
+        },
+        {
+          "frame": 243,
+          "time_s": 9.72,
+          "normalized_opening": 0.07374339721852304,
+          "opening_px": 12.454679009418276,
+          "mouth_width_px": 98.16421816281779,
+          "whole_mouth_laplacian_variance": 43.48898172974195,
+          "central_oral_laplacian_variance": 108.08450951941258,
+          "central_oral_mean_luma": 72.68253968253968
+        },
+        {
+          "frame": 244,
+          "time_s": 9.76,
+          "normalized_opening": 0.047062024116583785,
+          "opening_px": 7.982837808971713,
+          "mouth_width_px": 101.75256793549555,
+          "whole_mouth_laplacian_variance": 44.96588130752794,
+          "central_oral_laplacian_variance": 151.56971742892884,
+          "central_oral_mean_luma": 89.99885189437428
+        },
+        {
+          "frame": 245,
+          "time_s": 9.8,
+          "normalized_opening": 0.04823092530707542,
+          "opening_px": 8.242358191471864,
+          "mouth_width_px": 103.58126676118333,
+          "whole_mouth_laplacian_variance": 39.94962288218843,
+          "central_oral_laplacian_variance": 120.85193391867826,
+          "central_oral_mean_luma": 94.34213547646384
+        },
+        {
+          "frame": 246,
+          "time_s": 9.84,
+          "normalized_opening": 0.03830542719228205,
+          "opening_px": 6.527097171235793,
+          "mouth_width_px": 102.67074558256022,
+          "whole_mouth_laplacian_variance": 36.801826512163046,
+          "central_oral_laplacian_variance": 132.77848330814166,
+          "central_oral_mean_luma": 93.6797829036635
+        },
+        {
+          "frame": 247,
+          "time_s": 9.88,
+          "normalized_opening": 0.006322323352002263,
+          "opening_px": 1.0774331602764509,
+          "mouth_width_px": 99.92418250837561,
+          "whole_mouth_laplacian_variance": 34.414178671451246,
+          "central_oral_laplacian_variance": 164.73477116290303,
+          "central_oral_mean_luma": 88.189010989011
+        },
+        {
+          "frame": 248,
+          "time_s": 9.92,
+          "normalized_opening": 0.0009410045976432357,
+          "opening_px": 0.1600271059010696,
+          "mouth_width_px": 97.59528979558613,
+          "whole_mouth_laplacian_variance": 34.97395219370224,
+          "central_oral_laplacian_variance": 219.38699410225163,
+          "central_oral_mean_luma": 87.80725623582767
+        }
+      ]
+    },
+    {
+      "variant": "pro",
+      "path": "benchmarks/pro_lite_teeth_20260917/pro/video.mp4",
+      "fps": 25.0,
+      "decoded_frames": 229,
+      "detected_frames": 229,
+      "median_mouth_width_px": 103.86119386461749,
+      "median_normalized_opening": 0.08754329957591805,
+      "p95_normalized_opening": 0.1939244555861463,
+      "median_whole_mouth_laplacian_variance": 167.50040048051238,
+      "open_frame_count_ge_4px": 193,
+      "open_frame_median_central_oral_laplacian_variance": 459.1503801722327,
+      "open_frame_median_central_oral_mean_luma": 115.96328502415459,
+      "samples": [
+        {
+          "frame": 0,
+          "time_s": 0.0,
+          "normalized_opening": 0.0018674802614064806,
+          "opening_px": 0.31567239134093494,
+          "mouth_width_px": 99.65277467766997,
+          "whole_mouth_laplacian_variance": 57.19739848982732,
+          "central_oral_laplacian_variance": 191.44111097693516,
+          "central_oral_mean_luma": 90.27472527472527
+        },
+        {
+          "frame": 1,
+          "time_s": 0.04,
+          "normalized_opening": 0.018564017544420396,
+          "opening_px": 3.160249419895952,
+          "mouth_width_px": 98.1406280679927,
+          "whole_mouth_laplacian_variance": 65.30347787228796,
+          "central_oral_laplacian_variance": 447.95885459247955,
+          "central_oral_mean_luma": 43.718820861678005
+        },
+        {
+          "frame": 2,
+          "time_s": 0.08,
+          "normalized_opening": 0.0658481100667358,
+          "opening_px": 11.12707166678079,
+          "mouth_width_px": 94.82554023018784,
+          "whole_mouth_laplacian_variance": 71.09050695054394,
+          "central_oral_laplacian_variance": 156.7111345035983,
+          "central_oral_mean_luma": 49.53616200578592
+        },
+        {
+          "frame": 3,
+          "time_s": 0.12,
+          "normalized_opening": 0.021752613501840268,
+          "opening_px": 3.616691979341406,
+          "mouth_width_px": 94.42937430673534,
+          "whole_mouth_laplacian_variance": 74.25943492761496,
+          "central_oral_laplacian_variance": 542.682831584663,
+          "central_oral_mean_luma": 39.0655737704918
+        },
+        {
+          "frame": 4,
+          "time_s": 0.16,
+          "normalized_opening": 0.002253108040989425,
+          "opening_px": 0.38250757378399153,
+          "mouth_width_px": 95.57841004748543,
+          "whole_mouth_laplacian_variance": 71.21310984594581,
+          "central_oral_laplacian_variance": 420.00596459294223,
+          "central_oral_mean_luma": 69.16326530612245
+        },
+        {
+          "frame": 5,
+          "time_s": 0.2,
+          "normalized_opening": 0.06363726764604778,
+          "opening_px": 10.881862309348687,
+          "mouth_width_px": 100.9816416389245,
+          "whole_mouth_laplacian_variance": 114.90031983866494,
+          "central_oral_laplacian_variance": 405.3136307610409,
+          "central_oral_mean_luma": 70.71131221719457
+        },
+        {
+          "frame": 6,
+          "time_s": 0.24,
+          "normalized_opening": 0.09723884766078937,
+          "opening_px": 16.662190469985596,
+          "mouth_width_px": 103.61524593708927,
+          "whole_mouth_laplacian_variance": 237.2058524007001,
+          "central_oral_laplacian_variance": 651.2596102472712,
+          "central_oral_mean_luma": 99.2065671641791
+        },
+        {
+          "frame": 7,
+          "time_s": 0.28,
+          "normalized_opening": 0.04828543561640725,
+          "opening_px": 8.338124455168673,
+          "mouth_width_px": 103.90465473801895,
+          "whole_mouth_laplacian_variance": 141.13106896515194,
+          "central_oral_laplacian_variance": 582.2167691964974,
+          "central_oral_mean_luma": 82.96211251435132
+        },
+        {
+          "frame": 8,
+          "time_s": 0.32,
+          "normalized_opening": 0.0019127499441272252,
+          "opening_px": 0.32926026572950606,
+          "mouth_width_px": 101.88115908534876,
+          "whole_mouth_laplacian_variance": 43.006871531309066,
+          "central_oral_laplacian_variance": 129.88030605425504,
+          "central_oral_mean_luma": 93.82942430703625
+        },
+        {
+          "frame": 9,
+          "time_s": 0.36,
+          "normalized_opening": 0.0009464415307525876,
+          "opening_px": 0.16197518746792347,
+          "mouth_width_px": 102.18526824906424,
+          "whole_mouth_laplacian_variance": 36.8715896957568,
+          "central_oral_laplacian_variance": 114.08917035292619,
+          "central_oral_mean_luma": 101.55863539445629
+        },
+        {
+          "frame": 10,
+          "time_s": 0.4,
+          "normalized_opening": 0.12022510624948242,
+          "opening_px": 20.569064696143176,
+          "mouth_width_px": 108.05283554170192,
+          "whole_mouth_laplacian_variance": 51.836062660192205,
+          "central_oral_laplacian_variance": 68.7186630503957,
+          "central_oral_mean_luma": 61.388914129940936
+        },
+        {
+          "frame": 11,
+          "time_s": 0.44,
+          "normalized_opening": 0.1614655836160732,
+          "opening_px": 27.823304981933916,
+          "mouth_width_px": 112.26610742050968,
+          "whole_mouth_laplacian_variance": 251.0229288335696,
+          "central_oral_laplacian_variance": 372.7234815551021,
+          "central_oral_mean_luma": 94.31920993947116
+        },
+        {
+          "frame": 12,
+          "time_s": 0.48,
+          "normalized_opening": 0.0909157384330534,
+          "opening_px": 15.625742532550916,
+          "mouth_width_px": 113.80971690242853,
+          "whole_mouth_laplacian_variance": 335.63398741672574,
+          "central_oral_laplacian_variance": 767.9664165134171,
+          "central_oral_mean_luma": 119.99068493150685
+        },
+        {
+          "frame": 13,
+          "time_s": 0.52,
+          "normalized_opening": 0.08813462411924455,
+          "opening_px": 15.159038557942507,
+          "mouth_width_px": 116.51250409455675,
+          "whole_mouth_laplacian_variance": 187.12094158345664,
+          "central_oral_laplacian_variance": 371.35953421550096,
+          "central_oral_mean_luma": 128.1785507246377
+        },
+        {
+          "frame": 14,
+          "time_s": 0.56,
+          "normalized_opening": 0.0767823888619463,
+          "opening_px": 13.279382051526316,
+          "mouth_width_px": 118.3349319451873,
+          "whole_mouth_laplacian_variance": 171.2109604533921,
+          "central_oral_laplacian_variance": 390.5210141626786,
+          "central_oral_mean_luma": 128.15769944341372
+        },
+        {
+          "frame": 15,
+          "time_s": 0.6,
+          "normalized_opening": 0.08372761630472801,
+          "opening_px": 14.356861657601154,
+          "mouth_width_px": 114.45983693401101,
+          "whole_mouth_laplacian_variance": 157.80956967044708,
+          "central_oral_laplacian_variance": 336.40743910943075,
+          "central_oral_mean_luma": 130.78782608695653
+        },
+        {
+          "frame": 16,
+          "time_s": 0.64,
+          "normalized_opening": 0.09245788935965421,
+          "opening_px": 15.100413187472538,
+          "mouth_width_px": 115.56260823311626,
+          "whole_mouth_laplacian_variance": 162.87590336846648,
+          "central_oral_laplacian_variance": 365.4523120352867,
+          "central_oral_mean_luma": 130.96347826086958
+        },
+        {
+          "frame": 17,
+          "time_s": 0.68,
+          "normalized_opening": 0.09544371305168343,
+          "opening_px": 15.436011478905602,
+          "mouth_width_px": 115.73742300312462,
+          "whole_mouth_laplacian_variance": 282.68999240932925,
+          "central_oral_laplacian_variance": 586.4124285155556,
+          "central_oral_mean_luma": 130.66613333333333
+        },
+        {
+          "frame": 18,
+          "time_s": 0.72,
+          "normalized_opening": 0.1095410725861837,
+          "opening_px": 18.062909963029288,
+          "mouth_width_px": 112.38945417859637,
+          "whole_mouth_laplacian_variance": 320.76176690396943,
+          "central_oral_laplacian_variance": 619.6532646508939,
+          "central_oral_mean_luma": 131.18422295701464
+        },
+        {
+          "frame": 19,
+          "time_s": 0.76,
+          "normalized_opening": 0.030902910201957463,
+          "opening_px": 5.114109215335815,
+          "mouth_width_px": 105.56517193012654,
+          "whole_mouth_laplacian_variance": 114.1385206314077,
+          "central_oral_laplacian_variance": 807.3628841331705,
+          "central_oral_mean_luma": 61.950080515297905
+        },
+        {
+          "frame": 20,
+          "time_s": 0.8,
+          "normalized_opening": 0.0017969401999948526,
+          "opening_px": 0.29784377353677327,
+          "mouth_width_px": 100.60511997544211,
+          "whole_mouth_laplacian_variance": 42.44087976660092,
+          "central_oral_laplacian_variance": 117.28604757879482,
+          "central_oral_mean_luma": 100.12087912087912
+        },
+        {
+          "frame": 21,
+          "time_s": 0.84,
+          "normalized_opening": 0.009887675355331723,
+          "opening_px": 1.644104194520729,
+          "mouth_width_px": 102.51790852581024,
+          "whole_mouth_laplacian_variance": 56.92151657395423,
+          "central_oral_laplacian_variance": 187.51480489723178,
+          "central_oral_mean_luma": 51.285714285714285
+        },
+        {
+          "frame": 22,
+          "time_s": 0.88,
+          "normalized_opening": 0.17739947311040885,
+          "opening_px": 29.51156022525034,
+          "mouth_width_px": 108.98209963035373,
+          "whole_mouth_laplacian_variance": 240.160655084995,
+          "central_oral_laplacian_variance": 337.2915029107001,
+          "central_oral_mean_luma": 83.58028169014085
+        },
+        {
+          "frame": 23,
+          "time_s": 0.92,
+          "normalized_opening": 0.16660687267167432,
+          "opening_px": 27.709105359770767,
+          "mouth_width_px": 111.75593230605661,
+          "whole_mouth_laplacian_variance": 375.1263835839266,
+          "central_oral_laplacian_variance": 527.3523884992684,
+          "central_oral_mean_luma": 104.22809812042051
+        },
+        {
+          "frame": 24,
+          "time_s": 0.96,
+          "normalized_opening": 0.14997912507528996,
+          "opening_px": 24.96946461397411,
+          "mouth_width_px": 113.29703066203854,
+          "whole_mouth_laplacian_variance": 392.1933343349359,
+          "central_oral_laplacian_variance": 609.3041190148456,
+          "central_oral_mean_luma": 117.89919213206885
+        },
+        {
+          "frame": 25,
+          "time_s": 1.0,
+          "normalized_opening": 0.12163458758838247,
+          "opening_px": 20.45113923703929,
+          "mouth_width_px": 115.48715869102601,
+          "whole_mouth_laplacian_variance": 359.2357835036058,
+          "central_oral_laplacian_variance": 665.8085975257255,
+          "central_oral_mean_luma": 122.49462365591398
+        },
+        {
+          "frame": 26,
+          "time_s": 1.04,
+          "normalized_opening": 0.10993026766189816,
+          "opening_px": 18.4781796885052,
+          "mouth_width_px": 114.70924654303647,
+          "whole_mouth_laplacian_variance": 319.0699493789422,
+          "central_oral_laplacian_variance": 621.9963717267804,
+          "central_oral_mean_luma": 123.55862068965517
+        },
+        {
+          "frame": 27,
+          "time_s": 1.08,
+          "normalized_opening": 0.1012141139280605,
+          "opening_px": 17.048089071857948,
+          "mouth_width_px": 113.80151425548752,
+          "whole_mouth_laplacian_variance": 294.0853721322706,
+          "central_oral_laplacian_variance": 641.3048657589846,
+          "central_oral_mean_luma": 128.5246067985794
+        },
+        {
+          "frame": 28,
+          "time_s": 1.12,
+          "normalized_opening": 0.10235135830698414,
+          "opening_px": 17.24294597300179,
+          "mouth_width_px": 114.62377999816836,
+          "whole_mouth_laplacian_variance": 280.1087237978201,
+          "central_oral_laplacian_variance": 597.1632899862827,
+          "central_oral_mean_luma": 127.83012345679012
+        },
+        {
+          "frame": 29,
+          "time_s": 1.16,
+          "normalized_opening": 0.10353803614139688,
+          "opening_px": 17.445970776465398,
+          "mouth_width_px": 114.55077723842949,
+          "whole_mouth_laplacian_variance": 274.65314503205127,
+          "central_oral_laplacian_variance": 592.7391448864502,
+          "central_oral_mean_luma": 129.06617283950618
+        },
+        {
+          "frame": 30,
+          "time_s": 1.2,
+          "normalized_opening": 0.09477154609789658,
+          "opening_px": 15.938943487396765,
+          "mouth_width_px": 112.39201716563869,
+          "whole_mouth_laplacian_variance": 266.8043349728155,
+          "central_oral_laplacian_variance": 644.1826083693,
+          "central_oral_mean_luma": 129.44219178082193
+        },
+        {
+          "frame": 31,
+          "time_s": 1.24,
+          "normalized_opening": 0.07966708685998412,
+          "opening_px": 13.074520257090962,
+          "mouth_width_px": 99.8437447458411,
+          "whole_mouth_laplacian_variance": 206.2613474828957,
+          "central_oral_laplacian_variance": 677.9780294918756,
+          "central_oral_mean_luma": 109.67252747252748
+        },
+        {
+          "frame": 32,
+          "time_s": 1.28,
+          "normalized_opening": 0.0780627867444786,
+          "opening_px": 13.447847825130268,
+          "mouth_width_px": 91.48265063171472,
+          "whole_mouth_laplacian_variance": 113.1407424956854,
+          "central_oral_laplacian_variance": 319.17145684281564,
+          "central_oral_mean_luma": 87.31315577078288
+        },
+        {
+          "frame": 33,
+          "time_s": 1.32,
+          "normalized_opening": 0.023948347619116326,
+          "opening_px": 4.17667011468154,
+          "mouth_width_px": 87.38053607245635,
+          "whole_mouth_laplacian_variance": 57.03384630151833,
+          "central_oral_laplacian_variance": 339.9987688519545,
+          "central_oral_mean_luma": 70.97994987468671
+        },
+        {
+          "frame": 34,
+          "time_s": 1.36,
+          "normalized_opening": 0.04563858021622958,
+          "opening_px": 7.733074581996911,
+          "mouth_width_px": 95.18565923458245,
+          "whole_mouth_laplacian_variance": 68.0073553583169,
+          "central_oral_laplacian_variance": 218.23549691579376,
+          "central_oral_mean_luma": 92.72257250945775
+        },
+        {
+          "frame": 35,
+          "time_s": 1.4,
+          "normalized_opening": 0.0709537651934096,
+          "opening_px": 11.707820602881544,
+          "mouth_width_px": 101.11498993301569,
+          "whole_mouth_laplacian_variance": 82.6613350591716,
+          "central_oral_laplacian_variance": 235.70629251421923,
+          "central_oral_mean_luma": 127.58785425101215
+        },
+        {
+          "frame": 36,
+          "time_s": 1.44,
+          "normalized_opening": 0.1083952400444693,
+          "opening_px": 18.111647999664218,
+          "mouth_width_px": 107.142387320241,
+          "whole_mouth_laplacian_variance": 132.16442554080118,
+          "central_oral_laplacian_variance": 316.31444547591263,
+          "central_oral_mean_luma": 141.8255872063968
+        },
+        {
+          "frame": 37,
+          "time_s": 1.48,
+          "normalized_opening": 0.09769421576978127,
+          "opening_px": 16.40282990786034,
+          "mouth_width_px": 110.94124574067217,
+          "whole_mouth_laplacian_variance": 191.7812151686288,
+          "central_oral_laplacian_variance": 498.5125014073935,
+          "central_oral_mean_luma": 148.08438356164385
+        },
+        {
+          "frame": 38,
+          "time_s": 1.52,
+          "normalized_opening": 0.10612134860208855,
+          "opening_px": 17.941203700568206,
+          "mouth_width_px": 112.9959471548217,
+          "whole_mouth_laplacian_variance": 199.6673446745562,
+          "central_oral_laplacian_variance": 470.83799105291564,
+          "central_oral_mean_luma": 143.86707255200406
+        },
+        {
+          "frame": 39,
+          "time_s": 1.56,
+          "normalized_opening": 0.11280979514911768,
+          "opening_px": 19.04946615333182,
+          "mouth_width_px": 113.33365355674317,
+          "whole_mouth_laplacian_variance": 220.6811503774629,
+          "central_oral_laplacian_variance": 485.90954481669746,
+          "central_oral_mean_luma": 142.88899385923477
+        },
+        {
+          "frame": 40,
+          "time_s": 1.6,
+          "normalized_opening": 0.12534659658147407,
+          "opening_px": 21.21159556724339,
+          "mouth_width_px": 114.14390646926637,
+          "whole_mouth_laplacian_variance": 226.61044193144932,
+          "central_oral_laplacian_variance": 430.3110546270788,
+          "central_oral_mean_luma": 137.6008080808081
+        },
+        {
+          "frame": 41,
+          "time_s": 1.64,
+          "normalized_opening": 0.1947461773293385,
+          "opening_px": 33.013718066278834,
+          "mouth_width_px": 115.9924469320195,
+          "whole_mouth_laplacian_variance": 231.67581720496383,
+          "central_oral_laplacian_variance": 273.9137846811056,
+          "central_oral_mean_luma": 125.68627450980392
+        },
+        {
+          "frame": 42,
+          "time_s": 1.68,
+          "normalized_opening": 0.20315125225921155,
+          "opening_px": 34.140360685753144,
+          "mouth_width_px": 117.72178712309483,
+          "whole_mouth_laplacian_variance": 233.2956319855358,
+          "central_oral_laplacian_variance": 269.0011443975605,
+          "central_oral_mean_luma": 123.41733266733267
+        },
+        {
+          "frame": 43,
+          "time_s": 1.72,
+          "normalized_opening": 0.09267007025687093,
+          "opening_px": 15.61057120354504,
+          "mouth_width_px": 114.12416803887439,
+          "whole_mouth_laplacian_variance": 243.73886868829868,
+          "central_oral_laplacian_variance": 576.9731396266667,
+          "central_oral_mean_luma": 146.05333333333334
+        },
+        {
+          "frame": 44,
+          "time_s": 1.76,
+          "normalized_opening": 0.08096590192633957,
+          "opening_px": 13.711164696079901,
+          "mouth_width_px": 112.85811044744679,
+          "whole_mouth_laplacian_variance": 245.88604828623238,
+          "central_oral_laplacian_variance": 569.0495398259385,
+          "central_oral_mean_luma": 154.470971950424
+        },
+        {
+          "frame": 45,
+          "time_s": 1.8,
+          "normalized_opening": 0.14380495345165237,
+          "opening_px": 24.358756472760323,
+          "mouth_width_px": 115.86886459945454,
+          "whole_mouth_laplacian_variance": 249.04501043817547,
+          "central_oral_laplacian_variance": 476.71316289262234,
+          "central_oral_mean_luma": 141.63315315315316
+        },
+        {
+          "frame": 46,
+          "time_s": 1.84,
+          "normalized_opening": 0.22526202314048316,
+          "opening_px": 38.38530333856942,
+          "mouth_width_px": 115.94919567768189,
+          "whole_mouth_laplacian_variance": 308.34114739833734,
+          "central_oral_laplacian_variance": 363.2821433267587,
+          "central_oral_mean_luma": 118.10820512820513
+        },
+        {
+          "frame": 47,
+          "time_s": 1.88,
+          "normalized_opening": 0.22806498121830476,
+          "opening_px": 39.07769525048372,
+          "mouth_width_px": 105.68816100937781,
+          "whole_mouth_laplacian_variance": 267.1161544368425,
+          "central_oral_laplacian_variance": 328.9281716336755,
+          "central_oral_mean_luma": 96.25557413600892
+        },
+        {
+          "frame": 48,
+          "time_s": 1.92,
+          "normalized_opening": 0.163880621852932,
+          "opening_px": 28.00731825573689,
+          "mouth_width_px": 98.98255882076187,
+          "whole_mouth_laplacian_variance": 211.7739084056927,
+          "central_oral_laplacian_variance": 326.7687148978658,
+          "central_oral_mean_luma": 78.50912343470483
+        },
+        {
+          "frame": 49,
+          "time_s": 1.96,
+          "normalized_opening": 0.09696521903272409,
+          "opening_px": 16.537149387802355,
+          "mouth_width_px": 100.42337476007164,
+          "whole_mouth_laplacian_variance": 202.64160092044708,
+          "central_oral_laplacian_variance": 531.3130770177514,
+          "central_oral_mean_luma": 72.19076923076923
+        },
+        {
+          "frame": 50,
+          "time_s": 2.0,
+          "normalized_opening": 0.06710748751543442,
+          "opening_px": 11.498984723694136,
+          "mouth_width_px": 105.37336367891037,
+          "whole_mouth_laplacian_variance": 220.44373397275382,
+          "central_oral_laplacian_variance": 758.2377954304393,
+          "central_oral_mean_luma": 104.16475972540046
+        },
+        {
+          "frame": 51,
+          "time_s": 2.04,
+          "normalized_opening": 0.0874820592368082,
+          "opening_px": 14.907738899096163,
+          "mouth_width_px": 110.51209717720444,
+          "whole_mouth_laplacian_variance": 150.13044460881,
+          "central_oral_laplacian_variance": 355.7047942223484,
+          "central_oral_mean_luma": 135.6644213104715
+        },
+        {
+          "frame": 52,
+          "time_s": 2.08,
+          "normalized_opening": 0.09479116512281202,
+          "opening_px": 16.203043198633363,
+          "mouth_width_px": 110.78049192170893,
+          "whole_mouth_laplacian_variance": 157.69676081088716,
+          "central_oral_laplacian_variance": 446.41756032533226,
+          "central_oral_mean_luma": 146.30647887323943
+        },
+        {
+          "frame": 53,
+          "time_s": 2.12,
+          "normalized_opening": 0.12390076309286642,
+          "opening_px": 21.05123851844093,
+          "mouth_width_px": 112.50517930463646,
+          "whole_mouth_laplacian_variance": 229.6961923934064,
+          "central_oral_laplacian_variance": 416.03158764843545,
+          "central_oral_mean_luma": 132.27314238273144
+        },
+        {
+          "frame": 54,
+          "time_s": 2.16,
+          "normalized_opening": 0.15893431605677782,
+          "opening_px": 27.172810478984832,
+          "mouth_width_px": 113.08066921410153,
+          "whole_mouth_laplacian_variance": 259.53274369600337,
+          "central_oral_laplacian_variance": 391.53062636741555,
+          "central_oral_mean_luma": 123.2278650183762
+        },
+        {
+          "frame": 55,
+          "time_s": 2.2,
+          "normalized_opening": 0.17591623704155746,
+          "opening_px": 29.86594631074216,
+          "mouth_width_px": 115.36853954158008,
+          "whole_mouth_laplacian_variance": 247.9242470244057,
+          "central_oral_laplacian_variance": 342.6489148751715,
+          "central_oral_mean_luma": 119.74933333333334
+        },
+        {
+          "frame": 56,
+          "time_s": 2.24,
+          "normalized_opening": 0.18070613082156783,
+          "opening_px": 30.68987962964398,
+          "mouth_width_px": 113.67978950107133,
+          "whole_mouth_laplacian_variance": 235.1711237579486,
+          "central_oral_laplacian_variance": 322.25241762893415,
+          "central_oral_mean_luma": 117.53512095598951
+        },
+        {
+          "frame": 57,
+          "time_s": 2.28,
+          "normalized_opening": 0.20523808150831907,
+          "opening_px": 34.86450249004888,
+          "mouth_width_px": 114.85903323603033,
+          "whole_mouth_laplacian_variance": 225.38843973273904,
+          "central_oral_laplacian_variance": 268.4578353057199,
+          "central_oral_mean_luma": 110.78487179487179
+        },
+        {
+          "frame": 58,
+          "time_s": 2.32,
+          "normalized_opening": 0.2050940034919641,
+          "opening_px": 34.82259841253965,
+          "mouth_width_px": 113.01533942553718,
+          "whole_mouth_laplacian_variance": 218.4464872963408,
+          "central_oral_laplacian_variance": 265.22197031482307,
+          "central_oral_mean_luma": 107.77792413066386
+        },
+        {
+          "frame": 59,
+          "time_s": 2.36,
+          "normalized_opening": 0.2022522059396316,
+          "opening_px": 34.21131409078518,
+          "mouth_width_px": 112.4623227743711,
+          "whole_mouth_laplacian_variance": 187.62061698557434,
+          "central_oral_laplacian_variance": 225.03577277840023,
+          "central_oral_mean_luma": 103.8991043203372
+        },
+        {
+          "frame": 60,
+          "time_s": 2.4,
+          "normalized_opening": 0.19693078800611033,
+          "opening_px": 33.240736878794074,
+          "mouth_width_px": 110.67029215511727,
+          "whole_mouth_laplacian_variance": 171.68438716690295,
+          "central_oral_laplacian_variance": 213.66743537288733,
+          "central_oral_mean_luma": 101.13062689864678
+        },
+        {
+          "frame": 61,
+          "time_s": 2.44,
+          "normalized_opening": 0.14750642189103197,
+          "opening_px": 24.830278079328945,
+          "mouth_width_px": 104.35465084550601,
+          "whole_mouth_laplacian_variance": 90.7230674447706,
+          "central_oral_laplacian_variance": 132.11819380532646,
+          "central_oral_mean_luma": 76.7558362035974
+        },
+        {
+          "frame": 62,
+          "time_s": 2.48,
+          "normalized_opening": 0.10165581170451923,
+          "opening_px": 16.99054707128574,
+          "mouth_width_px": 88.47094727960469,
+          "whole_mouth_laplacian_variance": 109.13464198968349,
+          "central_oral_laplacian_variance": 239.13381895284016,
+          "central_oral_mean_luma": 50.83625730994152
+        },
+        {
+          "frame": 63,
+          "time_s": 2.52,
+          "normalized_opening": 0.027925355159054043,
+          "opening_px": 4.63788983277875,
+          "mouth_width_px": 75.18411961535143,
+          "whole_mouth_laplacian_variance": 68.92507142036233,
+          "central_oral_laplacian_variance": 579.8347967258541,
+          "central_oral_mean_luma": 33.10787172011662
+        },
+        {
+          "frame": 64,
+          "time_s": 2.56,
+          "normalized_opening": 0.0016119811495451035,
+          "opening_px": 0.2691377517812585,
+          "mouth_width_px": 82.65898359783347,
+          "whole_mouth_laplacian_variance": 46.53076264170108,
+          "central_oral_laplacian_variance": 233.93558605357416,
+          "central_oral_mean_luma": 88.90026954177898
+        },
+        {
+          "frame": 65,
+          "time_s": 2.6,
+          "normalized_opening": 0.00233368394297267,
+          "opening_px": 0.3898764555003604,
+          "mouth_width_px": 83.7583950607626,
+          "whole_mouth_laplacian_variance": 43.41663183529545,
+          "central_oral_laplacian_variance": 177.03723393489625,
+          "central_oral_mean_luma": 87.76103896103896
+        },
+        {
+          "frame": 66,
+          "time_s": 2.64,
+          "normalized_opening": 0.07643122185892524,
+          "opening_px": 12.783207551862155,
+          "mouth_width_px": 80.58430078064221,
+          "whole_mouth_laplacian_variance": 59.73675183980266,
+          "central_oral_laplacian_variance": 139.55152897755755,
+          "central_oral_mean_luma": 53.61545372866128
+        },
+        {
+          "frame": 67,
+          "time_s": 2.68,
+          "normalized_opening": 0.08538646576705737,
+          "opening_px": 14.289057505136412,
+          "mouth_width_px": 97.95247894255425,
+          "whole_mouth_laplacian_variance": 243.51313732581104,
+          "central_oral_laplacian_variance": 745.3750841231262,
+          "central_oral_mean_luma": 118.5879917184265
+        },
+        {
+          "frame": 68,
+          "time_s": 2.72,
+          "normalized_opening": 0.10185472500644385,
+          "opening_px": 16.84408751090532,
+          "mouth_width_px": 107.4332544334479,
+          "whole_mouth_laplacian_variance": 147.16084384855515,
+          "central_oral_laplacian_variance": 290.2223939420918,
+          "central_oral_mean_luma": 144.1245303274289
+        },
+        {
+          "frame": 69,
+          "time_s": 2.76,
+          "normalized_opening": 0.09957084095098685,
+          "opening_px": 16.68792839881133,
+          "mouth_width_px": 112.73556947750782,
+          "whole_mouth_laplacian_variance": 122.60564338839579,
+          "central_oral_laplacian_variance": 223.71213390715346,
+          "central_oral_mean_luma": 145.22374429223746
+        },
+        {
+          "frame": 70,
+          "time_s": 2.8,
+          "normalized_opening": 0.11017367734697175,
+          "opening_px": 17.929035277881834,
+          "mouth_width_px": 114.6750524943223,
+          "whole_mouth_laplacian_variance": 111.82752387794832,
+          "central_oral_laplacian_variance": 212.36040213382108,
+          "central_oral_mean_luma": 146.8730864197531
+        },
+        {
+          "frame": 71,
+          "time_s": 2.84,
+          "normalized_opening": 0.11337004517211162,
+          "opening_px": 18.675659807080034,
+          "mouth_width_px": 115.27843925938595,
+          "whole_mouth_laplacian_variance": 126.36478457679722,
+          "central_oral_laplacian_variance": 242.0137516712908,
+          "central_oral_mean_luma": 144.45747126436783
+        },
+        {
+          "frame": 72,
+          "time_s": 2.88,
+          "normalized_opening": 0.10498018689247364,
+          "opening_px": 17.544663989080526,
+          "mouth_width_px": 113.58452145720837,
+          "whole_mouth_laplacian_variance": 161.6586377948307,
+          "central_oral_laplacian_variance": 355.52243605336747,
+          "central_oral_mean_luma": 133.99543378995435
+        },
+        {
+          "frame": 73,
+          "time_s": 2.92,
+          "normalized_opening": 0.0013734925502279667,
+          "opening_px": 0.22939283980147496,
+          "mouth_width_px": 101.88312595826507,
+          "whole_mouth_laplacian_variance": 37.111146424022024,
+          "central_oral_laplacian_variance": 110.80367883397513,
+          "central_oral_mean_luma": 75.33901918976545
+        },
+        {
+          "frame": 74,
+          "time_s": 2.96,
+          "normalized_opening": 0.0015938894312453832,
+          "opening_px": 0.2668251001723034,
+          "mouth_width_px": 100.69216631978993,
+          "whole_mouth_laplacian_variance": 35.141013080865285,
+          "central_oral_laplacian_variance": 77.62924284506703,
+          "central_oral_mean_luma": 103.65494505494506
+        },
+        {
+          "frame": 75,
+          "time_s": 3.0,
+          "normalized_opening": 0.0018531020044942862,
+          "opening_px": 0.3093664448691928,
+          "mouth_width_px": 99.51232406396663,
+          "whole_mouth_laplacian_variance": 39.249972873263886,
+          "central_oral_laplacian_variance": 198.99918367346936,
+          "central_oral_mean_luma": 100.3956043956044
+        },
+        {
+          "frame": 76,
+          "time_s": 3.04,
+          "normalized_opening": 0.005473684035125456,
+          "opening_px": 0.9157622430183064,
+          "mouth_width_px": 100.84798073656385,
+          "whole_mouth_laplacian_variance": 66.03772281644221,
+          "central_oral_laplacian_variance": 574.806472648231,
+          "central_oral_mean_luma": 75.2989010989011
+        },
+        {
+          "frame": 77,
+          "time_s": 3.08,
+          "normalized_opening": 0.007382152631080512,
+          "opening_px": 1.2355323206924433,
+          "mouth_width_px": 98.0038938768314,
+          "whole_mouth_laplacian_variance": 64.85287706323707,
+          "central_oral_laplacian_variance": 518.2392624472315,
+          "central_oral_mean_luma": 76.07482993197279
+        },
+        {
+          "frame": 78,
+          "time_s": 3.12,
+          "normalized_opening": 0.00917779847821538,
+          "opening_px": 1.539788416855854,
+          "mouth_width_px": 95.28968811878006,
+          "whole_mouth_laplacian_variance": 65.61693609615128,
+          "central_oral_laplacian_variance": 523.0745191384805,
+          "central_oral_mean_luma": 75.05620608899298
+        },
+        {
+          "frame": 79,
+          "time_s": 3.16,
+          "normalized_opening": 0.032146045975253806,
+          "opening_px": 5.381315005028319,
+          "mouth_width_px": 96.75710437903054,
+          "whole_mouth_laplacian_variance": 68.35072169156548,
+          "central_oral_laplacian_variance": 295.75759046188205,
+          "central_oral_mean_luma": 85.92592592592592
+        },
+        {
+          "frame": 80,
+          "time_s": 3.2,
+          "normalized_opening": 0.053297132016194314,
+          "opening_px": 8.911570603159339,
+          "mouth_width_px": 94.59818938868031,
+          "whole_mouth_laplacian_variance": 86.43959501869656,
+          "central_oral_laplacian_variance": 297.3931452118606,
+          "central_oral_mean_luma": 105.31584699453552
+        },
+        {
+          "frame": 81,
+          "time_s": 3.24,
+          "normalized_opening": 0.07534674712145113,
+          "opening_px": 12.597806893860017,
+          "mouth_width_px": 97.40308713753583,
+          "whole_mouth_laplacian_variance": 90.57237922823954,
+          "central_oral_laplacian_variance": 239.21714059585054,
+          "central_oral_mean_luma": 134.99415204678363
+        },
+        {
+          "frame": 82,
+          "time_s": 3.28,
+          "normalized_opening": 0.08241023509865955,
+          "opening_px": 13.660677335977699,
+          "mouth_width_px": 101.24305067398065,
+          "whole_mouth_laplacian_variance": 108.0680651542468,
+          "central_oral_laplacian_variance": 271.9158051228381,
+          "central_oral_mean_luma": 150.26520146520147
+        },
+        {
+          "frame": 83,
+          "time_s": 3.32,
+          "normalized_opening": 0.10694484481144094,
+          "opening_px": 17.650324410124064,
+          "mouth_width_px": 109.1204030122645,
+          "whole_mouth_laplacian_variance": 187.18037413547577,
+          "central_oral_laplacian_variance": 376.6567648709934,
+          "central_oral_mean_luma": 143.49921752738655
+        },
+        {
+          "frame": 84,
+          "time_s": 3.36,
+          "normalized_opening": 0.1230918432876311,
+          "opening_px": 20.39921954362769,
+          "mouth_width_px": 109.78757502811418,
+          "whole_mouth_laplacian_variance": 235.01963907476323,
+          "central_oral_laplacian_variance": 459.0238124383179,
+          "central_oral_mean_luma": 143.7228532485234
+        },
+        {
+          "frame": 85,
+          "time_s": 3.4,
+          "normalized_opening": 0.10578801994865247,
+          "opening_px": 17.314693238249596,
+          "mouth_width_px": 109.66385479435074,
+          "whole_mouth_laplacian_variance": 223.86559067424545,
+          "central_oral_laplacian_variance": 470.05327181310776,
+          "central_oral_mean_luma": 151.89045383411582
+        },
+        {
+          "frame": 86,
+          "time_s": 3.44,
+          "normalized_opening": 0.10702367507244628,
+          "opening_px": 17.632367330977353,
+          "mouth_width_px": 110.76374227974314,
+          "whole_mouth_laplacian_variance": 186.98076923076923,
+          "central_oral_laplacian_variance": 388.243800561051,
+          "central_oral_mean_luma": 149.5263432446531
+        },
+        {
+          "frame": 87,
+          "time_s": 3.48,
+          "normalized_opening": 0.10465602742732838,
+          "opening_px": 17.44563791849273,
+          "mouth_width_px": 109.3709233977702,
+          "whole_mouth_laplacian_variance": 171.9288860574355,
+          "central_oral_laplacian_variance": 361.81594110733687,
+          "central_oral_mean_luma": 146.81064162754305
+        },
+        {
+          "frame": 88,
+          "time_s": 3.52,
+          "normalized_opening": 0.11026126616893665,
+          "opening_px": 18.530433712016116,
+          "mouth_width_px": 109.40468602903799,
+          "whole_mouth_laplacian_variance": 168.37355136808637,
+          "central_oral_laplacian_variance": 326.87202089123645,
+          "central_oral_mean_luma": 145.55900922778048
+        },
+        {
+          "frame": 89,
+          "time_s": 3.56,
+          "normalized_opening": 0.1159301329910766,
+          "opening_px": 19.447250748987152,
+          "mouth_width_px": 107.95811207238597,
+          "whole_mouth_laplacian_variance": 170.6992870885083,
+          "central_oral_laplacian_variance": 316.6798277021246,
+          "central_oral_mean_luma": 142.3421172194457
+        },
+        {
+          "frame": 90,
+          "time_s": 3.6,
+          "normalized_opening": 0.11450989482820915,
+          "opening_px": 19.211714234382026,
+          "mouth_width_px": 106.56746903041419,
+          "whole_mouth_laplacian_variance": 158.29452215692544,
+          "central_oral_laplacian_variance": 313.0639118221998,
+          "central_oral_mean_luma": 146.25887056471765
+        },
+        {
+          "frame": 91,
+          "time_s": 3.64,
+          "normalized_opening": 0.11278615595388355,
+          "opening_px": 18.91677799089309,
+          "mouth_width_px": 106.29893953753404,
+          "whole_mouth_laplacian_variance": 179.95776945035132,
+          "central_oral_laplacian_variance": 379.4427753639422,
+          "central_oral_mean_luma": 147.05497251374314
+        },
+        {
+          "frame": 92,
+          "time_s": 3.68,
+          "normalized_opening": 0.11110441785843836,
+          "opening_px": 18.61130820854359,
+          "mouth_width_px": 104.36404953185362,
+          "whole_mouth_laplacian_variance": 248.49385539298777,
+          "central_oral_laplacian_variance": 562.8199978332555,
+          "central_oral_mean_luma": 137.6973751930005
+        },
+        {
+          "frame": 93,
+          "time_s": 3.72,
+          "normalized_opening": 0.03774084126061147,
+          "opening_px": 6.324529417019768,
+          "mouth_width_px": 97.61462229489555,
+          "whole_mouth_laplacian_variance": 111.8111542169394,
+          "central_oral_laplacian_variance": 611.2475028578926,
+          "central_oral_mean_luma": 84.15440115440116
+        },
+        {
+          "frame": 94,
+          "time_s": 3.76,
+          "normalized_opening": 0.0007983951806030806,
+          "opening_px": 0.13383277819282996,
+          "mouth_width_px": 95.78011519508544,
+          "whole_mouth_laplacian_variance": 74.88943704157421,
+          "central_oral_laplacian_variance": 456.01814058956916,
+          "central_oral_mean_luma": 60.2108843537415
+        },
+        {
+          "frame": 95,
+          "time_s": 3.8,
+          "normalized_opening": 0.0016928138218699738,
+          "opening_px": 0.28505899129371326,
+          "mouth_width_px": 95.56548368454325,
+          "whole_mouth_laplacian_variance": 48.70656475842116,
+          "central_oral_laplacian_variance": 88.71877458466379,
+          "central_oral_mean_luma": 102.40136054421768
+        },
+        {
+          "frame": 96,
+          "time_s": 3.84,
+          "normalized_opening": 0.0010054971234926733,
+          "opening_px": 0.16904807135397254,
+          "mouth_width_px": 94.80941274290169,
+          "whole_mouth_laplacian_variance": 43.7431891025641,
+          "central_oral_laplacian_variance": 107.18415611339941,
+          "central_oral_mean_luma": 111.66744730679157
+        },
+        {
+          "frame": 97,
+          "time_s": 3.88,
+          "normalized_opening": 0.00026295415455174844,
+          "opening_px": 0.04423034209364912,
+          "mouth_width_px": 95.15100907176112,
+          "whole_mouth_laplacian_variance": 43.52658159304888,
+          "central_oral_laplacian_variance": 65.08425977217009,
+          "central_oral_mean_luma": 109.46838407494145
+        },
+        {
+          "frame": 98,
+          "time_s": 3.92,
+          "normalized_opening": 0.0007449688938686208,
+          "opening_px": 0.12497702774912245,
+          "mouth_width_px": 94.93126386048326,
+          "whole_mouth_laplacian_variance": 43.56298824112169,
+          "central_oral_laplacian_variance": 55.804956973383284,
+          "central_oral_mean_luma": 103.1592505854801
+        },
+        {
+          "frame": 99,
+          "time_s": 3.96,
+          "normalized_opening": 0.000712112020508083,
+          "opening_px": 0.11964698187839008,
+          "mouth_width_px": 92.73694423370469,
+          "whole_mouth_laplacian_variance": 45.42203162078557,
+          "central_oral_laplacian_variance": 74.58961547532209,
+          "central_oral_mean_luma": 76.11007025761124
+        },
+        {
+          "frame": 100,
+          "time_s": 4.0,
+          "normalized_opening": 0.004676241390989618,
+          "opening_px": 0.7802174921712035,
+          "mouth_width_px": 90.36770099873938,
+          "whole_mouth_laplacian_variance": 62.327273477307294,
+          "central_oral_laplacian_variance": 472.1395916022255,
+          "central_oral_mean_luma": 105.44794188861985
+        },
+        {
+          "frame": 101,
+          "time_s": 4.04,
+          "normalized_opening": 0.09892203520231643,
+          "opening_px": 16.516743195836064,
+          "mouth_width_px": 94.73548169345796,
+          "whole_mouth_laplacian_variance": 119.36945165951417,
+          "central_oral_laplacian_variance": 291.65164805159907,
+          "central_oral_mean_luma": 108.88131147540983
+        },
+        {
+          "frame": 102,
+          "time_s": 4.08,
+          "normalized_opening": 0.09339757249122303,
+          "opening_px": 15.596297389199698,
+          "mouth_width_px": 94.24231355415859,
+          "whole_mouth_laplacian_variance": 146.58083125308184,
+          "central_oral_laplacian_variance": 543.9824718086536,
+          "central_oral_mean_luma": 109.65180327868852
+        },
+        {
+          "frame": 103,
+          "time_s": 4.12,
+          "normalized_opening": 0.07684642283780184,
+          "opening_px": 12.831367772004215,
+          "mouth_width_px": 94.57139831478719,
+          "whole_mouth_laplacian_variance": 274.4564534023669,
+          "central_oral_laplacian_variance": 1174.4084314008683,
+          "central_oral_mean_luma": 119.20296643247462
+        },
+        {
+          "frame": 104,
+          "time_s": 4.16,
+          "normalized_opening": 0.0699587305798199,
+          "opening_px": 11.835481927660393,
+          "mouth_width_px": 94.19601261030286,
+          "whole_mouth_laplacian_variance": 328.65152304584774,
+          "central_oral_laplacian_variance": 1487.4647865934232,
+          "central_oral_mean_luma": 130.68248490077653
+        },
+        {
+          "frame": 105,
+          "time_s": 4.2,
+          "normalized_opening": 0.08451938906826414,
+          "opening_px": 14.188506057648738,
+          "mouth_width_px": 96.19073898061359,
+          "whole_mouth_laplacian_variance": 176.42533819335296,
+          "central_oral_laplacian_variance": 456.8646023696884,
+          "central_oral_mean_luma": 135.97101449275362
+        },
+        {
+          "frame": 106,
+          "time_s": 4.24,
+          "normalized_opening": 0.09682508864833783,
+          "opening_px": 16.288994892383712,
+          "mouth_width_px": 95.0729332505975,
+          "whole_mouth_laplacian_variance": 145.74886212170242,
+          "central_oral_laplacian_variance": 363.01266369255575,
+          "central_oral_mean_luma": 136.2
+        },
+        {
+          "frame": 107,
+          "time_s": 4.28,
+          "normalized_opening": 0.11549839579830896,
+          "opening_px": 19.458388899609634,
+          "mouth_width_px": 92.5248494711968,
+          "whole_mouth_laplacian_variance": 239.63805642714243,
+          "central_oral_laplacian_variance": 534.5426287955332,
+          "central_oral_mean_luma": 120.85034373347435
+        },
+        {
+          "frame": 108,
+          "time_s": 4.32,
+          "normalized_opening": 0.10758406070386858,
+          "opening_px": 18.230794245645523,
+          "mouth_width_px": 90.82361594117484,
+          "whole_mouth_laplacian_variance": 252.3715630906887,
+          "central_oral_laplacian_variance": 613.9832909823704,
+          "central_oral_mean_luma": 101.97545295149035
+        },
+        {
+          "frame": 109,
+          "time_s": 4.36,
+          "normalized_opening": 0.09315230551258763,
+          "opening_px": 15.827641509863113,
+          "mouth_width_px": 92.61660777301304,
+          "whole_mouth_laplacian_variance": 263.5954815766123,
+          "central_oral_laplacian_variance": 736.8552694436979,
+          "central_oral_mean_luma": 115.39344262295081
+        },
+        {
+          "frame": 110,
+          "time_s": 4.4,
+          "normalized_opening": 0.08754329957591805,
+          "opening_px": 14.873366738090306,
+          "mouth_width_px": 94.17291800855499,
+          "whole_mouth_laplacian_variance": 289.0412807928583,
+          "central_oral_laplacian_variance": 961.5660525835841,
+          "central_oral_mean_luma": 132.15823235923023
+        },
+        {
+          "frame": 111,
+          "time_s": 4.44,
+          "normalized_opening": 0.08826768561089748,
+          "opening_px": 15.014833882900145,
+          "mouth_width_px": 96.73462374813126,
+          "whole_mouth_laplacian_variance": 305.2530683308036,
+          "central_oral_laplacian_variance": 1062.8468504253904,
+          "central_oral_mean_luma": 145.01932367149757
+        },
+        {
+          "frame": 112,
+          "time_s": 4.48,
+          "normalized_opening": 0.11411952124357852,
+          "opening_px": 19.439685701040425,
+          "mouth_width_px": 101.05813258865786,
+          "whole_mouth_laplacian_variance": 351.6870444233209,
+          "central_oral_laplacian_variance": 770.5981358175964,
+          "central_oral_mean_luma": 140.61588089330024
+        },
+        {
+          "frame": 113,
+          "time_s": 4.52,
+          "normalized_opening": 0.17978700562568567,
+          "opening_px": 30.499839950757426,
+          "mouth_width_px": 105.07470934038355,
+          "whole_mouth_laplacian_variance": 319.9497555062459,
+          "central_oral_laplacian_variance": 474.86221220420293,
+          "central_oral_mean_luma": 128.79802651865558
+        },
+        {
+          "frame": 114,
+          "time_s": 4.56,
+          "normalized_opening": 0.16614231264013934,
+          "opening_px": 28.04194755470939,
+          "mouth_width_px": 104.20719110689372,
+          "whole_mouth_laplacian_variance": 295.4492519762389,
+          "central_oral_laplacian_variance": 474.67819070015634,
+          "central_oral_mean_luma": 129.6442207566817
+        },
+        {
+          "frame": 115,
+          "time_s": 4.6,
+          "normalized_opening": 0.08611545504500744,
+          "opening_px": 14.571953123659842,
+          "mouth_width_px": 100.74194698681863,
+          "whole_mouth_laplacian_variance": 209.6907049676919,
+          "central_oral_laplacian_variance": 598.1643140457041,
+          "central_oral_mean_luma": 114.77859531772575
+        },
+        {
+          "frame": 116,
+          "time_s": 4.64,
+          "normalized_opening": 0.001084057683358352,
+          "opening_px": 0.1842033178920773,
+          "mouth_width_px": 99.93417592191363,
+          "whole_mouth_laplacian_variance": 70.25801663270207,
+          "central_oral_laplacian_variance": 239.14568771887454,
+          "central_oral_mean_luma": 80.21978021978022
+        },
+        {
+          "frame": 117,
+          "time_s": 4.68,
+          "normalized_opening": 0.0010559833840182793,
+          "opening_px": 0.17862519307406396,
+          "mouth_width_px": 99.49494660651847,
+          "whole_mouth_laplacian_variance": 69.80858953652766,
+          "central_oral_laplacian_variance": 276.2756188866079,
+          "central_oral_mean_luma": 93.8021978021978
+        },
+        {
+          "frame": 118,
+          "time_s": 4.72,
+          "normalized_opening": 0.03560116505991409,
+          "opening_px": 6.0437035099272345,
+          "mouth_width_px": 100.29690485933654,
+          "whole_mouth_laplacian_variance": 79.72389087764783,
+          "central_oral_laplacian_variance": 275.64506821849477,
+          "central_oral_mean_luma": 96.77342657342658
+        },
+        {
+          "frame": 119,
+          "time_s": 4.76,
+          "normalized_opening": 0.07371434211344961,
+          "opening_px": 12.456016105014887,
+          "mouth_width_px": 102.91735748736242,
+          "whole_mouth_laplacian_variance": 299.4055629632412,
+          "central_oral_laplacian_variance": 1120.0049798553437,
+          "central_oral_mean_luma": 130.5271013354281
+        },
+        {
+          "frame": 120,
+          "time_s": 4.8,
+          "normalized_opening": 0.07703691049623958,
+          "opening_px": 13.033441107693909,
+          "mouth_width_px": 101.33222009465875,
+          "whole_mouth_laplacian_variance": 239.73763598680964,
+          "central_oral_laplacian_variance": 728.0122014249488,
+          "central_oral_mean_luma": 112.38095238095238
+        },
+        {
+          "frame": 121,
+          "time_s": 4.84,
+          "normalized_opening": 0.05390022440137244,
+          "opening_px": 9.14244213081541,
+          "mouth_width_px": 102.66639142814925,
+          "whole_mouth_laplacian_variance": 179.68819710896406,
+          "central_oral_laplacian_variance": 727.5517576297617,
+          "central_oral_mean_luma": 105.51741293532338
+        },
+        {
+          "frame": 122,
+          "time_s": 4.88,
+          "normalized_opening": 0.05657849405431913,
+          "opening_px": 9.582203565308568,
+          "mouth_width_px": 103.86119386461749,
+          "whole_mouth_laplacian_variance": 168.32052678516393,
+          "central_oral_laplacian_variance": 629.9572129402737,
+          "central_oral_mean_luma": 109.6905472636816
+        },
+        {
+          "frame": 123,
+          "time_s": 4.92,
+          "normalized_opening": 0.05736536761293816,
+          "opening_px": 9.592695889717273,
+          "mouth_width_px": 105.72889443956626,
+          "whole_mouth_laplacian_variance": 139.9825505664833,
+          "central_oral_laplacian_variance": 540.3373745011553,
+          "central_oral_mean_luma": 115.96328502415459
+        },
+        {
+          "frame": 124,
+          "time_s": 4.96,
+          "normalized_opening": 0.05420404106415978,
+          "opening_px": 9.265554793151772,
+          "mouth_width_px": 107.54933137509221,
+          "whole_mouth_laplacian_variance": 131.92458281808587,
+          "central_oral_laplacian_variance": 401.2440150295223,
+          "central_oral_mean_luma": 115.74975845410628
+        },
+        {
+          "frame": 125,
+          "time_s": 5.0,
+          "normalized_opening": 0.05722629976893781,
+          "opening_px": 9.794251450864142,
+          "mouth_width_px": 107.22720720943292,
+          "whole_mouth_laplacian_variance": 136.52110841288368,
+          "central_oral_laplacian_variance": 419.61720833625054,
+          "central_oral_mean_luma": 125.82028985507246
+        },
+        {
+          "frame": 126,
+          "time_s": 5.04,
+          "normalized_opening": 0.06202049643108231,
+          "opening_px": 10.5855973914011,
+          "mouth_width_px": 105.58382065254173,
+          "whole_mouth_laplacian_variance": 140.39860170503576,
+          "central_oral_laplacian_variance": 390.76212217345517,
+          "central_oral_mean_luma": 126.94714407502131
+        },
+        {
+          "frame": 127,
+          "time_s": 5.08,
+          "normalized_opening": 0.001074221811140194,
+          "opening_px": 0.18351364670990825,
+          "mouth_width_px": 99.509426732481,
+          "whole_mouth_laplacian_variance": 64.6706088716305,
+          "central_oral_laplacian_variance": 178.72032846274604,
+          "central_oral_mean_luma": 78.94945054945055
+        },
+        {
+          "frame": 128,
+          "time_s": 5.12,
+          "normalized_opening": 0.0008655242480309869,
+          "opening_px": 0.1411267046500241,
+          "mouth_width_px": 98.61206257213107,
+          "whole_mouth_laplacian_variance": 55.14622045111922,
+          "central_oral_laplacian_variance": 130.28334742180897,
+          "central_oral_mean_luma": 110.83956043956044
+        },
+        {
+          "frame": 129,
+          "time_s": 5.16,
+          "normalized_opening": 0.0021870514673687095,
+          "opening_px": 0.35806065422793565,
+          "mouth_width_px": 96.8897118068487,
+          "whole_mouth_laplacian_variance": 41.56476452066897,
+          "central_oral_laplacian_variance": 59.56849255197166,
+          "central_oral_mean_luma": 114.15419501133786
+        },
+        {
+          "frame": 130,
+          "time_s": 5.2,
+          "normalized_opening": 0.08935427725613172,
+          "opening_px": 14.812846962621558,
+          "mouth_width_px": 100.50936547654646,
+          "whole_mouth_laplacian_variance": 48.08058791502301,
+          "central_oral_laplacian_variance": 70.40856813682173,
+          "central_oral_mean_luma": 46.03210702341137
+        },
+        {
+          "frame": 131,
+          "time_s": 5.24,
+          "normalized_opening": 0.13160088699468983,
+          "opening_px": 21.961615348270186,
+          "mouth_width_px": 108.77651971121567,
+          "whole_mouth_laplacian_variance": 126.02643973948057,
+          "central_oral_laplacian_variance": 213.31499263431957,
+          "central_oral_mean_luma": 74.90610328638498
+        },
+        {
+          "frame": 132,
+          "time_s": 5.28,
+          "normalized_opening": 0.07544920111023781,
+          "opening_px": 12.624890150706783,
+          "mouth_width_px": 105.5793990090684,
+          "whole_mouth_laplacian_variance": 172.08196704470743,
+          "central_oral_laplacian_variance": 623.7388069384152,
+          "central_oral_mean_luma": 94.32494279176201
+        },
+        {
+          "frame": 133,
+          "time_s": 5.32,
+          "normalized_opening": 0.05306914677510013,
+          "opening_px": 8.969348517099807,
+          "mouth_width_px": 107.559499698164,
+          "whole_mouth_laplacian_variance": 124.21489752193254,
+          "central_oral_laplacian_variance": 521.8499045485308,
+          "central_oral_mean_luma": 107.04057971014493
+        },
+        {
+          "frame": 134,
+          "time_s": 5.36,
+          "normalized_opening": 0.05187162798399859,
+          "opening_px": 8.74431855289309,
+          "mouth_width_px": 107.27991231509264,
+          "whole_mouth_laplacian_variance": 117.40742110453651,
+          "central_oral_laplacian_variance": 337.6659936054517,
+          "central_oral_mean_luma": 108.08212560386474
+        },
+        {
+          "frame": 135,
+          "time_s": 5.4,
+          "normalized_opening": 0.05402107417628466,
+          "opening_px": 9.150570776528822,
+          "mouth_width_px": 107.31653184525939,
+          "whole_mouth_laplacian_variance": 111.73681732920107,
+          "central_oral_laplacian_variance": 469.73699269527873,
+          "central_oral_mean_luma": 112.53719806763284
+        },
+        {
+          "frame": 136,
+          "time_s": 5.44,
+          "normalized_opening": 0.05509930899135659,
+          "opening_px": 9.339813386033342,
+          "mouth_width_px": 106.09517179635569,
+          "whole_mouth_laplacian_variance": 118.64015016173315,
+          "central_oral_laplacian_variance": 383.0584741767603,
+          "central_oral_mean_luma": 108.80869565217391
+        },
+        {
+          "frame": 137,
+          "time_s": 5.48,
+          "normalized_opening": 0.05811708042142355,
+          "opening_px": 9.783905113967712,
+          "mouth_width_px": 105.0002724147427,
+          "whole_mouth_laplacian_variance": 134.31533771341836,
+          "central_oral_laplacian_variance": 459.1503801722327,
+          "central_oral_mean_luma": 106.43864734299517
+        },
+        {
+          "frame": 138,
+          "time_s": 5.52,
+          "normalized_opening": 0.05730799961733696,
+          "opening_px": 9.666504882854458,
+          "mouth_width_px": 103.70324548602254,
+          "whole_mouth_laplacian_variance": 143.30192149586773,
+          "central_oral_laplacian_variance": 642.7083587039924,
+          "central_oral_mean_luma": 104.06766169154228
+        },
+        {
+          "frame": 139,
+          "time_s": 5.56,
+          "normalized_opening": 0.0662426458610303,
+          "opening_px": 11.131073486295652,
+          "mouth_width_px": 101.1665948673026,
+          "whole_mouth_laplacian_variance": 176.65723904240375,
+          "central_oral_laplacian_variance": 641.6117360414406,
+          "central_oral_mean_luma": 90.50316742081448
+        },
+        {
+          "frame": 140,
+          "time_s": 5.6,
+          "normalized_opening": 0.06707336779440627,
+          "opening_px": 11.298535382592373,
+          "mouth_width_px": 99.46239252160024,
+          "whole_mouth_laplacian_variance": 179.53364806767752,
+          "central_oral_laplacian_variance": 868.4303646526482,
+          "central_oral_mean_luma": 80.58280542986425
+        },
+        {
+          "frame": 141,
+          "time_s": 5.64,
+          "normalized_opening": 0.07258259602642765,
+          "opening_px": 12.189059834774312,
+          "mouth_width_px": 97.6805276091294,
+          "whole_mouth_laplacian_variance": 177.2237830127563,
+          "central_oral_laplacian_variance": 641.4401179780417,
+          "central_oral_mean_luma": 74.70843776106933
+        },
+        {
+          "frame": 142,
+          "time_s": 5.68,
+          "normalized_opening": 0.07258117771949707,
+          "opening_px": 12.207267085772708,
+          "mouth_width_px": 97.13720288359214,
+          "whole_mouth_laplacian_variance": 164.75429433086532,
+          "central_oral_laplacian_variance": 716.9256223264929,
+          "central_oral_mean_luma": 74.13700918964076
+        },
+        {
+          "frame": 143,
+          "time_s": 5.72,
+          "normalized_opening": 0.07065491367158007,
+          "opening_px": 11.889683168622936,
+          "mouth_width_px": 96.18406403554444,
+          "whole_mouth_laplacian_variance": 167.50040048051238,
+          "central_oral_laplacian_variance": 691.961040166554,
+          "central_oral_mean_luma": 72.51127819548873
+        },
+        {
+          "frame": 144,
+          "time_s": 5.76,
+          "normalized_opening": 0.06651644902224468,
+          "opening_px": 11.159506931824634,
+          "mouth_width_px": 95.65881574192613,
+          "whole_mouth_laplacian_variance": 172.47425624589084,
+          "central_oral_laplacian_variance": 751.8825325337106,
+          "central_oral_mean_luma": 71.19607843137256
+        },
+        {
+          "frame": 145,
+          "time_s": 5.8,
+          "normalized_opening": 0.05774291499920412,
+          "opening_px": 9.565779116052498,
+          "mouth_width_px": 91.07703225974862,
+          "whole_mouth_laplacian_variance": 140.96794193626468,
+          "central_oral_laplacian_variance": 736.2797459223084,
+          "central_oral_mean_luma": 79.0316384180791
+        },
+        {
+          "frame": 146,
+          "time_s": 5.84,
+          "normalized_opening": 0.056128525654452234,
+          "opening_px": 9.208166246085865,
+          "mouth_width_px": 91.56427772211391,
+          "whole_mouth_laplacian_variance": 152.37322018916163,
+          "central_oral_laplacian_variance": 849.4058412333621,
+          "central_oral_mean_luma": 92.18079096045197
+        },
+        {
+          "frame": 147,
+          "time_s": 5.88,
+          "normalized_opening": 0.09156632531830751,
+          "opening_px": 15.212119225071566,
+          "mouth_width_px": 95.87416021335346,
+          "whole_mouth_laplacian_variance": 149.06931025538296,
+          "central_oral_laplacian_variance": 375.8615060671052,
+          "central_oral_mean_luma": 123.07315389924085
+        },
+        {
+          "frame": 148,
+          "time_s": 5.92,
+          "normalized_opening": 0.1069886040245871,
+          "opening_px": 17.629028202741733,
+          "mouth_width_px": 96.03290551500046,
+          "whole_mouth_laplacian_variance": 159.82257702066897,
+          "central_oral_laplacian_variance": 363.2750323926756,
+          "central_oral_mean_luma": 134.60964138741917
+        },
+        {
+          "frame": 149,
+          "time_s": 5.96,
+          "normalized_opening": 0.11830431265773475,
+          "opening_px": 19.599883522968376,
+          "mouth_width_px": 95.97562635724124,
+          "whole_mouth_laplacian_variance": 273.3196800778682,
+          "central_oral_laplacian_variance": 615.8726372886226,
+          "central_oral_mean_luma": 127.78648233486943
+        },
+        {
+          "frame": 150,
+          "time_s": 6.0,
+          "normalized_opening": 0.12082117480426854,
+          "opening_px": 19.739824218504815,
+          "mouth_width_px": 96.82475598896234,
+          "whole_mouth_laplacian_variance": 365.4879004724868,
+          "central_oral_laplacian_variance": 856.4872669536463,
+          "central_oral_mean_luma": 95.99078341013825
+        },
+        {
+          "frame": 151,
+          "time_s": 6.04,
+          "normalized_opening": 0.0927887020348355,
+          "opening_px": 15.173103969793734,
+          "mouth_width_px": 98.04529051012491,
+          "whole_mouth_laplacian_variance": 311.00750716370555,
+          "central_oral_laplacian_variance": 1027.1613187458,
+          "central_oral_mean_luma": 96.59420289855072
+        },
+        {
+          "frame": 152,
+          "time_s": 6.08,
+          "normalized_opening": 0.07480438108539018,
+          "opening_px": 12.245321210574208,
+          "mouth_width_px": 99.9365583753562,
+          "whole_mouth_laplacian_variance": 261.088556433884,
+          "central_oral_laplacian_variance": 1026.0948214197904,
+          "central_oral_mean_luma": 115.4753036437247
+        },
+        {
+          "frame": 153,
+          "time_s": 6.12,
+          "normalized_opening": 0.10063240948955839,
+          "opening_px": 16.629795981960097,
+          "mouth_width_px": 108.5092485884327,
+          "whole_mouth_laplacian_variance": 305.98834994966313,
+          "central_oral_laplacian_variance": 771.8746801031541,
+          "central_oral_mean_luma": 133.34704225352112
+        },
+        {
+          "frame": 154,
+          "time_s": 6.16,
+          "normalized_opening": 0.12211180736967521,
+          "opening_px": 20.23629614558996,
+          "mouth_width_px": 109.30524006714671,
+          "whole_mouth_laplacian_variance": 303.4644655808267,
+          "central_oral_laplacian_variance": 583.793903518722,
+          "central_oral_mean_luma": 136.8864152657883
+        },
+        {
+          "frame": 155,
+          "time_s": 6.2,
+          "normalized_opening": 0.1978200564471223,
+          "opening_px": 32.90558221745444,
+          "mouth_width_px": 116.11116891733438,
+          "whole_mouth_laplacian_variance": 319.3302405242619,
+          "central_oral_laplacian_variance": 384.7144058439062,
+          "central_oral_mean_luma": 123.86326797385621
+        },
+        {
+          "frame": 156,
+          "time_s": 6.24,
+          "normalized_opening": 0.17203514218332822,
+          "opening_px": 28.786891318133407,
+          "mouth_width_px": 118.86193499307636,
+          "whole_mouth_laplacian_variance": 294.20577282626556,
+          "central_oral_laplacian_variance": 398.21757180129487,
+          "central_oral_mean_luma": 122.12409812409813
+        },
+        {
+          "frame": 157,
+          "time_s": 6.28,
+          "normalized_opening": 0.11858517296276962,
+          "opening_px": 19.843179848812607,
+          "mouth_width_px": 117.94394635310074,
+          "whole_mouth_laplacian_variance": 198.08412205522427,
+          "central_oral_laplacian_variance": 313.6894405512052,
+          "central_oral_mean_luma": 141.1767909509845
+        },
+        {
+          "frame": 158,
+          "time_s": 6.32,
+          "normalized_opening": 0.11088031268309664,
+          "opening_px": 18.476742824038425,
+          "mouth_width_px": 118.77952357354594,
+          "whole_mouth_laplacian_variance": 172.99807925854444,
+          "central_oral_laplacian_variance": 301.36779155801037,
+          "central_oral_mean_luma": 143.1038961038961
+        },
+        {
+          "frame": 159,
+          "time_s": 6.36,
+          "normalized_opening": 0.14438384266833248,
+          "opening_px": 24.19288878286516,
+          "mouth_width_px": 118.06099751213458,
+          "whole_mouth_laplacian_variance": 376.2041413697814,
+          "central_oral_laplacian_variance": 579.618388328111,
+          "central_oral_mean_luma": 133.11828711828713
+        },
+        {
+          "frame": 160,
+          "time_s": 6.4,
+          "normalized_opening": 0.15189413284225062,
+          "opening_px": 25.402593577877543,
+          "mouth_width_px": 119.99466696388714,
+          "whole_mouth_laplacian_variance": 334.8853771402834,
+          "central_oral_laplacian_variance": 504.29952287694545,
+          "central_oral_mean_luma": 130.99167499167498
+        },
+        {
+          "frame": 161,
+          "time_s": 6.44,
+          "normalized_opening": 0.12223176427577541,
+          "opening_px": 20.56729468215866,
+          "mouth_width_px": 119.21217453967607,
+          "whole_mouth_laplacian_variance": 239.000724075187,
+          "central_oral_laplacian_variance": 412.87765825536275,
+          "central_oral_mean_luma": 137.93799748638457
+        },
+        {
+          "frame": 162,
+          "time_s": 6.48,
+          "normalized_opening": 0.11177918716154163,
+          "opening_px": 18.681532688123184,
+          "mouth_width_px": 117.87873296002891,
+          "whole_mouth_laplacian_variance": 174.35852937616855,
+          "central_oral_laplacian_variance": 311.7422331517487,
+          "central_oral_mean_luma": 141.50425436632332
+        },
+        {
+          "frame": 163,
+          "time_s": 6.52,
+          "normalized_opening": 0.11531144947334183,
+          "opening_px": 19.263931590514453,
+          "mouth_width_px": 118.46257466071242,
+          "whole_mouth_laplacian_variance": 159.93965308435807,
+          "central_oral_laplacian_variance": 244.16277756864875,
+          "central_oral_mean_luma": 142.53291536050156
+        },
+        {
+          "frame": 164,
+          "time_s": 6.56,
+          "normalized_opening": 0.10119765929341792,
+          "opening_px": 16.975063085527687,
+          "mouth_width_px": 116.5325955363023,
+          "whole_mouth_laplacian_variance": 137.03034598948062,
+          "central_oral_laplacian_variance": 231.53372961438802,
+          "central_oral_mean_luma": 140.7441975308642
+        },
+        {
+          "frame": 165,
+          "time_s": 6.6,
+          "normalized_opening": 0.1020593213701435,
+          "opening_px": 17.171188981633776,
+          "mouth_width_px": 115.95356825411459,
+          "whole_mouth_laplacian_variance": 178.95710119364057,
+          "central_oral_laplacian_variance": 346.48072769394906,
+          "central_oral_mean_luma": 139.39703703703702
+        },
+        {
+          "frame": 166,
+          "time_s": 6.64,
+          "normalized_opening": 0.11526245671493619,
+          "opening_px": 19.36823395975776,
+          "mouth_width_px": 115.75637001727142,
+          "whole_mouth_laplacian_variance": 276.5760880469649,
+          "central_oral_laplacian_variance": 526.2764157706092,
+          "central_oral_mean_luma": 131.13032258064516
+        },
+        {
+          "frame": 167,
+          "time_s": 6.68,
+          "normalized_opening": 0.13312664789573733,
+          "opening_px": 22.531409321598158,
+          "mouth_width_px": 116.2042959084539,
+          "whole_mouth_laplacian_variance": 305.7997385560487,
+          "central_oral_laplacian_variance": 527.1441928707483,
+          "central_oral_mean_luma": 123.82590476190477
+        },
+        {
+          "frame": 168,
+          "time_s": 6.72,
+          "normalized_opening": 0.12269030642339213,
+          "opening_px": 20.742247541097356,
+          "mouth_width_px": 114.37589528026626,
+          "whole_mouth_laplacian_variance": 334.9412096212915,
+          "central_oral_laplacian_variance": 620.3817168044077,
+          "central_oral_mean_luma": 122.7450505050505
+        },
+        {
+          "frame": 169,
+          "time_s": 6.76,
+          "normalized_opening": 0.11922791201203725,
+          "opening_px": 20.227055224830817,
+          "mouth_width_px": 114.18714235146345,
+          "whole_mouth_laplacian_variance": 317.1187755777834,
+          "central_oral_laplacian_variance": 629.7273310671753,
+          "central_oral_mean_luma": 118.68043010752689
+        },
+        {
+          "frame": 170,
+          "time_s": 6.8,
+          "normalized_opening": 0.1635744459866722,
+          "opening_px": 27.737239596356282,
+          "mouth_width_px": 115.57268636855939,
+          "whole_mouth_laplacian_variance": 400.7833067764192,
+          "central_oral_laplacian_variance": 587.168535929331,
+          "central_oral_mean_luma": 109.75038759689923
+        },
+        {
+          "frame": 171,
+          "time_s": 6.84,
+          "normalized_opening": 0.15647279681977322,
+          "opening_px": 26.469453679704618,
+          "mouth_width_px": 114.40576975080803,
+          "whole_mouth_laplacian_variance": 370.23200000609944,
+          "central_oral_laplacian_variance": 572.064330596867,
+          "central_oral_mean_luma": 107.67674796747967
+        },
+        {
+          "frame": 172,
+          "time_s": 6.88,
+          "normalized_opening": 0.09310798981457909,
+          "opening_px": 15.772167736194639,
+          "mouth_width_px": 109.17905819437274,
+          "whole_mouth_laplacian_variance": 293.4774128589718,
+          "central_oral_laplacian_variance": 702.6414168617338,
+          "central_oral_mean_luma": 109.12507042253522
+        },
+        {
+          "frame": 173,
+          "time_s": 6.92,
+          "normalized_opening": 0.0005114729781704659,
+          "opening_px": 0.08656901005423648,
+          "mouth_width_px": 97.92072434988788,
+          "whole_mouth_laplacian_variance": 101.24854442588912,
+          "central_oral_laplacian_variance": 930.9114720718219,
+          "central_oral_mean_luma": 71.43990929705215
+        },
+        {
+          "frame": 174,
+          "time_s": 6.96,
+          "normalized_opening": 0.0021556607090416815,
+          "opening_px": 0.3648895635165119,
+          "mouth_width_px": 94.62083592163387,
+          "whole_mouth_laplacian_variance": 88.80970478245963,
+          "central_oral_laplacian_variance": 751.9584487382698,
+          "central_oral_mean_luma": 76.35597189695551
+        },
+        {
+          "frame": 175,
+          "time_s": 7.0,
+          "normalized_opening": 0.001570732299040444,
+          "opening_px": 0.2653709223763476,
+          "mouth_width_px": 90.11169721010032,
+          "whole_mouth_laplacian_variance": 84.07621408997987,
+          "central_oral_laplacian_variance": 645.3297844274165,
+          "central_oral_mean_luma": 75.06295399515739
+        },
+        {
+          "frame": 176,
+          "time_s": 7.04,
+          "normalized_opening": 0.001786028594026445,
+          "opening_px": 0.3022919313495134,
+          "mouth_width_px": 87.08020818914942,
+          "whole_mouth_laplacian_variance": 74.5059033154971,
+          "central_oral_laplacian_variance": 580.633928178843,
+          "central_oral_mean_luma": 71.6140350877193
+        },
+        {
+          "frame": 177,
+          "time_s": 7.08,
+          "normalized_opening": 0.03800082063830374,
+          "opening_px": 6.405873079158491,
+          "mouth_width_px": 87.22727395155032,
+          "whole_mouth_laplacian_variance": 65.70045915612415,
+          "central_oral_laplacian_variance": 267.28106550267216,
+          "central_oral_mean_luma": 42.333333333333336
+        },
+        {
+          "frame": 178,
+          "time_s": 7.12,
+          "normalized_opening": 0.0014258686908474962,
+          "opening_px": 0.2321417286227772,
+          "mouth_width_px": 93.22337926494434,
+          "whole_mouth_laplacian_variance": 82.64392001561473,
+          "central_oral_laplacian_variance": 919.7768539288868,
+          "central_oral_mean_luma": 56.833723653395786
+        },
+        {
+          "frame": 179,
+          "time_s": 7.16,
+          "normalized_opening": 0.0009894390174773238,
+          "opening_px": 0.16833708819178717,
+          "mouth_width_px": 96.17973362697944,
+          "whole_mouth_laplacian_variance": 48.40144166563938,
+          "central_oral_laplacian_variance": 47.49511777500115,
+          "central_oral_mean_luma": 121.06802721088435
+        },
+        {
+          "frame": 180,
+          "time_s": 7.2,
+          "normalized_opening": 0.07564524664827449,
+          "opening_px": 12.44856405384477,
+          "mouth_width_px": 99.08987505407158,
+          "whole_mouth_laplacian_variance": 51.080795257989706,
+          "central_oral_laplacian_variance": 119.92660361585995,
+          "central_oral_mean_luma": 48.15141700404858
+        },
+        {
+          "frame": 181,
+          "time_s": 7.24,
+          "normalized_opening": 0.1368664524818025,
+          "opening_px": 22.720049695517417,
+          "mouth_width_px": 109.43825684200158,
+          "whole_mouth_laplacian_variance": 259.99458263831104,
+          "central_oral_laplacian_variance": 474.9557329490018,
+          "central_oral_mean_luma": 86.28450704225352
+        },
+        {
+          "frame": 182,
+          "time_s": 7.28,
+          "normalized_opening": 0.15417303962767645,
+          "opening_px": 25.662858692840995,
+          "mouth_width_px": 111.0090979005498,
+          "whole_mouth_laplacian_variance": 270.5303504838511,
+          "central_oral_laplacian_variance": 431.052686915614,
+          "central_oral_mean_luma": 89.68317527221637
+        },
+        {
+          "frame": 183,
+          "time_s": 7.32,
+          "normalized_opening": 0.13869338312613097,
+          "opening_px": 23.251279105507223,
+          "mouth_width_px": 109.22335109163716,
+          "whole_mouth_laplacian_variance": 251.4622555945282,
+          "central_oral_laplacian_variance": 448.05619487549035,
+          "central_oral_mean_luma": 84.93239436619719
+        },
+        {
+          "frame": 184,
+          "time_s": 7.36,
+          "normalized_opening": 0.13436687664601446,
+          "opening_px": 22.613455564651073,
+          "mouth_width_px": 109.61116092926953,
+          "whole_mouth_laplacian_variance": 258.9639111279971,
+          "central_oral_laplacian_variance": 460.71244464776595,
+          "central_oral_mean_luma": 85.19597585513078
+        },
+        {
+          "frame": 185,
+          "time_s": 7.4,
+          "normalized_opening": 0.13456977048133828,
+          "opening_px": 22.74561106587151,
+          "mouth_width_px": 109.99878816713057,
+          "whole_mouth_laplacian_variance": 286.2364946976059,
+          "central_oral_laplacian_variance": 508.98336271148025,
+          "central_oral_mean_luma": 87.75211267605634
+        },
+        {
+          "frame": 186,
+          "time_s": 7.44,
+          "normalized_opening": 0.1371518471577127,
+          "opening_px": 23.174020755419733,
+          "mouth_width_px": 110.39070528417922,
+          "whole_mouth_laplacian_variance": 266.5407729289941,
+          "central_oral_laplacian_variance": 466.98845629106626,
+          "central_oral_mean_luma": 87.51468812877263
+        },
+        {
+          "frame": 187,
+          "time_s": 7.48,
+          "normalized_opening": 0.14751996771784498,
+          "opening_px": 24.63398008610863,
+          "mouth_width_px": 111.28669550240781,
+          "whole_mouth_laplacian_variance": 260.9983332306049,
+          "central_oral_laplacian_variance": 435.0109070084016,
+          "central_oral_mean_luma": 89.44316919659386
+        },
+        {
+          "frame": 188,
+          "time_s": 7.52,
+          "normalized_opening": 0.1779643201121124,
+          "opening_px": 29.413561550911435,
+          "mouth_width_px": 113.20530894194115,
+          "whole_mouth_laplacian_variance": 261.90948847482895,
+          "central_oral_laplacian_variance": 361.45776350692347,
+          "central_oral_mean_luma": 94.55098934550989
+        },
+        {
+          "frame": 189,
+          "time_s": 7.56,
+          "normalized_opening": 0.22544718940821162,
+          "opening_px": 38.165446636753515,
+          "mouth_width_px": 114.38023048654192,
+          "whole_mouth_laplacian_variance": 313.3514478534245,
+          "central_oral_laplacian_variance": 375.6620562130178,
+          "central_oral_mean_luma": 101.29794871794871
+        },
+        {
+          "frame": 190,
+          "time_s": 7.6,
+          "normalized_opening": 0.19269187297135804,
+          "opening_px": 33.110424194079066,
+          "mouth_width_px": 117.62166399785211,
+          "whole_mouth_laplacian_variance": 350.2656209871692,
+          "central_oral_laplacian_variance": 419.70047095162806,
+          "central_oral_mean_luma": 112.5108225108225
+        },
+        {
+          "frame": 191,
+          "time_s": 7.64,
+          "normalized_opening": 0.09435553788197518,
+          "opening_px": 15.664195900067194,
+          "mouth_width_px": 116.26983871592725,
+          "whole_mouth_laplacian_variance": 344.5899136936406,
+          "central_oral_laplacian_variance": 878.5220767288889,
+          "central_oral_mean_luma": 139.4688
+        },
+        {
+          "frame": 192,
+          "time_s": 7.68,
+          "normalized_opening": 0.07250252250576092,
+          "opening_px": 11.941645618918416,
+          "mouth_width_px": 116.63239201876156,
+          "whole_mouth_laplacian_variance": 170.13337682439337,
+          "central_oral_laplacian_variance": 507.18473080947996,
+          "central_oral_mean_luma": 147.7522807017544
+        },
+        {
+          "frame": 193,
+          "time_s": 7.72,
+          "normalized_opening": 0.06881737735178554,
+          "opening_px": 11.33958351042454,
+          "mouth_width_px": 116.03109028786385,
+          "whole_mouth_laplacian_variance": 137.70302447858884,
+          "central_oral_laplacian_variance": 378.90895660203137,
+          "central_oral_mean_luma": 144.81122807017545
+        },
+        {
+          "frame": 194,
+          "time_s": 7.76,
+          "normalized_opening": 0.06758286369306744,
+          "opening_px": 11.271175714188692,
+          "mouth_width_px": 116.34382810857474,
+          "whole_mouth_laplacian_variance": 124.41799956854044,
+          "central_oral_laplacian_variance": 462.762859823145,
+          "central_oral_mean_luma": 148.22196078431372
+        },
+        {
+          "frame": 195,
+          "time_s": 7.8,
+          "normalized_opening": 0.06977984682217495,
+          "opening_px": 11.6600762475127,
+          "mouth_width_px": 114.92933211393063,
+          "whole_mouth_laplacian_variance": 114.93514222114358,
+          "central_oral_laplacian_variance": 367.55496755924895,
+          "central_oral_mean_luma": 145.38877192982457
+        },
+        {
+          "frame": 196,
+          "time_s": 7.84,
+          "normalized_opening": 0.09725438638199746,
+          "opening_px": 16.328391147171544,
+          "mouth_width_px": 115.86429789378302,
+          "whole_mouth_laplacian_variance": 220.04709133170763,
+          "central_oral_laplacian_variance": 609.6982084266666,
+          "central_oral_mean_luma": 141.87093333333334
+        },
+        {
+          "frame": 197,
+          "time_s": 7.88,
+          "normalized_opening": 0.14787693063619473,
+          "opening_px": 25.10299557146652,
+          "mouth_width_px": 116.1994728587917,
+          "whole_mouth_laplacian_variance": 325.48513868182687,
+          "central_oral_laplacian_variance": 515.5401193951349,
+          "central_oral_mean_luma": 120.71760683760684
+        },
+        {
+          "frame": 198,
+          "time_s": 7.92,
+          "normalized_opening": 0.18027253415553382,
+          "opening_px": 30.36589633912406,
+          "mouth_width_px": 113.17176474039023,
+          "whole_mouth_laplacian_variance": 325.73752904486923,
+          "central_oral_laplacian_variance": 437.54624630928197,
+          "central_oral_mean_luma": 116.54648790440105
+        },
+        {
+          "frame": 199,
+          "time_s": 7.96,
+          "normalized_opening": 0.20151438029658128,
+          "opening_px": 33.727172148469606,
+          "mouth_width_px": 117.69421872782637,
+          "whole_mouth_laplacian_variance": 305.4122493425378,
+          "central_oral_laplacian_variance": 368.0332583527658,
+          "central_oral_mean_luma": 112.90272472625414
+        },
+        {
+          "frame": 200,
+          "time_s": 8.0,
+          "normalized_opening": 0.186543066115962,
+          "opening_px": 31.59785915030901,
+          "mouth_width_px": 117.23217333857113,
+          "whole_mouth_laplacian_variance": 259.66734431340143,
+          "central_oral_laplacian_variance": 317.5137528082026,
+          "central_oral_mean_luma": 111.309302941956
+        },
+        {
+          "frame": 201,
+          "time_s": 8.04,
+          "normalized_opening": 0.1005994574753616,
+          "opening_px": 16.971036854497434,
+          "mouth_width_px": 109.67689307705939,
+          "whole_mouth_laplacian_variance": 281.7123037484976,
+          "central_oral_laplacian_variance": 650.3459973893089,
+          "central_oral_mean_luma": 120.45748565466876
+        },
+        {
+          "frame": 202,
+          "time_s": 8.08,
+          "normalized_opening": 0.0832162323282412,
+          "opening_px": 13.979388041013399,
+          "mouth_width_px": 105.34245878107842,
+          "whole_mouth_laplacian_variance": 260.9185363247863,
+          "central_oral_laplacian_variance": 830.0660906524621,
+          "central_oral_mean_luma": 130.44513457556937
+        },
+        {
+          "frame": 203,
+          "time_s": 8.12,
+          "normalized_opening": 0.06683491327516405,
+          "opening_px": 11.288329735076976,
+          "mouth_width_px": 95.85584348146615,
+          "whole_mouth_laplacian_variance": 255.99940477680954,
+          "central_oral_laplacian_variance": 1194.3891770215712,
+          "central_oral_mean_luma": 105.5219421101774
+        },
+        {
+          "frame": 204,
+          "time_s": 8.16,
+          "normalized_opening": 0.031664096011213165,
+          "opening_px": 5.33279082936621,
+          "mouth_width_px": 88.74906562018222,
+          "whole_mouth_laplacian_variance": 79.65919830703484,
+          "central_oral_laplacian_variance": 581.6000820765363,
+          "central_oral_mean_luma": 41.773879142300196
+        },
+        {
+          "frame": 205,
+          "time_s": 8.2,
+          "normalized_opening": 0.0017159548264026434,
+          "opening_px": 0.28871274098785393,
+          "mouth_width_px": 88.94989227947657,
+          "whole_mouth_laplacian_variance": 52.20672820101907,
+          "central_oral_laplacian_variance": 174.95321009290146,
+          "central_oral_mean_luma": 107.56641604010025
+        },
+        {
+          "frame": 206,
+          "time_s": 8.24,
+          "normalized_opening": 0.0005922374652637483,
+          "opening_px": 0.1001443893384592,
+          "mouth_width_px": 90.38416831886482,
+          "whole_mouth_laplacian_variance": 52.70001999192298,
+          "central_oral_laplacian_variance": 232.36120279769474,
+          "central_oral_mean_luma": 108.0726392251816
+        },
+        {
+          "frame": 207,
+          "time_s": 8.28,
+          "normalized_opening": 0.11621480942660087,
+          "opening_px": 19.478999932961212,
+          "mouth_width_px": 91.37608346689979,
+          "whole_mouth_laplacian_variance": 63.89816639315212,
+          "central_oral_laplacian_variance": 89.34029147675759,
+          "central_oral_mean_luma": 46.100601421541825
+        },
+        {
+          "frame": 208,
+          "time_s": 8.32,
+          "normalized_opening": 0.21003110840442354,
+          "opening_px": 35.30275355192115,
+          "mouth_width_px": 98.21941408394896,
+          "whole_mouth_laplacian_variance": 84.29060884434327,
+          "central_oral_laplacian_variance": 83.21778286155576,
+          "central_oral_mean_luma": 57.07081807081807
+        },
+        {
+          "frame": 209,
+          "time_s": 8.36,
+          "normalized_opening": 0.13929485975236308,
+          "opening_px": 23.362536429050053,
+          "mouth_width_px": 95.17092385699537,
+          "whole_mouth_laplacian_variance": 79.88206703642496,
+          "central_oral_laplacian_variance": 121.42124820550413,
+          "central_oral_mean_luma": 48.472751439964554
+        },
+        {
+          "frame": 210,
+          "time_s": 8.4,
+          "normalized_opening": 0.07641991057620337,
+          "opening_px": 12.773304746824557,
+          "mouth_width_px": 91.28257038100845,
+          "whole_mouth_laplacian_variance": 115.40698864176272,
+          "central_oral_laplacian_variance": 325.3923371512734,
+          "central_oral_mean_luma": 54.30750605326877
+        },
+        {
+          "frame": 211,
+          "time_s": 8.44,
+          "normalized_opening": 0.04920163140824462,
+          "opening_px": 8.346285940487544,
+          "mouth_width_px": 94.9137430906475,
+          "whole_mouth_laplacian_variance": 134.72714034763314,
+          "central_oral_laplacian_variance": 686.1181714529242,
+          "central_oral_mean_luma": 90.26481715006305
+        },
+        {
+          "frame": 212,
+          "time_s": 8.48,
+          "normalized_opening": 0.0659041498031821,
+          "opening_px": 11.04466480648244,
+          "mouth_width_px": 97.98382189099283,
+          "whole_mouth_laplacian_variance": 84.14974532168135,
+          "central_oral_laplacian_variance": 250.3741906348596,
+          "central_oral_mean_luma": 116.10084033613445
+        },
+        {
+          "frame": 213,
+          "time_s": 8.52,
+          "normalized_opening": 0.07756752983919393,
+          "opening_px": 13.116966991845965,
+          "mouth_width_px": 96.72897808481073,
+          "whole_mouth_laplacian_variance": 119.31239883653588,
+          "central_oral_laplacian_variance": 412.12985330186507,
+          "central_oral_mean_luma": 122.64474678760394
+        },
+        {
+          "frame": 214,
+          "time_s": 8.56,
+          "normalized_opening": 0.07861623589461833,
+          "opening_px": 13.299519281905408,
+          "mouth_width_px": 97.72829803894606,
+          "whole_mouth_laplacian_variance": 112.08250893737673,
+          "central_oral_laplacian_variance": 391.52833553006326,
+          "central_oral_mean_luma": 122.34467120181407
+        },
+        {
+          "frame": 215,
+          "time_s": 8.6,
+          "normalized_opening": 0.07395986657284999,
+          "opening_px": 12.495161973068754,
+          "mouth_width_px": 96.40686854526153,
+          "whole_mouth_laplacian_variance": 218.65688848150631,
+          "central_oral_laplacian_variance": 872.0748236506051,
+          "central_oral_mean_luma": 100.82706766917293
+        },
+        {
+          "frame": 216,
+          "time_s": 8.64,
+          "normalized_opening": 0.0738425470938836,
+          "opening_px": 12.471085875529056,
+          "mouth_width_px": 93.1593306000739,
+          "whole_mouth_laplacian_variance": 172.73116983166656,
+          "central_oral_laplacian_variance": 701.0839921058958,
+          "central_oral_mean_luma": 74.16824849007766
+        },
+        {
+          "frame": 217,
+          "time_s": 8.68,
+          "normalized_opening": 0.08722159723304976,
+          "opening_px": 14.709690445423368,
+          "mouth_width_px": 88.1570301550878,
+          "whole_mouth_laplacian_variance": 167.05938475920448,
+          "central_oral_laplacian_variance": 491.4359433555533,
+          "central_oral_mean_luma": 60.507246376811594
+        },
+        {
+          "frame": 218,
+          "time_s": 8.72,
+          "normalized_opening": 0.08869929029165113,
+          "opening_px": 14.950538411602432,
+          "mouth_width_px": 88.01148139716581,
+          "whole_mouth_laplacian_variance": 139.55222956088716,
+          "central_oral_laplacian_variance": 455.6583087074632,
+          "central_oral_mean_luma": 61.882532418001524
+        },
+        {
+          "frame": 219,
+          "time_s": 8.76,
+          "normalized_opening": 0.07530431241324555,
+          "opening_px": 12.684491810741855,
+          "mouth_width_px": 90.14712805828114,
+          "whole_mouth_laplacian_variance": 147.07867572089702,
+          "central_oral_laplacian_variance": 494.10415465621276,
+          "central_oral_mean_luma": 62.380145278450364
+        },
+        {
+          "frame": 220,
+          "time_s": 8.8,
+          "normalized_opening": 0.06345461192914237,
+          "opening_px": 10.676336756419788,
+          "mouth_width_px": 91.11900783459068,
+          "whole_mouth_laplacian_variance": 162.2125086035092,
+          "central_oral_laplacian_variance": 719.4442395644572,
+          "central_oral_mean_luma": 61.09371884346959
+        },
+        {
+          "frame": 221,
+          "time_s": 8.84,
+          "normalized_opening": 0.05851707432352491,
+          "opening_px": 9.853985316270025,
+          "mouth_width_px": 92.51159440179819,
+          "whole_mouth_laplacian_variance": 156.93786689311875,
+          "central_oral_laplacian_variance": 715.9698217325092,
+          "central_oral_mean_luma": 67.60765027322404
+        },
+        {
+          "frame": 222,
+          "time_s": 8.88,
+          "normalized_opening": 0.052305401649246124,
+          "opening_px": 8.81282030024017,
+          "mouth_width_px": 93.42531099479031,
+          "whole_mouth_laplacian_variance": 154.85554286698462,
+          "central_oral_laplacian_variance": 762.5689438323033,
+          "central_oral_mean_luma": 70.34535519125683
+        },
+        {
+          "frame": 223,
+          "time_s": 8.92,
+          "normalized_opening": 0.05812369628344465,
+          "opening_px": 9.806130405749657,
+          "mouth_width_px": 92.16377887440576,
+          "whole_mouth_laplacian_variance": 149.49116984611277,
+          "central_oral_laplacian_variance": 748.7871097066615,
+          "central_oral_mean_luma": 77.78983050847458
+        },
+        {
+          "frame": 224,
+          "time_s": 8.96,
+          "normalized_opening": 0.045032332499063,
+          "opening_px": 7.556782013474287,
+          "mouth_width_px": 92.51154631681713,
+          "whole_mouth_laplacian_variance": 152.57901344073596,
+          "central_oral_laplacian_variance": 843.1261813249287,
+          "central_oral_mean_luma": 77.98108448928122
+        },
+        {
+          "frame": 225,
+          "time_s": 9.0,
+          "normalized_opening": 0.058176774770761976,
+          "opening_px": 9.712180287369192,
+          "mouth_width_px": 94.3192645512629,
+          "whole_mouth_laplacian_variance": 138.07667251576882,
+          "central_oral_laplacian_variance": 708.7986192481114,
+          "central_oral_mean_luma": 98.21748633879781
+        },
+        {
+          "frame": 226,
+          "time_s": 9.04,
+          "normalized_opening": 0.06560914279441797,
+          "opening_px": 10.986511588238999,
+          "mouth_width_px": 96.24469021953749,
+          "whole_mouth_laplacian_variance": 118.736839480027,
+          "central_oral_laplacian_variance": 379.58377076320727,
+          "central_oral_mean_luma": 101.43510737628385
+        },
+        {
+          "frame": 227,
+          "time_s": 9.08,
+          "normalized_opening": 0.061704195550133255,
+          "opening_px": 10.317450266616214,
+          "mouth_width_px": 95.73718234185364,
+          "whole_mouth_laplacian_variance": 106.80158237153806,
+          "central_oral_laplacian_variance": 335.1840727576433,
+          "central_oral_mean_luma": 101.09243697478992
+        },
+        {
+          "frame": 228,
+          "time_s": 9.12,
+          "normalized_opening": 0.06022985261315425,
+          "opening_px": 10.089185648308064,
+          "mouth_width_px": 95.52658185263596,
+          "whole_mouth_laplacian_variance": 99.59304053151709,
+          "central_oral_laplacian_variance": 307.1484454348188,
+          "central_oral_mean_luma": 100.74603174603175
+        }
+      ],
+      "opening_trajectory_correlation_vs_lite": 0.64403632825336,
+      "opening_trajectory_correlation_frames": 229
+    }
+  ]
+}

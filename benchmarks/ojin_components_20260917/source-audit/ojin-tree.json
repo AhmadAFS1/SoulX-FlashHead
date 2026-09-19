@@ -1,0 +1,162 @@
+{
+  "sha": "819fe6e95613fdcc7bffd8676e8814282cd445f5",
+  "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/819fe6e95613fdcc7bffd8676e8814282cd445f5",
+  "tree": [
+    {
+      "path": ".env.example",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ecb03547cf022281bdd20bf330d52008f1768f91",
+      "size": 1569,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/ecb03547cf022281bdd20bf330d52008f1768f91"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d0c9aecaf49591f89d26de91dc54956443664103",
+      "size": 64,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/d0c9aecaf49591f89d26de91dc54956443664103"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d84e06c214447631b451894d474f9d70f048750",
+      "size": 6173,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/6d84e06c214447631b451894d474f9d70f048750"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6453951db459c7648ac118970e255e632d47a6ea",
+      "size": 27377,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/6453951db459c7648ac118970e255e632d47a6ea"
+    },
+    {
+      "path": "avatars",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7e5aaead172273494d792ff4e1e812825132af51",
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/7e5aaead172273494d792ff4e1e812825132af51"
+    },
+    {
+      "path": "avatars/sample.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "48e88c5ab32223b4c46e508bd923e0fcd49f0ebd",
+      "size": 1474659,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/48e88c5ab32223b4c46e508bd923e0fcd49f0ebd"
+    },
+    {
+      "path": "docker-compose.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63858a506395d24b132587711240fec5c0e93787",
+      "size": 2352,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/63858a506395d24b132587711240fec5c0e93787"
+    },
+    {
+      "path": "examples",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f0e3f0aef398b352effbca6ed14d7ed427d0b13a",
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/f0e3f0aef398b352effbca6ed14d7ed427d0b13a"
+    },
+    {
+      "path": "examples/headless",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "08b56f3c6644089ef5e0560ce9a514298b0b97df",
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/08b56f3c6644089ef5e0560ce9a514298b0b97df"
+    },
+    {
+      "path": "examples/headless/Dockerfile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3103b77c0a8f7fa67a7ed930654e6039ec2c238f",
+      "size": 653,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/3103b77c0a8f7fa67a7ed930654e6039ec2c238f"
+    },
+    {
+      "path": "examples/headless/main.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "617d8ae77c496fd80ed41a805b5c0722a05bfde4",
+      "size": 9142,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/617d8ae77c496fd80ed41a805b5c0722a05bfde4"
+    },
+    {
+      "path": "examples/headless/mp4_writer.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e5feabf94dd22232a4e70e833f333307b1ce9eee",
+      "size": 1566,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/e5feabf94dd22232a4e70e833f333307b1ce9eee"
+    },
+    {
+      "path": "examples/headless/requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "18109887fab8c64e42122eb5ff39e4a6cf6cfe44",
+      "size": 423,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/18109887fab8c64e42122eb5ff39e4a6cf6cfe44"
+    },
+    {
+      "path": "examples/headless/sample_audio_16k.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ebab57307b477fb3cf5bf42d2bafda3fa4cbaed",
+      "size": 192044,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/5ebab57307b477fb3cf5bf42d2bafda3fa4cbaed"
+    },
+    {
+      "path": "examples/live-mic",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "dc94b76d77ed462d21408ae2723ba3ae89fc427a",
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/dc94b76d77ed462d21408ae2723ba3ae89fc427a"
+    },
+    {
+      "path": "examples/live-mic/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d2c1a522bd6272a9b030e498163f221222906f4",
+      "size": 1513,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/8d2c1a522bd6272a9b030e498163f221222906f4"
+    },
+    {
+      "path": "examples/live-mic/bot.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc0badf07d7ca120d4dabf3255cdcee06d976ab6",
+      "size": 7272,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/cc0badf07d7ca120d4dabf3255cdcee06d976ab6"
+    },
+    {
+      "path": "examples/live-mic/requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "04f31c1349436d6fd08c3fe2359c33679fa39bb0",
+      "size": 463,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/04f31c1349436d6fd08c3fe2359c33679fa39bb0"
+    },
+    {
+      "path": "scripts",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c3eacab112e8f16b49af7dd27eede81963f8cea6",
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/trees/c3eacab112e8f16b49af7dd27eede81963f8cea6"
+    },
+    {
+      "path": "scripts/load_image.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "1bc99693b549e7c611140fac253d1b7ade02739f",
+      "size": 3458,
+      "url": "https://api.github.com/repos/ojinai/kit-example/git/blobs/1bc99693b549e7c611140fac253d1b7ade02739f"
+    }
+  ],
+  "truncated": false
+}

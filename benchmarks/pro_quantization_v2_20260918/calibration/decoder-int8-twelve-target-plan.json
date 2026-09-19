@@ -1,0 +1,521 @@
+{
+  "engines": {},
+  "name": "decoder-int8-twelve-targets",
+  "protected": [
+    "model.decoder.conv1",
+    "model.decoder.head.2",
+    "model.decoder.upsamples.11.resample.1",
+    "model.decoder.upsamples.12.residual.2",
+    "model.decoder.upsamples.12.residual.6",
+    "model.decoder.upsamples.13.residual.2",
+    "model.decoder.upsamples.13.residual.6",
+    "model.decoder.upsamples.14.residual.2",
+    "model.decoder.upsamples.14.residual.6"
+  ],
+  "schema_version": 2,
+  "scheme": "int8_conservative",
+  "source": {
+    "captures": "benchmarks/pro_quantization_v2_20260918/calibration/decoder-top12-capture-r01/manifest.json",
+    "captures_sha256": "96869b66188e6478e83ccc016650f441c9d63d7ccefa1be459fafe73bc6f9622",
+    "inventory": "benchmarks/pro_quantization_v2_20260918/runs/profile-decoder-smoke-r01/decoder-inventory.json",
+    "inventory_selection": "cost-ranked CausalConv3d targets with captured prepared inputs",
+    "inventory_sha256": "d4390af097d7d3b65c755307d3d18de3aea581038f3f775492b3e7aef89c9de3",
+    "max_targets": 12,
+    "min_inclusive_cuda_ms": 0.1,
+    "protected_patterns": []
+  },
+  "targets": [
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "b9f04d3c6fb4590d2781ef1c9a702c4e95cfc83b2c2873487bf7ca85b4358e31",
+          "1c7238bcfa4111a449276e9ac2d97d1f66946d706132ad84eb87696f33b916a6",
+          "0a6038ca853dc37f0ea7e8c4be53a4aa312b1f9051ce70d544fc8f4bb6d25b94",
+          "aeae7fd2301c2f5c9cb78ee25cad9063d45477e72a0640a838c8826fc900733a",
+          "ff926fd7dbca0ab875bbeae6532ac377e1767b23076a60444b4ae5c81176666f",
+          "7e51417e583260f32721cf7d706fb297defce7dace9ca73d011cf66bf18c2875",
+          "784694572df4799611c09b4244f59bbf54ccaa6961f066132fa450dea2bde78e",
+          "1cb9254129ae2cbfc325ab0cd6be2cfc43dd5927032fdfcc410c670049b2fe70"
+        ],
+        "maximum": 3.921875,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.030880905511811024,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.62550413608551
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.8.residual.2"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "5097f0a652b21f25a90b213254b02816c073f904a8e7575769736b4df08c42a4",
+          "2918b2226261ae19cd047e02f94651ba3b2fc51fe85b7b323460e72825d73a11",
+          "64e3a5437030a4971a8424f4cad7035860d084c26daf342409d55b71dadb74a4",
+          "f17d249f3c5705d17a774c1d6c718245b2079a7a9345c4fea3d540465673965b",
+          "167ea7752405229ee5802cec18af52e715ac75b093817c1a3697faec32da3fd6",
+          "33761caf271b900d20669bfc9edf2d7f3d21186b226677c41eb8b3408377aa39",
+          "34c2ef9091d0fea2569bf485122ac9ec1cd8c051db3863a0b3a8a734f8889351",
+          "39c4587d8f0953f0512d4cf2e551532362b21e4c9d693d54dfca4bda832717ae"
+        ],
+        "maximum": 5.09375,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.04010826771653543,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.54300844669342
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.8.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "45c70c834ab2de2901231d52d71b58f9c40f01576ba57ac2e5f47dc5d3d0ab7c",
+          "18e1c7bfbd21154e2da51d1c24c83a747ffd120f63a53fe2892b3d9f64322c60",
+          "d0cab1affbfb199e37980d5261efacebf5a6c36164d2a8c656d3c9c61c9a6fdc",
+          "7b6d38fc2ca03f8bc648534ab03c89fdf9119361444b7b213d6e0466d7af4971",
+          "796f38c1c16dd3fc48c5d5ed729778303537fdce205c6ad0f664089fde4de55f",
+          "de94b0e2b19ff86f7544a1c108e13693e1a360cb7c296393920c5111bcb5c5c5",
+          "9b1f16840bf342eda4d741194de3b1971e8bb848bf48e3e43d3c5b41c74925ee",
+          "e156759253b2b68b31144fe18d9254f6bde51850f12f1d5e14fd48a6e04c6aad"
+        ],
+        "maximum": 2.859375,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.02251476377952756,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.297855615615845
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.9.residual.2"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "73b8c7fc6618eb5054c7a3f629022c19e678f096b71cd4546c0fb7e9620f7d37",
+          "0c09c4d914ac75bd761ec19dc70d81ce6c48ba86161ffb9df977564ca5edcdce",
+          "bdd39800c14877f5357930b65266301ee5ef5f05b385befe4dc27c43be2287b9",
+          "4dd03801d61984f19267a332d7a690251df73cd95843fa7ebc403dec0bde1362",
+          "1301ecad2bce04821c69f4221eba40a9702d099826cf843f5b77cdb41eed612a",
+          "adaa4e59c052d6702a5814b879e3ad33cb28c91d570220ffa537a46a8530887e",
+          "0bb9dc00b070e7b8efcc11895df5af1653dedf0d25e22f1fd95f7a84f551cdee",
+          "b28fb3061fcba96d530a6f04f0a18ae60feb67c071225d9798222c5128d4e403"
+        ],
+        "maximum": 6.28125,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.04945866141732284,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.25219190120697
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.9.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "a69171682563e0a315564651b67b6b036aea9af8a46d3100bf290d43ce02f971",
+          "fb75eb57a9539a6bf4d69e6e8a652c5e6cb03adf91920487c523e49f77693406",
+          "fa92f5e5fb4a21a1d932a7ea8a9d8a4397611804c66d69d6694e12ef73360e11",
+          "30b02f3b2e98974d2914251d4b7534ba1620392f8233af519c0e8738cb8236d7",
+          "ae0e9e320f111bed88e4eb513821fbee3dce84890bdd47baa3282025d3a323c4",
+          "89ed811fc348515e4ccf334412c072290779c5192cae11e26347f3bd7389b7da",
+          "8a3503bdd98dba3af50e4b5e9c6e4d73df5860f319e307d3b5fe227b79a9ad86",
+          "25a1286b99f91496a7f3adab6ca4b685ae730ae51f3a4bafe012c89c610a7d39"
+        ],
+        "maximum": 4.03125,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.03174212598425197,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.197632908821106
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.10.residual.2"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "891a827667f32d6f73605288ed447a80c7d6111701b45ade88d27f7da44782cc",
+          "9dd577005d07b64a302b8bc96b6a334cafd9ff8fb791482ce4cda763cb523b1c",
+          "a931285f090e5f84906457ec81fbe370c34b430693c7444768b1a552449917a0",
+          "31d1ea93e498391370e4d0890a115ab635c09230074b5d8bb7a04d68e5348c8d",
+          "5492d431bf8550f2918f33fdc6d37054d8c44c79c7a96bb835e8fc5478868caa",
+          "cfc45291e8111121d6177df665927d8100016ba22659d03769893b7fae324c0b",
+          "4f8f1b46235503e0f49276a84878f207698b843cd5fba31c3ac8bad08998c123",
+          "0f0a1ee2ceacb721b42b163e2ab969c034ebb61a266141092894e04618203d90"
+        ],
+        "maximum": 5.21875,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 324725760,
+        "scale": 0.04109251968503937,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 62.17161548137665
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          290,
+          162
+        ],
+        [
+          1,
+          192,
+          6,
+          290,
+          162
+        ]
+      ],
+      "path": "model.decoder.upsamples.10.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "7964e5a16612ba4c232115674aa6631f3f2fdf7d99993cfbfcd2d8d4614bfabe",
+          "3d999efc02b9b282fdb7039553d24cc514ae39d911399279d3a1c5e614b0b45c",
+          "f4975717f2885bb1306d6f3d67c2250e540b4d8458cd7437d56b0cdf164c9c3a",
+          "f9b402979fcf6fba6253e1951a54c0cdc203a597ad5ed965d205ec4683fcbf86",
+          "bc80cfb899c9e19e2068a5046ed4fd484cd33a8ad5b2289ba17a4a31e04347cd",
+          "2b089b455e61bf0e27166c907be19d0b14da12aab6e5cdeb2fa21aa39edb13a8",
+          "bd6509d9f0440ed9fcacc847b5a0b3f84b2f420a01e0e020ff7df8403e4c1134",
+          "7d4d10ee8a9ac28685395d9ec2a544d4346ad3b6612bb162b044b63c8bf7b384"
+        ],
+        "maximum": 3.0,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 128722944,
+        "scale": 0.023622047244094488,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 27.82691192626953
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          384,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          384,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.4.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "baacb4e957c33e61c7ec97b8f9a9eb0d5144336a7ea160773df1e26174d32e4e",
+          "7b4347bd484291233a25ad13da7a84196b7b7efb3e1a491a188bb6b68482365b",
+          "f05fa537466833514de11ba58b0f27d4923837e49e7af3ddc3e826eafa9b321d",
+          "1fcc19526e51be49c8d2c399da664899b92bdbd4388b5a948d5a1515623cb5b7",
+          "47e64d87dc72a0ec825af719fde4453b55bab2299bc8876d42d4786e2259dbbd",
+          "ee434d3b7ce69020a0db8d54536c5983eb14c03b3f0011037b866e422eb33a4d",
+          "87ee33a8c9926d3b3d481b90b10fea851f7cce0184cfaf147d214c4dd4b73de5",
+          "06193623c459ec5b176f3ceba94d36925d193b2022d9ad505ffe02e2b6138972"
+        ],
+        "maximum": 3.828125,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 128722944,
+        "scale": 0.03014271653543307,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 27.556384086608887
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          384,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          384,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.5.residual.2"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "d64e7555ae6c672b8d3e2570c5d5ed2a5215d1387adf41cea64c27363bddac1c",
+          "ca1981afc9785d980af3875998af19afcea4427c1f792fe6d26f1b2a1765912c",
+          "3f884721ffed20f408eb5e130f5eceac19006347c42137ba38e23c9a18f3fdbc",
+          "c20e1e79f0b9104c243fe739b5abc1f4036b1d806bfeffbf1c02f5d86c534275",
+          "0dc890fa3049df986356079d4f4841c74d59d8c021b79fe91819d82984db2751",
+          "8912fd8a7525dfb7b5d07018b868008a87940d52ccecca975bd95e4e635dd408",
+          "528ae8b9c2e0672fae6c4bd2d7596190497c999b7c1da5edf1be93938ee7b095",
+          "58a7ebe120abb252203bc571028986817386399672bd446255a42ec5b4adc300"
+        ],
+        "maximum": 5.21875,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 128722944,
+        "scale": 0.04109251968503937,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 27.440063953399658
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          384,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          384,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.5.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "168cd06e06ff23dc523badb00d8619568dd1dece4b9b0f73e495d752dedf3831",
+          "f22b6fabded988f298352523dc71282f27529739aa4399313eaa687e0e20e1c7",
+          "afdb5be49d4bfc5efbd9aac75449865ae9a6c6180800aa9c9914cb9197a9f9a4",
+          "ca9fb79c4a5fe66cd7d2587579620d8637ddf6e55a5220deb13f721aa91f8afa",
+          "5b3eab9611636d093bcfeb4d98a8c4deed4de1de4ca01973800f0504fa07c927",
+          "d911c097041814bb3a8bc45b10b9b1a2e77d2eb624121fd06281c1be04f18141",
+          "62d4a374099a80b20349a9c8acb5cbd793930bd9ec716f033241bfc845f58d45",
+          "de41fceaf7e92a718b61d472348a6663d81f8c7eaaac6923b73be8b7dedf7dc1"
+        ],
+        "maximum": 3.171875,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 128722944,
+        "scale": 0.024975393700787402,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 27.296768069267273
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          384,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          384,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.6.residual.2"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "0dc0026204d10869740f0567c37df779d9a7893d481a114606b4820ff698cc03",
+          "855f036e93c905fe5099ee0d5a76bebd72fd589b666fa578ba390de7ee3359dd",
+          "d24999eb9e20494fc63917a2ccec43d75acc61a61c26d514c7b67e2c008d52d8",
+          "714296d1e7cef36e8afa4b82137bad50ca01c339674818609a56859eebd4ba35",
+          "1b5824c24f08016785807c84956fd81d4a65ddac20234bedde45991b65240b7c",
+          "98eededb9069f7a7f0c25409bcbc4dffa1302dba56066036d1633a63dd73aeab",
+          "271c570b53e15d4abc8cc423fd7048da92bad158ca5ea8b0daa7f44cb55b11d4",
+          "09c0c55c45bf045c6cf624bb2b2906074e6b73178d74a9c90f35b6985755078e"
+        ],
+        "maximum": 3.828125,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 128722944,
+        "scale": 0.03014271653543307,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 27.270912170410156
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          384,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          384,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.6.residual.6"
+    },
+    {
+      "calibration": {
+        "algorithm": "max_abs",
+        "capture_count": 8,
+        "capture_sha256": [
+          "565c6ccad344d43820203b7135919fa11698e2e579e243c36798c6a4945bfd11",
+          "93df3b2b034a1797072ef10054c3541c97ef275834855cf219ba98c677ad6daa",
+          "86ee0a67206460dfc158b56caea7a183fc5300e20f02b2ef620abcd477d9c821",
+          "cf077307d972c6815fc4e410e63559cac17ea24943316779b447980d13771f21",
+          "a86655b9551f2d74674b48be9b790cfc1b0b123c1bc77f61ab5cccbbc2cb7257",
+          "c494080df38156059f0edc0c6a4fe5fab1d5436a79e14f5ac866151f818f71b7",
+          "f62d91996bc5c773970c1e293a0abc8bd92c6d03091c774b2c51d7fb5f162b8f",
+          "a153e11c73aa784fcc756999e3e67a225b740af29ee73ce27115d660dddc9bea"
+        ],
+        "maximum": 10.25,
+        "percentile": null,
+        "quant_max": 127.0,
+        "samples": 64361472,
+        "scale": 0.08070866141732283,
+        "scale_granularity": "per_tensor",
+        "source_inclusive_cuda_ms": 13.097535848617554
+      },
+      "kind": "causal_conv3d",
+      "observed_shapes": [
+        [
+          1,
+          192,
+          3,
+          146,
+          82
+        ],
+        [
+          1,
+          192,
+          4,
+          146,
+          82
+        ]
+      ],
+      "path": "model.decoder.upsamples.4.residual.2"
+    }
+  ]
+}

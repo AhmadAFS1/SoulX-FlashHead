@@ -1,0 +1,111 @@
+{"Layers": [{
+  "Name": "node_of_input_q",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "input",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "input_q",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_input_q]"
+},{
+  "Name": "node_of_input_dq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "input_q",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "input_dq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_input_dq]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to weight + node_of_weight_q + node_of_weight_dq + node_of_output",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "input_dq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to weight + node_of_weight_q + node_of_weight_dq + node_of_output",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "weight + node_of_weight_q + node_of_weight_dq + node_of_output",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to weight + node_of_weight_q + node_of_weight_dq + node_of_output",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Float", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_t3r3s3_alignc4",
+  "TacticValue": "0x3aa8af51ffea0fae",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_weight_q]\u001e[ONNX Layer: node_of_weight_dq]\u001e[ONNX Layer: node_of_output]"
+}],
+"Bindings": ["input"
+,"output"
+]}
+

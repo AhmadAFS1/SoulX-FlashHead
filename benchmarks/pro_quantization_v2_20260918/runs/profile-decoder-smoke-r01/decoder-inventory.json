@@ -1,0 +1,2561 @@
+{
+  "modules": [
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 87.35225629806519,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.14.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 87.31340909004211,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.13.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 87.20646452903748,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.13.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 87.18675065040588,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.14.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 86.61558485031128,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.12.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 86.53084921836853,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.12.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.62550413608551,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.8.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.54300844669342,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.8.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.297855615615845,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.9.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.25219190120697,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.9.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.197632908821106,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.10.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 62.17161548137665,
+      "input_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          1,
+          288,
+          160
+        ],
+        [
+          1,
+          192,
+          4,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        1,
+        288,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.10.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "Conv2d",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 59.800352454185486,
+      "input_shape": [
+        1,
+        192,
+        576,
+        320
+      ],
+      "input_stage": "module_input",
+      "kernel_size": [
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          576,
+          320
+        ],
+        [
+          4,
+          192,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          96,
+          576,
+          320
+        ],
+        [
+          4,
+          96,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        96,
+        576,
+        320
+      ],
+      "padding": [
+        1,
+        1
+      ],
+      "path": "model.decoder.upsamples.11.resample.1",
+      "stride": [
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "Conv2d",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 47.63980770111084,
+      "input_shape": [
+        1,
+        384,
+        288,
+        160
+      ],
+      "input_stage": "module_input",
+      "kernel_size": [
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          288,
+          160
+        ],
+        [
+          4,
+          384,
+          288,
+          160
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          288,
+          160
+        ],
+        [
+          4,
+          192,
+          288,
+          160
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        288,
+        160
+      ],
+      "padding": [
+        1,
+        1
+      ],
+      "path": "model.decoder.upsamples.7.resample.1",
+      "stride": [
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 47.59369623661041,
+      "input_shape": [
+        1,
+        96,
+        1,
+        576,
+        320
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          96,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          96,
+          4,
+          576,
+          320
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          3,
+          1,
+          576,
+          320
+        ],
+        [
+          1,
+          3,
+          4,
+          576,
+          320
+        ]
+      ],
+      "output_shape": [
+        1,
+        3,
+        1,
+        576,
+        320
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.head.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 27.82691192626953,
+      "input_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.4.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 27.556384086608887,
+      "input_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.5.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 27.440063953399658,
+      "input_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.5.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 27.296768069267273,
+      "input_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.6.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 27.270912170410156,
+      "input_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.6.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 13.097535848617554,
+      "input_shape": [
+        1,
+        192,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          192,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.4.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 8,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 10.930911898612976,
+      "input_shape": [
+        1,
+        384,
+        2,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        1,
+        1
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          768,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        768,
+        2,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.7.time_conv",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.562623977661133,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.0.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.505856096744537,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.0.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.500096082687378,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.2.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.497056066989899,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.0.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.496832013130188,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.0.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.492832064628601,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.2.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.48716813325882,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.1.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.486656010150909,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.2.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.485759973526001,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.1.residual.6",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 5.474079966545105,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.2.residual.2",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "Conv2d",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 4.580703973770142,
+      "input_shape": [
+        1,
+        384,
+        144,
+        80
+      ],
+      "input_stage": "module_input",
+      "kernel_size": [
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          144,
+          80
+        ],
+        [
+          2,
+          384,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          192,
+          144,
+          80
+        ],
+        [
+          2,
+          192,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        192,
+        144,
+        80
+      ],
+      "padding": [
+        1,
+        1
+      ],
+      "path": "model.decoder.upsamples.3.resample.1",
+      "stride": [
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 8,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 1.6675519943237305,
+      "input_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        1,
+        1
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          768,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        768,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.3.time_conv",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 1.3767999820411205,
+      "input_shape": [
+        1,
+        192,
+        1,
+        144,
+        80
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        1,
+        1,
+        1
+      ],
+      "observed_inputs": [
+        [
+          1,
+          192,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          192,
+          2,
+          144,
+          80
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          144,
+          80
+        ],
+        [
+          1,
+          384,
+          2,
+          144,
+          80
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        144,
+        80
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.upsamples.4.shortcut",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "CausalConv3d",
+      "dilation": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 1.2003519982099533,
+      "input_shape": [
+        1,
+        16,
+        1,
+        72,
+        40
+      ],
+      "input_stage": "before_causal_padding",
+      "kernel_size": [
+        3,
+        3,
+        3
+      ],
+      "observed_inputs": [
+        [
+          1,
+          16,
+          1,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          1,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        1,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0,
+        0
+      ],
+      "path": "model.decoder.conv1",
+      "stride": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "Conv2d",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 0.5981760025024414,
+      "input_shape": [
+        1,
+        384,
+        72,
+        40
+      ],
+      "input_stage": "module_input",
+      "kernel_size": [
+        1,
+        1
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          1152,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        1152,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.1.to_qkv",
+      "stride": [
+        1,
+        1
+      ]
+    },
+    {
+      "calls": 9,
+      "class": "Conv2d",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "inclusive_cuda_ms": 0.52352000400424,
+      "input_shape": [
+        1,
+        384,
+        72,
+        40
+      ],
+      "input_stage": "module_input",
+      "kernel_size": [
+        1,
+        1
+      ],
+      "observed_inputs": [
+        [
+          1,
+          384,
+          72,
+          40
+        ]
+      ],
+      "observed_outputs": [
+        [
+          1,
+          384,
+          72,
+          40
+        ]
+      ],
+      "output_shape": [
+        1,
+        384,
+        72,
+        40
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "path": "model.decoder.middle.1.proj",
+      "stride": [
+        1,
+        1
+      ]
+    }
+  ],
+  "timing_scope": "module inclusive CUDA event duration; do not sum nested totals"
+}

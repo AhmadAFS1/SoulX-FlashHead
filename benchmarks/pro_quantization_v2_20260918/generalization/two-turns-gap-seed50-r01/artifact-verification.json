@@ -1,0 +1,19 @@
+{
+  "excluded": 0,
+  "execution": "CPU-only artifact verification; no generation",
+  "invalid": 0,
+  "runs": [
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/generalization/two-turns-gap-seed50-r01/candidate",
+      "status": "valid"
+    },
+    {
+      "errors": [],
+      "run": "benchmarks/pro_quantization_v2_20260918/generalization/two-turns-gap-seed50-r01/reference",
+      "status": "valid"
+    }
+  ],
+  "status": "complete",
+  "valid": 2
+}

@@ -1,0 +1,36 @@
+{
+  "status": "failed",
+  "date_utc": "2026-09-17T00:54:31.050179+00:00",
+  "execution": "fresh local GPU inference",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 7641 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "seed": 50,
+    "precision": "BF16",
+    "memory_mode": "staged",
+    "compiled": false,
+    "conditioning": "stock",
+    "seconds": 10,
+    "allocator_cap_mib": 8704
+  },
+  "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+  "source_dimensions": [
+    320,
+    576
+  ],
+  "effective_source_dimensions": [
+    320,
+    576
+  ],
+  "reference_preparation": "Use the exact retained shoulder-visible 1.25x portrait; downsample with Lanczos to effective dimensions unless native, then upscale to 320x576 with Lanczos.",
+  "co_resident_load": "OmniVoice left resident; exact initial whole-device use is in gpu_snapshot.",
+  "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+  "reference_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+  "error_type": "OutOfMemoryError",
+  "error": "CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 11.60 GiB of which 2.94 MiB is free. Process 157695 has 2.42 GiB memory in use. Process 231131 has 5.06 GiB memory in use. Including non-PyTorch memory, this process has 4.10 GiB memory in use. 8.50 GiB allowed; Of the allocated memory 3.67 GiB is allocated by PyTorch, and 225.47 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+}

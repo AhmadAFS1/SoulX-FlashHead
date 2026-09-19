@@ -1,0 +1,196 @@
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at /workspace/SoulX-FlashHead/models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_dynamo/variables/functions.py:1263: UserWarning: Dynamo does not know how to trace the builtin `sageattention._fused.PyCapsule.transpose_pad_permute_cuda.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
+If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
+  torch._dynamo.utils.warn_once(explanation + "\n" + "\n".join(hints))
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_dynamo/variables/functions.py:1263: UserWarning: Dynamo does not know how to trace the builtin `sageattention._fused.PyCapsule.scale_fuse_quant_cuda.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
+If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
+  torch._dynamo.utils.warn_once(explanation + "\n" + "\n".join(hints))
+[generate] model denoise per step: 2.1824731826782227s
+[generate] model denoise per step: 0.23000407218933105s
+[generate] model denoise per step: 0.2328639030456543s
+[generate] model denoise per step: 0.2328634262084961s
+[generate] decode video frames: 5.171860694885254s
+[generate] color correction: 0.013802766799926758s
+[generate] encode motion frames: 0.15233397483825684s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.2304537296295166s
+[generate] model denoise per step: 0.23317742347717285s
+[generate] model denoise per step: 0.23284339904785156s
+[generate] model denoise per step: 0.23756027221679688s
+[generate] decode video frames: 1.221177577972412s
+[generate] color correction: 0.00949716567993164s
+[generate] encode motion frames: 0.15239620208740234s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23193693161010742s
+[generate] model denoise per step: 0.23238468170166016s
+[generate] model denoise per step: 0.23407769203186035s
+[generate] model denoise per step: 0.23667001724243164s
+[generate] decode video frames: 1.212400197982788s
+[generate] color correction: 0.009759902954101562s
+[generate] encode motion frames: 0.15311527252197266s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.2317969799041748s
+[generate] model denoise per step: 0.23323965072631836s
+[generate] model denoise per step: 0.23305749893188477s
+[generate] model denoise per step: 0.23523402214050293s
+[generate] decode video frames: 1.2075591087341309s
+[generate] color correction: 0.009506702423095703s
+[generate] encode motion frames: 0.15276741981506348s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23074698448181152s
+[generate] model denoise per step: 0.23354148864746094s
+[generate] model denoise per step: 0.2330458164215088s
+[generate] model denoise per step: 0.23623204231262207s
+[generate] decode video frames: 1.2097535133361816s
+[generate] color correction: 0.009595870971679688s
+[generate] encode motion frames: 0.15314412117004395s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23172402381896973s
+[generate] model denoise per step: 0.23319315910339355s
+[generate] model denoise per step: 0.23299956321716309s
+[generate] model denoise per step: 0.23539519309997559s
+[generate] decode video frames: 1.214972734451294s
+[generate] color correction: 0.00972294807434082s
+[generate] encode motion frames: 0.15272116661071777s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23138761520385742s
+[generate] model denoise per step: 0.23288512229919434s
+[generate] model denoise per step: 0.23286795616149902s
+[generate] model denoise per step: 0.23632478713989258s
+[generate] decode video frames: 1.2300238609313965s
+[generate] color correction: 0.009667158126831055s
+[generate] encode motion frames: 0.15283513069152832s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.22809505462646484s
+[generate] model denoise per step: 0.23246121406555176s
+[generate] model denoise per step: 0.23659276962280273s
+[generate] model denoise per step: 0.24367523193359375s
+[generate] decode video frames: 1.2290823459625244s
+[generate] color correction: 0.009517908096313477s
+[generate] encode motion frames: 0.15275311470031738s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23297715187072754s
+[generate] model denoise per step: 0.23283958435058594s
+[generate] model denoise per step: 0.23320412635803223s
+[generate] model denoise per step: 0.23810935020446777s
+[generate] decode video frames: 1.2257108688354492s
+[generate] color correction: 0.00958871841430664s
+[generate] encode motion frames: 0.1532890796661377s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23243403434753418s
+[generate] model denoise per step: 0.232985258102417s
+[generate] model denoise per step: 0.23312973976135254s
+[generate] model denoise per step: 0.23742032051086426s
+[generate] decode video frames: 1.1987714767456055s
+[generate] color correction: 0.009554147720336914s
+[generate] encode motion frames: 0.15275216102600098s
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:643: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.23210477828979492s
+[generate] model denoise per step: 0.23305439949035645s
+[generate] model denoise per step: 0.23330020904541016s
+[generate] model denoise per step: 0.23683452606201172s
+[generate] decode video frames: 1.2134575843811035s
+[generate] color correction: 0.009574413299560547s
+[generate] encode motion frames: 0.15398168563842773s
+{
+  "output": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r01/04-pro-pair2",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 21.11988780304091,
+      "useful_fps": 11.837184095457372,
+      "first_window_latency_s": 2.3311515579698607,
+      "chunk_times_s": [
+        2.3311515579698607,
+        2.3227840660256334,
+        2.3262712659779936,
+        2.3308235720032826,
+        2.346091435989365,
+        2.352486753021367,
+        2.3459408020135015,
+        2.3171286649885587,
+        2.332450538990088
+      ],
+      "chunk_distribution_s": {
+        "count": 9,
+        "min": 2.3171286649885587,
+        "p50": 2.3311515579698607,
+        "p95": 2.349928626208566,
+        "p99": 2.3519751276588066,
+        "max": 2.352486753021367
+      },
+      "stage_seconds": {
+        "audio": 0.07311529588699342,
+        "dit": 8.413761489868163,
+        "vae_decode": 10.941257446289065,
+        "motion_encode": 1.377063690185547
+      },
+      "peak_allocated_mib": 5040.8046875,
+      "peak_reserved_mib": 8672.0,
+      "resource_summary": {
+        "sample_count": 36,
+        "gpu_utilization_percent": {
+          "mean": 98.83333333333333,
+          "min": 80.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 11043.444444444445,
+          "min": 10252.0,
+          "max": 11852.0
+        },
+        "system_cpu_percent": {
+          "mean": 5.261111111111112,
+          "min": 0.0,
+          "max": 9.8
+        },
+        "process_cpu_percent": {
+          "mean": 97.8972222222222,
+          "min": 0.0,
+          "max": 110.2
+        },
+        "system_ram_used_mib": {
+          "mean": 15669.440104166666,
+          "min": 15551.9765625,
+          "max": 15723.15234375
+        },
+        "system_ram_percent": {
+          "mean": 50.62500000000001,
+          "min": 50.2,
+          "max": 50.8
+        },
+        "process_rss_mib": {
+          "mean": 5060.045030381944,
+          "min": 4962.8203125,
+          "max": 5088.5390625
+        },
+        "torch_allocated_mib": {
+          "mean": 3998.628472222222,
+          "min": 3165.8427734375,
+          "max": 5023.40283203125
+        },
+        "torch_reserved_mib": {
+          "mean": 7672.388888888889,
+          "min": 7072.0,
+          "max": 8324.0
+        }
+      }
+    }
+  ]
+}

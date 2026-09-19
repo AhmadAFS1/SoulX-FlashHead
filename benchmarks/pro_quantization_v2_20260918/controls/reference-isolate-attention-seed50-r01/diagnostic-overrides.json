@@ -1,0 +1,8 @@
+{
+  "purpose": "baseline isolation, not a candidate benchmark",
+  "self_attention": "original global dispatcher",
+  "cross_attention": "original global dispatcher",
+  "sage_enabled": false,
+  "flash3_enabled": false,
+  "driver_sha256": "cf63838614e59ef0dce45533e085467c0714a6f2a457ac3b601b0988d69d02c7"
+}

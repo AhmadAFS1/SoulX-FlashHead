@@ -1,0 +1,59 @@
+digraph System {
+ graph [rankdir=TB, bgcolor="#ffffff", pad="0.35", nodesep="0.35", ranksep="0.65", fontname="DejaVu Sans", fontsize=20, labelloc=t, label="SoulX-FlashHead | Repository system architecture\nLocal source audit · 17 September 2026 · no new inference benchmark", compound=true];
+ node [shape=box, style="rounded,filled", fillcolor="#edf4fb", color="#6384a6", fontname="DejaVu Sans", fontsize=12, margin="0.16,0.13"];
+ edge [color="#56718b", fontname="DejaVu Sans", fontsize=10, arrowsize=0.75];
+ input [label="INPUTS\nPortrait / approved avatar bank + speech waveform"];
+ tts [label="OPTIONAL SPEECH CREATION\nCPU Kokoro endpoint in this fork\nor external TTS / prerecorded speech\nIndependent weights; not part of SoulX DiT", fillcolor="#f1ebfb", color="#9271bd"];
+ tts -> input [label="audio"];
+ subgraph cluster_entries {
+  label="Application entry points"; color="#c7d6e6"; fontname="DejaVu Sans";
+  browser [label="Browser / API client\nwall.html · wall.js · index.html\nPersistent WebRTC calls"];
+  offline [label="Offline CLI / Gradio demos\ngenerate_video.py · gradio_app*.py\nLITE or PRO · MP4 / segmented MP4"];
+ }
+ input -> browser; input -> offline;
+ subgraph cluster_parent {
+  label="REAL-TIME SERVICE | CPU parent process"; color="#6485aa"; fontname="DejaVu Sans";
+  api [label="HTTP API + signaling + optional bearer auth\nserver.py · calls.py\n/calls, /sessions, /avatars, /health, /config"];
+  avatar [label="Approved avatar selection + reference frame\navatars.py · idle_cache.py\nStill image or first frame of idle video"];
+  audio [label="Audio decode / resample\n16-kHz conditioning + 48-kHz playback\nTurn queues, cancellation and epochs"];
+  schedule [label="Fair scheduling + admission limits\nBounded generated-frame queues\nBatch compatible active sessions"];
+  media [label="Persistent media tracks\ncalls.py · boundaries.py\nA/V clocks, idle/speech transitions\nSource replay / held frame / neural idle"];
+  transport [label="H264 video + Opus audio → RTP/WebRTC\ncodec.py · aiortc\nEncode and transmit at playback cadence"];
+  history [label="Last 9 sent native frames\nRecondition on interruption / idle return\nSeparate from queued future frames",fillcolor="#e8f3ee",color="#548876"];
+  api -> avatar; api -> audio; audio -> schedule;
+  media -> transport; media -> history [label="track sent frames"];
+ }
+ browser -> api [label="select avatar, submit speech, SDP"];
+ subgraph cluster_worker {
+  label="ONE GPU WORKER PROCESS | worker.py + engine.py"; color="#548876"; fontname="DejaVu Sans";
+  prepare [label="Prepare/cache avatar conditioning\nShared reference template\nPrivate seed/RNG, audio buffer, cursor, motion history",fillcolor="#e8f3ee"];
+  engine [label="Shared LITE inference engine\nWav2Vec2 → audio adapter → 4-step DiT\nLTX VAE → color correction → motion feedback\n24 useful RGB frames per chunk",fillcolor="#dceee4",color="#548876",penwidth=2];
+  ipc [label="uint8 RGB chunks + telemetry\nshared_chunks.py\nShared-memory IPC or pickle fallback",fillcolor="#e8f3ee"];
+  prepare -> engine; engine -> ipc;
+ }
+ avatar -> prepare [label="reference + seed RPC"];
+ schedule -> engine [label="append audio / generate batch RPC"];
+ history -> prepare [label="recondition RPC",style=dashed,constraint=false];
+ ipc -> media [label="native frames + epoch checks"];
+ avatar -> media [label="cached source idle",style=dashed];
+ audio -> transport [label="original audio playback",style=dashed];
+ transport -> receiver [label="network"];
+ receiver [label="Receiver playback / MP4 recording\nAudio remains the supplied waveform\nVideo contains SoulX-generated motion",fillcolor="#dceee4",color="#548876"];
+ subgraph cluster_offline {
+  label="OFFLINE MODEL PATH"; color="#c7d6e6"; fontname="DejaVu Sans";
+  pipeline [label="flash_head/inference.py → FlashHeadPipeline\nLITE: Model_Lite + VAE_LTX\nPRO: Model_Pro + VAE_Wan\nShared audio-conditioning design"];
+  mp4 [label="Upstream demo / benchmark output\nVideo frames + original audio → file"];
+  pipeline -> mp4;
+ }
+ offline -> pipeline;
+ weights [label="WEIGHT STORE | models/\nDiT, VAE and Wav2Vec2 are separate checkpoints\nRuntime casting / compilation / optional TRT backends\nShared weights across calls; private per-call state",shape=folder,fillcolor="#e8edfb",color="#667abb"];
+ weights -> engine [label="load once",style=dotted]; weights -> pipeline [label="load selected variant",style=dotted];
+ experiments [label="EXPERIMENTAL ENHANCEMENT UTILITIES\nface_landmarker.py · mouth_sr.py · srvgg_trt.py\nTested in benchmark runners\nNot wired into default RTC generation",fillcolor="#f1ebfb",color="#9271bd",style="rounded,filled,dashed"];
+ proposal [label="PROPOSED CUSTOM MOUTH REFINER\nIndependent architecture + new trained weights\nCurrent/past mouth crops → local correction\nNot implemented or trained",fillcolor="#fff2db",color="#c58c2f",style="rounded,filled,dashed"];
+ ipc -> experiments [label="alternative experiment branch",style=dashed];
+ experiments -> proposal [label="proposed extension; see diagram 3",style=dashed];
+ tools [label="CROSS-CUTTING CODE\ngpu_lease.py: cooperative GPU ownership\ncompact_weights.py / graph.py / trt_backend.py: optional execution choices\nmetrics.py + benchmarks/ + tests/: timing, resources, parity, receiver checks\nThese options do not themselves learn better teeth",fillcolor="#f2f4f7",color="#939ca8"];
+ engine -> tools [style=dotted,arrowhead=none];
+ legend [label="Blue/green: implemented paths  |  Purple dashed: experimental branch\nOrange dashed: proposed, untrained  |  Dotted: loading / supporting infrastructure\nSource map covers the local modified checkout, not Ojin's private service",shape=note,fillcolor="#fffaf0",color="#c7bfae"];
+ receiver -> legend [style=invis]; proposal -> legend [style=invis]; tools -> legend [style=invis];
+}

@@ -1,0 +1,139 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T02:14:08.716250+00:00",
+  "execution": "Fresh local GPU inference",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "co_resident_load": "pid, process_name, used_gpu_memory [MiB]\n157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB\n",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "seconds": 10,
+    "precision": "INT8 weight storage / BF16 compute",
+    "memory_mode": "compact",
+    "compiled": false,
+    "allocator_cap_mib": 3584,
+    "shift": 5,
+    "motion_frames_latent_num": 2
+  },
+  "source": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+  "source_sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+  "audio": "benchmarks/comparison-10s.wav",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "levels": [
+    1.0,
+    0.9,
+    0.75,
+    0.5
+  ],
+  "seeds": [
+    50,
+    51
+  ],
+  "runs": [
+    {
+      "seed": 50,
+      "strength": 1.0,
+      "directory": "seed50-strength1",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.02667201400618,
+      "useful_fps": 31.146158652522647,
+      "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 50,
+      "strength": 0.9,
+      "directory": "seed50-strength0.9",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.03282993999892,
+      "useful_fps": 31.122282167974497,
+      "raw_sha256": "555f072aaf261b8eb6095ae50c154184c80d978d8d311dafae68798174fc8d84",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 50,
+      "strength": 0.75,
+      "directory": "seed50-strength0.75",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.057782807998592,
+      "useful_fps": 31.02590451455659,
+      "raw_sha256": "ae80700e6e9adf7512370e9678c0386237b78ffeae6d3b8edd760b1d444617f0",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 50,
+      "strength": 0.5,
+      "directory": "seed50-strength0.5",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.057657299010316,
+      "useful_fps": 31.02638778528175,
+      "raw_sha256": "c0b016b9e846b3f926724586e89706ed232a90ac58affd8b0995186cefb5e9d3",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 51,
+      "strength": 1.0,
+      "directory": "seed51-strength1",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.088796019990696,
+      "useful_fps": 30.90694825066037,
+      "raw_sha256": "211cf11f481539c6da9ab5ec8b0ae87dd9edbda79f8bba13bfe76e34c90e1dd2",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 51,
+      "strength": 0.9,
+      "directory": "seed51-strength0.9",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.075040663999971,
+      "useful_fps": 30.959596415971795,
+      "raw_sha256": "8299485ec353270bf8f6f674d8b1e7374b5db15ae39eda1326a65276a3244ec4",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 51,
+      "strength": 0.75,
+      "directory": "seed51-strength0.75",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.07241888801218,
+      "useful_fps": 30.969651534220876,
+      "raw_sha256": "25943931e5f44a98c366747a51b23f0651a82ca0c0f3629b96ebad08ce5351ea",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    },
+    {
+      "seed": 51,
+      "strength": 0.5,
+      "directory": "seed51-strength0.5",
+      "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 6526 MiB, 595.84\n",
+      "wall_s": 8.09271139698103,
+      "useful_fps": 30.89199499851953,
+      "raw_sha256": "e8d39169e7fb91b5404af31182c00547ff511d00d7de2c5890ff8f7b637ee685",
+      "frames": 250,
+      "peak_allocated_mib": 3301.47265625
+    }
+  ],
+  "unhooked_control": {
+    "wall_s": 7.978062319016317,
+    "useful_fps": 31.33592970364571,
+    "raw_sha256": "e6f490281ae6fce7b0ff570c45d9ad86ec52239d4b068083c498bff4eec55ed7",
+    "frames": 250,
+    "peak_allocated_mib": 3301.47216796875
+  },
+  "hook_count": 30,
+  "hook_identity_control": {
+    "exact": true,
+    "mae": 0.0,
+    "max_error": 0
+  }
+}

@@ -1,0 +1,70 @@
+2026-09-17 14:47:29.057 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+W0917 14:47:40.368000 280902 .venv/lib/python3.10/site-packages/torch/_inductor/utils.py:1250] [1/0] Not enough SMs to use max_autotune_gemm mode
+2026-09-17 14:48:15.098 | INFO     | __main__:generate:126 - Data preparation done. Start to generate video...
+/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/lowering.py:1917: UserWarning: Torchinductor does not support code generation for complex operators. Performance may be worse than eager.
+  warnings.warn(
+[generate] model denoise per step: 25.62161111831665s
+[generate] model denoise per step: 23.99599528312683s
+[generate] model denoise per step: 0.6735093593597412s
+[generate] model denoise per step: 0.6724274158477783s
+Traceback (most recent call last):
+  File "/workspace/SoulX-FlashHead/generate_video.py", line 218, in <module>
+    generate(args)
+  File "/workspace/SoulX-FlashHead/generate_video.py", line 148, in generate
+    video = run_pipeline(pipeline, audio_embedding_chunk)
+  File "/workspace/SoulX-FlashHead/flash_head/inference.py", line 75, in run_pipeline
+    sample = pipeline.generate(audio_embedding)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/flash_head/src/pipeline/flash_head_pipeline.py", line 300, in generate
+    videos = self.vae.decode(noise)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 655, in _fn
+    return fn(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/flash_head/wan/modules/vae.py", line 1541, in decode
+    def decode(self, zs):
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 838, in _fn
+    return fn(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1209, in forward
+    return compiled_fn(full_args)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 328, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 689, in inner_fn
+    outs = compiled_fn(args)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 495, in wrapper
+    return compiled_fn(runtime_args)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 460, in __call__
+    return self.current_callable(inputs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/utils.py", line 2404, in run
+    return model(new_inputs)
+  File "/tmp/torchinductor_root/yi/cyiynmp4i6xbnukkqn32g4h5d7sdkxso5nojmnbwjnsffqmh3euo.py", line 12861, in call
+    triton_poi_fused_add_constant_pad_nd_convolution_119.run(buf430, arg97_1, buf421, arg91_1, buf413, arg85_1, 96, 1048576, stream=stream0)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 909, in run
+    self.autotune_to_one_config(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 763, in autotune_to_one_config
+    timings = self.benchmark_all_configs(*args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 737, in benchmark_all_configs
+    timings = {
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 738, in <dictcomp>
+    launcher: self.bench(launcher, *args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 616, in bench
+    return benchmarker.benchmark_gpu(kernel_call, rep=40)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/benchmarking.py", line 39, in wrapper
+    return fn(self, *args, **kwargs)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/benchmarking.py", line 243, in benchmark_gpu
+    _callable()
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 595, in kernel_call
+    cloned_args, cloned_kwargs = self.maybe_clone_args(
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 719, in maybe_clone_args
+    cloned_args = [
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 720, in <listcomp>
+    prepare_arg(name, arg)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 715, in prepare_arg
+    return clone_preserve_strides(arg)
+  File "/workspace/SoulX-FlashHead/.venv/lib/python3.10/site-packages/torch/_inductor/utils.py", line 2417, in clone_preserve_strides
+    buffer = torch.as_strided(x, (needed_size,), (1,)).clone()
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 192.00 MiB. GPU 0 has a total capacity of 11.60 GiB of which 130.88 MiB is free. Process 157695 has 2.42 GiB memory in use. Process 246436 has 234.00 MiB memory in use. Including non-PyTorch memory, this process has 8.80 GiB memory in use. Of the allocated memory 7.19 GiB is allocated by PyTorch, and 1.38 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

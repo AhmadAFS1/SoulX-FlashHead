@@ -1,0 +1,9 @@
+{
+  "date_utc": "2026-09-19T00:17:00.820149+00:00",
+  "execution": "CPU-only GPU lease check; no inference",
+  "available": false,
+  "reason": "Another SoulX GPU owner from this checkout is running; stop it before loading a second model",
+  "owners": [
+    "513326 python  /workspace/SoulX-FlashHead/.gpu-owner.lock"
+  ]
+}

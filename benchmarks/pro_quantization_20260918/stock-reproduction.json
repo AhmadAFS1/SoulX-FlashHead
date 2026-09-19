@@ -1,0 +1,9 @@
+{
+  "execution": "CPU comparison of retained manifest hashes; no new inference",
+  "gpu_source": "Both source runs explicitly record RTX 4070 SUPER / 12,282 MiB",
+  "historical_manifest": "benchmarks/pro_lite_150x_20260917/pro/results.json",
+  "fresh_manifest": "benchmarks/pro_quantization_20260918/stock-seed50/results.json",
+  "raw_rgb_hash_equal": true,
+  "reference_hash_equal": true,
+  "audio_hash_equal": true
+}

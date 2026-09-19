@@ -1,0 +1,259 @@
+[generate] model denoise per step: 2.1241557598114014s
+[generate] model denoise per step: 0.23147797584533691s
+[generate] model denoise per step: 0.23214268684387207s
+[generate] model denoise per step: 0.23273015022277832s
+[generate] decode video frames: 5.188488245010376s
+[generate] color correction: 0.010946989059448242s
+[generate] encode motion frames: 0.15236306190490723s
+[generate] model denoise per step: 0.23070406913757324s
+[generate] model denoise per step: 0.2323915958404541s
+[generate] model denoise per step: 0.2329401969909668s
+[generate] model denoise per step: 0.24166584014892578s
+[generate] decode video frames: 1.2159318923950195s
+[generate] color correction: 0.009560823440551758s
+[generate] encode motion frames: 0.15264272689819336s
+[generate] model denoise per step: 0.23067545890808105s
+[generate] model denoise per step: 0.23320436477661133s
+[generate] model denoise per step: 0.233323335647583s
+[generate] model denoise per step: 0.2370471954345703s
+[generate] decode video frames: 1.2236907482147217s
+[generate] color correction: 0.00941157341003418s
+[generate] encode motion frames: 0.15189409255981445s
+[generate] model denoise per step: 0.23169779777526855s
+[generate] model denoise per step: 0.23253202438354492s
+[generate] model denoise per step: 0.2336418628692627s
+[generate] model denoise per step: 0.2357943058013916s
+[generate] decode video frames: 1.2392094135284424s
+[generate] color correction: 0.00953817367553711s
+[generate] encode motion frames: 0.1533341407775879s
+[generate] model denoise per step: 0.23461079597473145s
+[generate] model denoise per step: 0.23471808433532715s
+[generate] model denoise per step: 0.23384833335876465s
+[generate] model denoise per step: 0.23830938339233398s
+[generate] decode video frames: 1.242304801940918s
+[generate] color correction: 0.009534835815429688s
+[generate] encode motion frames: 0.152665376663208s
+[generate] model denoise per step: 0.22967743873596191s
+[generate] model denoise per step: 0.2331409454345703s
+[generate] model denoise per step: 0.23299860954284668s
+[generate] model denoise per step: 0.23727917671203613s
+[generate] decode video frames: 1.2281866073608398s
+[generate] color correction: 0.009573698043823242s
+[generate] encode motion frames: 0.1532306671142578s
+[generate] model denoise per step: 0.22907161712646484s
+[generate] model denoise per step: 0.23299503326416016s
+[generate] model denoise per step: 0.23298144340515137s
+[generate] model denoise per step: 0.2370615005493164s
+[generate] decode video frames: 1.2308409214019775s
+[generate] color correction: 0.009394168853759766s
+[generate] encode motion frames: 0.15265893936157227s
+[generate] model denoise per step: 0.22801423072814941s
+[generate] model denoise per step: 0.23325634002685547s
+[generate] model denoise per step: 0.23389506340026855s
+[generate] model denoise per step: 0.23961234092712402s
+[generate] decode video frames: 1.2092485427856445s
+[generate] color correction: 0.009579896926879883s
+[generate] encode motion frames: 0.15299153327941895s
+[generate] model denoise per step: 0.23146510124206543s
+[generate] model denoise per step: 0.23315834999084473s
+[generate] model denoise per step: 0.23342585563659668s
+[generate] model denoise per step: 0.23795676231384277s
+[generate] decode video frames: 1.2033436298370361s
+[generate] color correction: 0.009719371795654297s
+[generate] encode motion frames: 0.15307879447937012s
+[generate] model denoise per step: 0.2323322296142578s
+[generate] model denoise per step: 0.23393487930297852s
+[generate] model denoise per step: 0.23337817192077637s
+[generate] model denoise per step: 0.23759961128234863s
+[generate] decode video frames: 1.2323269844055176s
+[generate] color correction: 0.009517908096313477s
+[generate] encode motion frames: 0.15411686897277832s
+[generate] model denoise per step: 0.23142647743225098s
+[generate] model denoise per step: 0.23352432250976562s
+[generate] model denoise per step: 0.23314499855041504s
+[generate] model denoise per step: 0.2375185489654541s
+[generate] decode video frames: 1.2067575454711914s
+[generate] color correction: 0.009747982025146484s
+[generate] encode motion frames: 0.1536865234375s
+[generate] model denoise per step: 0.23315167427062988s
+[generate] model denoise per step: 0.2336280345916748s
+[generate] model denoise per step: 0.23325061798095703s
+[generate] model denoise per step: 0.23673796653747559s
+[generate] decode video frames: 1.2383184432983398s
+[generate] color correction: 0.009507894515991211s
+[generate] encode motion frames: 0.1536099910736084s
+[generate] model denoise per step: 0.2296762466430664s
+[generate] model denoise per step: 0.23391366004943848s
+[generate] model denoise per step: 0.23305296897888184s
+[generate] model denoise per step: 0.238692045211792s
+[generate] decode video frames: 1.2017614841461182s
+[generate] color correction: 0.009628772735595703s
+[generate] encode motion frames: 0.15352630615234375s
+[generate] model denoise per step: 0.23256754875183105s
+[generate] model denoise per step: 0.2341012954711914s
+[generate] model denoise per step: 0.23357367515563965s
+[generate] model denoise per step: 0.23764753341674805s
+[generate] decode video frames: 1.236853837966919s
+[generate] color correction: 0.00956106185913086s
+[generate] encode motion frames: 0.15346050262451172s
+[generate] model denoise per step: 0.22841906547546387s
+[generate] model denoise per step: 0.2338237762451172s
+[generate] model denoise per step: 0.2344965934753418s
+[generate] model denoise per step: 0.24096035957336426s
+[generate] decode video frames: 1.2114465236663818s
+[generate] color correction: 0.0096435546875s
+[generate] encode motion frames: 0.15281319618225098s
+[generate] model denoise per step: 0.2307877540588379s
+[generate] model denoise per step: 0.23416399955749512s
+[generate] model denoise per step: 0.2333831787109375s
+[generate] model denoise per step: 0.2384357452392578s
+[generate] decode video frames: 1.225024700164795s
+[generate] color correction: 0.009603261947631836s
+[generate] encode motion frames: 0.15356779098510742s
+[generate] model denoise per step: 0.22788333892822266s
+[generate] model denoise per step: 0.23372268676757812s
+[generate] model denoise per step: 0.2369980812072754s
+[generate] model denoise per step: 0.24346113204956055s
+[generate] decode video frames: 1.2115137577056885s
+[generate] color correction: 0.009680509567260742s
+[generate] encode motion frames: 0.1534276008605957s
+[generate] model denoise per step: 0.22974371910095215s
+[generate] model denoise per step: 0.23285365104675293s
+[generate] model denoise per step: 0.23321294784545898s
+[generate] model denoise per step: 0.23935604095458984s
+[generate] decode video frames: 1.2208201885223389s
+[generate] color correction: 0.009525299072265625s
+[generate] encode motion frames: 0.15334630012512207s
+[generate] model denoise per step: 0.22908473014831543s
+[generate] model denoise per step: 0.23372125625610352s
+[generate] model denoise per step: 0.2336711883544922s
+[generate] model denoise per step: 0.24118757247924805s
+[generate] decode video frames: 1.216198444366455s
+[generate] color correction: 0.009516477584838867s
+[generate] encode motion frames: 0.15324854850769043s
+[generate] model denoise per step: 0.2294602394104004s
+[generate] model denoise per step: 0.2337203025817871s
+[generate] model denoise per step: 0.23309564590454102s
+[generate] model denoise per step: 0.23828387260437012s
+[generate] decode video frames: 1.206172227859497s
+[generate] color correction: 0.009820699691772461s
+[generate] encode motion frames: 0.15357756614685059s
+[generate] model denoise per step: 0.2327418327331543s
+[generate] model denoise per step: 0.23391413688659668s
+[generate] model denoise per step: 0.2333970069885254s
+[generate] model denoise per step: 0.23736810684204102s
+[generate] decode video frames: 1.2255895137786865s
+[generate] color correction: 0.009565353393554688s
+[generate] encode motion frames: 0.15355896949768066s
+[generate] model denoise per step: 0.2315235137939453s
+[generate] model denoise per step: 0.2341921329498291s
+[generate] model denoise per step: 0.23340511322021484s
+[generate] model denoise per step: 0.23836159706115723s
+[generate] decode video frames: 1.2035033702850342s
+[generate] color correction: 0.009818553924560547s
+[generate] encode motion frames: 0.15352368354797363s
+[generate] model denoise per step: 0.23204994201660156s
+[generate] model denoise per step: 0.2340226173400879s
+[generate] model denoise per step: 0.23423027992248535s
+[generate] model denoise per step: 0.23851275444030762s
+[generate] decode video frames: 1.2309789657592773s
+[generate] color correction: 0.009517192840576172s
+[generate] encode motion frames: 0.15314579010009766s
+{
+  "output": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/extended-r01/two-turn-gap-candidate",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 50.02044131595176,
+      "useful_fps": 11.515292245458674,
+      "first_window_latency_s": 2.3637792320223525,
+      "chunk_times_s": [
+        2.3637792320223525,
+        2.3744185540126637,
+        2.3850270149996504,
+        2.3633322920068167,
+        2.36401186598232,
+        2.3463613630156033,
+        2.341918458987493,
+        2.3729979550116695,
+        2.345995757030323,
+        2.377593110955786,
+        2.339805477997288,
+        2.3777891200152226,
+        2.3512728129862808,
+        2.364700113015715,
+        2.3558706720359623,
+        2.358737805043347,
+        2.3559950109920464,
+        2.344130300974939,
+        2.3662961569498293,
+        2.3437307899584994,
+        2.372195427014958
+      ],
+      "chunk_distribution_s": {
+        "count": 21,
+        "min": 2.339805477997288,
+        "p50": 2.3633322920068167,
+        "p95": 2.3777891200152226,
+        "p99": 2.3835794360027647,
+        "max": 2.3850270149996504
+      },
+      "stage_seconds": {
+        "audio": 0.16703721570968633,
+        "dit": 19.655775726318353,
+        "vae_decode": 25.642975219726566,
+        "motion_encode": 3.217786422729492
+      },
+      "peak_allocated_mib": 5041.466796875,
+      "peak_reserved_mib": 8674.0,
+      "resource_summary": {
+        "sample_count": 83,
+        "gpu_utilization_percent": {
+          "mean": 97.34939759036145,
+          "min": 50.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 11072.096385542169,
+          "min": 10214.0,
+          "max": 11852.0
+        },
+        "system_cpu_percent": {
+          "mean": 4.926506024096387,
+          "min": 0.0,
+          "max": 14.3
+        },
+        "process_cpu_percent": {
+          "mean": 100.19518072289159,
+          "min": 0.0,
+          "max": 113.4
+        },
+        "system_ram_used_mib": {
+          "mean": 14106.8718938253,
+          "min": 13927.3828125,
+          "max": 14252.83203125
+        },
+        "system_ram_percent": {
+          "mean": 45.57710843373494,
+          "min": 45.0,
+          "max": 46.0
+        },
+        "process_rss_mib": {
+          "mean": 3395.5533697289156,
+          "min": 3214.52734375,
+          "max": 3544.1953125
+        },
+        "torch_allocated_mib": {
+          "mean": 3935.4109386765813,
+          "min": 3219.685546875,
+          "max": 5041.466796875
+        },
+        "torch_reserved_mib": {
+          "mean": 7607.710843373494,
+          "min": 6284.0,
+          "max": 8324.0
+        }
+      }
+    }
+  ]
+}

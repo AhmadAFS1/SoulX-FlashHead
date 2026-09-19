@@ -1,0 +1,4 @@
+# Reproducible local tensor captures and full traces; retain their manifests.
+**/*.pt
+**/raw.npy
+**/trace.json

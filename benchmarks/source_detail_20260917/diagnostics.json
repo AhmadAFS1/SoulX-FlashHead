@@ -1,0 +1,42 @@
+{
+  "execution": "CPU MediaPipe/XNNPACK analysis of retained GPU-generated videos; no new SoulX inference.",
+  "metric_limitations": "Laplacian variance covers the whole mouth crop and includes lips, facial hair, pose and compression; it is not a validated tooth-quality score.",
+  "rows": [
+    {
+      "effective_source_detail_px": 307,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 103.97055164245351,
+      "median_normalized_opening": 0.09113709166208227,
+      "median_whole_mouth_laplacian_variance": 53.767662514831414,
+      "opening_trajectory_correlation_vs_307": 1.0
+    },
+    {
+      "effective_source_detail_px": 256,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 103.24934212288022,
+      "median_normalized_opening": 0.08304791057745245,
+      "median_whole_mouth_laplacian_variance": 56.16089723926873,
+      "opening_trajectory_correlation_vs_307": 0.9404954643465893
+    },
+    {
+      "effective_source_detail_px": 128,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 103.7478703637919,
+      "median_normalized_opening": 0.07800429350996793,
+      "median_whole_mouth_laplacian_variance": 25.194783990121373,
+      "opening_trajectory_correlation_vs_307": 0.9436532842871569
+    },
+    {
+      "effective_source_detail_px": 64,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 104.11861987814822,
+      "median_normalized_opening": 0.09039497647908984,
+      "median_whole_mouth_laplacian_variance": 14.614527916140183,
+      "opening_trajectory_correlation_vs_307": 0.9264441948012461
+    }
+  ]
+}

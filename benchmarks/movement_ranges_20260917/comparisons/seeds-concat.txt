@@ -1,0 +1,4 @@
+file 'soulx-LITE-seeds-0-1-7-42-shift5-history2.mp4'
+duration 10.0
+file 'soulx-LITE-seeds-50-51-99-1234-shift5-history2.mp4'
+duration 10.0

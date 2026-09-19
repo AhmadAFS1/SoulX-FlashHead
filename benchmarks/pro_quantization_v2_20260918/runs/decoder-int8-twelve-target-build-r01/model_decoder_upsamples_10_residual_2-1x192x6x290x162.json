@@ -1,0 +1,54 @@
+{
+  "build_s": 2.1011313800117932,
+  "capture_sha256": "96869b66188e6478e83ccc016650f441c9d63d7ccefa1be459fafe73bc6f9622",
+  "cuda_runtime": "12.8",
+  "engine_io_dtype": "float32",
+  "engine_sha256": "44203136b1105c5abfb3285598185fff2d3aed2851bb82e5fe298b46de9876b4",
+  "external_input_dtype": "bfloat16",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "input_shape": [
+    1,
+    192,
+    6,
+    290,
+    162
+  ],
+  "kind": "wan_prepared_causal_conv3d",
+  "layer_information": "model_decoder_upsamples_10_residual_2-1x192x6x290x162.layers.json",
+  "layer_information_sha256": "8be584b993353874ffeebb6c65355cc98fee492789b5e9d7dcc715024c2fb6f8",
+  "onnx_sha256": "c09ffad9dfb80abb64a667396db9a4429e014366b59fdcde6c5fe345aa74fa15",
+  "output_shape": [
+    1,
+    192,
+    4,
+    288,
+    160
+  ],
+  "precision": "int8",
+  "quantization": {
+    "input_scale": 0.03174212598425197,
+    "input_shape": [
+      1,
+      192,
+      6,
+      290,
+      162
+    ],
+    "output_scale": 0.0344488188976378,
+    "output_shape": [
+      1,
+      192,
+      4,
+      288,
+      160
+    ],
+    "weight_scale_max": 0.0027374508790671825,
+    "weight_scale_min": 0.0004017747414764017
+  },
+  "quantization_dispatch_verified": true,
+  "target": "model.decoder.upsamples.10.residual.2",
+  "tensorrt": "10.9.0.34",
+  "torch": "2.7.1+cu128",
+  "weights_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+  "workspace_mib": 512
+}

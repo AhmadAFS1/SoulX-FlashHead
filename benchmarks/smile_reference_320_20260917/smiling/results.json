@@ -1,0 +1,42 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T01:27:04.726552+00:00",
+  "execution": "fresh local GPU inference",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "seed": 50,
+    "precision": "INT8 weight storage / BF16 compute",
+    "memory_mode": "compact",
+    "compiled": false,
+    "conditioning": "stock",
+    "seconds": 10,
+    "allocator_cap_mib": 3584
+  },
+  "audio": "benchmarks/comparison-10s.wav",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "source": "benchmarks/smile_reference_320_20260917/smiling-reference.png",
+  "source_dimensions": [
+    320,
+    576
+  ],
+  "effective_source_dimensions": [
+    320,
+    576
+  ],
+  "reference_preparation": "Neutral: exact native original. Smile: imagegen edit resized once to 320x576 with Lanczos. Both use the same generation canvas; generative editing can alter non-mouth details.",
+  "co_resident_load": "Existing OmniVoice and LTX processes left resident; exact initial whole-device use is in gpu_snapshot.",
+  "source_sha256": "a9925a1e8380170214aef39ea0a6f7548a68a84330a58092baf37a2b05ca0dc0",
+  "reference_sha256": "a9925a1e8380170214aef39ea0a6f7548a68a84330a58092baf37a2b05ca0dc0",
+  "wall_s": 8.026477519015316,
+  "useful_fps": 31.14691337610198,
+  "frames": 250,
+  "peak_allocated_mib": 3301.47216796875,
+  "peak_reserved_mib": 3544.0,
+  "raw_sha256": "56ba0716c7cc777a9bd99ce2959e10508f30143a326d7278c409c816390ff046"
+}

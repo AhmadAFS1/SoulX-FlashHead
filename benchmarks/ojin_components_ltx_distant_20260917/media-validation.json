@@ -1,0 +1,81 @@
+{
+  "execution": "CPU comparison packaging and full media decode; no GPU inference",
+  "media": {
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_ltx_distant_20260917/LTX23-distant-indian-man-bicubic2-480x832-to-960x1664/LTX23-distant-indian-man-bicubic2-480x832-to-960x1664.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 960,
+          "height": 1664,
+          "avg_frame_rate": "24/1",
+          "duration": "8.375000",
+          "nb_read_frames": "201"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "8.277000",
+          "nb_read_frames": "388"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_ltx_distant_20260917/LTX23-distant-indian-man-legacy-general4x-resized2x-480x832-to-960x1664/LTX23-distant-indian-man-legacy-general4x-resized2x-480x832-to-960x1664.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 960,
+          "height": 1664,
+          "avg_frame_rate": "24/1",
+          "duration": "8.375000",
+          "nb_read_frames": "201"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "8.277000",
+          "nb_read_frames": "388"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_ltx_distant_20260917/LTX23-distant-indian-man-FaceLandmarker-native2x-TRT-480x832-to-960x1664/LTX23-distant-indian-man-FaceLandmarker-native2x-TRT-480x832-to-960x1664.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 960,
+          "height": 1664,
+          "avg_frame_rate": "24/1",
+          "duration": "8.375000",
+          "nb_read_frames": "201"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "8.277000",
+          "nb_read_frames": "388"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_ltx_distant_20260917/LTX23-distant-indian-man-bicubic-vs-oldSR-vs-FaceLandmarker-native2xTRT-no-refiner.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 2880,
+          "height": 1664,
+          "avg_frame_rate": "24/1",
+          "duration": "8.375000",
+          "nb_read_frames": "201"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "8.277000",
+          "nb_read_frames": "388"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,140 @@
+2026-09-17 14:51:24.477 | INFO     | flash_head.inference:get_pipeline:17 - ulysses_degree: 1, ring_degree: 1, device: cuda
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+2026-09-17 14:51:28.971 | INFO     | generate_video:generate:126 - Data preparation done. Start to generate video...
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.09738302230834961s
+[generate] model denoise per step: 0.07414960861206055s
+[generate] model denoise per step: 0.07440733909606934s
+[generate] model denoise per step: 0.07444190979003906s
+[generate] decode video frames: 0.17240285873413086s
+[generate] color correction: 0.01748514175415039s
+[generate] encode motion frames: 0.04715991020202637s
+2026-09-17 14:51:29.590 | INFO     | generate_video:generate:156 - Generate video chunk-0 done, cost time: 0.560s
+[generate] model denoise per step: 0.07312464714050293s
+[generate] model denoise per step: 0.07457208633422852s
+[generate] model denoise per step: 0.0744171142578125s
+[generate] model denoise per step: 0.07443928718566895s
+[generate] decode video frames: 0.17163443565368652s
+[generate] color correction: 0.015369176864624023s
+[generate] encode motion frames: 0.04677414894104004s
+2026-09-17 14:51:30.162 | INFO     | generate_video:generate:156 - Generate video chunk-1 done, cost time: 0.534s
+[generate] model denoise per step: 0.0735328197479248s
+[generate] model denoise per step: 0.07460236549377441s
+[generate] model denoise per step: 0.07461023330688477s
+[generate] model denoise per step: 0.07469558715820312s
+[generate] decode video frames: 0.17219996452331543s
+[generate] color correction: 0.014984369277954102s
+[generate] encode motion frames: 0.04694819450378418s
+2026-09-17 14:51:30.727 | INFO     | generate_video:generate:156 - Generate video chunk-2 done, cost time: 0.535s
+[generate] model denoise per step: 0.07210516929626465s
+[generate] model denoise per step: 0.07506728172302246s
+[generate] model denoise per step: 0.07467293739318848s
+[generate] model denoise per step: 0.07454705238342285s
+[generate] decode video frames: 0.1718297004699707s
+[generate] color correction: 0.01499176025390625s
+[generate] encode motion frames: 0.0468134880065918s
+2026-09-17 14:51:31.290 | INFO     | generate_video:generate:156 - Generate video chunk-3 done, cost time: 0.533s
+[generate] model denoise per step: 0.07236456871032715s
+[generate] model denoise per step: 0.07502293586730957s
+[generate] model denoise per step: 0.07460165023803711s
+[generate] model denoise per step: 0.07452535629272461s
+[generate] decode video frames: 0.1719207763671875s
+[generate] color correction: 0.01493692398071289s
+[generate] encode motion frames: 0.04686117172241211s
+2026-09-17 14:51:31.853 | INFO     | generate_video:generate:156 - Generate video chunk-4 done, cost time: 0.533s
+[generate] model denoise per step: 0.07279658317565918s
+[generate] model denoise per step: 0.0749809741973877s
+[generate] model denoise per step: 0.07468271255493164s
+[generate] model denoise per step: 0.07465696334838867s
+[generate] decode video frames: 0.1719498634338379s
+[generate] color correction: 0.01499485969543457s
+[generate] encode motion frames: 0.04694032669067383s
+2026-09-17 14:51:32.416 | INFO     | generate_video:generate:156 - Generate video chunk-5 done, cost time: 0.534s
+[generate] model denoise per step: 0.0736384391784668s
+[generate] model denoise per step: 0.07499504089355469s
+[generate] model denoise per step: 0.07485556602478027s
+[generate] model denoise per step: 0.07468438148498535s
+[generate] decode video frames: 0.17197322845458984s
+[generate] color correction: 0.01498556137084961s
+[generate] encode motion frames: 0.04684925079345703s
+2026-09-17 14:51:32.981 | INFO     | generate_video:generate:156 - Generate video chunk-6 done, cost time: 0.535s
+[generate] model denoise per step: 0.07398223876953125s
+[generate] model denoise per step: 0.07485508918762207s
+[generate] model denoise per step: 0.07465291023254395s
+[generate] model denoise per step: 0.07471132278442383s
+[generate] decode video frames: 0.17198896408081055s
+[generate] color correction: 0.015022993087768555s
+[generate] encode motion frames: 0.046854496002197266s
+2026-09-17 14:51:33.545 | INFO     | generate_video:generate:156 - Generate video chunk-7 done, cost time: 0.535s
+[generate] model denoise per step: 0.07421660423278809s
+[generate] model denoise per step: 0.07503509521484375s
+[generate] model denoise per step: 0.07464003562927246s
+[generate] model denoise per step: 0.0746760368347168s
+[generate] decode video frames: 0.17210125923156738s
+[generate] color correction: 0.014985799789428711s
+[generate] encode motion frames: 0.04694223403930664s
+2026-09-17 14:51:34.110 | INFO     | generate_video:generate:156 - Generate video chunk-8 done, cost time: 0.536s
+[generate] model denoise per step: 0.07313776016235352s
+[generate] model denoise per step: 0.07486438751220703s
+[generate] model denoise per step: 0.07480144500732422s
+[generate] model denoise per step: 0.07466506958007812s
+[generate] decode video frames: 0.17202043533325195s
+[generate] color correction: 0.01494741439819336s
+[generate] encode motion frames: 0.046878814697265625s
+2026-09-17 14:51:34.674 | INFO     | generate_video:generate:156 - Generate video chunk-9 done, cost time: 0.534s
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'benchmarks/pro_lite_teeth_20260917/lite_eager_tmp.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf61.1.100
+  Duration: 00:00:09.96, start: 0.000000, bitrate: 293 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p, 512x512, 292 kb/s, 25 fps, 25 tbr, 12800 tbn, 50 tbc (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc61.3.100 libx264
+Guessed Channel Layout for Input Stream #1.0 : mono
+Input #1, wav, from 'benchmarks/pro_lite_teeth_20260917/audio.wav':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Duration: 00:00:10.00, bitrate: 256 kb/s
+  Stream #1:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 16000 Hz, mono, s16, 256 kb/s
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #1:0 -> #0:1 (pcm_s16le (native) -> aac (native))
+Press [q] to stop, [?] for help
+Output #0, mp4, to 'benchmarks/pro_lite_teeth_20260917/lite_eager.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.76.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p, 512x512, q=2-31, 292 kb/s, 25 fps, 25 tbr, 12800 tbn, 12800 tbc (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc61.3.100 libx264
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 16000 Hz, mono, fltp, 69 kb/s
+    Metadata:
+      encoder         : Lavc58.134.100 aac
+frame=    0 fps=0.0 q=-1.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    frame=  249 fps=0.0 q=-1.0 Lsize=     456kB time=00:00:09.92 bitrate= 376.7kbits/s speed= 575x    
+video:355kB audio:95kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.243819%
+[aac @ 0x559d60e1f0c0] Qavg: 10942.835
+2026-09-17 14:51:35.142 | INFO     | generate_video:generate:209 - Saving generated video to benchmarks/pro_lite_teeth_20260917/lite_eager.mp4
+2026-09-17 14:51:35.142 | INFO     | generate_video:generate:210 - Finished.

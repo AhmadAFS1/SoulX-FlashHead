@@ -1,0 +1,695 @@
+{
+  "execution": "CPU ffprobe frame counts and full ffmpeg comparison decode; input GPU provenance in results.json",
+  "individual": {
+    "seed7-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed0-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed1-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed42-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed51-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed1234-shift5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift0.5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift1-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift2-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift3-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift7-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift10-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift15-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift0.5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift1-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift2-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift3-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift7-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift10-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift15-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift0.5-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift1-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift2-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift3-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift7-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift10-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift15-history2": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift5-history1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift5-history3": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed7-shift5-history4": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift5-history1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift5-history3": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed50-shift5-history4": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift5-history1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift5-history3": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed99-shift5-history4": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ]
+  },
+  "comparisons": {
+    "shift-low": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 896,
+        "avg_frame_rate": "25/1",
+        "duration": "30.000000",
+        "nb_read_frames": "750"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "30.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "shift-mid": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 896,
+        "avg_frame_rate": "25/1",
+        "duration": "30.000000",
+        "nb_read_frames": "750"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "30.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "shift-high": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 896,
+        "avg_frame_rate": "25/1",
+        "duration": "30.000000",
+        "nb_read_frames": "750"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "30.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "history": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 896,
+        "avg_frame_rate": "25/1",
+        "duration": "30.000000",
+        "nb_read_frames": "750"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "30.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seeds": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 896,
+        "avg_frame_rate": "25/1",
+        "duration": "20.000000",
+        "nb_read_frames": "500"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "20.000000",
+        "nb_read_frames": "313"
+      }
+    ]
+  }
+}

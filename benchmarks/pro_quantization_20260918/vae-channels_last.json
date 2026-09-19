@@ -1,0 +1,42 @@
+{
+  "execution": "fresh GPU Wan decode; identical captured latents",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "physical_vram_class": "12 GB",
+  "co_residents": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB"
+  ],
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "mode": "channels_last",
+  "baseline_seconds": [
+    1.659629397036042,
+    1.660442130989395,
+    1.6606036860030144
+  ],
+  "policy": {
+    "mode": "channels_last",
+    "compiled_modules": [],
+    "precision_changed": false
+  },
+  "candidate_seconds": [
+    1.5031726130400784,
+    1.507234887976665,
+    1.505061066010967
+  ],
+  "candidate_warmup_and_measure_s": 6.0185210859635845,
+  "status": "complete",
+  "shape": [
+    1,
+    3,
+    33,
+    576,
+    320
+  ],
+  "finite": true,
+  "mean_abs": 0.0005587531486526132,
+  "max_abs": 0.033203125,
+  "relative_l2": 0.0023132837377488613,
+  "peak_allocated_mib": 2174.05712890625,
+  "peak_reserved_mib": 3198.0
+}

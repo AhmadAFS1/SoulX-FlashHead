@@ -1,0 +1,9 @@
+# Pipeline latency instrumentation validation — 2026-09-19
+
+Hardware snapshot: **NVIDIA GeForce RTX 4070 SUPER, 12 GB physical / 12,282 MiB visible**, driver **595.84**, Torch **2.7.1+cu128**, CUDA runtime **12.8**. Physical-memory attribution follows the [retained environment record](../pro_30fps_20260919/sage-sm89-build-manifest.json); [environment.json](environment.json) records this validation's read-only GPU/process snapshot and the occupied GPU lease.
+
+**Validation is CPU-only, not GPU inference or a throughput benchmark.** The running SoulX process held the existing exclusive lease; it was not stopped and no alternative lock was used. Tests exercise event/stream semantics with mocks, actual CPU tensor operations and the real generation method with small substitute components. They do not establish actual CUDA/TensorRT timing accuracy or full-model output equivalence on the GPU.
+
+**67 CPU tests passed**, including 11 new latency cases and all 56 prior focused PRO tests; see [cpu-tests.log](cpu-tests.log). New coverage checks disabled-path CUDA inactivity; nested/error spans; phase separation; bounded buffering and explicit dropped events; stream selection and deferred synchronization; wrapper restoration; unchanged CPU outputs/RNG/motion history; preservation of a compiled graph with stage wrappers; rejection of compiled module detail; and diagnostic compilation overrides that preserve the original policy. The recorder, new tests and stage runtime pass Ruff; changed Python modules compile, and whitespace/link checks pass.
+
+See [instrumentation coverage and commands](../../docs/research/PIPELINE_LATENCY_LOGGING_2026-09-19.md). The next real-model diagnostics must capture their own environment/source hashes and run with the existing GPU lease available. Instrumented FPS must not replace clean throughput results.

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SoulX-FlashHead — architecture and weights</title>
+<style>
+body{margin:0;background:#f4f7fb;color:#182d43;font:16px/1.6 system-ui,sans-serif}main{max-width:1500px;margin:auto;padding:28px}h1{margin:0;font-size:30px}p{max-width:1000px}nav,.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}button,a{font:inherit}button{border:1px solid #c3d0e1;background:white;padding:9px 15px;border-radius:7px;cursor:pointer;color:#23445f}button[aria-selected=true]{background:#23445f;color:white}a{color:#1666a4}.canvas{height:72vh;overflow:auto;border:1px solid #c3d0e1;border-radius:10px;background:white}img{display:block;width:100%;height:auto}.legend{font-size:14px}.blue{color:#35628c}.purple{color:#8053a9}.orange{color:#a66b15}.note{padding:15px;background:#fff5e3;border-radius:8px}footer{font-size:13px;color:#50657b;margin-top:18px}button:focus-visible,a:focus-visible{outline:3px solid #478add;outline-offset:3px}
+</style>
+<main>
+<h1>SoulX-FlashHead: how the system and its weights fit together</h1>
+<p>Architecture is the network structure written in code. Weights are the learned numbers loaded into that structure. SoulX already combines several networks. Our proposed mouth refiner would have its own code and weights after the generator.</p>
+<nav role="tablist" aria-label="Architecture views">
+<button role="tab" aria-selected="true" data-view="01-system">1 · Full repository system</button>
+<button role="tab" aria-selected="false" data-view="02-neural-pipeline">2 · Inside LITE generation</button>
+<button role="tab" aria-selected="false" data-view="03-refiner-weights">3 · Refiner training and inference</button>
+</nav>
+<p class="legend"><span class="blue">Blue / green: implemented</span> · <span class="purple">Purple: optional or experimental</span> · <span class="orange">Orange: proposed refiner, not trained</span>. Follow arrow labels; dashed branches are not default service paths.</p>
+<div class="toolbar"><button id="out">− Zoom</button><button id="fit">Fit width</button><button id="in">+ Zoom</button><a id="svg" href="01-system.svg">Open SVG</a><a id="pdf" href="01-system.pdf">Download PDF</a><a href="README.md">Detailed explanation and source map</a><a href="weight-inventory.json">Checkpoint inventory</a></div>
+<div class="canvas" id="canvas"><img id="diagram" src="01-system.svg" alt="Full SoulX repository architecture with CPU service, GPU worker, model loading and experimental refiner branches"></div>
+<p class="note" id="caption">The real-time server loads LITE. Offline CLI and demo paths support LITE or PRO. The SR and FaceLandmarker experiments exist as utilities and benchmark integrations; the custom mouth refiner is only a proposal.</p>
+<footer>Source audit: 17 September 2026. CPU-only diagram generation and checkpoint metadata inspection. Local hardware: NVIDIA GeForce RTX 4070 SUPER, 12 GB class / 12,282 MiB visible, driver 595.84; Torch 2.7.1+cu128 / CUDA 12.8. OmniVoice and idle LTX were resident. No new GPU inference or training benchmark.</footer>
+</main>
+<script>
+const diagram=document.getElementById('diagram'),canvas=document.getElementById('canvas');let zoom=100;
+const captions={
+'01-system':'The real-time server loads LITE. Offline CLI and demo paths support LITE or PRO. The SR and FaceLandmarker experiments exist as utilities and benchmark integrations; the custom mouth refiner is only a proposal.',
+'02-neural-pipeline':'A typical LITE chunk decodes 33 frames, retains the final 9 for motion continuity and delivers 24 new frames. Four denoising steps reuse the same transformer weights. The VAE and speech encoder have separate checkpoints.',
+'03-refiner-weights':'Training changes the proposed refiner’s weights. Inference keeps them fixed and changes only activations and session history. Preserve separate native history for both ordinary motion feedback and interruption reconditioning.'};
+function resize(){diagram.style.width=zoom+'%'}
+document.getElementById('in').onclick=()=>{zoom=Math.min(500,zoom+25);resize()};
+document.getElementById('out').onclick=()=>{zoom=Math.max(25,zoom-25);resize()};
+document.getElementById('fit').onclick=()=>{zoom=100;resize();canvas.scrollTo(0,0)};
+document.querySelectorAll('[data-view]').forEach(button=>button.onclick=()=>{
+ document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-selected',String(b===button)));
+ const view=button.dataset.view;diagram.src=view+'.svg';diagram.alt=captions[view];
+ document.getElementById('svg').href=view+'.svg';document.getElementById('pdf').href=view+'.pdf';
+ document.getElementById('caption').textContent=captions[view];zoom=100;resize();canvas.scrollTo(0,0);
+});
+</script>
+</html>

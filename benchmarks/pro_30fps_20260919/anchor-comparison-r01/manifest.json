@@ -1,0 +1,223 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-19T02:45:26Z",
+  "execution": "CPU video composition; no new GPU generation or timing",
+  "gpu_provenance": "Source manifests identify NVIDIA GeForce RTX 4070 SUPER, 12 GB physical / 12282 MiB visible, driver 595.84; PRO Torch2.7.1+cu128 runtime12.8. Per-source evidence below.",
+  "reference_sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676",
+  "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "sources": [
+    {
+      "label": "Stock PRO - Sep 17",
+      "run": "benchmarks/pro_lite_150x_20260917/pro",
+      "results_sha256": "100a641d7af1ea5eccd693de98ce15a29a1586bd44a4877aa30c40f290b8d209",
+      "video_sha256": "6faf0fc7aa15f0fe04e815ec60c71a9ac8a46934c8223b7560e031c012c5cd49",
+      "date_utc": "2026-09-17T16:34:20.037804+00:00",
+      "hardware_evidence": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+      "timing_role": "historical anchor only"
+    },
+    {
+      "label": "PRO FP8 V1 - Sep 18",
+      "run": "benchmarks/pro_quantization_20260918/candidate-seed50",
+      "results_sha256": "6970d20acc86df051ebd65492a6e1c7e010ca2936edca2de8145de8f18a9c154",
+      "video_sha256": "9b6116574fd6e8a044d2ceb4bc2370f1d457cbf65c35325d3969d5113084040a",
+      "date_utc": "2026-09-18T00:50:36.491112+00:00",
+      "hardware_evidence": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+      "timing_role": "historical anchor only"
+    },
+    {
+      "label": "PRO FP8 V2 - Sep 19",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/000-reference-seed50-r01",
+      "results_sha256": "b3c280a841c00c73d313dbb0ee521622099c9e59972916660c8873a6a1d012fd",
+      "video_sha256": "389e408244f6e200b2f8b5f031b514cfe1cc223f81404f5380151118290e941e",
+      "date_utc": "2026-09-19T02:01:03.220648+00:00",
+      "hardware_evidence": {
+        "available": true,
+        "devices": [
+          {
+            "compute_capability": "8.9",
+            "driver": "595.84",
+            "name": "NVIDIA GeForce RTX 4070 SUPER",
+            "used_vram_mib": 2727,
+            "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+            "visible_vram_mib": 12282
+          }
+        ]
+      },
+      "timing_role": "fresh paired sweep"
+    },
+    {
+      "label": "New FP8 + FP16 stages",
+      "run": "benchmarks/pro_30fps_20260919/acceptance-r01/runs/001-candidate-seed50-r01",
+      "results_sha256": "98d14d3b3ea603a7693cb6d4df57453907a8ef58a05e10fbc95ba271a9a2e99c",
+      "video_sha256": "fe3256782a50cbfb159d9878c18d20789b7af6c9050d0558c1c18e646b14d20a",
+      "date_utc": "2026-09-19T02:01:54.820224+00:00",
+      "hardware_evidence": {
+        "available": true,
+        "devices": [
+          {
+            "compute_capability": "8.9",
+            "driver": "595.84",
+            "name": "NVIDIA GeForce RTX 4070 SUPER",
+            "used_vram_mib": 2727,
+            "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+            "visible_vram_mib": 12282
+          }
+        ]
+      },
+      "timing_role": "fresh paired sweep"
+    }
+  ],
+  "command": [
+    "ffmpeg",
+    "-y",
+    "-v",
+    "error",
+    "-filter_complex_threads",
+    "1",
+    "-i",
+    "benchmarks/pro_lite_150x_20260917/pro/video.mp4",
+    "-i",
+    "benchmarks/pro_quantization_20260918/candidate-seed50/video.mp4",
+    "-i",
+    "benchmarks/pro_30fps_20260919/acceptance-r01/runs/000-reference-seed50-r01/video.mp4",
+    "-i",
+    "benchmarks/pro_30fps_20260919/acceptance-r01/runs/001-candidate-seed50-r01/video.mp4",
+    "-filter_complex",
+    "[0:v]setpts=PTS-STARTPTS,drawtext=text='Stock PRO - Sep 17':x=6:y=10:fontsize=18:fontcolor=white:borderw=2:bordercolor=black[v0];[1:v]setpts=PTS-STARTPTS,drawtext=text='PRO FP8 V1 - Sep 18':x=6:y=10:fontsize=18:fontcolor=white:borderw=2:bordercolor=black[v1];[2:v]setpts=PTS-STARTPTS,drawtext=text='PRO FP8 V2 - Sep 19':x=6:y=10:fontsize=18:fontcolor=white:borderw=2:bordercolor=black[v2];[3:v]setpts=PTS-STARTPTS,drawtext=text='New FP8 + FP16 stages':x=6:y=10:fontsize=18:fontcolor=white:borderw=2:bordercolor=black[v3];[v0][v1][v2][v3]hstack=inputs=4[v]",
+    "-map",
+    "[v]",
+    "-map",
+    "0:a:0",
+    "-frames:v",
+    "250",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "16",
+    "-preset",
+    "fast",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-c:a",
+    "copy",
+    "benchmarks/pro_30fps_20260919/anchor-comparison-r01/stock-v1-v2-new.mp4"
+  ],
+  "output": "benchmarks/pro_30fps_20260919/anchor-comparison-r01/stock-v1-v2-new.mp4",
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 576,
+        "coded_width": 1280,
+        "coded_height": 576,
+        "closed_captions": 0,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "chroma_location": "left",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "r_frame_rate": "25/1",
+        "avg_frame_rate": "25/1",
+        "time_base": "1/12800",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 128000,
+        "duration": "10.000000",
+        "bit_rate": "2572078",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "250",
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 1,
+        "channel_layout": "mono",
+        "bits_per_sample": 0,
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 480000,
+        "duration": "10.000000",
+        "bit_rate": "70158",
+        "nb_frames": "470",
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "benchmarks/pro_30fps_20260919/anchor-comparison-r01/stock-v1-v2-new.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "10.000000",
+      "size": "3311836",
+      "bit_rate": "2649468",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf58.76.100"
+      }
+    }
+  },
+  "limitation": "Stock/V1 media are reused historical anchors, not fresh timing controls. Encoded visual comparison; lossless candidate/reference samples are in the paired reviews."
+}

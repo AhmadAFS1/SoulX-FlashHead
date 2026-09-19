@@ -1,0 +1,286 @@
+{
+  "avatar_sha256": "43df700a82955cc3574c4f15b3978e5cd61e2c74e2eff530a9bb4ace6c10835c",
+  "avatar_video": "benchmarks/pro_30fps_20260919/reference-seed50-r01/video.mp4",
+  "cells": [
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/SoulX-FlashHead/.venv/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/run.py",
+        "--policy",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+        "--seed",
+        "50",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/00-pro-pair0",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 11.639922012321218,
+      "delivery_s": 21.477807130955625,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:21:38.514696+00:00",
+      "generation_s": 21.166529377980623,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/00-pro-pair0",
+      "pair": 0,
+      "returncode": 0,
+      "role": "pro",
+      "started_utc": "2026-09-19T02:20:51.959614+00:00",
+      "useful_fps": 11.811100229784154
+    },
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/.venvs/musetalk_trt_stagewise/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        "--pro-run",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/00-pro-pair0",
+        "--musetalk-avatar-video",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/reference-seed50-r01/video.mp4",
+        "--batch",
+        "8",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/01-musetalk-pair0",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 39.319991949963615,
+      "delivery_s": 6.358088788983878,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:22:22.488020+00:00",
+      "generation_s": 5.923437805031426,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/01-musetalk-pair0",
+      "pair": 0,
+      "returncode": 0,
+      "role": "musetalk",
+      "started_utc": "2026-09-19T02:21:38.516209+00:00",
+      "useful_fps": 42.20522072294699
+    },
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/.venvs/musetalk_trt_stagewise/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        "--pro-run",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/00-pro-pair0",
+        "--musetalk-avatar-video",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/reference-seed50-r01/video.mp4",
+        "--batch",
+        "8",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/02-musetalk-pair1",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 39.4930057770461,
+      "delivery_s": 6.330234811990522,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:23:03.442969+00:00",
+      "generation_s": 5.942796951974742,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/02-musetalk-pair1",
+      "pair": 1,
+      "returncode": 0,
+      "role": "musetalk",
+      "started_utc": "2026-09-19T02:22:22.489024+00:00",
+      "useful_fps": 42.067733765819995
+    },
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/SoulX-FlashHead/.venv/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/run.py",
+        "--policy",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+        "--seed",
+        "50",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/03-pro-pair1",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 11.678400880261515,
+      "delivery_s": 21.40704044699669,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:23:50.421817+00:00",
+      "generation_s": 21.086747505003586,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/03-pro-pair1",
+      "pair": 1,
+      "returncode": 0,
+      "role": "pro",
+      "started_utc": "2026-09-19T02:23:03.443857+00:00",
+      "useful_fps": 11.85578761924657
+    },
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/SoulX-FlashHead/.venv/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/run.py",
+        "--policy",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+        "--seed",
+        "50",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/04-pro-pair2",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 11.623682454251805,
+      "delivery_s": 21.507813980977517,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:24:37.756134+00:00",
+      "generation_s": 21.17869134497596,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/04-pro-pair2",
+      "pair": 2,
+      "returncode": 0,
+      "role": "pro",
+      "started_utc": "2026-09-19T02:23:50.423789+00:00",
+      "useful_fps": 11.80431764776181
+    },
+    {
+      "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "command": [
+        "/workspace/.venvs/musetalk_trt_stagewise/bin/python",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/compare_musetalk.py",
+        "--pro-run",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/04-pro-pair2",
+        "--musetalk-avatar-video",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/reference-seed50-r01/video.mp4",
+        "--batch",
+        "8",
+        "--fixtures",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/fixtures.json",
+        "--fixture-id",
+        "indian150-a",
+        "--frames",
+        "250",
+        "--repeats",
+        "1",
+        "--output",
+        "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260919/matched-musetalk-r02/05-musetalk-pair2",
+        "--gpu-lock",
+        "/workspace/SoulX-FlashHead/.gpu-owner.lock"
+      ],
+      "delivered_fps": 39.65048990223105,
+      "delivery_s": 6.305092335969675,
+      "effective_audio_sha256": "eb78946cb7866e5f4b72a61ed393ebc79234b16e64acc0154a26cfffeff3a56d",
+      "ended_utc": "2026-09-19T02:25:19.501759+00:00",
+      "generation_s": 5.925791158981156,
+      "gpu_uuids": [
+        "GPU-69894a01-4488-37ac-5fd8-878224044365"
+      ],
+      "output": "benchmarks/pro_30fps_20260919/matched-musetalk-r02/05-musetalk-pair2",
+      "pair": 2,
+      "returncode": 0,
+      "role": "musetalk",
+      "started_utc": "2026-09-19T02:24:37.758616+00:00",
+      "useful_fps": 42.18845944665108
+    }
+  ],
+  "comparison_protocol": 2,
+  "date_utc": "2026-09-19T02:20:51.952380+00:00",
+  "execution": "fresh sequential alternating subprocess GPU benchmarks",
+  "limitations": [
+    "Different native neural workloads; equal delivered canvas",
+    "Native PyTorch MuseTalk; no claim against its strongest TensorRT service",
+    "Avatar/model preparation excluded; audio, rendering and RGB delivery included",
+    "Quality qualification is separate from this timing comparison"
+  ],
+  "musetalk_median_fps": 42.18845944665108,
+  "musetalk_profile": "native PyTorch V1.5 FP16 batch 8; not tuned TensorRT serving",
+  "paired_pro_over_musetalk": [
+    0.2798492704804753,
+    0.2818261541076736,
+    0.27979968461964866
+  ],
+  "policy": "benchmarks/pro_30fps_20260919/policies/combined_fp16_sage_fp8.json",
+  "policy_sha256": "01379ff5d2c93202493f3a0a1426973453a262aede026a003a0c62458d0f9a31",
+  "pro_median_fps": 11.811100229784154,
+  "quality_qualified": false,
+  "schedule": [
+    {
+      "pair": 0,
+      "role": "pro"
+    },
+    {
+      "pair": 0,
+      "role": "musetalk"
+    },
+    {
+      "pair": 1,
+      "role": "musetalk"
+    },
+    {
+      "pair": 1,
+      "role": "pro"
+    },
+    {
+      "pair": 2,
+      "role": "pro"
+    },
+    {
+      "pair": 2,
+      "role": "musetalk"
+    }
+  ],
+  "source_sha256": {
+    "benchmarks/pro_30fps_20260919/compare_musetalk.py": "faf11ebc35b158accb7c4b92d77651f91c7594612f912785386dfd0838f20ff6",
+    "benchmarks/pro_quantization_v2_20260918/compare_musetalk.py": "bb9ba2ac78298b5cdaa2f7f0279808e746e9c3eabd1f78c397c95ab22cca45f4"
+  },
+  "status": "complete",
+  "timing_comparable": true
+}

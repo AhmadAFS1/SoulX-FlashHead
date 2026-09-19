@@ -1,0 +1,181 @@
+{
+  "execution": "Fresh GPU generation on RTX 4070 SUPER 12282 MiB, driver 595.84, Torch 2.7.1+cu128/CUDA 12.8, 2026-09-17; CPU packaging and full-frame decode validation.",
+  "rows": [
+    {
+      "name": "512-15",
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:28:06.276159+00:00",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "size": 512,
+          "fps": 15,
+          "steps": 4,
+          "seed": 50,
+          "precision": "BF16",
+          "memory_mode": "staged",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 8704
+        },
+        "source": "/workspace/benchmarks/same-avatar/shared.png",
+        "source_crop_xyxy": [
+          38,
+          64,
+          345,
+          371
+        ],
+        "note": "Same square crop at both resolutions. Process-local geometry override only; no serving cap changes. OmniVoice remains resident.",
+        "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "wall_s": 7.185947034013225,
+        "useful_fps": 20.874075370999172,
+        "frames": 150,
+        "peak_allocated_mib": 3835.6123046875,
+        "peak_reserved_mib": 4188.0,
+        "raw_sha256": "1674640fdc35d832c503a475c6af665ebad7c62f6054ee797bc86650dbdc2d5a"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 512,
+        "height": 512,
+        "avg_frame_rate": "15/1",
+        "nb_read_frames": "150"
+      }
+    },
+    {
+      "name": "512-25",
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:28:26.467159+00:00",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "size": 512,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "BF16",
+          "memory_mode": "staged",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 8704
+        },
+        "source": "/workspace/benchmarks/same-avatar/shared.png",
+        "source_crop_xyxy": [
+          38,
+          64,
+          345,
+          371
+        ],
+        "note": "Same square crop at both resolutions. Process-local geometry override only; no serving cap changes. OmniVoice remains resident.",
+        "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "wall_s": 11.215822842001216,
+        "useful_fps": 22.289938377396215,
+        "frames": 250,
+        "peak_allocated_mib": 3835.9130859375,
+        "peak_reserved_mib": 4186.0,
+        "raw_sha256": "f94a7d5ef1f55aa42d5c0ad5b47bc47b27294269e87297f3486722a3b2fe4242"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 512,
+        "height": 512,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    },
+    {
+      "name": "1024-15",
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:26:25.032578+00:00",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "size": 1024,
+          "fps": 15,
+          "steps": 4,
+          "seed": 50,
+          "precision": "BF16",
+          "memory_mode": "staged",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 8704
+        },
+        "source": "/workspace/benchmarks/same-avatar/shared.png",
+        "source_crop_xyxy": [
+          38,
+          64,
+          345,
+          371
+        ],
+        "note": "Same square crop at both resolutions. Process-local geometry override only; no serving cap changes. OmniVoice remains resident.",
+        "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "wall_s": 20.674774932995206,
+        "useful_fps": 7.25521803676869,
+        "frames": 150,
+        "peak_allocated_mib": 4660.125,
+        "peak_reserved_mib": 6768.0,
+        "raw_sha256": "a0bc4045379068dc9a5516f820916229cfb8a8ab3dc2676cee378c1f3f040bee"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 1024,
+        "height": 1024,
+        "avg_frame_rate": "15/1",
+        "nb_read_frames": "150"
+      }
+    },
+    {
+      "name": "1024-25",
+      "generation": {
+        "status": "complete",
+        "date_utc": "2026-09-17T00:27:12.317571+00:00",
+        "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "profile": {
+          "size": 1024,
+          "fps": 25,
+          "steps": 4,
+          "seed": 50,
+          "precision": "BF16",
+          "memory_mode": "staged",
+          "compiled": false,
+          "conditioning": "stock",
+          "seconds": 10,
+          "allocator_cap_mib": 8704
+        },
+        "source": "/workspace/benchmarks/same-avatar/shared.png",
+        "source_crop_xyxy": [
+          38,
+          64,
+          345,
+          371
+        ],
+        "note": "Same square crop at both resolutions. Process-local geometry override only; no serving cap changes. OmniVoice remains resident.",
+        "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "wall_s": 32.6157033550262,
+        "useful_fps": 7.665019431858246,
+        "frames": 250,
+        "peak_allocated_mib": 4659.4501953125,
+        "peak_reserved_mib": 6856.0,
+        "raw_sha256": "aa27d12dcfe8874975388e8ab8c8aaef6ff2bb88a17bc8fc38d00e10396df559"
+      },
+      "decoded_video": {
+        "codec_type": "video",
+        "width": 1024,
+        "height": 1024,
+        "avg_frame_rate": "25/1",
+        "nb_read_frames": "250"
+      }
+    }
+  ]
+}

@@ -65,6 +65,20 @@ NAT/firewall deployments need working ICE candidates, open UDP paths or TURN.
 Use HTTPS and short-lived TURN credentials for external deployment. Local
 loopback testing does **not** establish public-network/TURN reliability.
 
+Vast.ai and other NAT deployments can give the browser and server different
+TURN addresses while retaining `SOULX_ICE_SERVERS` as the fallback:
+
+```bash
+export SOULX_BROWSER_ICE_SERVERS='[{"urls":["turn:PUBLIC_IP:PUBLIC_PORT?transport=tcp"],"username":"USER","credential":"PASS"}]'
+export SOULX_SERVER_ICE_SERVERS='[{"urls":["turn:127.0.0.1:INTERNAL_PORT?transport=tcp"],"username":"USER","credential":"PASS"}]'
+export SOULX_ICE_TRANSPORT_POLICY=relay
+```
+
+The browser receives only the public mapping; server-side aiortc uses the local
+listener. `SOULX_ICE_TRANSPORT_POLICY` accepts `all` (default) or `relay` and is
+applied to both peers. For an explicitly unauthenticated test deployment, pass
+`--allow-anonymous`; do not expose that mode beyond an isolated test instance.
+
 ## API
 
 | Method/path | Purpose |

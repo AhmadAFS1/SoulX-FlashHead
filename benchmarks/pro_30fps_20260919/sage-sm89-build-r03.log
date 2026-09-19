@@ -1,0 +1,14 @@
+Processing /workspace/experiments/pro30-deps/SageAttention-sm89
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: sageattention
+  Building wheel for sageattention (pyproject.toml): started
+  Building wheel for sageattention (pyproject.toml): finished with status 'done'
+  Created wheel for sageattention: filename=sageattention-2.2.0-cp310-cp310-linux_x86_64.whl size=15350844 sha256=a65d3e90099529189ad7b43dbab0649f9d8aa742e0abf455aff251dda626096e
+  Stored in directory: /root/.cache/pip/wheels/c2/6a/7a/deecf69c12970fd69b33a9a580ce73fde5f46cf9f2c4bd2eb9
+Successfully built sageattention
+Installing collected packages: sageattention
+Successfully installed sageattention-2.2.0
+
+[notice] A new release of pip is available: 25.2 -> 26.2.1
+[notice] To update, run: /workspace/SoulX-FlashHead/.venv/bin/python -m pip install --upgrade pip

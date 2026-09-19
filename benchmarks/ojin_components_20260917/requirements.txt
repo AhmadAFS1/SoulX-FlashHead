@@ -1,0 +1,9 @@
+# Install with --no-deps --target into an isolated directory using the existing
+# SoulX Python 3.10 environment. Keep the serving venv unchanged.
+# First four versions match Ojin's published package manifest.
+mediapipe==0.10.35
+tensorrt-cu13==10.16.1.11
+tensorrt-cu13-bindings==10.16.1.11
+tensorrt-cu13-libs==10.16.1.11
+# Local export utility; not a claim about Ojin's exporter or engine build recipe.
+onnx==1.17.0

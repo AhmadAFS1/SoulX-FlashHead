@@ -1,0 +1,35 @@
+{
+  "name": "seed7-shift5-history2-resume-control",
+  "seed": 7,
+  "shift": 5,
+  "history": 2,
+  "strength": 1,
+  "allocator_cap_mib": 3584,
+  "overlap_frames": 9,
+  "emitted_frames_per_chunk": 24,
+  "chunk_boundaries": [
+    24,
+    48,
+    72,
+    96,
+    120,
+    144,
+    168,
+    192,
+    216,
+    240
+  ],
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 5956 MiB, 595.84\n",
+  "wall_s": 8.00721439300105,
+  "useful_fps": 31.221844168244093,
+  "peak_allocated_mib": 3301.474609375,
+  "frames": 250,
+  "raw_sha256": "3de01d779be1afbdf5d48f92d7b1ee47679948d97b2d33f7575cb54e9be6609b",
+  "effective_timesteps": [
+    1000.0,
+    937.5000610351562,
+    833.3333129882812,
+    625.0,
+    0.0
+  ]
+}

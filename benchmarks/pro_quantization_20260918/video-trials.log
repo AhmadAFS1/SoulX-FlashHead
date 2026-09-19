@@ -1,0 +1,3 @@
+{'name': 'fp8-only-seed50', 'exit_code': 0}
+{'name': 'optimized-bf16-seed50', 'exit_code': 0}
+{'name': 'fp8-combined-seed50', 'exit_code': 0}

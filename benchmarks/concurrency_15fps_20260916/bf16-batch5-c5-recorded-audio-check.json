@@ -1,0 +1,123 @@
+{
+  "method": "Waveform correspondence, not a perceptual lip-sync or receiver-ACK score.",
+  "config": {
+    "recording": "benchmarks/concurrency_15fps_20260916/bf16-batch5-c5-recorded-peer0.mp4",
+    "reference": "benchmarks/comparison-10s.wav",
+    "seconds": 10.0,
+    "matches": 1,
+    "output": "benchmarks/concurrency_15fps_20260916/bf16-batch5-c5-recorded-audio-check.json"
+  },
+  "sample_rate": 16000,
+  "recording_sha256": "3159007d619d4b4cc7bf4b1c62b9538d99b0493de979a7b1c48fe43a84d64533",
+  "reference_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+  "script_sha256": "3eb4d3d239d9037e9d27674306928a8f95bc3f35dd23586061f388d5833cd8d0",
+  "matches": [
+    {
+      "start_s": 1.8065,
+      "correlation": 0.9623956542930892,
+      "segments": [
+        {
+          "reference_start_s": 0.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.982571757746576
+        },
+        {
+          "reference_start_s": 0.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.973336133026464
+        },
+        {
+          "reference_start_s": 1.0,
+          "inferred_turn_start_s": 1.8064375,
+          "correlation": 0.9499832116628617
+        },
+        {
+          "reference_start_s": 1.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9671453904526552
+        },
+        {
+          "reference_start_s": 2.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9811277268219406
+        },
+        {
+          "reference_start_s": 2.5,
+          "inferred_turn_start_s": 1.8064375,
+          "correlation": 0.960098063085834
+        },
+        {
+          "reference_start_s": 3.0,
+          "inferred_turn_start_s": 1.8064375,
+          "correlation": 0.9583206800142358
+        },
+        {
+          "reference_start_s": 3.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9505599568679148
+        },
+        {
+          "reference_start_s": 4.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9808795889853656
+        },
+        {
+          "reference_start_s": 4.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9550552766849706
+        },
+        {
+          "reference_start_s": 5.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.945556253259075
+        },
+        {
+          "reference_start_s": 5.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9652118677804428
+        },
+        {
+          "reference_start_s": 6.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9726345063347367
+        },
+        {
+          "reference_start_s": 6.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.958711112713285
+        },
+        {
+          "reference_start_s": 7.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9421716109395428
+        },
+        {
+          "reference_start_s": 7.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9505649042803228
+        },
+        {
+          "reference_start_s": 8.0,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9670736776182102
+        },
+        {
+          "reference_start_s": 8.5,
+          "inferred_turn_start_s": 1.8065,
+          "correlation": 0.9522711025717884
+        },
+        {
+          "reference_start_s": 9.0,
+          "inferred_turn_start_s": 1.8064375,
+          "correlation": 0.9713997750009146
+        },
+        {
+          "reference_start_s": 9.5,
+          "inferred_turn_start_s": 1.8064375,
+          "correlation": 0.9809051189951132
+        }
+      ]
+    }
+  ],
+  "note": "Normalized cross-correlation after lossy Opus/AAC and resampling. Low-energy windows excluded. No automatic quality pass; changing segment offsets can reveal inserted silence or timing drift."
+}

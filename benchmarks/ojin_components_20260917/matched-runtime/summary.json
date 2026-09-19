@@ -1,0 +1,182 @@
+{
+  "execution": "CPU aggregation of recorded GPU runs; full hardware/software provenance in results.json",
+  "runs": [
+    {
+      "mode": "lite-only",
+      "seed": 50,
+      "fps": 40.297905704426945,
+      "wall_s": 6.203796342015266,
+      "stages_s": {
+        "generation": 6.203692562005017,
+        "face_landmarker": 0.0,
+        "upscale": 0.0
+      },
+      "torch_peak_allocated_mib": 5069.61767578125,
+      "torch_peak_reserved_mib": 5724.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5121.568800403225,
+          "peak": 5123.3984375
+        },
+        "process_cpu_percent": {
+          "mean": 100.34516129032257,
+          "peak": 104.2
+        },
+        "host_cpu_percent": {
+          "mean": 4.912903225806452,
+          "peak": 7.6
+        },
+        "host_ram_used_mib": {
+          "mean": 11754.411794354839,
+          "peak": 11767.15625
+        },
+        "gpu_percent": {
+          "mean": 98.64516129032258,
+          "peak": 100.0
+        },
+        "device_vram_mib": {
+          "mean": 8784.0,
+          "peak": 8784.0
+        }
+      },
+      "output_parity_with_older_runtime": true
+    },
+    {
+      "mode": "facelandmarker-full-native2x-TRT",
+      "seed": 50,
+      "fps": 24.043246283256234,
+      "wall_s": 10.397930339968298,
+      "stages_s": {
+        "generation": 6.1424519888241775,
+        "face_landmarker": 1.7367132828803733,
+        "upscale": 2.5171350635937415
+      },
+      "torch_peak_allocated_mib": 5069.61767578125,
+      "torch_peak_reserved_mib": 5724.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5679.464375,
+          "peak": 5750.4921875
+        },
+        "process_cpu_percent": {
+          "mean": 101.44,
+          "peak": 109.2
+        },
+        "host_cpu_percent": {
+          "mean": 5.062,
+          "peak": 9.8
+        },
+        "host_ram_used_mib": {
+          "mean": 12309.72625,
+          "peak": 12416.17578125
+        },
+        "gpu_percent": {
+          "mean": 70.56,
+          "peak": 100.0
+        },
+        "device_vram_mib": {
+          "mean": 8796.0,
+          "peak": 8796.0
+        }
+      },
+      "output_parity_with_older_runtime": true
+    },
+    {
+      "mode": "lite-only",
+      "seed": 51,
+      "fps": 40.18693914091553,
+      "wall_s": 6.220926632988267,
+      "stages_s": {
+        "generation": 6.22082423302345,
+        "face_landmarker": 0.0,
+        "upscale": 0.0
+      },
+      "torch_peak_allocated_mib": 5069.61767578125,
+      "torch_peak_reserved_mib": 5724.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5738.37890625,
+          "peak": 5738.37890625
+        },
+        "process_cpu_percent": {
+          "mean": 99.86,
+          "peak": 105.8
+        },
+        "host_cpu_percent": {
+          "mean": 5.7299999999999995,
+          "peak": 10.9
+        },
+        "host_ram_used_mib": {
+          "mean": 12384.126692708332,
+          "peak": 12406.83203125
+        },
+        "gpu_percent": {
+          "mean": 95.23333333333333,
+          "peak": 100.0
+        },
+        "device_vram_mib": {
+          "mean": 8784.0,
+          "peak": 8784.0
+        }
+      },
+      "output_parity_with_older_runtime": true
+    },
+    {
+      "mode": "facelandmarker-full-native2x-TRT",
+      "seed": 51,
+      "fps": 24.171427452303462,
+      "wall_s": 10.34279007697478,
+      "stages_s": {
+        "generation": 6.146601783984806,
+        "face_landmarker": 1.7662557479343377,
+        "upscale": 2.4283820202108473
+      },
+      "torch_peak_allocated_mib": 5069.61767578125,
+      "torch_peak_reserved_mib": 5724.0,
+      "resources": {
+        "process_rss_mib": {
+          "mean": 5770.756893382353,
+          "peak": 5771.01953125
+        },
+        "process_cpu_percent": {
+          "mean": 101.52156862745099,
+          "peak": 113.7
+        },
+        "host_cpu_percent": {
+          "mean": 4.949019607843137,
+          "peak": 9.5
+        },
+        "host_ram_used_mib": {
+          "mean": 12418.132429534313,
+          "peak": 12437.9609375
+        },
+        "gpu_percent": {
+          "mean": 70.29411764705883,
+          "peak": 100.0
+        },
+        "device_vram_mib": {
+          "mean": 8796.0,
+          "peak": 8796.0
+        }
+      },
+      "output_parity_with_older_runtime": true
+    }
+  ],
+  "same_weights_runtime": {
+    "pytorch-fp16": {
+      "fps_median": 59.82049525217758,
+      "ms_per_frame_median": 16.716678719967604
+    },
+    "tensorrt-fp16": {
+      "fps_median": 110.18638193822198,
+      "ms_per_frame_median": 9.075531680136919
+    },
+    "speedup": 1.8419503461768982
+  },
+  "base_environment": {
+    "torch": "2.7.1+cu128",
+    "mediapipe": "0.10.9",
+    "numpy": "2.2.6",
+    "protobuf": "3.20.3"
+  }
+}

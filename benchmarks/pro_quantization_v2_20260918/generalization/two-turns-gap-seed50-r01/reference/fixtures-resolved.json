@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/migration/two-turns-with-gap.wav",
+    "sha256": "a110f36cea557314775831c0e26b7b188017de01b7590c45bef5f9104d1e0433"
+  },
+  "fixtures_source": "benchmarks/pro_quantization_v2_20260918/fixtures.json",
+  "fps": 25,
+  "framing": "1.50x",
+  "id": "indian150-two-turns-gap",
+  "license": "Local repository benchmark fixture; retain its existing provenance.",
+  "notes": "Different 23.05-second utterance with an internal silence gap; use 576 useful frames for the paired held-out test.",
+  "provenance": "Existing benchmarks/migration/two-turns-with-gap.wav asset, registered without modification on 2026-09-18.",
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+  },
+  "sample_rate": 16000,
+  "split": "held-out-generalization"
+}

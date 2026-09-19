@@ -44,7 +44,7 @@ class Engine:
                  width=None, height=None, optimized=False, profile=False,
                  real_rope=False, memory_mode="default", trt_ffn=None, trt_vae=None,
                  lean=False, fused_qkv=False, dit_graph=False, int8_weights=False, cuda_memory_mib=None,
-                 compile_color=False, compile_audio=False):
+                 compile_color=False, compile_audio=False, refinement_timesteps=()):
         import torch
         import flash_head.src.pipeline.flash_head_pipeline as implementation
         from flash_head.inference import get_pipeline
@@ -52,6 +52,12 @@ class Engine:
         self.width, self.height = validate_geometry(size, width, height)
         if steps not in (2, 4):
             raise ValueError("Supported denoising steps: 2/4")
+        # Raw (pre-shift) training coordinates. Empty preserves stock sampling.
+        self.refinement_timesteps = tuple(float(t) for t in refinement_timesteps)
+        if (any(not 0 < t < 1000 for t in self.refinement_timesteps)
+                or any(a <= b for a, b in zip(self.refinement_timesteps,
+                                             self.refinement_timesteps[1:]))):
+            raise ValueError("Refinement timesteps must decrease strictly within (0, 1000)")
         if fps not in (15, 20, 24, 25):
             raise ValueError("fps must be 15, 20, 24, or 25")
         if memory_mode not in ("default", "compact", "reference", "staged"):
@@ -179,6 +185,15 @@ class Engine:
         p = copy.copy(self.templates[key])
         p.latent_motion_frames = p.ref_img_latent[:, :1].clone()
         p.generator = torch.Generator(device=p.device).manual_seed(int(seed))
+        if self.refinement_timesteps:
+            from flash_head.src.pipeline.flash_head_pipeline import timestep_transform
+            p.refinement_generator = torch.Generator(device=p.device).manual_seed(
+                (int(seed) + 1000003) % (2**63 - 1))
+            p.refinement_times = [torch.tensor([t], device=p.device)
+                                  for t in self.refinement_timesteps]
+            if p.use_timestep_transform:
+                p.refinement_times = [timestep_transform(t, shift=5,
+                    num_timesteps=p.num_timesteps) for t in p.refinement_times]
         self.last_preparation = dict(cache_hit=cache_hit, host_ms=(time.perf_counter()-preparation_started)*1000)
         return GenerationState(p, audio, math.ceil(len(audio) * self.fps / self.sample_rate))
 
@@ -315,6 +330,17 @@ class Engine:
                 nxt = (p.timesteps[i + 1] / p.num_timesteps).to(p.param_dtype)
                 noise = (1 - nxt) * (noise - flow * t) + nxt * random_batch()
                 phase(f"dit_step_{i}")
+            if self.refinement_timesteps:
+                from .refinement import refine_clean_latent
+                def refine_denoise(x, timestep):
+                    expanded = timestep.expand(len(states))
+                    return self.denoise(p, x, expanded, context=contexts, y=reference,
+                        **kwargs, prepared_time=(self.raw_model.prepare_time(expanded)
+                                                if self.optimized else None))
+                noise = refine_clean_latent(noise, p.refinement_times, p.num_timesteps,
+                    [s.pipeline.latent_motion_frames for s in states],
+                    [s.pipeline.refinement_generator for s in states], refine_denoise)
+                phase("dit_refinement")
             stamp()
             # Release conditioning tensors before VAE; weights remain shared.
             kwargs.clear()

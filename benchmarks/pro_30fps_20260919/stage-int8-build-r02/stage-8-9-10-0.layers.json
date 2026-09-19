@@ -1,0 +1,1948 @@
+{"Layers": [{
+  "Name": "Reformatting CopyNode for Network Input x",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "x",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted x",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.0.residual.0.gamma + ONNXTRT_Broadcast_9",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 20) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.0.residual.3.gamma + ONNXTRT_Broadcast_124",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 141) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.1.residual.0.gamma + ONNXTRT_Broadcast_240",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 263) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.1.residual.3.gamma + ONNXTRT_Broadcast_356",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 384) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.2.residual.0.gamma + ONNXTRT_Broadcast_472",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 506) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks.2.residual.3.gamma + ONNXTRT_Broadcast_588",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 627) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Half", "Count": 192},
+  "dimensions": [1,192,1,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "__myl_CastCastMulCast_myl7_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "Reformatted x",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted x",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 0) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.0/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 0) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 1) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl9_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 1) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0/ReduceL2]\u001e[ONNX Layer: /residual.0/Clip]"
+},{
+  "Name": "/residual.0/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.0/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl11_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.0/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted x",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 20) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.1/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0/Div]\u001e[ONNX Layer: /residual.0/Mul]\u001e[ONNX Layer: /residual.0/Mul_1]\u001e[ONNX Layer: /residual.0/Add]\u001e[ONNX Layer: /residual.1/Sigmoid]\u001e[ONNX Layer: /residual.1/Mul]"
+},{
+  "Name": "/Slice",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice]"
+},{
+  "Name": "/residual.2/Pad_102",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2/Pad]"
+},{
+  "Name": "node_of_blocks_0_residual_2_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_2_iq]"
+},{
+  "Name": "node_of_blocks_0_residual_2_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_0_residual_2_weight + node_of_blocks_0_residual_2_wq + /residual.2/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_2_wq]\u001e[ONNX Layer: /residual.2/Conv]\u001e[ONNX Layer: node_of_blocks_0_residual_2_oq]\u001e[ONNX Layer: node_of_blocks_0_residual_2_idq]\u001e[ONNX Layer: node_of_blocks_0_residual_2_wdq]"
+},{
+  "Name": "node_of_/residual.2/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_0_residual_2_odq_clone_2",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2/Conv_output_0_clone_2",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_2_odq]"
+},{
+  "Name": "__myl_CastCastMulCast_myl19_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 121) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.3/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 121) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 122) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl21_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 122) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3/ReduceL2]\u001e[ONNX Layer: /residual.3/Clip]"
+},{
+  "Name": "/residual.3/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.3/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl23_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.3/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 141) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.4/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3/Div]\u001e[ONNX Layer: /residual.3/Mul]\u001e[ONNX Layer: /residual.3/Mul_1]\u001e[ONNX Layer: /residual.3/Add]\u001e[ONNX Layer: /residual.4/Sigmoid]\u001e[ONNX Layer: /residual.4/Mul]"
+},{
+  "Name": "/Slice_1",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.4/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_1",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_1]"
+},{
+  "Name": "/residual.6/Pad_218",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.4/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6/Pad]"
+},{
+  "Name": "node_of_blocks_0_residual_6_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.6/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_6_iq]"
+},{
+  "Name": "node_of_blocks_0_residual_6_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_0_residual_6_weight + node_of_blocks_0_residual_6_wq + /residual.6/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_6_wq]\u001e[ONNX Layer: /residual.6/Conv]\u001e[ONNX Layer: node_of_blocks_0_residual_6_oq]\u001e[ONNX Layer: node_of_blocks_0_residual_6_idq]\u001e[ONNX Layer: node_of_blocks_0_residual_6_wdq]"
+},{
+  "Name": "node_of_/residual.6/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_0_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_0_residual_6_odq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_0_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_0_residual_6_odq]"
+},{
+  "Name": "__myl_CastCastAddCast_myl31_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.6/Conv_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted x",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Add_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastAddCast_0x0b895746f0e190d543cdae0d81fbe117",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Add]"
+},{
+  "Name": "__myl_CastCastMulCast_myl32_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/Add_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 243) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.0_1/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 243) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 244) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_1/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl34_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 244) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0_1/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_1/ReduceL2]\u001e[ONNX Layer: /residual.0_1/Clip]"
+},{
+  "Name": "/residual.0_1/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.0_1/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0_1/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_1/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl36_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.0_1/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 263) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.1_1/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_1/Div]\u001e[ONNX Layer: /residual.0_1/Mul]\u001e[ONNX Layer: /residual.0_1/Mul_1]\u001e[ONNX Layer: /residual.0_1/Add]\u001e[ONNX Layer: /residual.1_1/Sigmoid]\u001e[ONNX Layer: /residual.1_1/Mul]"
+},{
+  "Name": "/Slice_2",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.1_1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_2",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_2]"
+},{
+  "Name": "/residual.2_1/Pad_334",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.1_1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2_1/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2_1/Pad]"
+},{
+  "Name": "node_of_blocks_1_residual_2_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.2_1/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_2_iq]"
+},{
+  "Name": "node_of_blocks_1_residual_2_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_1_residual_2_weight + node_of_blocks_1_residual_2_wq + /residual.2_1/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_2_wq]\u001e[ONNX Layer: /residual.2_1/Conv]\u001e[ONNX Layer: node_of_blocks_1_residual_2_oq]\u001e[ONNX Layer: node_of_blocks_1_residual_2_idq]\u001e[ONNX Layer: node_of_blocks_1_residual_2_wdq]"
+},{
+  "Name": "node_of_/residual.2_1/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_1_residual_2_odq_clone_2",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2_1/Conv_output_0_clone_2",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_2_odq]"
+},{
+  "Name": "__myl_CastCastMulCast_myl44_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.2_1/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2_1/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 364) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.3_1/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 364) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 365) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_1/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl46_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 365) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3_1/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_1/ReduceL2]\u001e[ONNX Layer: /residual.3_1/Clip]"
+},{
+  "Name": "/residual.3_1/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.3_1/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3_1/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_1/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl48_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.3_1/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2_1/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 384) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.4_1/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_1/Div]\u001e[ONNX Layer: /residual.3_1/Mul]\u001e[ONNX Layer: /residual.3_1/Mul_1]\u001e[ONNX Layer: /residual.3_1/Add]\u001e[ONNX Layer: /residual.4_1/Sigmoid]\u001e[ONNX Layer: /residual.4_1/Mul]"
+},{
+  "Name": "/Slice_3",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.4_1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_3",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_3]"
+},{
+  "Name": "/residual.6_1/Pad_450",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.4_1/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6_1/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6_1/Pad]"
+},{
+  "Name": "node_of_blocks_1_residual_6_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.6_1/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_6_iq]"
+},{
+  "Name": "node_of_blocks_1_residual_6_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_1_residual_6_weight + node_of_blocks_1_residual_6_wq + /residual.6_1/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_6_wq]\u001e[ONNX Layer: /residual.6_1/Conv]\u001e[ONNX Layer: node_of_blocks_1_residual_6_oq]\u001e[ONNX Layer: node_of_blocks_1_residual_6_idq]\u001e[ONNX Layer: node_of_blocks_1_residual_6_wdq]"
+},{
+  "Name": "node_of_/residual.6_1/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_1_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_1_residual_6_odq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_1_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6_1/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_1_residual_6_odq]"
+},{
+  "Name": "__myl_CastCastAddCast_myl56_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.6_1/Conv_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Add_1_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastAddCast_0x0b895746f0e190d543cdae0d81fbe117",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Add_1]"
+},{
+  "Name": "__myl_CastCastMulCast_myl57_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/Add_1_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_1_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 486) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.0_2/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 486) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 487) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_2/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl59_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 487) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0_2/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_2/ReduceL2]\u001e[ONNX Layer: /residual.0_2/Clip]"
+},{
+  "Name": "/residual.0_2/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.0_2/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.0_2/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_2/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl61_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.0_2/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_1_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 506) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.1_2/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.0_2/Div]\u001e[ONNX Layer: /residual.0_2/Mul]\u001e[ONNX Layer: /residual.0_2/Mul_1]\u001e[ONNX Layer: /residual.0_2/Add]\u001e[ONNX Layer: /residual.1_2/Sigmoid]\u001e[ONNX Layer: /residual.1_2/Mul]"
+},{
+  "Name": "/Slice_4",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.1_2/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_4",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_4]"
+},{
+  "Name": "/residual.2_2/Pad_566",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.1_2/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2_2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.2_2/Pad]"
+},{
+  "Name": "node_of_blocks_2_residual_2_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.2_2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_2_iq]"
+},{
+  "Name": "node_of_blocks_2_residual_2_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_2_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_2_residual_2_weight + node_of_blocks_2_residual_2_wq + /residual.2_2/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_2_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_2_wq]\u001e[ONNX Layer: /residual.2_2/Conv]\u001e[ONNX Layer: node_of_blocks_2_residual_2_oq]\u001e[ONNX Layer: node_of_blocks_2_residual_2_idq]\u001e[ONNX Layer: node_of_blocks_2_residual_2_wdq]"
+},{
+  "Name": "node_of_/residual.2_2/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_2_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_2_residual_2_odq_clone_2",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_2_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.2_2/Conv_output_0_clone_2",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_2_odq]"
+},{
+  "Name": "__myl_CastCastMulCast_myl69_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.2_2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2_2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 607) [ElementWise]_output",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastMulCast_0xdae5e3b2f0ec9c2d5bcd5d9231c8befb",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/residual.3_2/ReduceL2",
+  "LayerType": "Reduce",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 607) [ElementWise]_output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 608) [Reduce]_output",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reduce",
+  "Operation": "SUM",
+  "ReduceAxes": [0,1,0,0,0],
+  "KeepDimensions": 1,
+  "TacticValue": "0x0000000000000008",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_2/ReduceL2]"
+},{
+  "Name": "__myl_CastSqrtMaxCast_myl71_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 608) [Reduce]_output",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3_2/Clip_output_0",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastSqrtMaxCast_0x1835e5f4f20298021307585ba2fca743",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_2/ReduceL2]\u001e[ONNX Layer: /residual.3_2/Clip]"
+},{
+  "Name": "/residual.3_2/Expand",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.3_2/Clip_output_0",
+    "Location": "Device",
+    "Dimensions": [1,1,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.3_2/Expand_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,0,0,0],
+  "Size": [1,192,1,288,160],
+  "Stride": [0,0,0,1,1],
+  "Mode": "kSTRICT_BOUNDS",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_2/Expand]"
+},{
+  "Name": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_myl73_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.3_2/Expand_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/residual.2_2/Conv_output_0_clone_2",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "(Unnamed Layer* 627) [Shuffle]_output",
+    "Dimensions": [1,192,1,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.4_2/Mul_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastCastDivMulMulAddMulTanhMulAddMulCast_0xc3cd3cd833192b24072f9804a3b386df",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.3_2/Div]\u001e[ONNX Layer: /residual.3_2/Mul]\u001e[ONNX Layer: /residual.3_2/Mul_1]\u001e[ONNX Layer: /residual.3_2/Add]\u001e[ONNX Layer: /residual.4_2/Sigmoid]\u001e[ONNX Layer: /residual.4_2/Mul]"
+},{
+  "Name": "/Slice_5",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/residual.4_2/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "cache_out_5",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Slice_5]"
+},{
+  "Name": "/residual.6_2/Pad_682",
+  "LayerType": "Slice",
+  "Inputs": [
+  {
+    "Name": "/residual.4_2/Mul_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6_2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Slice",
+  "Start": [0,0,-2,-1,-1],
+  "Size": [1,192,3,290,162],
+  "Stride": [1,1,1,1,1],
+  "Mode": "FILL",
+  "negativeInfinityPadding": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /residual.6_2/Pad]"
+},{
+  "Name": "node_of_blocks_2_residual_6_iq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/residual.6_2/Pad_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_6_iq]"
+},{
+  "Name": "node_of_blocks_2_residual_6_fp32",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_6_fp32",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "blocks_2_residual_6_weight + node_of_blocks_2_residual_6_wq + /residual.6_2/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_6_iq",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize128x96x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x2ff8bc85c8ced89e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_6_wq]\u001e[ONNX Layer: /residual.6_2/Conv]\u001e[ONNX Layer: node_of_blocks_2_residual_6_oq]\u001e[ONNX Layer: node_of_blocks_2_residual_6_idq]\u001e[ONNX Layer: node_of_blocks_2_residual_6_wdq]"
+},{
+  "Name": "node_of_/residual.6_2/Conv_output_0",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_6_oq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "blocks_2_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "node_of_blocks_2_residual_6_odq",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "blocks_2_residual_6_odq",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "/residual.6_2/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_blocks_2_residual_6_odq]"
+},{
+  "Name": "__myl_CastCastAddCast_myl81_0",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "/residual.6_2/Conv_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "/Add_1_output_0",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "y",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastCastAddCast_0x0b895746f0e190d543cdae0d81fbe117",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Add_2]"
+}],
+"Bindings": ["x"
+,"y"
+,"cache_out_0"
+,"cache_out_1"
+,"cache_out_2"
+,"cache_out_3"
+,"cache_out_4"
+,"cache_out_5"
+]}
+

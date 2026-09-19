@@ -1,0 +1,355 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-18T00:39:02.258434+00:00",
+  "execution": "fresh local GPU inference",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "processes_before_load": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB"
+  ],
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "physical_vram_class": "12 GB",
+  "profile": {
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "frames": 250,
+    "steps": 4,
+    "seed": 50,
+    "shift": 5,
+    "motion_latents": 2,
+    "motion_frames": 5,
+    "new_frames_per_chunk": 28,
+    "strength": 1.0,
+    "framing": "1.50x",
+    "precision": "fp8",
+    "vae": "compiled",
+    "compile_ffn": true
+  },
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+  },
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/audio.wav",
+    "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+    "repeated_for_long_test": false
+  },
+  "source_sha256": {
+    "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_20260918/run.py": "4e43e58d08488a262272bc3521a1f14b2000ad35d31316fd4fafb67b83739d6d",
+    "/workspace/SoulX-FlashHead/soulx_rtc/pro_quantization.py": "8382958cf1e37bdbff8b5579b67a119d366be31c5e25a5613a15d58683f8a228",
+    "/workspace/SoulX-FlashHead/flash_head/src/pipeline/flash_head_pipeline.py": "b437720e341799c4fa72d8da1ae876fa99015aa9c6bd2d4ead67a44c4069c24c",
+    "/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py": "642a3a456873eaab9cb67bd9a46e779b0e29919ba342ef2ba5a37ea7ffa604f0"
+  },
+  "attention_backend": "flash_attention_2",
+  "checkpoint_sha256": {
+    "Model_Pro/diffusion_pytorch_model.safetensors": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+    "Model_Pro/config.json": "94b480d3af70e73989371ed0c106656c2c887201286b1210e835cd09e71e32b1",
+    "VAE_Wan/Wan2.1_VAE.pth": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+  },
+  "quantization": {
+    "precision": "fp8",
+    "backend": "pytorch_native_cuda",
+    "modules": [
+      "blocks.0.ffn.0",
+      "blocks.0.ffn.2",
+      "blocks.1.ffn.0",
+      "blocks.1.ffn.2",
+      "blocks.2.ffn.0",
+      "blocks.2.ffn.2",
+      "blocks.3.ffn.0",
+      "blocks.3.ffn.2",
+      "blocks.4.ffn.0",
+      "blocks.4.ffn.2",
+      "blocks.5.ffn.0",
+      "blocks.5.ffn.2",
+      "blocks.6.ffn.0",
+      "blocks.6.ffn.2",
+      "blocks.7.ffn.0",
+      "blocks.7.ffn.2",
+      "blocks.8.ffn.0",
+      "blocks.8.ffn.2",
+      "blocks.9.ffn.0",
+      "blocks.9.ffn.2",
+      "blocks.10.ffn.0",
+      "blocks.10.ffn.2",
+      "blocks.11.ffn.0",
+      "blocks.11.ffn.2",
+      "blocks.12.ffn.0",
+      "blocks.12.ffn.2",
+      "blocks.13.ffn.0",
+      "blocks.13.ffn.2",
+      "blocks.14.ffn.0",
+      "blocks.14.ffn.2",
+      "blocks.15.ffn.0",
+      "blocks.15.ffn.2",
+      "blocks.16.ffn.0",
+      "blocks.16.ffn.2",
+      "blocks.17.ffn.0",
+      "blocks.17.ffn.2",
+      "blocks.18.ffn.0",
+      "blocks.18.ffn.2",
+      "blocks.19.ffn.0",
+      "blocks.19.ffn.2",
+      "blocks.20.ffn.0",
+      "blocks.20.ffn.2",
+      "blocks.21.ffn.0",
+      "blocks.21.ffn.2",
+      "blocks.22.ffn.0",
+      "blocks.22.ffn.2",
+      "blocks.23.ffn.0",
+      "blocks.23.ffn.2",
+      "blocks.24.ffn.0",
+      "blocks.24.ffn.2",
+      "blocks.25.ffn.0",
+      "blocks.25.ffn.2",
+      "blocks.26.ffn.0",
+      "blocks.26.ffn.2",
+      "blocks.27.ffn.0",
+      "blocks.27.ffn.2",
+      "blocks.28.ffn.0",
+      "blocks.28.ffn.2",
+      "blocks.29.ffn.0",
+      "blocks.29.ffn.2"
+    ],
+    "excluded": [],
+    "original_bytes": 1652136960,
+    "quantized_bytes": 826383600,
+    "interface_dtype": "bfloat16",
+    "torch": "2.7.1+cu128"
+  },
+  "vae_optimization": {
+    "mode": "compiled",
+    "compiled_modules": [
+      "vae.decode"
+    ],
+    "precision_changed": false
+  },
+  "warmup_s": 11.878280479053501,
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 30.561192727996968,
+      "useful_fps": 8.180309002500945,
+      "chunk_times_s": [
+        3.401120119029656,
+        3.3882441250025295,
+        3.392237282998394,
+        3.390882097010035,
+        3.397371835017111,
+        3.393698047962971,
+        3.3983293540077284,
+        3.397004258004017,
+        3.4017581319785677
+      ],
+      "stage_seconds": {
+        "audio": 0.07301606321334839,
+        "dit": 15.847300659179686,
+        "vae_decode": 13.0608251953125,
+        "motion_encode": 1.3795121459960937
+      },
+      "peak_allocated_mib": 6737.177734375,
+      "peak_reserved_mib": 7664.0,
+      "resource_summary": {
+        "sample_count": 58,
+        "gpu_utilization_percent": {
+          "mean": 99.8103448275862,
+          "min": 93.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 10628.0,
+          "min": 10628.0,
+          "max": 10628.0
+        },
+        "system_cpu_percent": {
+          "mean": 3.467241379310345,
+          "min": 0.0,
+          "max": 5.4
+        },
+        "process_cpu_percent": {
+          "mean": 98.36206896551725,
+          "min": 0.0,
+          "max": 102.5
+        },
+        "system_ram_used_mib": {
+          "mean": 12491.894598599138,
+          "min": 12431.890625,
+          "max": 12508.375
+        },
+        "system_ram_percent": {
+          "mean": 40.37241379310349,
+          "min": 40.2,
+          "max": 40.4
+        },
+        "process_rss_mib": {
+          "mean": 4742.894665948276,
+          "min": 4711.28125,
+          "max": 4748.71875
+        },
+        "torch_allocated_mib": {
+          "mean": 3328.7889362203664,
+          "min": 2720.1259765625,
+          "max": 6465.03466796875
+        },
+        "torch_reserved_mib": {
+          "mean": 7664.0,
+          "min": 7664.0,
+          "max": 7664.0
+        }
+      }
+    },
+    {
+      "repeat": 1,
+      "generation_s": 30.595634956029244,
+      "useful_fps": 8.171100235680333,
+      "chunk_times_s": [
+        3.396674958989024,
+        3.400350738025736,
+        3.3986051619867794,
+        3.4001064819749445,
+        3.3967952230013907,
+        3.4009135710075498,
+        3.3989036249695346,
+        3.4000898060039617,
+        3.4026381010189652
+      ],
+      "stage_seconds": {
+        "audio": 0.07362819147109985,
+        "dit": 15.864947723388672,
+        "vae_decode": 13.085225585937499,
+        "motion_encode": 1.3807734985351563
+      },
+      "peak_allocated_mib": 6737.177734375,
+      "peak_reserved_mib": 7664.0,
+      "resource_summary": {
+        "sample_count": 58,
+        "gpu_utilization_percent": {
+          "mean": 98.0,
+          "min": 0.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 10628.0,
+          "min": 10628.0,
+          "max": 10628.0
+        },
+        "system_cpu_percent": {
+          "mean": 3.6655172413793102,
+          "min": 0.0,
+          "max": 6.8
+        },
+        "process_cpu_percent": {
+          "mean": 98.44137931034483,
+          "min": 0.0,
+          "max": 102.7
+        },
+        "system_ram_used_mib": {
+          "mean": 12770.162984913793,
+          "min": 12718.59765625,
+          "max": 12924.2734375
+        },
+        "system_ram_percent": {
+          "mean": 41.270689655172426,
+          "min": 41.1,
+          "max": 41.8
+        },
+        "process_rss_mib": {
+          "mean": 5026.4921875,
+          "min": 5026.4921875,
+          "max": 5026.4921875
+        },
+        "torch_allocated_mib": {
+          "mean": 3446.7623669854524,
+          "min": 2720.2138671875,
+          "max": 6263.36767578125
+        },
+        "torch_reserved_mib": {
+          "mean": 7664.0,
+          "min": 7664.0,
+          "max": 7664.0
+        }
+      }
+    },
+    {
+      "repeat": 2,
+      "generation_s": 30.594910882995464,
+      "useful_fps": 8.17129361664358,
+      "chunk_times_s": [
+        3.4003936870140024,
+        3.3991076379898004,
+        3.398743724974338,
+        3.398428721993696,
+        3.399511663010344,
+        3.39821476401994,
+        3.4012514950009063,
+        3.398471542983316,
+        3.400304189999588
+      ],
+      "stage_seconds": {
+        "audio": 0.07227542448043824,
+        "dit": 15.871143859863281,
+        "vae_decode": 13.082232666015626,
+        "motion_encode": 1.3808700256347655
+      },
+      "peak_allocated_mib": 6737.177734375,
+      "peak_reserved_mib": 7664.0,
+      "resource_summary": {
+        "sample_count": 58,
+        "gpu_utilization_percent": {
+          "mean": 99.70689655172414,
+          "min": 93.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 10628.0,
+          "min": 10628.0,
+          "max": 10628.0
+        },
+        "system_cpu_percent": {
+          "mean": 3.4172413793103438,
+          "min": 0.0,
+          "max": 5.0
+        },
+        "process_cpu_percent": {
+          "mean": 98.38793103448276,
+          "min": 0.0,
+          "max": 102.6
+        },
+        "system_ram_used_mib": {
+          "mean": 12792.800848599138,
+          "min": 12773.71484375,
+          "max": 12815.0390625
+        },
+        "system_ram_percent": {
+          "mean": 41.33793103448277,
+          "min": 41.3,
+          "max": 41.4
+        },
+        "process_rss_mib": {
+          "mean": 5026.51171875,
+          "min": 5026.51171875,
+          "max": 5026.51171875
+        },
+        "torch_allocated_mib": {
+          "mean": 3385.074008283944,
+          "min": 2722.587890625,
+          "max": 6462.396484375
+        },
+        "torch_reserved_mib": {
+          "mean": 7664.0,
+          "min": 7664.0,
+          "max": 7664.0
+        }
+      }
+    }
+  ],
+  "raw_rgb_sha256": "73ec1092b0d46578909f7ecd1333c19db7bc26b0e4c3e7e83de4c49a493e7a69",
+  "gpu_after": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 10628 MiB, 595.84, 100 %",
+  "processes_after": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+    "338887, .venv/bin/python, 7896 MiB"
+  ]
+}

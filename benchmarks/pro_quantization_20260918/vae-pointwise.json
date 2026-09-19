@@ -1,0 +1,55 @@
+{
+  "execution": "fresh GPU Wan decode; identical captured latents",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "physical_vram_class": "12 GB",
+  "co_residents": [
+    "157695, .venv/bin/python, 2478 MiB",
+    "246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB"
+  ],
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "mode": "pointwise",
+  "baseline_seconds": [
+    1.6636725220014341,
+    1.6627949140383862,
+    1.6621715049841441
+  ],
+  "policy": {
+    "mode": "pointwise",
+    "compiled_modules": [
+      "middle.0.residual.0",
+      "middle.0.residual.3",
+      "middle.1.norm",
+      "middle.2.residual.0",
+      "middle.2.residual.3",
+      "upsamples.0.residual.0",
+      "upsamples.0.residual.3",
+      "upsamples.1.residual.0",
+      "upsamples.1.residual.3",
+      "upsamples.2.residual.0",
+      "upsamples.2.residual.3",
+      "upsamples.4.residual.0",
+      "upsamples.4.residual.3",
+      "upsamples.5.residual.0",
+      "upsamples.5.residual.3",
+      "upsamples.6.residual.0",
+      "upsamples.6.residual.3",
+      "upsamples.8.residual.0",
+      "upsamples.8.residual.3",
+      "upsamples.9.residual.0",
+      "upsamples.9.residual.3",
+      "upsamples.10.residual.0",
+      "upsamples.10.residual.3",
+      "upsamples.12.residual.0",
+      "upsamples.12.residual.3",
+      "upsamples.13.residual.0",
+      "upsamples.13.residual.3",
+      "upsamples.14.residual.0",
+      "upsamples.14.residual.3",
+      "head.0"
+    ],
+    "precision_changed": false
+  },
+  "status": "failed",
+  "error": "Unsupported: Data dependent operator\n  Explanation: Operator `aten._local_scalar_dense.default` has a non-Tensor output whose value is dependent on the data of Tensor inputs.\n  Hint: Enable tracing of data-dependent output operators with `torch._dynamo.config.capture_scalar_outputs = True`\n\n  Developer debug context: aten._local_scalar_dense.default\n\n\nfrom user code:\n   File \"/workspace/SoulX-FlashHead/flash_head/wan/modules/vae.py\", line 58, in forward\n    F.normalize(x, dim=(1 if self.channel_first else -1))\n\nSet TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\"+dynamo\"\n"
+}

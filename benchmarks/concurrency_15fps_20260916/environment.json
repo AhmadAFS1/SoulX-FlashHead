@@ -1,0 +1,55 @@
+{
+  "date_utc": "2026-09-16",
+  "execution": "local GPU inference plus real local WebRTC sender/receivers",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 4070 SUPER",
+    "physical_visible_memory_mib": 12282,
+    "driver": "595.84",
+    "power_limit_w": 180.0,
+    "evidence": "nvidia-smi direct query and gpu-samples.csv"
+  },
+  "runtime": {
+    "python": "3.10.12",
+    "torch": "2.7.1+cu128",
+    "torch_cuda": "12.8",
+    "kernel": "Linux 5.15.0-191-generic x86_64"
+  },
+  "co_resident_load": {
+    "process": "OmniVoice API server",
+    "pid_at_test_time": 157695,
+    "device_memory_mib_before_soulx": 2478,
+    "action": "left running and untouched"
+  },
+  "gpu_sampler": {
+    "interval_ms": 200,
+    "observed_device_memory_mib_min": 2487,
+    "observed_device_memory_mib_max": 8895,
+    "observed_gpu_utilization_percent_max": 100,
+    "observed_power_w_max": 183.2,
+    "observed_temperature_c_max": 66,
+    "scope": "whole experiment, including startup, idle, INT8-storage and BF16 profiles; not attributed to one run"
+  },
+  "profile": {
+    "model": "SoulX-FlashHead Lite",
+    "width": 320,
+    "height": 576,
+    "steps": 4,
+    "target_fps_per_stream": 15,
+    "audio_conditioning": "stock server path; no process-local mouth-strength hook",
+    "precision": "BF16 compute and resident weights for selected result",
+    "torch_allocator_cap_mib": 7168,
+    "flags": [
+      "optimized",
+      "real-rope",
+      "lean",
+      "fused-qkv",
+      "memory-mode=compact",
+      "chunk-transport=shm",
+      "idle-policy=source",
+      "h264-preset=veryfast"
+    ],
+    "selected_gpu_batch": 5,
+    "idle_video_sha256": "099877cef231ce12dede03843c558d10c2fa1e9c4e054c83be595e81a00f6ae4",
+    "audio_sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2"
+  }
+}

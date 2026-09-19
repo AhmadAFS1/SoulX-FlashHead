@@ -1,0 +1,2984 @@
+{"Layers": [{
+  "Name": "Reformatting CopyNode for Network Input input",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "input",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted input",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.0/Conv",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "Reformatted input",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.0/Conv",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.0/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.0/Conv",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.0/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 1728},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize128x32x16_stage1_warpsize4x1x1_g1_tensor16x8x16_aligna8_alignc8",
+  "TacticValue": "0xfb0beb2dd64ff6e8",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.0/Conv]"
+},{
+  "Name": "onnx::PRelu_130 + ONNXTRT_Broadcast",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 2) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.1/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.0/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.1/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.1/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 2) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.1/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.1/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.1/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.1/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.1/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.1/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.2/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.1/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.2/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.2/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.2/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.2/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.2/Conv]"
+},{
+  "Name": "onnx::PRelu_131 + ONNXTRT_Broadcast_1",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 6) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.3/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.2/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.3/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.3/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 6) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.3/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.3/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.3/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.3/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.3/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.3/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.4/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.3/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.4/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.4/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.4/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.4/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.4/Conv]"
+},{
+  "Name": "onnx::PRelu_132 + ONNXTRT_Broadcast_3",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 10) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.5/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.4/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.5/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.5/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 10) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.5/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.5/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.5/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.5/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.5/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.5/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.6/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.5/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.6/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.6/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.6/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.6/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.6/Conv]"
+},{
+  "Name": "onnx::PRelu_133 + ONNXTRT_Broadcast_5",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 14) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.7/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.6/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.7/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.7/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 14) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.7/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.7/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.7/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.7/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.7/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.7/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.8/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.7/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.8/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.8/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.8/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.8/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.8/Conv]"
+},{
+  "Name": "onnx::PRelu_134 + ONNXTRT_Broadcast_7",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 18) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.9/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.8/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.9/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.9/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 18) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.9/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.9/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.9/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.9/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.9/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.9/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.10/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.9/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.10/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.10/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.10/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.10/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.10/Conv]"
+},{
+  "Name": "onnx::PRelu_135 + ONNXTRT_Broadcast_9",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 22) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.11/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.10/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.11/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.11/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 22) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.11/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.11/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.11/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.11/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.11/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.11/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.12/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.11/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.12/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.12/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.12/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.12/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.12/Conv]"
+},{
+  "Name": "onnx::PRelu_136 + ONNXTRT_Broadcast_11",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 26) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.13/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.12/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.13/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.13/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 26) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.13/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.13/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.13/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.13/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.13/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.13/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.14/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.13/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.14/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.14/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.14/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.14/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.14/Conv]"
+},{
+  "Name": "onnx::PRelu_137 + ONNXTRT_Broadcast_13",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 30) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.15/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.14/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.15/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.15/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 30) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.15/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.15/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.15/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.15/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.15/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.15/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.16/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.15/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.16/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.16/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.16/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.16/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.16/Conv]"
+},{
+  "Name": "onnx::PRelu_138 + ONNXTRT_Broadcast_15",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 34) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.17/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.16/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.17/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.17/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 34) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.17/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.17/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.17/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.17/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.17/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.17/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.18/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.17/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.18/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.18/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.18/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.18/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.18/Conv]"
+},{
+  "Name": "onnx::PRelu_139 + ONNXTRT_Broadcast_17",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 38) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.19/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.18/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.19/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.19/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 38) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.19/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.19/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.19/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.19/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.19/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.19/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.20/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.19/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.20/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.20/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.20/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.20/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.20/Conv]"
+},{
+  "Name": "onnx::PRelu_140 + ONNXTRT_Broadcast_19",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 42) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.21/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.20/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.21/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.21/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 42) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.21/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.21/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.21/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.21/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.21/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.21/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.22/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.21/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.22/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.22/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.22/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.22/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.22/Conv]"
+},{
+  "Name": "onnx::PRelu_141 + ONNXTRT_Broadcast_21",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 46) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.23/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.22/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.23/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.23/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 46) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.23/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.23/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.23/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.23/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.23/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.23/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.24/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.23/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.24/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.24/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.24/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.24/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.24/Conv]"
+},{
+  "Name": "onnx::PRelu_142 + ONNXTRT_Broadcast_23",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 50) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.25/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.24/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.25/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.25/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 50) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.25/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.25/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.25/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.25/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.25/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.25/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.26/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.25/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.26/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.26/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.26/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.26/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.26/Conv]"
+},{
+  "Name": "onnx::PRelu_143 + ONNXTRT_Broadcast_25",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 54) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.27/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.26/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.27/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.27/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 54) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.27/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.27/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.27/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.27/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.27/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.27/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.28/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.27/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.28/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.28/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.28/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.28/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.28/Conv]"
+},{
+  "Name": "onnx::PRelu_144 + ONNXTRT_Broadcast_27",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 58) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.29/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.28/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.29/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.29/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 58) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.29/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.29/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.29/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.29/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.29/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.29/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.30/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.29/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.30/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.30/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.30/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.30/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.30/Conv]"
+},{
+  "Name": "onnx::PRelu_145 + ONNXTRT_Broadcast_29",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 62) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.31/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.30/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.31/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.31/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 62) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.31/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.31/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.31/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.31/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.31/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.31/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.32/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.31/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.32/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.32/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.32/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.32/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 64,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 36864},
+  "Bias": {"Type": "Half", "Count": 64},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+  "TacticValue": "0x30150d05024bc911",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.32/Conv]"
+},{
+  "Name": "onnx::PRelu_146 + ONNXTRT_Broadcast_31",
+  "LayerType": "Constant",
+  "Inputs": [],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 66) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Constant",
+  "weights": {"Type": "Float", "Count": 64},
+  "dimensions": [1,64,1,1],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/body.33/PRelu)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.32/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.33/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/body.33/PRelu)",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 66) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.33/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/body.33/PRelu)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/body.33/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/body.33/PRelu)",
+    "Location": "Device",
+    "Dimensions": [1,64,1,1],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.33/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var2"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 1,
+  "Literals": ["0.000000e+00f"],
+  "NbOperations": 3,
+  "Operations": ["auto const var0 = pwgen::iMul(arg0, arg1);", "auto const var1 = pwgen::iGreaterOrEqual(arg0, literal0);", "auto const var2 = pwgen::iSelect(var1, arg0, var0);"],
+  "TacticValue": "0x000000000000001e",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.33/PRelu]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /body.34/Conv",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/body.33/PRelu_output_0",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.34/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/body.34/Conv",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /body.34/Conv",
+    "Location": "Device",
+    "Dimensions": [1,64,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/body.34/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,12,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [1,1],
+  "PostPadding": [1,1],
+  "Stride": [1,1],
+  "Dilation": [1,1],
+  "OutMaps": 12,
+  "Groups": 1,
+  "Weights": {"Type": "Half", "Count": 6912},
+  "Bias": {"Type": "Half", "Count": 12},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x32x64_stage1_warpsize2x1x2_g1_tensor16x8x8",
+  "TacticValue": "0x55fb34a08663e5ae",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /body.34/Conv]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to /upsampler/DepthToSpace",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "/body.34/Conv_output_0",
+    "Location": "Device",
+    "Dimensions": [1,12,512,512],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /upsampler/DepthToSpace",
+    "Location": "Device",
+    "Dimensions": [1,12,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/upsampler/DepthToSpace",
+  "LayerType": "Shuffle",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to /upsampler/DepthToSpace",
+    "Location": "Device",
+    "Dimensions": [1,12,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "(Unnamed Layer* 69) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,3,512,2,512,2],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Shuffle",
+  "FirstTranspose": [0,1,2,3],
+  "Reshape": [1,3,2,2,512,512],
+  "SecondTranspose": [0,1,4,2,5,3],
+  "ZeroIsPlaceholder": 0,
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /upsampler/DepthToSpace]"
+},{
+  "Name": "ONNXTRT_ShapeShuffle_33",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "(Unnamed Layer* 69) [Shuffle]_output",
+    "Location": "Device",
+    "Dimensions": [1,3,512,2,512,2],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "/upsampler/DepthToSpace_output_0",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "/Resize",
+  "LayerType": "Resize",
+  "Inputs": [
+  {
+    "Name": "Reformatted input",
+    "Location": "Device",
+    "Dimensions": [1,3,512,512],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "/Resize_output_0",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Resize",
+  "InterpolationMode": "NEAREST",
+  "ResizeScales": [1, 1, 2, 2, 0, 0, 0, 0],
+  "ExcludeOutside": 0,
+  "CubicCoeff": -0.75,
+  "CoordTransform": "kASYMMETRIC",
+  "ResizeSelector": "kFORMULA",
+  "NNRounding": "kFLOOR",
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Resize]"
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to PWN(/Add)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/upsampler/DepthToSpace_output_0",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "Reformatting CopyNode for Input Tensor 1 to PWN(/Add)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "/Resize_output_0",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "PWN(/Add)",
+  "LayerType": "PointWiseV2",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  },
+  {
+    "Name": "Reformatted Input Tensor 1 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Output Tensor 0 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "PointWise",
+  "ParameterSubType": "PointWiseExpression",
+  "NbInputArgs": 2,
+  "InputArgs": ["arg0", "arg1"],
+  "NbOutputVars": 1,
+  "OutputVars": ["var0"],
+  "NbParams": 0,
+  "Params": [],
+  "NbLiterals": 0,
+  "Literals": [],
+  "NbOperations": 1,
+  "Operations": ["auto const var0 = pwgen::iPlus(arg0, arg1);"],
+  "TacticValue": "0x0000000000000007",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /Add]"
+},{
+  "Name": "Reformatting CopyNode for Output Tensor 0 to PWN(/Add)",
+  "LayerType": "NoOp",
+  "Inputs": [
+  {
+    "Name": "Reformatted Output Tensor 0 to PWN(/Add)",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "output",
+    "Location": "Device",
+    "Dimensions": [1,3,1024,1024],
+    "Format/Datatype": "Float"
+  }],
+  "TacticValue": "0x0000000000000000",
+  "StreamId": 0,
+  "Metadata": ""
+}],
+"Bindings": ["input"
+,"output"
+]}

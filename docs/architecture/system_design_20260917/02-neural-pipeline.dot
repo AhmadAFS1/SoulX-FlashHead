@@ -1,0 +1,43 @@
+digraph Neural {
+ graph [rankdir=TB,bgcolor="white",pad="0.35",nodesep="0.4",ranksep="0.55",fontname="DejaVu Sans",fontsize=20,labelloc=t,label="Inside SoulX LITE | One generated video chunk\nExample: 320 × 576 native output · shared learned weights, private session history"];
+ node [shape=box,style="rounded,filled",fillcolor="#edf4fb",color="#6384a6",fontname="DejaVu Sans",fontsize=12,margin="0.16,0.13"];
+ edge [color="#56718b",fontname="DejaVu Sans",fontsize=10,arrowsize=0.75];
+ image [label="Reference portrait\nResize / crop to native frame geometry"];
+ refenc [label="LTX VAE ENCODER\nRepeat reference over 33 frames; encode\nReference latent: 128 × 5 × 18 × 10",fillcolor="#e8f3ee"];
+ waveform [label="Speech waveform\n16 kHz · rolling audio context"];
+ wav [label="Wav2Vec2 AUDIO ENCODER\nSeparate pretrained weights (~94.4M stored values)\nExtract speech features; does not synthesize voice"];
+ proj [label="AUDIO ADAPTER\nFrame-aligned feature windows → audio tokens\nLearned weights belong to Model_Lite checkpoint"];
+ state [label="PRIVATE SESSION STATE\nReference latent + RNG + audio cursor\nMotion prefix: initially 1 latent frame, then 2\nState changes during inference; weights do not",fillcolor="#e8f3ee",color="#548876"];
+ noise [label="Fresh latent noise\n128 channels × 5 time positions × 18 × 10\nClamp motion prefix at each sampling step"];
+ concat [label="Concatenate noise and reference along channels\n256 × 5 × 18 × 10 → patch embedding\n900 visual tokens of width 1536"];
+ image -> refenc; refenc -> concat [label="cached identity conditioning"];
+ waveform -> wav -> proj;
+ state -> noise [label="RNG + motion prefix"];
+ noise -> concat;
+ subgraph cluster_dit {
+  label="ONE DiT FORWARD PASS | flash_head_model.py"; color="#667abb"; fontname="DejaVu Sans";
+  time [label="Sampling timestep → learned time embedding\nControls block normalization / modulation"];
+  self [label="Video self-attention\nSpatial + temporal tokens · 12 heads"];
+  cross [label="Cross-attention to projected speech features\nConnects speech to visual motion"];
+  ffn [label="Feed-forward network + residual connections\nWidth 1536; hidden width 8960"];
+  blocks [label="Repeat attention + FFN block × 30\nSame stack reused at every denoising step",fillcolor="#e8edfb"];
+  head [label="Output projection / unpatchify\nPredicted flow: 128 × 5 × 18 × 10"];
+  self -> cross -> ffn -> blocks -> head;
+  time -> self [style=dotted];
+ }
+ concat -> self; proj -> cross;
+ sample [label="SAMPLER UPDATE\nEstimate clean latent and add scheduled noise\nFour passes in the usual distilled profile\nMore steps = more computation, not more learned weights",fillcolor="#e8edfb",color="#667abb"];
+ head -> sample; sample -> concat [label="next step until complete",style=dashed,constraint=false];
+ decode [label="LTX VAE DECODER\nFinal latent → 33 whole RGB frames\nVAE has its own checkpoint (~419.2M stored values)",fillcolor="#e8f3ee"];
+ color [label="Color matching to reference\nDeterministic postprocessing; no learned checkpoint"];
+ feedback [label="Last 9 corrected native frames → VAE ENCODER\nUpdate motion latents for the next chunk\nTerminal / lean-path exceptions apply",fillcolor="#e8f3ee"];
+ useful [label="Discard first 9 overlap frames\nDeliver 24 new RGB frames\n0.96 s at 25 FPS; 1.60 s at 15 FPS"];
+ sample -> decode [label="final step"];
+ decode -> color; color -> feedback; feedback -> state [style=dashed,constraint=false,label="next chunk"];
+ color -> useful;
+ enhance [label="Optional display enhancement after native history\nExisting SR experiments / proposed mouth refiner\nDistinct weights; not another DiT sampling step",fillcolor="#fff2db",color="#c58c2f",style="rounded,filled,dashed"];
+ useful -> encode; useful -> enhance [style=dashed]; enhance -> encode [style=dashed];
+ encode [label="Encode / transmit or write video\nMux or play original speech separately"];
+ note [label="Installed Model_Lite: ~1.527B stored tensor values\nCheckpoint includes audio adapter and unused stored modules\nLITE VAE grid: 10 × 18 for 320 × 576 (32× spatial stride)\nPRO uses a DIFFERENT DiT checkpoint and Wan VAE (8× spatial stride)\nNeither an LTX 2.3 generator nor a text-prompted LTX workflow runs here",shape=note,fillcolor="#fffaf0",color="#c7bfae"];
+ encode -> note [style=invis]; enhance -> note [style=invis];
+}

@@ -1,0 +1,18 @@
+{
+  "date_utc": "2026-09-17T00:34:46.091609+00:00",
+  "hardware": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2675 MiB, 595.84\n",
+  "coresident": "pid, used_gpu_memory [MiB]\n157695, 2478 MiB\n231131, 182 MiB\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "workload": "GPU VAE-only encode/decode, BF16, 9 repeated 480x832 RGB frames, posterior sample seed 50, no DiT/audio/color correction",
+  "source": "LTX fork committed Q4 sample at 5 seconds; historical source run was RTX 5060 Ti per fork; not regenerated here",
+  "wall_s": 0.3107327760080807,
+  "latent_shape": [
+    128,
+    2,
+    26,
+    15
+  ],
+  "peak_allocated_mib": 1269.87451171875,
+  "rgb_mae": 1.8018095619658119
+}

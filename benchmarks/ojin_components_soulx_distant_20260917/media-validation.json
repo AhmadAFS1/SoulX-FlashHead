@@ -1,0 +1,81 @@
+{
+  "execution": "CPU comparison packaging and full media decode; no GPU inference",
+  "media": {
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_soulx_distant_20260917/SoulX-LITE-default-closeup-character-bicubic2-320x576-to-640x1152/SoulX-LITE-default-closeup-character-bicubic2-320x576-to-640x1152.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 1152,
+          "avg_frame_rate": "15/1",
+          "duration": "15.533333",
+          "nb_read_frames": "233"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "15.360000",
+          "nb_read_frames": "720"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_soulx_distant_20260917/SoulX-LITE-default-closeup-character-legacy-general4x-resized2x-320x576-to-640x1152/SoulX-LITE-default-closeup-character-legacy-general4x-resized2x-320x576-to-640x1152.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 1152,
+          "avg_frame_rate": "15/1",
+          "duration": "15.533333",
+          "nb_read_frames": "233"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "15.360000",
+          "nb_read_frames": "720"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_soulx_distant_20260917/SoulX-LITE-default-closeup-character-FaceLandmarker-native2x-TRT-320x576-to-640x1152/SoulX-LITE-default-closeup-character-FaceLandmarker-native2x-TRT-320x576-to-640x1152.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 640,
+          "height": 1152,
+          "avg_frame_rate": "15/1",
+          "duration": "15.533333",
+          "nb_read_frames": "233"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "15.360000",
+          "nb_read_frames": "720"
+        }
+      ]
+    },
+    "/workspace/SoulX-FlashHead/benchmarks/ojin_components_soulx_distant_20260917/SoulX-LITE-default-closeup-character-bicubic-vs-oldSR-vs-FaceLandmarker-native2xTRT-no-refiner.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1152,
+          "avg_frame_rate": "15/1",
+          "duration": "15.533333",
+          "nb_read_frames": "233"
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "duration": "15.360000",
+          "nb_read_frames": "720"
+        }
+      ]
+    }
+  }
+}

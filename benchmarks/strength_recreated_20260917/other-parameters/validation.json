@@ -1,0 +1,229 @@
+{
+  "execution": "CPU packaging and media validation",
+  "videos": {
+    "seed50-strength1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "seed51-strength1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/seed52": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/seed53": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "soulx-LITE-seed-50-vs-51-vs-52-vs-53-indian-man-1.25x.mp4": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 856,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/shift1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/shift3": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/baseline": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/shift7": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "soulx-LITE-sampling-shift-1-vs-3-vs-5-vs-7-seed50-indian-man-1.25x.mp4": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 856,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/history1": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/history2-control": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "other-parameters/history3": [
+      {
+        "codec_type": "video",
+        "width": 320,
+        "height": 576,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ],
+    "soulx-LITE-motion-history-1-vs-2-vs-3-seed50-indian-man-1.25x.mp4": [
+      {
+        "codec_type": "video",
+        "width": 960,
+        "height": 856,
+        "avg_frame_rate": "25/1",
+        "duration": "10.000000",
+        "nb_read_frames": "250"
+      },
+      {
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0",
+        "duration": "10.000000",
+        "nb_read_frames": "469"
+      }
+    ]
+  }
+}

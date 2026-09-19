@@ -1,0 +1,82 @@
+{
+  "status": "complete",
+  "created_at_utc": "2026-09-16T03:17:17.801914+00:00",
+  "question": "Does zooming closer than the prior Indian-male close framing further improve SoulX mouth motion?",
+  "baseline": {
+    "path": "benchmarks/distance_lipsync/evidence-indian-male-20260916/close-seed-50.mp4",
+    "sha256": "631ebd4070bb2e26de246ea924e0a0e86a57a1b90f8df70152419002d41b22f3",
+    "scale": 1.0,
+    "seed": 50
+  },
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 4070 SUPER",
+    "visible_vram_mib": 12282.0,
+    "used_vram_before_model_load_mib": 2487.0,
+    "driver": "595.84",
+    "evidence": "nvidia-smi query at experiment start"
+  },
+  "profile": {
+    "model": "SoulX-FlashHead Lite",
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "optimized": true,
+    "real_rope": true,
+    "lean": true,
+    "fused_qkv": true,
+    "compiled": true,
+    "memory_mode": "compact",
+    "int8_weight_storage": true,
+    "torch_allocator_cap_mib": 3584
+  },
+  "inputs": {
+    "source": {
+      "path": "/workspace/benchmarks/same-avatar/shared.png",
+      "sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9"
+    },
+    "audio": {
+      "path": "benchmarks/comparison-10s.wav",
+      "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "seconds": 10
+    },
+    "references": {
+      "closer-125": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closer-125.png",
+        "sha256": "f978af212154c041506efa92a2f01c368c8c8bb3b16279f9ad0ef49d402773b0",
+        "scale": 1.25
+      },
+      "closest-150": {
+        "path": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/reference-closest-150.png",
+        "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676",
+        "scale": 1.5
+      }
+    }
+  },
+  "rows": [
+    {
+      "label": "closer-125",
+      "scale": 1.25,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.030849890987156,
+      "useful_fps": 35.55757893799936,
+      "peak_torch_mib": 3297.67236328125,
+      "raw_sha256": "0dbb9063285c10abbfb71b9f64fc274007b904d5b22afde37719d556ae8ff30a",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/closer-125-seed-50.mp4",
+      "video_sha256": "097623c95e4b2a7f068a777092e306f588e8c29ddd5986f09963032c444cfb68"
+    },
+    {
+      "label": "closest-150",
+      "scale": 1.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.092102713009808,
+      "useful_fps": 35.25047649710403,
+      "peak_torch_mib": 3299.314453125,
+      "raw_sha256": "6a4a1debbb59b5fdce1d3d1ae3720b3e21e8f69535f6fccc70c03aaeb715dabb",
+      "video": "benchmarks/distance_lipsync/evidence-indian-male-closer-20260916/closest-150-seed-50.mp4",
+      "video_sha256": "2fac76641ceb1c0684af27399c27a812a3829c25ee46c3dba6dcbd57ef44c2ee"
+    }
+  ]
+}

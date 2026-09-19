@@ -1,0 +1,11 @@
+{
+  "source_sha256": {
+    "benchmarks/pro_quantization_v2_20260918/review.py": "1444084d5803aba9cb222dec015aefbfc9263a4c4263d04408d6a6d2737f3367",
+    "benchmarks/pro_quantization_v2_20260918/sync_check.py": "0388e79c3e23020e77e59ae7f09a8030508b30101734c8b4b34c00c1a4ff5569",
+    "benchmarks/pro_30fps_20260919/validation_suite.py": "a75338b2b351fd94a97003760a0533d96efac83592197cd5c023f69210d9b97b",
+    "benchmarks/pro_30fps_20260919/summarize_acceptance.py": "3d2eabec03a98a90428489f5b8dddeedcff15e42f47e5d9363861b34fc3b09f6",
+    "benchmarks/pro_30fps_20260919/compare_musetalk.py": "faf11ebc35b158accb7c4b92d77651f91c7594612f912785386dfd0838f20ff6",
+    "tests/test_pro_30fps.py": "7c4f837a17225abba0d1a9289de641ed2cecd48a4871d728d0e2f923452ecded"
+  },
+  "note": "Final corrected validation suite includes effective-audio uniqueness guard; original executed suite is retained at extended-r01/validation-suite-used.py."
+}

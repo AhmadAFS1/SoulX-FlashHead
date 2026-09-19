@@ -1,0 +1,36 @@
+320-seed51 original 0
+320-seed51 original 50
+320-seed51 original 100
+320-seed51 original 150
+320-seed51 original 200
+{"arm": "original", "frames": 250, "scale": 1, "processing_s": 0.005260088422801346, "mean_ms": 0.021040353691205382, "p95_ms": 0.025568509590812024, "fps": 47527.71814943339, "applied": 0, "detected": 0, "raw_sha256": "211cf11f481539c6da9ab5ec8b0ae87dd9edbda79f8bba13bfe76e34c90e1dd2", "peak_allocated_mib": 2.3388671875, "peak_reserved_mib": 118.0}
+320-seed51 bicubic2 0
+320-seed51 bicubic2 50
+320-seed51 bicubic2 100
+320-seed51 bicubic2 150
+320-seed51 bicubic2 200
+{"arm": "bicubic2", "frames": 250, "scale": 2, "processing_s": 0.14061016752384603, "mean_ms": 0.5624406700953841, "p95_ms": 0.57501548435539, "fps": 1777.9653093550478, "applied": 0, "detected": 0, "raw_sha256": "04940ca488fb092108ea1031f1bfe6571bb50afce142b4e855385c41944613bd", "peak_allocated_mib": 2.3388671875, "peak_reserved_mib": 118.0}
+320-seed51 full_sr2 0
+320-seed51 full_sr2 50
+320-seed51 full_sr2 100
+320-seed51 full_sr2 150
+320-seed51 full_sr2 200
+{"arm": "full_sr2", "frames": 250, "scale": 2, "processing_s": 14.751840863667894, "mean_ms": 59.00736345467158, "p95_ms": 59.77884533058386, "fps": 16.947037478944175, "applied": 0, "detected": 0, "raw_sha256": "7e77377f1e1ab1023cda5f5126959c7d69cc74167858bcf4b4198861dc80237e", "peak_allocated_mib": 94.3935546875, "peak_reserved_mib": 118.0}
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789654197.332238  276333 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789654197.408445  276586 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+320-seed51 mouth_sr_native 0
+320-seed51 mouth_sr_native 50
+320-seed51 mouth_sr_native 100
+320-seed51 mouth_sr_native 150
+320-seed51 mouth_sr_native 200
+{"arm": "mouth_sr_native", "frames": 250, "scale": 1, "processing_s": 2.372437361627817, "mean_ms": 9.489749446511269, "p95_ms": 11.049730540253222, "fps": 105.37686012011956, "applied": 250, "detected": 250, "raw_sha256": "b1d5903eed54766c16fadfa6a5a88198d7c3631539c1f9f067976305fca65238", "peak_allocated_mib": 15.93115234375, "peak_reserved_mib": 120.0}
+I0000 00:00:1789654200.870724  276333 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1789654200.905933  276659 gl_context.cc:344] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 595.84), renderer: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2
+320-seed51 mouth_sr2 0
+320-seed51 mouth_sr2 50
+320-seed51 mouth_sr2 100
+320-seed51 mouth_sr2 150
+320-seed51 mouth_sr2 200
+{"arm": "mouth_sr2", "frames": 250, "scale": 2, "processing_s": 2.2735927519388497, "mean_ms": 9.094371007755399, "p95_ms": 11.313678557053208, "fps": 109.95812675194699, "applied": 250, "detected": 250, "raw_sha256": "417285183abfb50603c821c95a50716cc969a5c3984eece28cf2092dc15d4029", "peak_allocated_mib": 15.93115234375, "peak_reserved_mib": 120.0}

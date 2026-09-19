@@ -1,0 +1,60 @@
+{
+  "execution": "CPU MediaPipe/XNNPACK analysis of retained GPU outputs; no new SoulX inference.",
+  "metric_limitations": "Laplacian variance covers the whole mouth crop and includes lips, beard, pose and compression; it is not a validated tooth-quality score.",
+  "rows": [
+    {
+      "effective_source_width_px": 1280,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 69.60920123492957,
+      "median_normalized_opening": 0.08560747055294891,
+      "median_whole_mouth_laplacian_variance": 47.532375157623996,
+      "opening_trajectory_correlation_vs_320": 0.9516463439552681
+    },
+    {
+      "effective_source_width_px": 640,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 68.85958465458421,
+      "median_normalized_opening": 0.08965830083063692,
+      "median_whole_mouth_laplacian_variance": 47.70970393575233,
+      "opening_trajectory_correlation_vs_320": 0.9492022851299995
+    },
+    {
+      "effective_source_width_px": 320,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 69.92270649142591,
+      "median_normalized_opening": 0.10394423845151052,
+      "median_whole_mouth_laplacian_variance": 58.68938296065372,
+      "opening_trajectory_correlation_vs_320": 1.0
+    },
+    {
+      "effective_source_width_px": 256,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 69.42911195884489,
+      "median_normalized_opening": 0.08919880795593628,
+      "median_whole_mouth_laplacian_variance": 51.890554434370635,
+      "opening_trajectory_correlation_vs_320": 0.9582469559280096
+    },
+    {
+      "effective_source_width_px": 128,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 69.44996056211012,
+      "median_normalized_opening": 0.10271392963611248,
+      "median_whole_mouth_laplacian_variance": 40.93996191181532,
+      "opening_trajectory_correlation_vs_320": 0.9630831728703514
+    },
+    {
+      "effective_source_width_px": 64,
+      "decoded_frames": 250,
+      "detected_frames": 250,
+      "median_mouth_width_px": 69.3048565608265,
+      "median_normalized_opening": 0.08948943797404821,
+      "median_whole_mouth_laplacian_variance": 19.439130092121754,
+      "opening_trajectory_correlation_vs_320": 0.9150091801472933
+    }
+  ]
+}

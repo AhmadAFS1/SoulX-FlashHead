@@ -1,0 +1,91 @@
+{"Layers": [{
+  "Name": "node_of_input_q",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "input",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "input_q",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_input_q]"
+},{
+  "Name": "weight + node_of_weight_q + node_of_conv_output",
+  "LayerType": "CaskConvolution",
+  "Inputs": [
+  {
+    "Name": "input_q",
+    "Location": "Device",
+    "Dimensions": [1,192,3,290,162],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "output_q",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "ParameterType": "Convolution",
+  "Kernel": [3,3,3],
+  "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+  "PrePadding": [0,0,0],
+  "PostPadding": [0,0,0],
+  "Stride": [1,1,1],
+  "Dilation": [1,1,1],
+  "OutMaps": 192,
+  "Groups": 1,
+  "Weights": {"Type": "Int8", "Count": 995328},
+  "Bias": {"Type": "Float", "Count": 192},
+  "HasBias": 1,
+  "HasReLU": 0,
+  "HasSparseWeights": 0,
+  "HasDynamicFilter": 0,
+  "HasDynamicBias": 0,
+  "HasResidual": 0,
+  "ConvXAsActInputIdx": -1,
+  "BiasAsActInputIdx": -1,
+  "ResAsActInputIdx": -1,
+  "Activation": "NONE",
+  "TacticName": "sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize192x64x64_stage3_warpsize4x1x1_g1_tensor16x8x32",
+  "TacticValue": "0x26a29d5b8b3f62af",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_weight_q]\u001e[ONNX Layer: node_of_conv_output]\u001e[ONNX Layer: node_of_output_q]\u001e[ONNX Layer: node_of_input_dq]\u001e[ONNX Layer: node_of_weight_dq]"
+},{
+  "Name": "node_of_output",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "output_q",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Int8"
+  }],
+  "Outputs": [
+  {
+    "Name": "output",
+    "Location": "Device",
+    "Dimensions": [1,192,1,288,160],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "QDQ",
+  "TacticValue": "0x00000000000003ea",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: node_of_output]"
+}],
+"Bindings": ["input"
+,"output"
+]}
+

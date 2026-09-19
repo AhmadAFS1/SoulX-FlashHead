@@ -1,5 +1,7 @@
 # SoulX-FlashHead: complete source walkthrough
 
+**September 17 update:** [full system diagrams, interactive viewer and weights explanation](system_design_20260917/README.md), including the proposed mouth refiner and reconditioning caveat. Static/CPU-only audit on NVIDIA GeForce RTX 4070 SUPER, 12 GB class / 12,282 MiB visible, driver 595.84, Torch 2.7.1+cu128 / CUDA 12.8; OmniVoice and idle LTX resident. No new GPU inference. The September 7 walkthrough below retains its original provenance.
+
 > **GPU provenance — source walkthrough:** No new GPU inference run was performed for the September 7 walkthrough. Referenced local measurements were made on an NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). See [GPU run provenance](../research/GPU_RUN_PROVENANCE.md); recommendations and upstream results are not new local benchmarks.
 
 Audit date: **2026-09-07 UTC**. Source baseline: SoulX `ac2c2bbb7308f87880c2ae4b01563d1e4d203c02`; MuseTalk comparison: `e8e5de56bc9a2f97e9ca0e87757ac3545a550f8e`.

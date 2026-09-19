@@ -1,0 +1,57 @@
+{
+  "date_utc": "2026-09-17T20:43:08.203274+00:00",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2727 MiB, 595.84, 0 %",
+  "physical_vram": "12 GB class; visible bytes in nvidia-smi snapshot",
+  "gpu_name": "NVIDIA GeForce RTX 4070 SUPER",
+  "processes": "157695, .venv/bin/python, 2478 MiB\n246436, /workspace/experiments/ltx23-soulx-transfer/.venv/bin/python, 234 MiB",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "tensorrt": "10.16.1.11",
+  "onnx": "1.17.0",
+  "weights": "models/ojin-components/2xNomosUni_compact_multijpg_ldl.safetensors",
+  "weights_sha256": "dec25af2672783ce2214c38d6a70caf8c3d8a640d6f4d87b543b264cafd74110",
+  "identity": "Public Philip Hofmann 2xNomosUni substitute; NOT Ojin checkpoint/engine",
+  "input_shape": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "precision": "FP16 enabled; FP32 input/output",
+  "status": "complete",
+  "build_s": 20.516624550975394,
+  "engine_sha256": "c60fd4d5c987c0df17d0f4494a0ea4817287c52ef60faf3be27869a841a3fe21",
+  "onnx_sha256": "6150aaa931df26846e8fc5f44e09c739495ee613668a6752bf354149fe4ea84f",
+  "validation": [
+    {
+      "input": "benchmarks/square_teeth_20260917/512-25/reference.png",
+      "mae": 0.00019784492906183004,
+      "max_error": 0.0045840442180633545,
+      "psnr_db": 71.23273789685994,
+      "finite": true
+    },
+    {
+      "input": "benchmarks/mouth_sr_20260917/512-seed50/original/frame-1.5s.png",
+      "mae": 0.00010650977492332458,
+      "max_error": 0.003471881151199341,
+      "psnr_db": 76.72774631126318,
+      "finite": true
+    },
+    {
+      "input": "benchmarks/mouth_sr_20260917/512-seed50/original/frame-2.5s.png",
+      "mae": 0.00010793635010486469,
+      "max_error": 0.0017758309841156006,
+      "psnr_db": 76.73895384945286,
+      "finite": true
+    },
+    {
+      "input": "benchmarks/mouth_sr_20260917/512-seed50/original/frame-6.5s.png",
+      "mae": 0.00010333157115383074,
+      "max_error": 0.002356886863708496,
+      "psnr_db": 77.09528608443438,
+      "finite": true
+    }
+  ],
+  "gpu_after": "NVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 3320 MiB, 595.84, 38 %",
+  "engine_device_memory_bytes": 67109376
+}

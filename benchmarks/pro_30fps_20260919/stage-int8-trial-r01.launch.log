@@ -1,0 +1,7 @@
+W0919 01:41:24.499000 542833 .venv/lib/python3.10/site-packages/torch/_inductor/utils.py:1250] [4/8] Not enough SMs to use max_autotune_gemm mode
+Traceback (most recent call last):
+  File "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/decoder_trial.py", line 282, in <module>
+    main()
+  File "/workspace/SoulX-FlashHead/benchmarks/pro_quantization_v2_20260918/decoder_trial.py", line 259, in main
+    raise RuntimeError("Decoder failed finite/cache-reset/BF16-adapter qualification")
+RuntimeError: Decoder failed finite/cache-reset/BF16-adapter qualification

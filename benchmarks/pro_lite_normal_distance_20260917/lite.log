@@ -1,0 +1,94 @@
+There are modules in CausalVideoAutoencoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at /workspace/SoulX-FlashHead/models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.0692298412322998s
+[generate] model denoise per step: 0.057375192642211914s
+[generate] model denoise per step: 0.05676603317260742s
+[generate] model denoise per step: 0.05363965034484863s
+[generate] decode video frames: 0.12058377265930176s
+[generate] color correction: 0.010811328887939453s
+[generate] encode motion frames: 0.03461599349975586s
+{"variant": "lite", "chunk": 0, "frames": 24, "seconds": 0.4687977430294268}
+[generate] model denoise per step: 0.05313539505004883s
+[generate] model denoise per step: 0.054083824157714844s
+[generate] model denoise per step: 0.05427813529968262s
+[generate] model denoise per step: 0.05420351028442383s
+[generate] decode video frames: 0.12016725540161133s
+[generate] color correction: 0.009569644927978516s
+[generate] encode motion frames: 0.03435015678405762s
+{"variant": "lite", "chunk": 1, "frames": 48, "seconds": 0.3979093770030886}
+[generate] model denoise per step: 0.05372500419616699s
+[generate] model denoise per step: 0.05419564247131348s
+[generate] model denoise per step: 0.05417180061340332s
+[generate] model denoise per step: 0.05419445037841797s
+[generate] decode video frames: 0.11991739273071289s
+[generate] color correction: 0.009550094604492188s
+[generate] encode motion frames: 0.03432869911193848s
+{"variant": "lite", "chunk": 2, "frames": 72, "seconds": 0.39893803297309205}
+[generate] model denoise per step: 0.05336403846740723s
+[generate] model denoise per step: 0.054320335388183594s
+[generate] model denoise per step: 0.05417490005493164s
+[generate] model denoise per step: 0.05414772033691406s
+[generate] decode video frames: 0.11996316909790039s
+[generate] color correction: 0.009474515914916992s
+[generate] encode motion frames: 0.03431868553161621s
+{"variant": "lite", "chunk": 3, "frames": 96, "seconds": 0.3974698999663815}
+[generate] model denoise per step: 0.053661346435546875s
+[generate] model denoise per step: 0.05470895767211914s
+[generate] model denoise per step: 0.054456472396850586s
+[generate] model denoise per step: 0.05439877510070801s
+[generate] decode video frames: 0.12005138397216797s
+[generate] color correction: 0.009515047073364258s
+[generate] encode motion frames: 0.03440523147583008s
+{"variant": "lite", "chunk": 4, "frames": 120, "seconds": 0.3987556539941579}
+[generate] model denoise per step: 0.05347394943237305s
+[generate] model denoise per step: 0.05432939529418945s
+[generate] model denoise per step: 0.05420088768005371s
+[generate] model denoise per step: 0.05432581901550293s
+[generate] decode video frames: 0.1199941635131836s
+[generate] color correction: 0.009438753128051758s
+[generate] encode motion frames: 0.03442835807800293s
+{"variant": "lite", "chunk": 5, "frames": 144, "seconds": 0.3974623190006241}
+[generate] model denoise per step: 0.053299665451049805s
+[generate] model denoise per step: 0.05443596839904785s
+[generate] model denoise per step: 0.05425286293029785s
+[generate] model denoise per step: 0.054186105728149414s
+[generate] decode video frames: 0.11978554725646973s
+[generate] color correction: 0.009395837783813477s
+[generate] encode motion frames: 0.03434443473815918s
+{"variant": "lite", "chunk": 6, "frames": 168, "seconds": 0.39704712096136063}
+[generate] model denoise per step: 0.05349373817443848s
+[generate] model denoise per step: 0.05466055870056152s
+[generate] model denoise per step: 0.05419588088989258s
+[generate] model denoise per step: 0.0540928840637207s
+[generate] decode video frames: 0.11982202529907227s
+[generate] color correction: 0.009385108947753906s
+[generate] encode motion frames: 0.03427577018737793s
+{"variant": "lite", "chunk": 7, "frames": 192, "seconds": 0.3972537610097788}
+[generate] model denoise per step: 0.053345680236816406s
+[generate] model denoise per step: 0.05451202392578125s
+[generate] model denoise per step: 0.05425214767456055s
+[generate] model denoise per step: 0.054180145263671875s
+[generate] decode video frames: 0.12011551856994629s
+[generate] color correction: 0.00940394401550293s
+[generate] encode motion frames: 0.03432965278625488s
+{"variant": "lite", "chunk": 8, "frames": 216, "seconds": 0.3974065599613823}
+[generate] model denoise per step: 0.05311274528503418s
+[generate] model denoise per step: 0.054384469985961914s
+[generate] model denoise per step: 0.054297447204589844s
+[generate] model denoise per step: 0.054398536682128906s
+[generate] decode video frames: 0.11998987197875977s
+[generate] color correction: 0.009411096572875977s
+[generate] encode motion frames: 0.03435397148132324s
+{"variant": "lite", "chunk": 9, "frames": 240, "seconds": 0.39723580999998376}
+[generate] model denoise per step: 0.0520780086517334s
+[generate] model denoise per step: 0.053928375244140625s
+[generate] model denoise per step: 0.054551124572753906s
+[generate] model denoise per step: 0.0545499324798584s
+[generate] decode video frames: 0.12032270431518555s
+[generate] color correction: 0.009552955627441406s
+[generate] encode motion frames: 0.03441739082336426s
+{"variant": "lite", "chunk": 10, "frames": 264, "seconds": 0.39693232299759984}

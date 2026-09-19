@@ -1,0 +1,17 @@
+{
+  "pro-redub-B": {
+    "video_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/pro-base.mp4",
+    "audio_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/audio-B.wav",
+    "result_name": "pro-redub-B.mp4"
+  },
+  "silent-redub-B": {
+    "video_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/silent-control-base.mp4",
+    "audio_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/audio-B.wav",
+    "result_name": "silent-redub-B.mp4"
+  },
+  "pro-redub-A": {
+    "video_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/pro-base.mp4",
+    "audio_path": "/workspace/SoulX-FlashHead/benchmarks/pro_musetalk_redub_20260917/audio-A.wav",
+    "result_name": "pro-redub-A.mp4"
+  }
+}

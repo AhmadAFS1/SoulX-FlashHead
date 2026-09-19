@@ -1,0 +1,86 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-18T20:56:45.303033+00:00",
+  "execution": "sequential fresh-process paired GPU recurrence stress; reference then candidate",
+  "fixture": "indian150-a",
+  "seed": 50,
+  "frames": 1500,
+  "schedule": [
+    {
+      "sequence": 0,
+      "role": "reference",
+      "policy": "benchmarks/pro_quantization_v2_20260918/policies/pro_fp8_reference.json",
+      "output": "benchmarks/pro_quantization_v2_20260918/recurrence/promoted-sage2-bf16-decoder-seed50-r01/reference"
+    },
+    {
+      "sequence": 1,
+      "role": "candidate",
+      "policy": "benchmarks/pro_quantization_v2_20260918/policies/self_all_fp8_sage2_fp16.json",
+      "output": "benchmarks/pro_quantization_v2_20260918/recurrence/promoted-sage2-bf16-decoder-seed50-r01/candidate"
+    }
+  ],
+  "limitations": "Repeats the known ten-second utterance six times; recurrence stress, not six independent speech samples.",
+  "results": {
+    "reference": {
+      "status": "complete",
+      "generation_s": 159.77160069003003,
+      "useful_fps": 9.388401903227612,
+      "first_window_latency_s": 2.9319164359476417,
+      "chunk_distribution_s": {
+        "count": 54,
+        "max": 2.949833521968685,
+        "min": 2.9319164359476417,
+        "p50": 2.946457340498455,
+        "p95": 2.949657383430167,
+        "p99": 2.9498210844583808
+      },
+      "chunk_count": 54,
+      "first_chunk_s": 2.9319164359476417,
+      "middle_chunk_s": 2.9445630129775964,
+      "last_chunk_s": 2.9458969730185345,
+      "stage_seconds": {
+        "audio": 0.434224992275238,
+        "dit": 70.6870225524902,
+        "motion_encode": 8.291187240600587,
+        "vae_decode": 78.40967858886717
+      },
+      "peak_allocated_mib": 6791.42138671875,
+      "peak_reserved_mib": 7896.0,
+      "raw_rgb_sha256": "c7f85493ff18a1418d7e50723671237ff5505fa6ccdcb4519d572efa51e68bbf",
+      "video_sha256": "0cd30686fc6a76edf7080ac35fb9076eadac95bd878a894d54246f81edcb5342"
+    },
+    "candidate": {
+      "status": "complete",
+      "generation_s": 144.6944320590119,
+      "useful_fps": 10.366673953205352,
+      "first_window_latency_s": 2.6750968769774772,
+      "chunk_distribution_s": {
+        "count": 54,
+        "max": 2.680548427044414,
+        "min": 2.6562529539805837,
+        "p50": 2.6673695085046347,
+        "p95": 2.6752546468313083,
+        "p99": 2.67873024878616
+      },
+      "chunk_count": 54,
+      "first_chunk_s": 2.6750968769774772,
+      "middle_chunk_s": 2.6660080070141703,
+      "last_chunk_s": 2.6662549109896645,
+      "stage_seconds": {
+        "audio": 0.43445702314376844,
+        "dit": 55.45557144165037,
+        "motion_encode": 8.30257389831543,
+        "vae_decode": 78.59647814941407
+      },
+      "peak_allocated_mib": 6523.87353515625,
+      "peak_reserved_mib": 7644.0,
+      "raw_rgb_sha256": "50fcc30777d24a0dfb6c75c0555884179933dfe21f323770af47e4798f4c70fc",
+      "video_sha256": "a77d1af7d1ee39520ce73c3d9b37c4493ec6f5d8976a11298418baea1b33bf6f"
+    }
+  },
+  "gain_percent": 10.420006089017363,
+  "decision": {
+    "finite_and_complete": true,
+    "candidate_chunk_max_over_first_percent": -0.3305288142612217
+  }
+}

@@ -1,5 +1,7 @@
 # TensorRT experiments: isolated, explicit and fail-closed
 
+September 16 follow-up: [quantization and current batch-five TensorRT feasibility](docs/research/QUANTIZATION_TENSORRT_2026-09-16.md). Current host is RTX 4070 SUPER, 12,282 MiB, driver 595.84, Torch 2.7.1+cu128/CUDA 12.8. Existing FFN and VAE exports below are historical RTX 4070 evidence. The current FFN runtime remains batch-one-only; a 320×576 VAE rebuild is the simpler first candidate for the five-stream service. No new TRT engine build is implied by this audit.
+
 > **GPU provenance — local runs:** NVIDIA GeForce RTX 4070, 12 GB (12,282 MiB visible). This applies to the local SoulX/MuseTalk inference and receiver tests described here; CPU-only checks do not establish GPU performance. Historical or upstream results on other GPUs retain their separate attribution. See [GPU run provenance](docs/research/GPU_RUN_PROVENANCE.md) for dates, evidence, and attribution limits.
 
 Read the [current TensorRT/runtime/test walkthrough](docs/architecture/06_TENSORRT_AND_TEST_TOOLING.md) and [next optimization plan](docs/research/NEXT_OPTIMIZATION_PLAN.md) for remaining export, fusion, memory-lifetime and validation work. New proposals are not measured gains.

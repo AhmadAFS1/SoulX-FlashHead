@@ -14,6 +14,7 @@ from flash_head.src.modules.flash_head_model import WanModelAudioProject
 from flash_head.audio_analysis.wav2vec2 import Wav2Vec2Model
 from flash_head.utils.utils import match_and_blend_colors_torch, resize_and_centercrop
 from flash_head.utils.facecrop import process_image
+from flash_head.utils.latency import latency_scope
 
 # compile models to speedup inference
 COMPILE_MODEL = True
@@ -87,21 +88,23 @@ class FlashHeadPipeline:
             vae_dir = os.path.join(checkpoint_dir, "VAE_LTX")
 
             from flash_head.ltx_video.ltx_vae import LtxVAE
-            self.vae = LtxVAE(
-                pretrained_model_type_or_path=vae_dir,
-                dtype=self.param_dtype,
-                device=self.device,
-            )
+            with latency_scope("load.vae"):
+                self.vae = LtxVAE(
+                    pretrained_model_type_or_path=vae_dir,
+                    dtype=self.param_dtype,
+                    device=self.device,
+                )
         else:
             vae_path = os.path.join(checkpoint_dir, "VAE_Wan/Wan2.1_VAE.pth")
             
             from flash_head.wan.modules import WanVAE
-            self.vae = WanVAE(
-                vae_path=vae_path,
-                dtype=self.param_dtype,
-                device=self.device,
-                parallel=(USE_PARALLEL_VAE and self.use_usp),
-            )
+            with latency_scope("load.vae"):
+                self.vae = WanVAE(
+                    vae_path=vae_path,
+                    dtype=self.param_dtype,
+                    device=self.device,
+                    parallel=(USE_PARALLEL_VAE and self.use_usp),
+                )
 
             if self.model_type == "pretrained":
                 self.audio_guide_scale = 3.0
@@ -109,14 +112,16 @@ class FlashHeadPipeline:
             elif self.model_type == "pro":
                 model_dir = os.path.join(checkpoint_dir, "Model_Pro")
         
-        self.model = WanModelAudioProject.from_pretrained(model_dir)
+        with latency_scope("load.dit_weights", gpu=False):
+            self.model = WanModelAudioProject.from_pretrained(model_dir)
         self.model.eval().requires_grad_(False)
         # Strict checkpoint loading stays unchanged. Optional inference-only
         # transformations run at target precision on CPU before GPU placement.
         if model_transform is not None:
             self.model.to(dtype=self.param_dtype)
             model_transform(self.model)
-        self.model.to(device=self.device, dtype=self.param_dtype)
+        with latency_scope("load.dit_placement"):
+            self.model.to(device=self.device, dtype=self.param_dtype)
 
         self.config = self.model.config
 
@@ -142,7 +147,8 @@ class FlashHeadPipeline:
                 self.vae.encode = torch.compile(self.vae.encode)
                 self.vae.decode = torch.compile(self.vae.decode)
 
-        self.audio_encoder = Wav2Vec2Model.from_pretrained(wav2vec_dir, local_files_only=True).to(self.device)
+        with latency_scope("load.audio_encoder"):
+            self.audio_encoder = Wav2Vec2Model.from_pretrained(wav2vec_dir, local_files_only=True).to(self.device)
         self.audio_encoder.feature_extractor._freeze_parameters()
         self.wav2vec_feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(wav2vec_dir, local_files_only=True)
 
@@ -158,7 +164,8 @@ class FlashHeadPipeline:
                         color_correction_strength=0.0,
                         use_face_crop=False,
                         ):
-        self.cond_image_dict = get_cond_image_dict(cond_image_path_or_dir, use_face_crop)
+        with latency_scope("prepare.reference_read", gpu=False):
+            self.cond_image_dict = get_cond_image_dict(cond_image_path_or_dir, use_face_crop)
 
         self.frame_num = frame_num
         self.motion_frames_num = motion_frames_num
@@ -186,13 +193,15 @@ class FlashHeadPipeline:
         self.cond_image_tensor_dict = {}
         self.ref_img_latent_dict = {}
         for i, (person_name, cond_image_pil) in enumerate(self.cond_image_dict.items()):
-            cond_image_tensor = resize_and_centercrop(cond_image_pil, (self.target_h, self.target_w)).to(self.device, dtype=self.param_dtype) # 1 C 1 H W
-            cond_image_tensor = (cond_image_tensor / 255 - 0.5) * 2
+            with latency_scope("prepare.reference_resize_h2d"):
+                cond_image_tensor = resize_and_centercrop(cond_image_pil, (self.target_h, self.target_w)).to(self.device, dtype=self.param_dtype) # 1 C 1 H W
+                cond_image_tensor = (cond_image_tensor / 255 - 0.5) * 2
 
             self.cond_image_tensor_dict[person_name] = cond_image_tensor
 
-            video_frames = cond_image_tensor.repeat(1, 1, self.frame_num, 1, 1)
-            self.ref_img_latent_dict[person_name] = self.vae.encode(video_frames) # (16, 9, 64, 64) / (128, 5, 16, 16)
+            with latency_scope("prepare.reference_encode"):
+                video_frames = cond_image_tensor.repeat(1, 1, self.frame_num, 1, 1)
+                self.ref_img_latent_dict[person_name] = self.vae.encode(video_frames) # (16, 9, 64, 64) / (128, 5, 16, 16)
             if i == 0:
                 self.reset_person_name(person_name)
 
@@ -213,16 +222,18 @@ class FlashHeadPipeline:
         video_length = len(speech_array) * fps / sr
 
         # wav2vec_feature_extractor
-        audio_feature = np.squeeze(
-            self.wav2vec_feature_extractor(speech_array, sampling_rate=sr).input_values
-        )
-        audio_feature = torch.from_numpy(audio_feature).float().to(device=self.device)
-        audio_feature = audio_feature.unsqueeze(0)
+        with latency_scope("audio.normalize", gpu=False):
+            audio_feature = np.squeeze(
+                self.wav2vec_feature_extractor(speech_array, sampling_rate=sr).input_values
+            )
+        with latency_scope("audio.h2d"):
+            audio_feature = torch.from_numpy(audio_feature).float().to(device=self.device)
+            audio_feature = audio_feature.unsqueeze(0)
         if timing is not None:
             timing("audio_normalize_h2d")
 
         # audio encoder
-        with torch.no_grad():
+        with torch.no_grad(), latency_scope("audio.wav2vec"):
             embeddings = self.audio_encoder(audio_feature, seq_len=int(video_length), output_hidden_states=True)
         if timing is not None:
             timing("wav2vec")
@@ -231,8 +242,9 @@ class FlashHeadPipeline:
             logger.error("Fail to extract audio embedding")
             return None
 
-        audio_emb = torch.stack(embeddings.hidden_states[1:], dim=1).squeeze(0)
-        audio_emb = rearrange(audio_emb, "b s d -> s b d")
+        with latency_scope("audio.stack"):
+            audio_emb = torch.stack(embeddings.hidden_states[1:], dim=1).squeeze(0)
+            audio_emb = rearrange(audio_emb, "b s d -> s b d")
         if timing is not None:
             timing("audio_stack")
         return audio_emb
@@ -243,61 +255,67 @@ class FlashHeadPipeline:
         with torch.no_grad():
 
             # sample videos
-            noise = torch.randn(
-                self.config.out_dim, 
-                (self.frame_num - 1) // self.config.vae_stride[0] + 1,
-                self.lat_h,
-                self.lat_w,
-                dtype=self.param_dtype,
-                device=self.device,
-                generator=self.generator)
+            with latency_scope("denoise.noise_init"):
+                noise = torch.randn(
+                    self.config.out_dim,
+                    (self.frame_num - 1) // self.config.vae_stride[0] + 1,
+                    self.lat_h,
+                    self.lat_w,
+                    dtype=self.param_dtype,
+                    device=self.device,
+                    generator=self.generator)
 
             for i in range(len(self.timesteps)-1):
                 torch.cuda.synchronize()
                 start_time = time.time()
 
-                noise[:, :self.latent_motion_frames.shape[1]] = self.latent_motion_frames
+                with latency_scope("denoise.history_inject", step=i):
+                    noise[:, :self.latent_motion_frames.shape[1]] = self.latent_motion_frames
 
-                flow_pred = self.model(
-                    x=noise.unsqueeze(0),
-                    timestep=self.timesteps[i],
-                    context=audio_embedding,
-                    y=self.ref_img_latent.unsqueeze(0),
-                )[0]
-
-                if self.model_type == "pretrained":
-                    flow_pred_drop_audio = self.model(
+                with latency_scope("denoise.model", step=i):
+                    flow_pred = self.model(
                         x=noise.unsqueeze(0),
                         timestep=self.timesteps[i],
-                        context=torch.zeros_like(audio_embedding),
+                        context=audio_embedding,
                         y=self.ref_img_latent.unsqueeze(0),
                     )[0]
-                    flow_pred = flow_pred_drop_audio + self.audio_guide_scale * (flow_pred - flow_pred_drop_audio)
 
-                    # update latent
-                    dt = self.timesteps[i] - self.timesteps[i + 1]
-                    dt = (dt / self.num_timesteps).to(self.param_dtype)
-                    noise = noise - flow_pred * dt[:, None, None, None]
+                if self.model_type == "pretrained":
+                    with latency_scope("denoise.teacher_unconditional", step=i):
+                        flow_pred_drop_audio = self.model(
+                            x=noise.unsqueeze(0),
+                            timestep=self.timesteps[i],
+                            context=torch.zeros_like(audio_embedding),
+                            y=self.ref_img_latent.unsqueeze(0),
+                        )[0]
+                    with latency_scope("denoise.update", step=i):
+                        flow_pred = flow_pred_drop_audio + self.audio_guide_scale * (flow_pred - flow_pred_drop_audio)
+                        dt = self.timesteps[i] - self.timesteps[i + 1]
+                        dt = (dt / self.num_timesteps).to(self.param_dtype)
+                        noise = noise - flow_pred * dt[:, None, None, None]
                 
                 else:
                     # update latent
-                    t_i = (self.timesteps[i][:, None, None, None] / self.num_timesteps).to(self.param_dtype)
-                    t_i_1 = (self.timesteps[i+1][:, None, None, None] / self.num_timesteps).to(self.param_dtype)
-                    x_0 = noise - flow_pred * t_i
+                    with latency_scope("denoise.update", step=i):
+                        t_i = (self.timesteps[i][:, None, None, None] / self.num_timesteps).to(self.param_dtype)
+                        t_i_1 = (self.timesteps[i+1][:, None, None, None] / self.num_timesteps).to(self.param_dtype)
+                        x_0 = noise - flow_pred * t_i
 
-                    noise = (1 - t_i_1) * x_0 + t_i_1 * torch.randn(x_0.size(), dtype=x_0.dtype, device=self.device, generator=self.generator)
+                        noise = (1 - t_i_1) * x_0 + t_i_1 * torch.randn(x_0.size(), dtype=x_0.dtype, device=self.device, generator=self.generator)
 
                 torch.cuda.synchronize()
                 end_time = time.time()
                 if self.rank == 0:
                     print(f'[generate] model denoise per step: {end_time - start_time}s')
 
-            noise[:, :self.latent_motion_frames.shape[1]] = self.latent_motion_frames
+            with latency_scope("denoise.final_history_inject"):
+                noise[:, :self.latent_motion_frames.shape[1]] = self.latent_motion_frames
 
             torch.cuda.synchronize()
             start_decode_time = time.time()
 
-            videos = self.vae.decode(noise)
+            with latency_scope("decode.total"):
+                videos = self.vae.decode(noise)
 
             torch.cuda.synchronize()
             end_decode_time = time.time()
@@ -306,10 +324,12 @@ class FlashHeadPipeline:
         
         torch.cuda.synchronize()
         start_color_correction_time = time.time()
-        if self.color_correction_strength > 0.0:
-            videos = match_and_blend_colors_torch(videos, self.original_color_reference, self.color_correction_strength)
+        with latency_scope("postprocess.color_correction"):
+            if self.color_correction_strength > 0.0:
+                videos = match_and_blend_colors_torch(videos, self.original_color_reference, self.color_correction_strength)
 
-        cond_frame = videos[:, :, -self.motion_frames_num:].to(self.device)
+        with latency_scope("motion.history_select"):
+            cond_frame = videos[:, :, -self.motion_frames_num:].to(self.device)
         torch.cuda.synchronize()
         end_color_correction_time = time.time()
         if self.rank == 0:
@@ -317,7 +337,8 @@ class FlashHeadPipeline:
 
         torch.cuda.synchronize()
         start_encode_time = time.time()
-        self.latent_motion_frames = self.vae.encode(cond_frame)
+        with latency_scope("motion.encode"):
+            self.latent_motion_frames = self.vae.encode(cond_frame)
         torch.cuda.synchronize()
         end_encode_time = time.time()
         if self.rank == 0:
@@ -325,4 +346,5 @@ class FlashHeadPipeline:
 
         gen_video_samples = videos #[:, :, self.motion_frames_num:]
 
-        return gen_video_samples[0].to(torch.float32)
+        with latency_scope("postprocess.output_fp32"):
+            return gen_video_samples[0].to(torch.float32)

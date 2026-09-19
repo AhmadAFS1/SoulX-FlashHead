@@ -1,0 +1,69 @@
+{
+  "date_utc": "2026-09-16",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "gpu_memory_total_mib": 12282,
+  "sampling_interval_s": 0.1,
+  "fixture": {
+    "portrait": "/workspace/benchmarks/same-avatar/shared.png",
+    "audio": "/workspace/benchmarks/same-avatar/audio.wav",
+    "audio_duration_s": 10.0,
+    "output_geometry": [384, 672],
+    "target_fps": 25
+  },
+  "models": {
+    "musetalk": {
+      "backend": "TensorRT UNet plus TensorRT INT8 mixed VAE, batch 8, fallback disabled",
+      "measurement_window": "12.148 s WebRTC client command, including negotiation and paced playback",
+      "idle_memory_mib": 10037,
+      "peak_memory_mib": 10037,
+      "peak_memory_pct": 81.72,
+      "window_gpu_util_avg_pct": 27.314,
+      "busy_gpu_util_avg_pct": 94.429,
+      "gpu_util_peak_pct": 99,
+      "busy_sample_fraction": 0.2893,
+      "window_power_avg_w": 71.224,
+      "power_peak_w": 174.31,
+      "time_to_live_ready_s": 1.008,
+      "received_frames": 260,
+      "result": "pass"
+    },
+    "soulx_flashhead_lite": {
+      "backend": "compiled, 4 steps, batch 1",
+      "measurement_window": "12.272 s WebRTC client command, including negotiation and paced playback",
+      "idle_memory_before_request_mib": 4393,
+      "resident_memory_after_request_mib": 6165,
+      "peak_memory_mib": 6165,
+      "peak_memory_pct": 50.2,
+      "window_gpu_util_avg_pct": 42.61,
+      "busy_gpu_util_avg_pct": 74.871,
+      "gpu_util_peak_pct": 100,
+      "busy_sample_fraction": 0.5691,
+      "window_power_avg_w": 99.693,
+      "power_peak_w": 172.37,
+      "first_received_video_s": 0.841,
+      "generation_done_s": 8.878,
+      "received_frames": 250,
+      "result": "pass"
+    },
+    "ditto_talkinghead": {
+      "backend": "TensorRT Ampere Plus",
+      "measurement_window": "8.601 s offline inference after model load; no WebRTC pacing",
+      "model_load_s": 2.308,
+      "idle_memory_after_load_mib": 2545,
+      "peak_memory_mib": 2581,
+      "peak_memory_pct": 21.02,
+      "inference_gpu_util_avg_pct": 79.5,
+      "busy_gpu_util_avg_pct": 93.658,
+      "gpu_util_peak_pct": 96,
+      "busy_sample_fraction": 0.8488,
+      "inference_power_avg_w": 142.659,
+      "power_peak_w": 179.08,
+      "first_frame_s": 1.988,
+      "inference_s": 8.601,
+      "frames": 250,
+      "inference_fps": 29.065,
+      "result": "pass"
+    }
+  },
+  "comparability_note": "MuseTalk and SoulX are end-to-end WebRTC request windows and include idle/paced intervals. Ditto is an offline inference window because this checkout does not expose the same WebRTC server path. Busy utilization excludes zero-utilization samples. Global GPU memory is valid because models were run one at a time."
+}

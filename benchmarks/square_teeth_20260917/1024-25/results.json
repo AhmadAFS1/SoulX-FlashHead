@@ -1,0 +1,34 @@
+{
+  "status": "complete",
+  "date_utc": "2026-09-17T00:27:12.317571+00:00",
+  "gpu_snapshot": "name, memory.total [MiB], memory.used [MiB], driver_version\nNVIDIA GeForce RTX 4070 SUPER, 12282 MiB, 2487 MiB, 595.84\n",
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "profile": {
+    "size": 1024,
+    "fps": 25,
+    "steps": 4,
+    "seed": 50,
+    "precision": "BF16",
+    "memory_mode": "staged",
+    "compiled": false,
+    "conditioning": "stock",
+    "seconds": 10,
+    "allocator_cap_mib": 8704
+  },
+  "source": "/workspace/benchmarks/same-avatar/shared.png",
+  "source_crop_xyxy": [
+    38,
+    64,
+    345,
+    371
+  ],
+  "note": "Same square crop at both resolutions. Process-local geometry override only; no serving cap changes. OmniVoice remains resident.",
+  "source_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+  "wall_s": 32.6157033550262,
+  "useful_fps": 7.665019431858246,
+  "frames": 250,
+  "peak_allocated_mib": 4659.4501953125,
+  "peak_reserved_mib": 6856.0,
+  "raw_sha256": "aa27d12dcfe8874975388e8ab8c8aaef6ff2bb88a17bc8fc38d00e10396df559"
+}

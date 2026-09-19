@@ -1,0 +1,135 @@
+{
+  "status": "complete",
+  "created_at_utc": "2026-09-16T02:01:17.440937+00:00",
+  "question": "Does apparent character distance (face scale) affect SoulX FlashHead lip-sync output?",
+  "distance_definition": "Controlled apparent scale of one fitted portrait: close=1.00, medium=0.72, far=0.50.",
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 4070 SUPER",
+    "visible_vram_mib": 12282.0,
+    "used_vram_before_model_load_mib": 2487.0,
+    "driver": "595.84",
+    "evidence": "nvidia-smi query at experiment start"
+  },
+  "co_resident_load": "Existing non-experiment GPU allocation is included in used_vram_before_model_load_mib; no service was stopped.",
+  "profile": {
+    "model": "SoulX-FlashHead Lite",
+    "width": 320,
+    "height": 576,
+    "fps": 25,
+    "steps": 4,
+    "optimized": true,
+    "real_rope": true,
+    "lean": true,
+    "fused_qkv": true,
+    "compiled": true,
+    "memory_mode": "compact",
+    "int8_weight_storage": true,
+    "torch_allocator_cap_mib": 3584
+  },
+  "inputs": {
+    "source": {
+      "path": "examples/girl.png",
+      "sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624"
+    },
+    "audio": {
+      "path": "benchmarks/comparison-10s.wav",
+      "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2",
+      "seconds": 10
+    },
+    "references": {
+      "close": {
+        "path": "benchmarks/distance_lipsync/evidence-20260916/reference-close.png",
+        "sha256": "0ca2983052d07aa85f030141d29c8c95bd35970096d97506fae67cac09c5e056",
+        "scale": 1.0
+      },
+      "medium": {
+        "path": "benchmarks/distance_lipsync/evidence-20260916/reference-medium.png",
+        "sha256": "b9e40e7f83c753f6807832aaa19698ab8670b7a6308d8e85c6133ad8b1c0183e",
+        "scale": 0.72
+      },
+      "far": {
+        "path": "benchmarks/distance_lipsync/evidence-20260916/reference-far.png",
+        "sha256": "832132c6d6eb2fa365bc0ca3727c2ccaa1bda28850cafb7416b706dbaa79ab3a",
+        "scale": 0.5
+      }
+    }
+  },
+  "seeds": [
+    50,
+    51
+  ],
+  "rows": [
+    {
+      "distance": "close",
+      "scale": 1.0,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.102073185000336,
+      "useful_fps": 35.20098899121499,
+      "peak_torch_mib": 3300.08935546875,
+      "raw_sha256": "c9e5a978b5c974546b6621c7a4deec900e77d4a2ced021d69511c9493431a4f8",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/close-seed-50.mp4",
+      "video_sha256": "bb697d9130cd10fbe7553e6548b23c9f2afb619fcb8c78e4efebee2e23c05e98"
+    },
+    {
+      "distance": "medium",
+      "scale": 0.72,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.1247531389817595,
+      "useful_fps": 35.08893503020779,
+      "peak_torch_mib": 3301.767578125,
+      "raw_sha256": "03b5c58285d24c76f2319de142b5fac9907bb57d6b1fc035b9628263d1508bfa",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/medium-seed-50.mp4",
+      "video_sha256": "f91f1507a11dd9651b25b0914a4f3ee632b4404613b249581e98f85c228f9934"
+    },
+    {
+      "distance": "far",
+      "scale": 0.5,
+      "seed": 50,
+      "frames": 250,
+      "wall_s": 7.117341706005391,
+      "useful_fps": 35.1254738533992,
+      "peak_torch_mib": 3303.47216796875,
+      "raw_sha256": "9f307e0e085184ee5f6c5c97c775fde62e011fdb465dadc97166726d1e232f51",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/far-seed-50.mp4",
+      "video_sha256": "590588eb1674f7cd50503563a0c8c9af8b87d413f51ba6c2d74af4c3edeaa2b6"
+    },
+    {
+      "distance": "close",
+      "scale": 1.0,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.115414926985977,
+      "useful_fps": 35.134985459786485,
+      "peak_torch_mib": 3303.47216796875,
+      "raw_sha256": "b23d90dc5cb4ed81591ffb41610148259ef17757d2a1cca1c48ab1350589ce5d",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/close-seed-51.mp4",
+      "video_sha256": "bbdd3064c6c9d41ece3e325c3ff403b5e1173376ed1045b3792b7e93bb66bb14"
+    },
+    {
+      "distance": "medium",
+      "scale": 0.72,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.120588576013688,
+      "useful_fps": 35.10945722129578,
+      "peak_torch_mib": 3303.47216796875,
+      "raw_sha256": "938833827249d903d15daa7decb1185fcc355e46ae5340b8bec9dfca26323c2f",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/medium-seed-51.mp4",
+      "video_sha256": "1ba72d8577ed6308587d14ec0cf2c4c0e40d5ae63992d31df2c667b461ad0d90"
+    },
+    {
+      "distance": "far",
+      "scale": 0.5,
+      "seed": 51,
+      "frames": 250,
+      "wall_s": 7.126970743993297,
+      "useful_fps": 35.07801687143212,
+      "peak_torch_mib": 3303.47216796875,
+      "raw_sha256": "22dfe339a4dddaaacb9acdff3fdec0dd2bf0c0eb8f01970a248e54c060aabcf8",
+      "video": "benchmarks/distance_lipsync/evidence-20260916/far-seed-51.mp4",
+      "video_sha256": "224346a681722e855783c9eabda403d70aba036bb44abc3aa5a79f168bfc1bfc"
+    }
+  ]
+}

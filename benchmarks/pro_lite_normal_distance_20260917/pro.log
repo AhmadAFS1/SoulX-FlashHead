@@ -1,0 +1,77 @@
+There are modules in WanModelAudioProject that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at /workspace/SoulX-FlashHead/models/wav2vec2-base-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/workspace/SoulX-FlashHead/flash_head/src/modules/flash_head_model.py:640: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with amp.autocast(dtype=torch.float32):
+[generate] model denoise per step: 0.5232305526733398s
+[generate] model denoise per step: 0.5050840377807617s
+[generate] model denoise per step: 0.5055186748504639s
+[generate] model denoise per step: 0.5051820278167725s
+[generate] decode video frames: 1.6613738536834717s
+[generate] color correction: 0.011024236679077148s
+[generate] encode motion frames: 0.15233373641967773s
+{"variant": "pro", "chunk": 0, "frames": 28, "seconds": 3.936168948013801}
+[generate] model denoise per step: 0.5035519599914551s
+[generate] model denoise per step: 0.5059554576873779s
+[generate] model denoise per step: 0.5059964656829834s
+[generate] model denoise per step: 0.5061001777648926s
+[generate] decode video frames: 1.6598799228668213s
+[generate] color correction: 0.00953984260559082s
+[generate] encode motion frames: 0.15227842330932617s
+{"variant": "pro", "chunk": 1, "frames": 56, "seconds": 3.8852627410087734}
+[generate] model denoise per step: 0.5039217472076416s
+[generate] model denoise per step: 0.5063736438751221s
+[generate] model denoise per step: 0.5067126750946045s
+[generate] model denoise per step: 0.5086472034454346s
+[generate] decode video frames: 1.6620237827301025s
+[generate] color correction: 0.009602069854736328s
+[generate] encode motion frames: 0.15311741828918457s
+{"variant": "pro", "chunk": 2, "frames": 84, "seconds": 3.892116816015914}
+[generate] model denoise per step: 0.5041301250457764s
+[generate] model denoise per step: 0.5078825950622559s
+[generate] model denoise per step: 0.5066080093383789s
+[generate] model denoise per step: 0.506558895111084s
+[generate] decode video frames: 1.6622321605682373s
+[generate] color correction: 0.009519338607788086s
+[generate] encode motion frames: 0.15252137184143066s
+{"variant": "pro", "chunk": 3, "frames": 112, "seconds": 3.8918810909963213}
+[generate] model denoise per step: 0.5049178600311279s
+[generate] model denoise per step: 0.5075802803039551s
+[generate] model denoise per step: 0.506793737411499s
+[generate] model denoise per step: 0.5079424381256104s
+[generate] decode video frames: 1.6624741554260254s
+[generate] color correction: 0.009529352188110352s
+[generate] encode motion frames: 0.15258216857910156s
+{"variant": "pro", "chunk": 4, "frames": 140, "seconds": 3.8932198070106097}
+[generate] model denoise per step: 0.5052800178527832s
+[generate] model denoise per step: 0.5075740814208984s
+[generate] model denoise per step: 0.5078816413879395s
+[generate] model denoise per step: 0.5069229602813721s
+[generate] decode video frames: 1.664238452911377s
+[generate] color correction: 0.009613990783691406s
+[generate] encode motion frames: 0.15221023559570312s
+{"variant": "pro", "chunk": 5, "frames": 168, "seconds": 3.8962935879826546}
+[generate] model denoise per step: 0.5049700736999512s
+[generate] model denoise per step: 0.5081057548522949s
+[generate] model denoise per step: 0.507044792175293s
+[generate] model denoise per step: 0.5082662105560303s
+[generate] decode video frames: 1.664024829864502s
+[generate] color correction: 0.009613037109375s
+[generate] encode motion frames: 0.15225648880004883s
+{"variant": "pro", "chunk": 6, "frames": 196, "seconds": 3.896693307964597}
+[generate] model denoise per step: 0.5054852962493896s
+[generate] model denoise per step: 0.5079634189605713s
+[generate] model denoise per step: 0.5074787139892578s
+[generate] model denoise per step: 0.507843017578125s
+[generate] decode video frames: 1.6642568111419678s
+[generate] color correction: 0.009546041488647461s
+[generate] encode motion frames: 0.15273833274841309s
+{"variant": "pro", "chunk": 7, "frames": 224, "seconds": 3.8975954769994132}
+[generate] model denoise per step: 0.5055317878723145s
+[generate] model denoise per step: 0.5079009532928467s
+[generate] model denoise per step: 0.5074377059936523s
+[generate] model denoise per step: 0.5080826282501221s
+[generate] decode video frames: 1.6653120517730713s
+[generate] color correction: 0.009534120559692383s
+[generate] encode motion frames: 0.15244841575622559s
+{"variant": "pro", "chunk": 8, "frames": 252, "seconds": 3.8983623679960147}
