@@ -1,6 +1,9 @@
-# Wave 0 and Wave 1: landed source changes and the 4070 run they require
+# mcPRO series: Wave 0, Wave 1 and D2 — landed source changes and the 4070 runs they require
 
-Landed **2026-09-20**.
+Landed **2026-09-20**. Commits are tagged `REVERTABLE from mcPRO [n/3]` with a
+`Revert-Tag: mcPRO` trailer; git tags `mcpro-before` (pre-change tree) and
+`mcpro-latest` bracket the series. Commands to run these changes are in the
+[RTX 4070 SUPER runbook](RTX4070_RUNBOOK_2026-09-20.md).
 
 **Evidence class: STATIC SOURCE ANALYSIS plus CPU-only tests. NO new GPU inference.**
 Every change here was written and validated on an Apple Silicon Mac with **no CUDA,
@@ -119,6 +122,13 @@ tactic/reformat selection, not of the model.
 | **W1.3 `use_fast_accum`** | Threaded from an **optional** top-level policy key to the `torch._scaled_mm` call. | `False` — unchanged |
 | **W1.4 lean delivery** | `pipeline.lean_delivery`: trim history frames before colour correction, cast to uint8 on device, finite-check pre-cast. | `False` |
 | **H4 timing prints** | 7 per-window stdout lines behind `pipeline.verbose_timing`. | `False` |
+
+> **Correction (2026-09-20, same day):** as first committed in `f370189`, this row
+> was WRONG. The code trimmed *after* colour correction, so the claimed
+> colour-correction saving did not exist; only the D2H reduction did. Found by
+> adversarial review and fixed in `86d577e`, which moved the trim ahead of
+> `postprocess.color_correction`. The row is accurate as of that commit.
+
 
 **Why k/v are refused.** `CrossAttention.prepare_kv` (`flash_head_model.py:270-273`)
 returns bare BF16 tensors once per window at M=288. There is nowhere in that contract to
@@ -269,3 +279,91 @@ accept/revert criterion before it is pushed:
   against `28/25 = 1.12 s` and `:132-134` gates on aggregate `useful_fps` — **neither
   tests the 30-FPS streaming gate of `28/30 = 0.9333 s`**. A candidate can pass both
   published gates while missing every streaming deadline.
+
+
+---
+
+## 6. D2 — denoising steps 4 to 2 (commit 2/3)
+
+**The largest single FPS lever available once ROI/crop reduction is excluded**, and
+the highest-risk item in the plan. Nothing here is measured.
+
+`[A]` DiT time is exactly linear in step count: 30 blocks x 4 steps = 120 block
+executions per window, halving to 60.
+
+| Configuration | s / 250 fr | FPS |
+| --- | ---: | ---: |
+| 4 steps `[M]` baseline | 21.290295 | **11.742** |
+| 2 steps `[A]` projection | 17.052839 | **14.66** |
+
+That is **+24.85%**. It is **not sufficient**: at 2 steps, 30 FPS would still
+require a **4.74x** decoder against a best plausible execution gain of **1.518x**.
+
+### What landed
+
+| Flag | Default | Effect |
+| --- | --- | --- |
+| `--sampling-steps {1,2,3,4}` | `4` | Replaces the hardcoded literal at the `prepare_params` call and in `_fixed_profile`. |
+| `--timestep-variant {shipped,distilled_aligned}` | `shipped` | `shipped` reproduces the original table exactly; `distilled_aligned` re-bases 2-step to terminate at 625.0. |
+| `--skip-zero-weighted-noise` | off | Skips the terminal `randn` multiplied by exactly zero (414,720 elements/window). |
+
+### The two schedule variants, and why both exist
+
+`shipped` is the default because existing configurations depend on the original
+behaviour: `flash_head/inference.py` sets `sample_steps = 20` for the CFG teacher,
+and `soulx_rtc/engine.py:53` accepts `steps in (2, 4)`. For an untabulated count
+`shipped` returns `None` and the caller runs the original `np.linspace` verbatim.
+
+`distilled_aligned` is the corrected table. Post-shift levels at `shift=5`:
+
+| Steps | `shipped` | `distilled_aligned` |
+| ---: | --- | --- |
+| 4 | `{1000, 937.5, 833.3333, 625, 0}` | identical |
+| 3 | `{1000, 833.6109, 4.9801, 0}` ← defect | `{1000, 833.3333, 625, 0}` |
+| 2 | `{1000, 833.3333, 0}` | `{1000, 625, 0}` |
+| 20 | `np.linspace` fallback (teacher) | raises |
+
+Choosing `distilled_aligned` is QUALITY-AFFECTING and never the default.
+
+---
+
+## 7. Six defects found by adversarial review, all fixed
+
+The first draft of D2 was reviewed by 38 agents across four lenses. One was
+reported CONFIRMED; **four more were marked "refuted" by the verifier and were
+real on hand re-check.** All six are fixed in `86d577e` and regression-guarded by
+`tests/test_shipped_behaviour_preserved.py`.
+
+| # | Defect | Why it mattered |
+| ---: | --- | --- |
+| 1 | Wave 1 switches were instance-only attributes | `generate()` reads them unconditionally; `tests/test_pipeline_latency.py` builds the pipeline with `__new__`, so it raised `AttributeError`. **Invisible locally** because that module imports torch and is skipped on the dev Mac. Now class-level defaults. |
+| 2 | The table raised on `sampling_steps=20` | Broke the CFG teacher entirely (`inference.py:36`). `shipped` now returns `None` and falls back. |
+| 3 | The 2-step row was silently re-based | Changed `soulx_rtc.Engine(steps=2)`, a supported RTC config. Now opt-in. |
+| 4 | `fast_accum` had no type check | `bool("false")` is `True`; a JSON string would silently enable fast-accumulate FP8 numerics. |
+| 5 | `schedules.py` absent from `_sources()` | The table defining a run's timesteps was not hashed into its provenance. |
+| 6 | `sweep.py` could not forward the new flags | Made the arm unmeasurable through the paired promotion harness. |
+
+Plus the W1.4 trim-order correction recorded in section 1 above.
+
+### Known limitation, not a defect
+
+`sweep.py` forwards `--sampling-steps` to **both** roles, so it runs a paired
+comparison *at* a fixed step count and cannot A/B 4-step against 2-step. That is
+deliberate — an arm differing on one side only is not a controlled comparison —
+but the D2 promotion sweep must therefore be assembled from direct `run.py`
+calls. See the runbook, Step 5.
+
+---
+
+## 8. Test counts, and what they do not mean
+
+**173 CPU tests pass** on an Apple Silicon Mac with no CUDA, no GPU and no torch
+(pytest 9.1.1, CPython 3.13.14). `tests/conftest.py` skips modules whose
+third-party imports are unavailable, including transitively through first-party
+modules, and reports what it skipped.
+
+That number gates **correctness only, never promotion**. None of these tests
+measures speed, and several torch-dependent guards — including the one that
+caught defect 1 — have never executed against these changes. The first real run
+of `tests/test_pipeline_latency.py` since the Wave 1 switches were added will
+happen on the 4070, at Step 0 of the runbook.
