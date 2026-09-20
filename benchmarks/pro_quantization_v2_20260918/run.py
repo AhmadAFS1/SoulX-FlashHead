@@ -293,6 +293,9 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
     if latency_mode != "off" and getattr(args, "profile_mode", None) == "inventory":
         raise ValueError("Use latency modules mode instead of combining eager inventories")
     eager_diagnostic = latency_mode == "modules"
+    lean_delivery = bool(getattr(args, "lean_delivery", False))
+    if lean_delivery and getattr(args, "capture_manifest", None) is not None:
+        raise ValueError("Activation capture expects the historical float32 delivery")
     if getattr(args, "capture_manifest", None) is not None:
         from benchmarks.pro_quantization_v2_20260918.capture import BoundedActivationCapture
 
@@ -333,6 +336,13 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
         "fixture": fixture,
         "policy": {"path": relative_path(policy_path), "sha256": sha256(policy_path), "name": policy["name"]},
         "generation_metric": "wall-clock audio preparation through RGB transfer; includes final padded generation; excludes encode/mux",
+        "delivery": {
+            "mode": "device_uint8_trimmed" if lean_delivery else "host_float32_then_astype",
+            "lean_delivery": lean_delivery,
+            "d2h_dtype": "uint8" if lean_delivery else "float32",
+            "d2h_frames": "useful only" if lean_delivery else "useful plus history",
+            "finite_check": "device, pre-cast" if lean_delivery else "host, pre-astype",
+        },
         "stages": {},
     }
     latency = None
@@ -403,6 +413,7 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
                     device="cuda", param_dtype=torch.bfloat16, use_usp=False,
                 )
             pipeline.audio_encoder.eval().requires_grad_(False)
+            pipeline.lean_delivery = lean_delivery
 
             stage = "validate_and_convert"
             plan = build_conversion_plan(pipeline.model, policy, strict_geometry=True)
@@ -540,14 +551,23 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
                             embedding = get_audio_embedding(pipeline, audio_array, 167, 200)
                             rgb_device = run_pipeline(pipeline, embedding)
                             with latency_scope("delivery.trim_d2h"):
-                                window = rgb_device[WINDOW_HISTORY_FRAMES:].cpu()
+                                if lean_delivery:
+                                    # Already trimmed, already uint8, already
+                                    # finite-checked on device. One quarter of
+                                    # the bytes cross the bus.
+                                    window = rgb_device.cpu()
+                                else:
+                                    window = rgb_device[WINDOW_HISTORY_FRAMES:].cpu()
                             del rgb_device
                         torch.cuda.synchronize()
                         chunk_times.append(time.perf_counter() - chunk_start)
                         with latency_scope("delivery.validate_uint8", gpu=False):
-                            if not bool(window.isfinite().all()):
-                                raise RuntimeError(f"Generated window {window_index} contains nonfinite RGB values")
-                            frames = window.numpy().astype(np.uint8)
+                            if lean_delivery:
+                                frames = window.numpy()
+                            else:
+                                if not bool(window.isfinite().all()):
+                                    raise RuntimeError(f"Generated window {window_index} contains nonfinite RGB values")
+                                frames = window.numpy().astype(np.uint8)
                         if repeat == 0:
                             generated.append(frames)
                         for event_stage, begin, end in events:
@@ -673,6 +693,9 @@ def main() -> None:
     parser.add_argument("--latency-detail", choices=("off", "stages", "modules"), default="off",
                         help="Bounded inclusive latency logs; modules explicitly disables PyTorch compilation")
     parser.add_argument("--latency-max-events", type=int, default=50000)
+    parser.add_argument("--lean-delivery", action="store_true",
+                        help="Trim history frames and convert to uint8 on device before the D2H copy. "
+                             "Quarters the per-window transfer; raw_rgb_sha256 stays comparable.")
     parser.add_argument("--gpu-lock", type=Path, default=DEFAULT_GPU_LOCK)
     args = parser.parse_args()
     run_experiment(args)

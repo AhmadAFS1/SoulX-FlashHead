@@ -15,6 +15,7 @@ from flash_head.audio_analysis.wav2vec2 import Wav2Vec2Model
 from flash_head.utils.utils import match_and_blend_colors_torch, resize_and_centercrop
 from flash_head.utils.facecrop import process_image
 from flash_head.utils.latency import latency_scope
+from flash_head.src.pipeline.schedules import raw_timestep_schedule
 
 # compile models to speedup inference
 COMPILE_MODEL = True
@@ -79,6 +80,17 @@ class FlashHeadPipeline:
         self.param_dtype = param_dtype
         self.device = device
         self.rank = dist.get_rank() if dist.is_initialized() else 0
+
+        # Opt-in delivery/diagnostic switches. Both default to the historical
+        # behaviour so every retained comparison stays reproducible.
+        #
+        # lean_delivery: trim the leading history frames and hand back device
+        #   uint8 instead of host float32. Callers that already trim themselves
+        #   (generate_video.py, the gradio apps) must leave this False.
+        # verbose_timing: the per-window stdout timing lines. They have no
+        #   consumer; latency_scope records the same boundaries properly.
+        self.lean_delivery = False
+        self.verbose_timing = False
         self.use_usp = use_usp and dist.is_initialized()
         self.model_type = model_type
         self.use_ltx = model_type == "lite"
@@ -176,19 +188,14 @@ class FlashHeadPipeline:
 
         self.generator = torch.Generator(device=self.device).manual_seed(seed)
 
-        # prepare timesteps
-        if sampling_steps == 2:
-            timesteps = [1000, 500]
-        elif sampling_steps == 4:
-            timesteps = [1000, 750, 500, 250]
-        else:
-            timesteps = list(np.linspace(self.num_timesteps, 1, sampling_steps, dtype=np.float32))
-            
-        timesteps.append(0.)
+        # prepare timesteps from the explicit distilled table (terminal 0. included)
+        timesteps = raw_timestep_schedule(sampling_steps, num_timesteps=self.num_timesteps)
         timesteps = [torch.tensor([t], device=self.device) for t in timesteps]
         if self.use_timestep_transform:
             timesteps = [timestep_transform(t, shift=shift, num_timesteps=self.num_timesteps) for t in timesteps]
         self.timesteps = timesteps
+        # Resolved post-shift levels, recorded so run reports can state the schedule.
+        self.resolved_timesteps = [float(t.item()) for t in timesteps]
 
         self.cond_image_tensor_dict = {}
         self.ref_img_latent_dict = {}
@@ -305,7 +312,7 @@ class FlashHeadPipeline:
 
                 torch.cuda.synchronize()
                 end_time = time.time()
-                if self.rank == 0:
+                if self.rank == 0 and self.verbose_timing:
                     print(f'[generate] model denoise per step: {end_time - start_time}s')
 
             with latency_scope("denoise.final_history_inject"):
@@ -319,7 +326,7 @@ class FlashHeadPipeline:
 
             torch.cuda.synchronize()
             end_decode_time = time.time()
-            if self.rank == 0:
+            if self.rank == 0 and self.verbose_timing:
                 print(f'[generate] decode video frames: {end_decode_time - start_decode_time}s')
         
         torch.cuda.synchronize()
@@ -332,7 +339,7 @@ class FlashHeadPipeline:
             cond_frame = videos[:, :, -self.motion_frames_num:].to(self.device)
         torch.cuda.synchronize()
         end_color_correction_time = time.time()
-        if self.rank == 0:
+        if self.rank == 0 and self.verbose_timing:
             print(f'[generate] color correction: {end_color_correction_time - start_color_correction_time}s')
 
         torch.cuda.synchronize()
@@ -341,8 +348,34 @@ class FlashHeadPipeline:
             self.latent_motion_frames = self.vae.encode(cond_frame)
         torch.cuda.synchronize()
         end_encode_time = time.time()
-        if self.rank == 0:
+        if self.rank == 0 and self.verbose_timing:
             print(f'[generate] encode motion frames: {end_encode_time - start_encode_time}s')
+
+        if self.lean_delivery:
+            # The leading history frames are dead the moment cond_frame (the
+            # TRAILING motion_frames_num) has been taken above. Colour
+            # correction is per-frame independent -- match_and_blend_colors_torch
+            # reduces over dim=[2,3] (H, W only) on a (B, T, H, W, C) tensor --
+            # so the surviving frames are bit-identical to trimming afterwards.
+            gen_video_samples = videos[:, :, self.motion_frames_num:]
+            with latency_scope("postprocess.rgb_uint8_device"):
+                frames = gen_video_samples[0].to(torch.float32)
+                # Identical op order to the historical host path, so
+                # raw_rgb_sha256 stays comparable across the two deliveries.
+                frames = (((frames + 1) / 2).permute(1, 2, 3, 0).clip(0, 1) * 255)
+                if not torch.isfinite(frames).all():
+                    # The host path checked this before astype(uint8); a
+                    # non-finite value casts to an undefined byte, so the guard
+                    # must move with the cast.
+                    #
+                    # Tradeoff to confirm on the 4070: this reduction forces a
+                    # host sync the float32 path did not have, costing one
+                    # ~62 MiB read (~0.13 ms at ~480 GB/s) plus a barrier,
+                    # against ~10 ms saved on a D2H that drops from 59.06 MiB
+                    # to 14.77 MiB. Expected net win, but it is an arithmetic
+                    # expectation, not a measurement.
+                    raise RuntimeError("Non-finite pixel in generated window")
+                return frames.contiguous().to(torch.uint8)
 
         gen_video_samples = videos #[:, :, self.motion_frames_num:]
 

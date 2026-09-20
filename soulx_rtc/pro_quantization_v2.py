@@ -60,8 +60,8 @@ class PolicyFloat8Linear(_PolicyQuantizationMetadata, Float8Linear):
     scheme_code = 1
     scale_granularity_code = 1
 
-    def __init__(self, linear: nn.Linear) -> None:
-        super().__init__(linear)
+    def __init__(self, linear: nn.Linear, fast_accum: bool = False) -> None:
+        super().__init__(linear, fast_accum=fast_accum)
         self._register_policy_metadata(linear)
 
 
@@ -169,10 +169,13 @@ def validate_policy(policy: Mapping[str, Any]) -> None:
         (
             "schema_version", "name", "base", "ffn", "self_attention_projections",
             "self_attention_kernel", "cross_attention_projections", "decoder", "compile",
-            "prepared_conditioning",
+            "prepared_conditioning", "fast_accum",
         ),
         "policy",
     )
+    # "fast_accum" is deliberately absent from `required`: every retained policy
+    # predates it and must keep validating, and its recorded policy_sha256 is
+    # taken over the requested dict, so omitting the key preserves the hash.
     required = {
         "schema_version", "name", "base", "ffn", "self_attention_projections",
         "self_attention_kernel", "cross_attention_projections", "decoder", "compile",
@@ -212,12 +215,30 @@ def validate_policy(policy: Mapping[str, Any]) -> None:
 
     cross = policy["cross_attention_projections"]
     _reject_unknown_keys(cross, ("scheme", "include", "exclude"), "cross_attention_projections")
-    if cross.get("scheme") != BF16_SCHEME:
-        raise PolicyValidationError("Cross-attention conversion is not implemented in v2")
+    if cross.get("scheme") not in (BF16_SCHEME, FP8_SCHEME):
+        raise PolicyValidationError(
+            f"Unsupported cross-attention projection scheme: {cross.get('scheme')!r}; "
+            f"supported: {sorted((BF16_SCHEME, FP8_SCHEME))}"
+        )
     _require_string_list(cross.get("include"), "cross_attention_projections.include")
     _require_string_list(cross.get("exclude"), "cross_attention_projections.exclude")
-    if cross["include"] or cross["exclude"]:
+    if cross["scheme"] == BF16_SCHEME and (cross["include"] or cross["exclude"]):
         raise PolicyValidationError("Cross-attention rules must be empty while its scheme is bf16")
+    if cross["scheme"] != BF16_SCHEME:
+        # k/v feed CrossAttention.prepare_kv, which returns bare tensors once per
+        # window at M=288. There is nowhere in that contract to carry an
+        # activation scale, and the GEMMs are too small to pay for one.
+        for rule in list(cross["include"]) + list(cross["exclude"]):
+            if rule.endswith((".k", ".v")) or ".k_img" in rule or ".v_img" in rule:
+                raise PolicyValidationError(
+                    f"Cross-attention k/v conversion is not supported: {rule!r}. "
+                    "prepare_kv returns bare BF16 tensors with no scale carrier; "
+                    "convert only cross_attn.q and cross_attn.o."
+                )
+        if not cross["include"]:
+            raise PolicyValidationError(
+                "A quantized cross-attention scheme must name its include rules"
+            )
 
     decoder = policy["decoder"]
     _reject_unknown_keys(decoder, ("scheme", "backend", "plan"), "decoder")
@@ -303,9 +324,10 @@ def _matching_paths(paths: Iterable[str], patterns: Iterable[str], where: str) -
     return sorted(matched)
 
 
-def _pro_target_paths(model: nn.Module) -> tuple[list[str], list[str]]:
+def _pro_target_paths(model: nn.Module) -> tuple[list[str], list[str], list[str]]:
     ffn_paths: list[str] = []
     attention_paths: list[str] = []
+    cross_paths: list[str] = []
     blocks = getattr(model, "blocks", None)
     if blocks is None:
         raise PolicyValidationError("Model has no blocks collection")
@@ -330,7 +352,20 @@ def _pro_target_paths(model: nn.Module) -> tuple[list[str], list[str]]:
             if not hasattr(attention, projection):
                 raise PolicyValidationError(f"blocks.{index}.self_attn.{projection} is missing")
             attention_paths.append(f"blocks.{index}.self_attn.{projection}")
-    return ffn_paths, attention_paths
+        cross = getattr(block, "cross_attn", None)
+        if cross is None:
+            raise PolicyValidationError(f"blocks.{index} has no cross_attn")
+        if getattr(cross, "has_image_input", False):
+            raise PolicyValidationError(
+                f"blocks.{index}.cross_attn has image input; only audio-only blocks are supported"
+            )
+        # Only q/o are offered. k/v are consumed by prepare_kv, which returns
+        # bare tensors and would lose the activation scale.
+        for projection in ("q", "o"):
+            if not hasattr(cross, projection):
+                raise PolicyValidationError(f"blocks.{index}.cross_attn.{projection} is missing")
+            cross_paths.append(f"blocks.{index}.cross_attn.{projection}")
+    return ffn_paths, attention_paths, cross_paths
 
 
 def _get_module(model: nn.Module, path: str) -> nn.Module:
@@ -381,9 +416,10 @@ def build_conversion_plan(
     """Build a complete conversion plan before any model mutation."""
     validate_policy(policy)
     geometry = validate_pro_geometry(model, strict=strict_geometry)
-    ffn_paths, attention_paths = _pro_target_paths(model)
+    ffn_paths, attention_paths, cross_paths = _pro_target_paths(model)
     ffn = policy["ffn"]
     projections = policy["self_attention_projections"]
+    cross = policy["cross_attention_projections"]
 
     ffn_excluded = _matching_paths(ffn_paths, ffn["exclude"], "FFN exclusion")
     selected_ffns = []
@@ -400,6 +436,14 @@ def build_conversion_plan(
     if projections["scheme"] == BF16_SCHEME and selected_attention:
         raise PolicyValidationError("BF16 self-attention policy cannot select conversion targets")
 
+    cross_excluded = _matching_paths(
+        cross_paths, cross["exclude"], "cross-attention exclusion"
+    )
+    selected_cross = _matching_paths(cross_paths, cross["include"], "cross-attention include")
+    selected_cross = [path for path in selected_cross if path not in cross_excluded]
+    if cross["scheme"] == BF16_SCHEME and selected_cross:
+        raise PolicyValidationError("BF16 cross-attention policy cannot select conversion targets")
+
     targets: list[ConversionTarget] = []
     for path in selected_ffns:
         targets.append(_validate_target(path, "ffn", ffn["scheme"], _get_module(model, path)))
@@ -407,12 +451,16 @@ def build_conversion_plan(
         targets.append(
             _validate_target(path, "self_attention_projection", projections["scheme"], _get_module(model, path))
         )
+    for path in selected_cross:
+        targets.append(
+            _validate_target(path, "cross_attention_projection", cross["scheme"], _get_module(model, path))
+        )
     targets.sort(key=lambda target: target.path)
     return ConversionPlan(
         ResolvedPolicy(
             policy=dict(policy),
             targets=tuple(targets),
-            excluded=tuple(sorted(set(ffn_excluded + attention_excluded))),
+            excluded=tuple(sorted(set(ffn_excluded + attention_excluded + cross_excluded))),
             model_geometry=geometry,
         )
     )
@@ -439,6 +487,7 @@ def apply_conversion_plan(model: nn.Module, plan: ConversionPlan) -> dict[str, A
     continue with a partly converted instance.
     """
     converted: list[dict[str, Any]] = []
+    fast_accum = bool(plan.resolved.policy.get("fast_accum", False))
     try:
         for target in plan.resolved.targets:
             source = _get_module(model, target.path)
@@ -446,14 +495,19 @@ def apply_conversion_plan(model: nn.Module, plan: ConversionPlan) -> dict[str, A
                 raise ConversionError(
                     f"Target changed after planning at {target.path}; refusing mixed conversion"
                 )
-            replacement_cls = PolicyFloat8Linear if target.scheme == FP8_SCHEME else PolicyInt8ComputeLinear
-            replacement = replacement_cls(source)
+            if target.scheme == FP8_SCHEME:
+                replacement = PolicyFloat8Linear(source, fast_accum=fast_accum)
+            else:
+                replacement = PolicyInt8ComputeLinear(source)
             _replace_module(model, target.path, replacement)
             converted.append({
                 **asdict(target),
                 "scale_granularity": "tensor" if target.scheme == FP8_SCHEME else "per_output_channel",
                 "bias_dtype": "bfloat16" if target.has_bias else None,
-                "accumulation": "fp32_scaled_mm" if target.scheme == FP8_SCHEME else "int32_then_fp32",
+                "accumulation": (
+                    ("fp32_scaled_mm_fast_accum" if fast_accum else "fp32_scaled_mm")
+                    if target.scheme == FP8_SCHEME else "int32_then_fp32"
+                ),
                 "backend": "pytorch_native_cuda",
                 "backend_version": torch.__version__,
                 "group_size": None,

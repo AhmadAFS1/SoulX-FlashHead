@@ -9,11 +9,22 @@ from torch import nn
 
 
 class Float8Linear(nn.Module):
-    """Tensorwise E4M3 weights and dynamically scaled E4M3 activations."""
+    """Tensorwise E4M3 weights and dynamically scaled E4M3 activations.
 
-    def __init__(self, linear):
+    ``fast_accum`` selects cuBLASLt's fast-accumulate tier. It defaults to False,
+    which is the setting every retained measurement used. It is exposed so the
+    two readings of the SM89 FP8 path can be told apart by measurement rather
+    than argument: either the Ada FP8/FP16-accumulate tier is genuinely twice
+    the FP32-accumulate tier, or the flag is a no-op on the ``m16n8k32`` path
+    whose accumulator is architecturally f32. Turning it on is a numerical
+    change on a path already showing 4.79% relative L2 at block 14, so it needs
+    its own quality arm, not just a speed pass.
+    """
+
+    def __init__(self, linear, fast_accum: bool = False):
         super().__init__()
         self.in_features, self.out_features = linear.in_features, linear.out_features
+        self.fast_accum = bool(fast_accum)
         with torch.no_grad():
             weight = linear.weight.detach().float()
             scale = weight.abs().amax().clamp_min(1e-12) / 448.0
@@ -30,7 +41,7 @@ class Float8Linear(nn.Module):
         output = torch._scaled_mm(
             quantized, self.weight_fp8.t(), scale_a=scale,
             scale_b=self.weight_scale, bias=self.bias,
-            out_dtype=x.dtype, use_fast_accum=False,
+            out_dtype=x.dtype, use_fast_accum=self.fast_accum,
         )
         return output.reshape(*shape[:-1], self.out_features)
 

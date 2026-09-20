@@ -77,6 +77,10 @@ def run_pipeline(pipeline, audio_embedding):
     with latency_scope("audio.conditioning_transfer"):
         audio_embedding = audio_embedding.to(pipeline.device)
     sample = pipeline.generate(audio_embedding)
+    if getattr(pipeline, "lean_delivery", False):
+        # generate() already trimmed the history frames and produced contiguous
+        # device uint8 in [T, H, W, C]. Re-applying the layout would corrupt it.
+        return sample
     with latency_scope("postprocess.rgb_layout"):
         sample_frames = (((sample+1)/2).permute(1,2,3,0).clip(0,1) * 255).contiguous()
     return sample_frames
