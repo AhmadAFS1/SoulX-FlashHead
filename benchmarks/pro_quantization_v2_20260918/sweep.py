@@ -57,6 +57,17 @@ def main() -> None:
     parser.add_argument("--reference-pythonpath", help="Explicit reference dependency search path")
     parser.add_argument("--candidate-pythonpath", help="Explicit candidate dependency search path")
     parser.add_argument("--save-raw-first", action="store_true", help="Retain lossless RGB for the first pair of each seed")
+    # Forwarded verbatim to BOTH roles so a paired sweep stays comparable: an
+    # arm that differs in step count or delivery on only one side is not a
+    # controlled comparison.
+    parser.add_argument("--sampling-steps", type=int, choices=(1, 2, 3, 4),
+                        help="Forwarded to both roles. DiT time is linear in this.")
+    parser.add_argument("--timestep-variant", choices=("shipped", "distilled_aligned"),
+                        help="Forwarded to both roles. QUALITY-AFFECTING.")
+    parser.add_argument("--lean-delivery", action="store_true",
+                        help="Forwarded to both roles.")
+    parser.add_argument("--skip-zero-weighted-noise", action="store_true",
+                        help="Forwarded to both roles. Changes the generator stream.")
     args = parser.parse_args()
     if args.repeats < 1 or args.frames < 1:
         parser.error("frames and repeats must be positive")
@@ -71,6 +82,10 @@ def main() -> None:
         "candidate_policy": relative_path(args.policy),
         "reference_policy": relative_path(args.reference_policy),
         "fixture_id": args.fixture_id,
+        "sampling_steps": args.sampling_steps,
+        "timestep_variant": args.timestep_variant,
+        "lean_delivery": args.lean_delivery,
+        "skip_zero_weighted_noise": args.skip_zero_weighted_noise,
         "frames": args.frames,
         "schedule": schedule,
         "cells": [],
@@ -85,6 +100,14 @@ def main() -> None:
             "--output", str(destination), "--seed", str(cell["seed"]), "--frames", str(args.frames),
             "--repeats", "1", "--gpu-lock", str(args.gpu_lock),
         ]
+        if args.sampling_steps is not None:
+            command += ["--sampling-steps", str(args.sampling_steps)]
+        if args.timestep_variant is not None:
+            command += ["--timestep-variant", args.timestep_variant]
+        if args.lean_delivery:
+            command.append("--lean-delivery")
+        if args.skip_zero_weighted_noise:
+            command.append("--skip-zero-weighted-noise")
         if args.save_raw_first and cell['repeat'] == 0:
             command.append('--save-raw')
         started = datetime.now(timezone.utc).isoformat()

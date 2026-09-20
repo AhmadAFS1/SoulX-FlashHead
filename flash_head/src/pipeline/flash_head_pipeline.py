@@ -55,6 +55,17 @@ def timestep_transform(
 
 
 class FlashHeadPipeline:
+    # Class-level defaults, NOT only instance attributes. generate() reads these
+    # unconditionally, and callers legitimately build this object with
+    # __new__ (tests/test_pipeline_latency.py does exactly that to exercise the
+    # real generate() with small CPU substitutes). Assigning them only in
+    # __init__ would raise AttributeError on any such instance.
+    lean_delivery = False
+    verbose_timing = False
+    skip_zero_weighted_noise = False
+    resolved_timesteps = ()
+    timestep_variant = "shipped"
+
     def __init__(
         self,
         checkpoint_dir,
@@ -89,8 +100,16 @@ class FlashHeadPipeline:
         #   (generate_video.py, the gradio apps) must leave this False.
         # verbose_timing: the per-window stdout timing lines. They have no
         #   consumer; latency_scope records the same boundaries properly.
+        # skip_zero_weighted_noise: at the terminal level the randn term is
+        #   multiplied by exactly zero, so the draw is pure waste. Skipping it
+        #   advances the generator differently, so a run with this flag is NOT
+        #   bitwise comparable to one without -- hence default off.
         self.lean_delivery = False
         self.verbose_timing = False
+        self.skip_zero_weighted_noise = False
+        # Populated by prepare_params; needed by the denoise loop to decide the
+        # terminal step without a device comparison.
+        self.resolved_timesteps = []
         self.use_usp = use_usp and dist.is_initialized()
         self.model_type = model_type
         self.use_ltx = model_type == "lite"
@@ -188,8 +207,16 @@ class FlashHeadPipeline:
 
         self.generator = torch.Generator(device=self.device).manual_seed(seed)
 
-        # prepare timesteps from the explicit distilled table (terminal 0. included)
-        timesteps = raw_timestep_schedule(sampling_steps, num_timesteps=self.num_timesteps)
+        # prepare timesteps. The default "shipped" variant reproduces the original
+        # behaviour exactly, including the np.linspace fallback the CFG teacher
+        # relies on at sample_steps=20. A None return means "untabulated under
+        # shipped", so the original fallback runs verbatim.
+        timesteps = raw_timestep_schedule(
+            sampling_steps, num_timesteps=self.num_timesteps, variant=self.timestep_variant
+        )
+        if timesteps is None:
+            timesteps = list(np.linspace(self.num_timesteps, 1, sampling_steps, dtype=np.float32))
+            timesteps.append(0.)
         timesteps = [torch.tensor([t], device=self.device) for t in timesteps]
         if self.use_timestep_transform:
             timesteps = [timestep_transform(t, shift=shift, num_timesteps=self.num_timesteps) for t in timesteps]
@@ -308,7 +335,20 @@ class FlashHeadPipeline:
                         t_i_1 = (self.timesteps[i+1][:, None, None, None] / self.num_timesteps).to(self.param_dtype)
                         x_0 = noise - flow_pred * t_i
 
-                        noise = (1 - t_i_1) * x_0 + t_i_1 * torch.randn(x_0.size(), dtype=x_0.dtype, device=self.device, generator=self.generator)
+                        # The terminal level is exactly 0, so the randn term is
+                        # multiplied by zero and (1 - t_i_1) is 1. Decided from
+                        # the Python-side schedule, never from the device tensor:
+                        # comparing t_i_1 on device would cost a host sync far
+                        # larger than the draw it saves.
+                        terminal = (
+                            self.skip_zero_weighted_noise
+                            and i + 1 < len(self.resolved_timesteps)
+                            and self.resolved_timesteps[i + 1] == 0.0
+                        )
+                        if terminal:
+                            noise = x_0
+                        else:
+                            noise = (1 - t_i_1) * x_0 + t_i_1 * torch.randn(x_0.size(), dtype=x_0.dtype, device=self.device, generator=self.generator)
 
                 torch.cuda.synchronize()
                 end_time = time.time()
@@ -331,6 +371,22 @@ class FlashHeadPipeline:
         
         torch.cuda.synchronize()
         start_color_correction_time = time.time()
+        if self.lean_delivery:
+            # Trim the leading history frames BEFORE colour correction, so the
+            # correction and every later pointwise pass run over 28 frames
+            # instead of 33.
+            #
+            # Safe for two independent reasons:
+            #  * Colour correction is per-frame independent --
+            #    match_and_blend_colors_torch reduces over dim=[2,3] (H, W only)
+            #    on a (B, T, H, W, C) tensor, keeping B and T -- so the
+            #    surviving frames are bit-identical.
+            #  * cond_frame takes the TRAILING motion_frames_num, and the
+            #    trailing n of 33 are the trailing n of 28 once the leading n
+            #    are removed. motion_frames_num equals the leading history count
+            #    on both paths (PRO 5/5 via run.py, LITE 9/9 via engine.py).
+            with latency_scope("postprocess.lean_trim"):
+                videos = videos[:, :, self.motion_frames_num:]
         with latency_scope("postprocess.color_correction"):
             if self.color_correction_strength > 0.0:
                 videos = match_and_blend_colors_torch(videos, self.original_color_reference, self.color_correction_strength)
@@ -352,14 +408,9 @@ class FlashHeadPipeline:
             print(f'[generate] encode motion frames: {end_encode_time - start_encode_time}s')
 
         if self.lean_delivery:
-            # The leading history frames are dead the moment cond_frame (the
-            # TRAILING motion_frames_num) has been taken above. Colour
-            # correction is per-frame independent -- match_and_blend_colors_torch
-            # reduces over dim=[2,3] (H, W only) on a (B, T, H, W, C) tensor --
-            # so the surviving frames are bit-identical to trimming afterwards.
-            gen_video_samples = videos[:, :, self.motion_frames_num:]
+            # Already trimmed above, before colour correction.
             with latency_scope("postprocess.rgb_uint8_device"):
-                frames = gen_video_samples[0].to(torch.float32)
+                frames = videos[0].to(torch.float32)
                 # Identical op order to the historical host path, so
                 # raw_rgb_sha256 stays comparable across the two deliveries.
                 frames = (((frames + 1) / 2).permute(1, 2, 3, 0).clip(0, 1) * 255)

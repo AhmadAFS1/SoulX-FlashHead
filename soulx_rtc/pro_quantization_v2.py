@@ -266,6 +266,13 @@ def validate_policy(policy: Mapping[str, Any]) -> None:
         raise PolicyValidationError("compile.ffn_only requires compile.dit")
     if not isinstance(policy["prepared_conditioning"], bool):
         raise PolicyValidationError("prepared_conditioning must be a boolean")
+    if "fast_accum" in policy and not isinstance(policy["fast_accum"], bool):
+        # Without this, a JSON string "false" or an int 0/1 would reach
+        # bool(...) at conversion time and silently change FP8 accumulate
+        # numerics. bool("false") is True.
+        raise PolicyValidationError(
+            f"fast_accum must be a boolean, got {type(policy['fast_accum']).__name__}"
+        )
 
 
 def _module_bytes(module: nn.Module) -> int:

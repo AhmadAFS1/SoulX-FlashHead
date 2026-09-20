@@ -92,13 +92,17 @@ WINDOW_USEFUL_FRAMES = 28
 WINDOW_MODEL_FRAMES = WINDOW_HISTORY_FRAMES + WINDOW_USEFUL_FRAMES
 
 
-def _fixed_profile(frames: int, seed: int, policy: dict[str, Any]) -> dict[str, Any]:
+def _fixed_profile(frames: int, seed: int, policy: dict[str, Any], steps: int = 4,
+                   skip_zero_weighted_noise: bool = False,
+                   timestep_variant: str = "shipped") -> dict[str, Any]:
     return {
         "width": 320,
         "height": 576,
         "fps": 25,
         "frames": frames,
-        "steps": 4,
+        "steps": steps,
+        "skip_zero_weighted_noise": skip_zero_weighted_noise,
+        "timestep_variant": timestep_variant,
         "seed": seed,
         "shift": 5,
         "motion_latents": 2,
@@ -127,6 +131,7 @@ def _sources() -> list[Path]:
         ROOT / "soulx_rtc/gpu_lease.py",
         ROOT / "flash_head/src/modules/flash_head_model.py",
         ROOT / "flash_head/src/pipeline/flash_head_pipeline.py",
+        ROOT / "flash_head/src/pipeline/schedules.py",
         ROOT / "flash_head/inference.py",
         ROOT / "flash_head/utils/latency.py",
         ROOT / "flash_head/wan/modules/vae.py",
@@ -296,6 +301,15 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
     lean_delivery = bool(getattr(args, "lean_delivery", False))
     if lean_delivery and getattr(args, "capture_manifest", None) is not None:
         raise ValueError("Activation capture expects the historical float32 delivery")
+    sampling_steps = int(getattr(args, "sampling_steps", 4))
+    skip_zero_weighted_noise = bool(getattr(args, "skip_zero_weighted_noise", False))
+    timestep_variant = str(getattr(args, "timestep_variant", "shipped"))
+    # Fail here rather than after the GPU lease and model load: raw_timestep_schedule
+    # refuses untabulated counts, and the prepared-conditioning path precomputes one
+    # time embedding per step, so a bad count must not reach either.
+    from flash_head.src.pipeline.schedules import raw_timestep_schedule
+
+    raw_timestep_schedule(sampling_steps, variant=timestep_variant)
     if getattr(args, "capture_manifest", None) is not None:
         from benchmarks.pro_quantization_v2_20260918.capture import BoundedActivationCapture
 
@@ -319,7 +333,9 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
     requested_policy_path = output / "requested-policy.json"
     requested_policy_path.write_text(json.dumps(policy, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     (output / "fixtures-resolved.json").write_text(json.dumps(fixture, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    profile = _fixed_profile(args.frames, args.seed, policy)
+    profile = _fixed_profile(args.frames, args.seed, policy, steps=sampling_steps,
+                             skip_zero_weighted_noise=skip_zero_weighted_noise,
+                             timestep_variant=timestep_variant)
     result: dict[str, Any] = {
         "status": "starting",
         "date_utc": datetime.now(timezone.utc).isoformat(),
@@ -414,6 +430,8 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
                 )
             pipeline.audio_encoder.eval().requires_grad_(False)
             pipeline.lean_delivery = lean_delivery
+            pipeline.skip_zero_weighted_noise = skip_zero_weighted_noise
+            pipeline.timestep_variant = timestep_variant
 
             stage = "validate_and_convert"
             plan = build_conversion_plan(pipeline.model, policy, strict_geometry=True)
@@ -449,9 +467,24 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
             stage = "prepare"
             with latency_scope("setup.prepare_reference"):
                 pipeline.prepare_params(
-                    fixture["reference"]["path"], (576, 320), WINDOW_MODEL_FRAMES, WINDOW_HISTORY_FRAMES, 4,
+                    fixture["reference"]["path"], (576, 320), WINDOW_MODEL_FRAMES, WINDOW_HISTORY_FRAMES,
+                    sampling_steps,
                     seed=args.seed, shift=5, color_correction_strength=1.0, use_face_crop=False,
                 )
+            result["sampling_schedule"] = {
+                "sampling_steps": sampling_steps,
+                "timestep_variant": timestep_variant,
+                "forward_passes_per_window": sampling_steps,
+                "resolved_post_shift_timesteps": list(
+                    getattr(pipeline, "resolved_timesteps", [])
+                ),
+                "shift": 5,
+                "skip_zero_weighted_noise": skip_zero_weighted_noise,
+                "seed_comparability": (
+                    "seeds are NOT comparable across step counts: a fresh full randn is "
+                    "drawn per step, so the generator stream differs. Compare distributions."
+                ),
+            }
             if policy["prepared_conditioning"]:
                 result["prepared_conditioning"] = _install_prepared_generation(
                     pipeline, compile_dit=policy["compile"]["dit"] and not policy["compile"]["ffn_only"] and capture_collector is None and not eager_diagnostic
@@ -696,6 +729,17 @@ def main() -> None:
     parser.add_argument("--lean-delivery", action="store_true",
                         help="Trim history frames and convert to uint8 on device before the D2H copy. "
                              "Quarters the per-window transfer; raw_rgb_sha256 stays comparable.")
+    parser.add_argument("--skip-zero-weighted-noise", action="store_true",
+                        help="Skip the terminal-step randn that is multiplied by exactly zero. "
+                             "Changes the generator stream, so results are not bitwise comparable.")
+    parser.add_argument("--timestep-variant", choices=("shipped", "distilled_aligned"), default="shipped",
+                        help="shipped reproduces the original table exactly (2-step ends at 833.33). "
+                             "distilled_aligned re-bases 2-step to end at 625.0, the level the 4-step "
+                             "distilled schedule ends on. QUALITY-AFFECTING.")
+    parser.add_argument("--sampling-steps", type=int, default=4, choices=(1, 2, 3, 4),
+                        help="Denoising forward passes per window. DiT time is exactly linear in "
+                             "this. 4 is the measured protocol; 2 halves DiT. QUALITY-AFFECTING: "
+                             "seeds are not comparable across step counts.")
     parser.add_argument("--gpu-lock", type=Path, default=DEFAULT_GPU_LOCK)
     args = parser.parse_args()
     run_experiment(args)
