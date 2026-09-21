@@ -193,8 +193,7 @@ class TensorRTStage:
     serializes shared workspace use across interleaved caller streams.
     """
 
-    def __init__(self, engine_path, metadata, *, arena=None, cache_passthrough=False,
-                 reuse_outputs=False):
+    def __init__(self, engine_path, metadata, *, arena=None, cache_passthrough=False):
         import tensorrt as trt
 
         # cache_passthrough: hand the causal cache tensors back to the caller in the
@@ -204,10 +203,6 @@ class TensorRTStage:
         # strictly DELETES a bf16 rounding step (11 -> 8 mantissa bits), it does not add
         # one. Only the x input and the y output still cross the precision boundary.
         self.cache_passthrough = bool(cache_passthrough)
-        # Lazily-built ping-pong pool for engine outputs; see __call__.
-        self.reuse_outputs = bool(reuse_outputs)
-        self._output_pool = None
-        self._output_slot = 0
 
         self.trt = trt
         self.path = Path(engine_path)
@@ -292,40 +287,12 @@ class TensorRTStage:
                     value.to(self.binding_dtype, memory_format=torch.contiguous_format)
                 )
         with latency_scope("trt.output_allocation", gpu=False, engine=str(self.path)):
-            if self.reuse_outputs:
-                # Ping-pong between two preallocated sets instead of asking the caching
-                # allocator for ~141 MB x 7 bindings on every one of the 21 engine calls
-                # per window. That churn is what drives the reserved-pool oscillation
-                # (7.5 <-> 10.5 GiB) and the GPU idle observed inside decode.
-                #
-                # Two sets is the minimum that is SAFE, and exactly enough: the decoder
-                # walks one latent frame at a time through every stage, so consecutive
-                # calls to a given engine are consecutive iterations. cache_out written
-                # at iteration i is consumed as cache_in at i+1, and only overwritten at
-                # i+2 -- after its single reader has run. The y output is consumed by the
-                # next decoder module within the same iteration. A single shared buffer
-                # would alias input and output and corrupt the cache.
-                if self._output_pool is None:
-                    self._output_pool = [
-                        [
-                            torch.empty(
-                                spec["shape"],
-                                device=self.workspace.device,
-                                dtype=self.binding_dtype,
-                            )
-                            for spec in self.outputs
-                        ]
-                        for _ in range(2)
-                    ]
-                outputs = self._output_pool[self._output_slot]
-                self._output_slot ^= 1
-            else:
-                outputs = [
-                    torch.empty(
-                        spec["shape"], device=self.workspace.device, dtype=self.binding_dtype
-                    )
-                    for spec in self.outputs
-                ]
+            outputs = [
+                torch.empty(
+                    spec["shape"], device=self.workspace.device, dtype=self.binding_dtype
+                )
+                for spec in self.outputs
+            ]
         caller = torch.cuda.current_stream(self.workspace.device)
         with latency_scope("trt.bind_enqueue_fence", engine=str(self.path)):  # noqa: SIM117 - record lock waiting too
             with self.enqueue_lock:
@@ -395,11 +362,6 @@ def install_stage_plan(vae, path):
     cache_passthrough = binding_dtype is torch.float16 and os.environ.get(
         "SOULX_STAGE_CACHE_PASSTHROUGH", "1"
     ) not in ("0", "false", "False")
-    # Off by default: it trades VRAM (one extra output set per signature) for allocator
-    # churn, and VRAM is the binding constraint on running a second instance.
-    reuse_outputs = os.environ.get("SOULX_STAGE_REUSE_OUTPUTS", "0") not in (
-        "0", "false", "False",
-    )
 
     def factory(indices, stage):
         records = plan["stages"]["-".join(map(str, indices))]
@@ -444,7 +406,6 @@ def install_stage_plan(vae, path):
                 record,
                 arena=arena,
                 cache_passthrough=cache_passthrough,
-                reuse_outputs=reuse_outputs,
             )
 
         def execute(*values):
@@ -473,7 +434,6 @@ def install_stage_plan(vae, path):
                 else "bfloat16"
             ),
             "cache_passthrough": cache_passthrough,
-            "reuse_outputs": reuse_outputs,
         }
     )
     return result
