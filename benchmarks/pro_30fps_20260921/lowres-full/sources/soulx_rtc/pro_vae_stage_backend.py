@@ -1,10 +1,7 @@
 """Opt-in Wan residual stages with explicit causal cache tensor boundaries.
 
-The ordinary VAE owns/reset caches. A stage does not persist them. By default it
-also does not alias runtime output buffers between calls; with
-SOULX_STAGE_REUSE_OUTPUTS=1 each engine ping-pongs between two preallocated output
-sets (bit-identical output, measured; +3.8% throughput; costs one extra output set
-per signature in VRAM). No production configuration selects this.
+The ordinary VAE owns/reset caches. A stage neither persists them nor aliases
+runtime output buffers between calls. No production configuration selects this.
 """
 
 from __future__ import annotations

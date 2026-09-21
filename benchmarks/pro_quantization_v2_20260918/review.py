@@ -207,6 +207,12 @@ def main() -> None:
     parser.add_argument("--baseline-label", required=True)
     parser.add_argument("--candidate-label", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--allow-resolution-drift", action="store_true",
+                        help="Permit width/height to differ between baseline and candidate. "
+                             "opening_correlation and mouth-centre distance remain meaningful (they "
+                             "are face-normalised), but median_edge_ratio compares raw edge energy and "
+                             "is resolution-biased -- read it as a flag, not a verdict, and judge the "
+                             "upscaled video.")
     parser.add_argument("--allow-steps-drift", action="store_true",
                         help="Permit the denoising step count to differ between baseline and candidate. "
                              "Every other profile field is still enforced. A fresh randn is drawn per step, "
@@ -216,7 +222,11 @@ def main() -> None:
     output = ensure_new_directory(args.output)
     cv2.setNumThreads(1)
     baseline_run, candidate_run = _load_run(args.baseline), _load_run(args.candidate)
-    profile_skip = ("steps",) if args.allow_steps_drift else ()
+    profile_skip = tuple(
+        f for f, on in (("steps", args.allow_steps_drift),
+                        ("width", args.allow_resolution_drift),
+                        ("height", args.allow_resolution_drift)) if on
+    )
     if _profile_key(baseline_run, profile_skip) != _profile_key(candidate_run, profile_skip):
         raise ValueError("Baseline and candidate profiles differ; a paired review would be misleading")
     baseline_analysis = inspect(args.baseline)
@@ -251,8 +261,9 @@ def main() -> None:
     labels = (_escape_drawtext(args.baseline_label), _escape_drawtext(args.candidate_label))
     comparison = output / "comparison.mp4"
     filter_graph = (
-        f"[0:v]drawtext=text='{labels[0]}':x=10:y=12:fontsize=20:fontcolor=white:borderw=2:bordercolor=black[v0];"
-        f"[1:v]drawtext=text='{labels[1]}':x=10:y=12:fontsize=20:fontcolor=white:borderw=2:bordercolor=black[v1];"
+        "[1:v][0:v]scale2ref=iw:ih[c1][b0];"
+        f"[b0]drawtext=text='{labels[0]}':x=10:y=12:fontsize=20:fontcolor=white:borderw=2:bordercolor=black[v0];"
+        f"[c1]drawtext=text='{labels[1]}':x=10:y=12:fontsize=20:fontcolor=white:borderw=2:bordercolor=black[v1];"
         "[v0][v1]hstack=inputs=2[v]"
     )
     subprocess.run([
