@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/audio.wav",
+    "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2"
+  },
+  "fixtures_source": "benchmarks/pro_quantization_v2_20260918/fixtures.json",
+  "fps": 25,
+  "framing": "1.50x",
+  "id": "indian150-a",
+  "license": "Local repository benchmark fixture; retain its existing provenance.",
+  "notes": "Use seed 50 only for fitting, seed 51 for development validation, and seeds 0/1 for final held-out trajectory checks. Additional utterances must be registered with hashes before use.",
+  "provenance": "Accepted PRO FP8 fixture preserved in benchmarks/pro_quantization_20260918/PRO_FP8/manifest.json.",
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+  },
+  "sample_rate": 16000,
+  "split": "calibration-and-acceptance"
+}

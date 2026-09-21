@@ -305,11 +305,6 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("frames and repeats must be positive")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for a PRO quantization experiment")
-    history_override = None
-    if getattr(args, "history_frames", None) is not None:
-        # Must run before _fixed_profile and before prepare_params, both of which read
-        # the module-level window constants.
-        history_override = _set_history_frames(args.history_frames)
     policy_path = resolve_path(args.policy)
     policy = load_policy(policy_path)
     if policy['decoder']['backend'] == 'trt_stage_compile':
@@ -386,7 +381,6 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
         "environment": environment_manifest(),
         "dynamo_recompile_limit": torch._dynamo.config.recompile_limit,
         "profile": profile,
-        "window_geometry_override": history_override,
         "fixture": fixture,
         "policy": {"path": relative_path(policy_path), "sha256": sha256(policy_path), "name": policy["name"]},
         "generation_metric": "wall-clock audio preparation through RGB transfer; includes final padded generation; excludes encode/mux",
@@ -853,10 +847,6 @@ def main() -> None:
     parser.add_argument("--lean-delivery", action="store_true",
                         help="Trim history frames and convert to uint8 on device before the D2H copy. "
                              "Quarters the per-window transfer; raw_rgb_sha256 stays comparable.")
-    parser.add_argument("--history-frames", type=int, default=None,
-                        help="Override the motion-history window (default 5). Fewer history frames "
-                             "means fewer DiT tokens and fewer latents to decode. CHANGES WINDOW "
-                             "GEOMETRY -- run the articulation gate, not just FPS.")
     parser.add_argument("--force-encode-compile", action="store_true",
                         help="Allow --compile-vae-encode alongside --overlap-skip. Only safe once "
                              "the overlap-skip encode shim neutralises _feat_map on entry; without "

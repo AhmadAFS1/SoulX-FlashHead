@@ -92,34 +92,6 @@ WINDOW_USEFUL_FRAMES = 28
 WINDOW_MODEL_FRAMES = WINDOW_HISTORY_FRAMES + WINDOW_USEFUL_FRAMES
 
 
-def _set_history_frames(value: int) -> dict:
-    """Override the motion-history window length for one run.
-
-    Fewer history frames means fewer tokens reaching the DiT and fewer latent frames to
-    decode, so it is the largest non-resolution lever left. It also CHANGES WINDOW
-    GEOMETRY, which is the class of change that shipped a 4-frame lip-sync shift earlier
-    in this work -- caught only because opening_correlation read 0.044 at lag 0 against
-    0.958 at lag -4. Any arm using this must check per-window frame counts and run the
-    articulation gate, not just FPS.
-
-    The stock value is 5 pixel frames = 2 latent frames (1 + 4//4). Legal smaller values
-    are those satisfying (value - 1) %% 4 == 0, i.e. 1, because the VAE expands one
-    latent frame to 4 pixel frames after the first.
-    """
-    global WINDOW_HISTORY_FRAMES, WINDOW_MODEL_FRAMES
-    if value != WINDOW_HISTORY_FRAMES and (value - 1) % 4 != 0:
-        raise ValueError(
-            f"history frames must satisfy (n-1) %% 4 == 0 to align with the VAE's 4x "
-            f"temporal expansion; got {value}"
-        )
-    before = (WINDOW_HISTORY_FRAMES, WINDOW_MODEL_FRAMES)
-    WINDOW_HISTORY_FRAMES = int(value)
-    WINDOW_MODEL_FRAMES = WINDOW_HISTORY_FRAMES + WINDOW_USEFUL_FRAMES
-    return {"history_frames": [before[0], WINDOW_HISTORY_FRAMES],
-            "model_frames": [before[1], WINDOW_MODEL_FRAMES],
-            "useful_frames": WINDOW_USEFUL_FRAMES}
-
-
 def _fixed_profile(frames: int, seed: int, policy: dict[str, Any], steps: int = 4,
                    skip_zero_weighted_noise: bool = False,
                    timestep_variant: str = "shipped") -> dict[str, Any]:
@@ -305,11 +277,6 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("frames and repeats must be positive")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for a PRO quantization experiment")
-    history_override = None
-    if getattr(args, "history_frames", None) is not None:
-        # Must run before _fixed_profile and before prepare_params, both of which read
-        # the module-level window constants.
-        history_override = _set_history_frames(args.history_frames)
     policy_path = resolve_path(args.policy)
     policy = load_policy(policy_path)
     if policy['decoder']['backend'] == 'trt_stage_compile':
@@ -386,7 +353,6 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
         "environment": environment_manifest(),
         "dynamo_recompile_limit": torch._dynamo.config.recompile_limit,
         "profile": profile,
-        "window_geometry_override": history_override,
         "fixture": fixture,
         "policy": {"path": relative_path(policy_path), "sha256": sha256(policy_path), "name": policy["name"]},
         "generation_metric": "wall-clock audio preparation through RGB transfer; includes final padded generation; excludes encode/mux",
@@ -853,10 +819,6 @@ def main() -> None:
     parser.add_argument("--lean-delivery", action="store_true",
                         help="Trim history frames and convert to uint8 on device before the D2H copy. "
                              "Quarters the per-window transfer; raw_rgb_sha256 stays comparable.")
-    parser.add_argument("--history-frames", type=int, default=None,
-                        help="Override the motion-history window (default 5). Fewer history frames "
-                             "means fewer DiT tokens and fewer latents to decode. CHANGES WINDOW "
-                             "GEOMETRY -- run the articulation gate, not just FPS.")
     parser.add_argument("--force-encode-compile", action="store_true",
                         help="Allow --compile-vae-encode alongside --overlap-skip. Only safe once "
                              "the overlap-skip encode shim neutralises _feat_map on entry; without "
