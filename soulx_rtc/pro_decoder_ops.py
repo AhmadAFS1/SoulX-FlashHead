@@ -333,7 +333,22 @@ def install_overlap_skip(pipeline, compile_decode: bool = True) -> dict:
         state["latents_per_window"].append(int(zs.shape[1]))
         return out
 
+    def encode(x, *args, **kwargs):
+        # Present the compiled encoder the SAME _feat_map structure the stock path always
+        # shows it: a list of Nones. Without this the encoder sees the persisted decoder
+        # cache (a list of TENSORS) on entry, its guard misses every window, and
+        # motion_encode blows up from 1.12 to 2.6-12.5 s over 250 frames depending on
+        # where the mutation happens. encode() clears and rebuilds its own _enc_feat_map
+        # regardless, so handing it Nones costs nothing and changes no numerics.
+        saved = model._feat_map
+        model._feat_map = [None] * len(saved) if saved is not None else saved
+        try:
+            return orig_encode(x, *args, **kwargs)
+        finally:
+            model._feat_map = saved
+
     vae.decode = decode
+    vae.encode = encode
     vae._pro_overlap_skip = {
         "decode": orig_decode, "encode": orig_encode, "state": state
     }

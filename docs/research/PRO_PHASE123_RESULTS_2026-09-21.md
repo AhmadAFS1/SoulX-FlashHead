@@ -180,6 +180,49 @@ marginal call.** The plan rated it "the largest risk on the board" and that is c
 shrink was already shown inert (`stage-fp16-tail-build-r02` at `workspace_mib=384`
 produced a byte-identical 1,418.9 MiB arena).
 
+## Updated per-component grid (shipping config)
+
+Artifact: `benchmarks/pro_30fps_20260921/latency-p2fixed/latency-summary.json`
+(`--latency-detail stages`, shipping config, 250 frames, seed 50, 2 steps,
+`complete_coverage: true`). The instrumented run reads 18.755 FPS and is stamped
+`performance_claim: false`; the uninstrumented throughput number is 18.5950 FPS.
+Compared against `benchmarks/pro_30fps_20260920/latency-stackedB/latency-summary.json`.
+
+**1,728.5 -> 1,463.9 ms/window. TensorRT engine calls 27 -> 21.**
+
+| Component | BEFORE | AFTER | delta ms |
+| --- | ---: | ---: | ---: |
+| decoder `trt.execute` | 698.4 (40.4%) | **617.1 (42.2%)** | −81.3 |
+| DiT forward | 426.6 (24.7%) | **393.6 (26.9%)** | −33.0 |
+| decoder non-engine ops | 271.1 (15.7%) | **246.3 (16.8%)** | −24.8 |
+| motion VAE encode | 123.0 (7.1%) | 156.9 (10.7%) | **+33.9** |
+| decoder output cast -> bf16 | 117.6 (6.8%) | **7.1 (0.5%)** | **−110.5** |
+| decoder input cast/contiguous | 41.5 (2.4%) | **7.6 (0.5%)** | −33.9 |
+| everything else | 43.0 (2.5%) | 28.1 (1.9%) | −14.9 |
+| audio encoder | 7.3 (0.4%) | 7.4 (0.5%) | +0.1 |
+| **total** | **1,728.5** | **1,463.9** | **−264.6** |
+
+Three readings:
+
+1. **The boundary-cast tax is effectively gone: 159.1 -> 14.7 ms/window, −91%.** The
+   largest single line change in the grid, and far past the 53.4 ms the plan projected.
+   Casts fall from the #4 component to 1.0% combined. The plan's stated hard floor of
+   ~17 ms/window for this component is now the operating point.
+2. **`trt.execute` fell 81.3 ms by doing less work, not faster work** — 21 calls per
+   window instead of 27, because overlap-skip removed 6 redundant engine invocations.
+   No kernel improved.
+3. **Motion encode is the one regression (+33.9 ms) and is the price of overlap-skip**,
+   which is mutually exclusive with the compiled encoder. Net trade is strongly positive
+   (−250 ms on decode against +34), but reclaiming it is the obvious next target if the
+   two can be made to coexist.
+
+**The ranking is unchanged and the decoder still dominates**: 878.1 ms, **60.0%** of the
+window (down from 65.3%). `trt.execute` alone is 42.2% — a *larger* share than before,
+because everything around it shrank faster. Further real gains still have to come from
+decoder engine compute, and SM89 has no precision tier below FP16, which points at the
+engine-rebuild levers (§1.2 merged engines, §1.3 tactic forcing) rather than more
+quantization.
+
 ## Where this leaves the goal
 
 **20 FPS is not met.** 18.5950 FPS is 13.4445 s / 250 frames = **1,493.8 ms/window**

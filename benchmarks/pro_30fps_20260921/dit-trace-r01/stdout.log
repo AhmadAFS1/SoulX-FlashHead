@@ -1,0 +1,79 @@
+{
+  "output": "benchmarks/pro_30fps_20260921/dit-trace-r01",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 3.0291199040366337,
+      "useful_fps": 18.48721799535696,
+      "first_window_latency_s": 1.496518457075581,
+      "chunk_times_s": [
+        1.496518457075581,
+        1.4874723489629105
+      ],
+      "chunk_distribution_s": {
+        "count": 2,
+        "min": 1.4874723489629105,
+        "p50": 1.4919954030192457,
+        "p95": 1.4960661516699474,
+        "p99": 1.4964279959944542,
+        "max": 1.496518457075581
+      },
+      "stage_seconds": {
+        "audio": 0.016755743980407717,
+        "dit": 0.7883342742919921,
+        "vae_decode": 1.7671211547851562,
+        "motion_encode": 0.32329486083984377
+      },
+      "peak_allocated_mib": 6048.97412109375,
+      "peak_reserved_mib": 11032.0,
+      "resource_summary": {
+        "sample_count": 4,
+        "gpu_utilization_percent": {
+          "mean": 89.0,
+          "min": 56.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 8867.5,
+          "min": 8619.0,
+          "max": 9065.0
+        },
+        "system_cpu_percent": {
+          "mean": 3.2,
+          "min": 0.0,
+          "max": 5.6
+        },
+        "process_cpu_percent": {
+          "mean": 590.05,
+          "min": 99.6,
+          "max": 2048.7
+        },
+        "system_ram_used_mib": {
+          "mean": 20488.3603515625,
+          "min": 20468.57421875,
+          "max": 20514.94140625
+        },
+        "system_ram_percent": {
+          "mean": 66.175,
+          "min": 66.1,
+          "max": 66.3
+        },
+        "process_rss_mib": {
+          "mean": 3250.03125,
+          "min": 3227.14453125,
+          "max": 3272.91796875
+        },
+        "torch_allocated_mib": {
+          "mean": 4639.993896484375,
+          "min": 4582.921875,
+          "max": 4679.7822265625
+        },
+        "torch_reserved_mib": {
+          "mean": 7317.5,
+          "min": 6262.0,
+          "max": 8342.0
+        }
+      }
+    }
+  ]
+}

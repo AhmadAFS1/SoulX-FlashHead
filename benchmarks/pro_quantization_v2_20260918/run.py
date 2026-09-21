@@ -127,6 +127,10 @@ def _sources() -> list[Path]:
         ROOT / "soulx_rtc/pro_attention_backends.py",
         ROOT / "soulx_rtc/pro_vae_quantization.py",
         ROOT / "soulx_rtc/pro_vae_stage_backend.py",
+        # Runtime decoder op rewrites (sub-pixel Resample, channels-last head,
+        # overlap-skip). These change generated pixels, so a run's source manifest is
+        # incomplete without them.
+        ROOT / "soulx_rtc/pro_decoder_ops.py",
         ROOT / "benchmarks/pro_quantization_v2_20260918/profile.py",
         ROOT / "soulx_rtc/gpu_lease.py",
         ROOT / "flash_head/src/modules/flash_head_model.py",
@@ -550,21 +554,21 @@ def run_experiment(args: argparse.Namespace) -> dict[str, Any]:
                 "repeated": len(effective_audio) > len(librosa.load(fixture["audio"]["path"], sr=fixture["sample_rate"], mono=True)[0]),
                 "padding_samples_included_in_generation": int(slices.size - len(effective_audio)),
             }
-            # These two are mutually exclusive, measured, not theorised. Overlap-skip
-            # must mutate _feat_map between windows; a torch.compile'd encode guards on
-            # that structure, so every window misses its guard. Measured at 250 frames:
-            #   overlap-skip + compiled encode : motion_encode 2.611 s, 16.9637 FPS
-            #   overlap-skip, encode uncompiled: motion_encode 1.415 s, 18.4298 FPS
-            # The encode compile is worth 0.295 s on its own but costs 1.49 s here,
-            # against the 1.17 s overlap-skip saves on decode. So overlap-skip wins and
-            # the compile is dropped rather than silently eating the gain.
-            if getattr(args, "compile_vae_encode", False) and getattr(args, "overlap_skip", False):
-                result["vae_encode_compiled"] = False
-                result["vae_encode_compile_skipped"] = (
-                    "mutually exclusive with --overlap-skip; the compiled encode guards on "
-                    "_feat_map, which overlap-skip mutates every window"
-                )
-            elif getattr(args, "compile_vae_encode", False):
+            # These two USED to be mutually exclusive. Overlap-skip must mutate _feat_map
+            # between windows, and a torch.compile'd encode guards on that structure, so
+            # every window missed its guard. Measured over 250 frames:
+            #   wrap encode + compiled                 : motion_encode 12.454 s,  9.8361 FPS
+            #   restore cache inside decode + compiled :                2.611 s, 16.9637 FPS
+            #   restore cache inside decode, uncompiled:                1.415 s, 18.4298 FPS
+            # install_overlap_skip now neutralises _feat_map to a stable list of Nones on
+            # ENTRY to encode -- the exact structure the stock path always shows it -- so
+            # the guard holds and both land together:
+            #   neutralising shim + compiled           :                1.116 s, 19.2643 FPS
+            # encode() rebuilds its own _enc_feat_map regardless, so this changes no
+            # numerics: oral edge ratio 1.0259, opening_correlation 0.9633, colour drift
+            # below control. --force-encode-compile is kept only to re-measure the old
+            # collision; it is no longer needed for the combination to be safe.
+            if getattr(args, "compile_vae_encode", False):
                 # Must run BEFORE _instrument wraps vae.encode: instrumenting first
                 # would hand torch.compile the CUDA-event wrapper instead of the
                 # encoder, which both breaks the stage timing and graph-breaks.
@@ -807,6 +811,10 @@ def main() -> None:
     parser.add_argument("--lean-delivery", action="store_true",
                         help="Trim history frames and convert to uint8 on device before the D2H copy. "
                              "Quarters the per-window transfer; raw_rgb_sha256 stays comparable.")
+    parser.add_argument("--force-encode-compile", action="store_true",
+                        help="Allow --compile-vae-encode alongside --overlap-skip. Only safe once "
+                             "the overlap-skip encode shim neutralises _feat_map on entry; without "
+                             "it the compiled encoder's guard misses every window.")
     parser.add_argument("--overlap-skip", action="store_true",
                         help="Persist the decoder causal cache across windows and stop re-decoding "
                              "the motion overlap. Changes cross-window temporal context: gate on "
