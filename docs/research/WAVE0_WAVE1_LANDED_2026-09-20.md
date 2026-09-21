@@ -165,11 +165,21 @@ be promoted as a bundle or the gate applied to the bundle. The same items must b
 *ablated separately for quality* and *promoted together for speed*; those two requirements
 pull in opposite directions and the run schedule below reflects it.
 
-`[GAP]` `use_fast_accum` is unquantifiable without measurement. Two readings are both
-defensible: the Ada FP8/FP16-accumulate tier is twice the FP32-accumulate tier (worth
-~200 ms/window), or `CUBLASLT_MATMUL_DESC_FAST_ACCUM` is a no-op on the SM89 `m16n8k32`
-path whose accumulator is architecturally f32 (worth 0). One microbenchmark settles it.
-**No speedup from this flag is included in any projection above.**
+~~`[GAP]` `use_fast_accum` is unquantifiable without measurement.~~ **CLOSED 2026-09-21 by
+measurement.** The second reading was correct: `CUBLASLT_MATMUL_DESC_FAST_ACCUM` is a **no-op**
+on the SM89 `m16n8k32` path whose accumulator is architecturally f32. Interleaved A/B, 5 reps x
+200 iterations with CUDA events, `torch._scaled_mm` E4M3 TN, at (M=6480, K=1536, N=1536) — the
+**only** shape the flag reaches in stackedB, because the INT8 FFN took the other two:
+
+| shape | fast_accum OFF | fast_accum ON | delta |
+| --- | --- | --- | --- |
+| (6480, 1536, 1536) — the only shape it reaches | 0.2284 ms / 133.9 TFLOP/s | 0.2271 ms / 134.6 TFLOP/s | **+0.6%** |
+| (6480, 1536, 8960) | — | — | +11.7%, but **INT8 in stackedB** |
+| (6480, 8960, 1536) | — | — | +4.7%, but **INT8 in stackedB** |
+
+Across 6 linears x 60 block-forwards the flag is worth **0.47 ms/window** — 0.14 sigma on
+`stage_seconds.dit`, roughly 7x below the resolution floor. **The ~200 ms/window reading is
+dead.** The earlier 28.4 ms midpoint carried into planning was ~60x the truth.
 
 ---
 
@@ -194,9 +204,24 @@ levels quantise Q/K to INT8.
 **#2 — Roofline microbenchmark (decides W1.3 and closes G4).** Sweep `torch._scaled_mm`
 FP8-E4M3 with `use_fast_accum` False/True plus BF16 `torch.mm` at M=6480,
 (K,N) ∈ {(1536,1536), (1536,8960), (8960,1536)}. Report TFLOP/s and the dispatched kernel
-name. `[GAP]` No retained artifact measures this GPU's achievable dense FP8 peak, so it is
-currently unknown whether the measured **131.4 TFLOP/s effective** is ~93% of roofline or
-~46% — i.e. whether the FP8 lane has any headroom at all.
+name. ~~`[GAP]` No retained artifact measures this GPU's achievable dense FP8 peak.~~
+**RUN 2026-09-21. The answer is ~94% of a hard cap.** Max FP8 throughput observed on this part
+under **any** configuration, fast_accum ON, is **141.8 TFLOP/s** — exactly the ~142
+FP32-accumulate cap. **There is no ~284 TFLOP/s FP8 tier on consumer Ada.** Measured tier table
+at M=6480:
+
+| path | TFLOP/s (or TOPS) |
+| --- | --- |
+| BF16 `torch.mm` | 68.8 - 69.8 |
+| FP8 `_scaled_mm`, fast_accum OFF | 128 - 138 |
+| FP8 `_scaled_mm`, fast_accum ON | 134 - **141.8** |
+| INT8 `_int_mm` | **187 - 232 TOPS** |
+
+So the measured **131.4 TFLOP/s effective is ~93% of roofline — the FP8 lane has no headroom.**
+The only open arithmetic tier left in the DiT is INT8 for the 6 square projections, measured
+end-to-end at **-7.4 ms/window** for all six (-3.7 for the three that are safe; `q`/`k` must
+**not** be converted, because SageAttention2 re-quantizes them to INT8 per-thread inside the
+kernel — routing them through an INT8 GEMM first is double quantization of the same values).
 
 **#3 — Latency trace (closes G1/G3, zero new code).** `--latency-detail stages` on the
 candidate policy. Every per-kernel number in every current plan document describes the
@@ -225,7 +250,7 @@ accept/revert criterion before it is pushed:
 | --- | --- | --- |
 | W1.4 lean delivery | `raw_rgb_sha256` identical; remainder drops | any sha mismatch |
 | W1.1 cross q/o | Δ `stage_seconds.dit` ≤ −30 ms/window | DiT unchanged or quality arm fails |
-| W1.3 fast_accum | roofline shows a real tier **and** quality arm passes | no GEMM change, or relative L2 worsens |
+| ~~W1.3 fast_accum~~ | **RETIRED 2026-09-21 — measured no-op, 0.47 ms/window. Do not run this arm.** | — |
 | 2-step | quality arm passes at best lag | any tooth/articulation regression |
 
 ---

@@ -1,0 +1,35 @@
+{
+  "chunk_boundaries": [
+    0,
+    28,
+    56,
+    249
+  ],
+  "indices": [
+    0,
+    12,
+    28,
+    56,
+    62,
+    67,
+    112,
+    145,
+    162,
+    189,
+    212,
+    249
+  ],
+  "rule": "baseline FaceMesh opening_norm min/median/max plus first, recurrent chunk boundaries, final frame, and fixed timeline samples",
+  "strata": {
+    "closed": 145,
+    "open": 189,
+    "partial": 67
+  },
+  "timeline": [
+    12,
+    62,
+    112,
+    162,
+    212
+  ]
+}

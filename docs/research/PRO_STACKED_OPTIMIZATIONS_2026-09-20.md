@@ -2,6 +2,9 @@
 
 **Audience:** the next engineer continuing the PRO throughput work.
 **Supersedes** the projections in `RTX4070_RUN_RESULTS_2026-09-20.md` §4 with measurements.
+**Superseded in part (2026-09-21):** the "Where this leaves the 20 FPS goal" lever table and
+the tail-engine VRAM figure have been corrected in place after adversarial review of all four
+components. The definitive forward plan is **`PRO_THROUGHPUT_PLAN_2026-09-21.md`**.
 
 ## Hardware and provenance
 
@@ -205,25 +208,103 @@ against 1.235 for the D2 step reduction. 250/250 frames detected on both arms. V
 Pixels do differ (79-83% of them, mean |delta| 3.3-5.3/255) with per-channel means within 0.2
 — the same autoregressive divergence documented previously, not degradation.
 
+## Per-component latency breakdown (2026-09-21)
+
+**This is the first latency summary ever retained in this repo.** Artifact:
+`benchmarks/pro_30fps_20260920/latency-stackedB/latency-summary.json`
+(`--latency-detail stages`, stackedB policy, seed 50, 2 steps, `complete_coverage: true`,
+`dropped_events: 0`, 9 windows, 27 TensorRT engine calls per window).
+
+The instrumented run measured 15.8737 FPS and the harness stamps it
+`latency_diagnostic.performance_claim: false` — **instrumentation costs about 1%, so do not
+quote 15.8737 as a throughput number.** The uninstrumented stackedB figure is 16.0275 FPS.
+The *proportions* below are the result; the absolute total is diagnostic.
+
+### Per window (`pipeline.window` = 1,728.5 ms), CUDA time
+
+| Component | ms/window | % of pipeline |
+| --- | ---: | ---: |
+| **decoder `trt.execute`** (engine compute) | **698.4** | **40.4%** |
+| **DiT forward** | **426.6** | **24.7%** |
+| **decoder non-engine ops** (conv1, middle, upsamples[0,1,2], Resample[3,7,11], head) | **271.0** | **15.7%** |
+| motion VAE encode | 123.0 | 7.1% |
+| decoder `trt.output_cache_cast_bf16` | 117.6 | 6.8% |
+| everything else | 43.0 | 2.5% |
+| decoder `trt.input_cast_contiguous` | 41.5 | 2.4% |
+| audio encoder | 7.3 | 0.4% |
+| **total** | **1,728.5** | **100%** |
+
+### `vae.decode` internals (1,128.6 ms/window)
+
+| Part | ms/window | % of decode |
+| --- | ---: | ---: |
+| `trt.execute` | 698.4 | 61.9% |
+| non-engine decoder ops | 271.0 | 24.0% |
+| output cast to BF16 | 117.6 | 10.4% |
+| input cast / contiguous | 41.5 | 3.7% |
+| **boundary casts combined** | **159.1** | **14.1% of decode, 9.2% of wall** |
+
+### Two findings that change the plan
+
+**1. The engines are doing real work — the cast tax is not the story.** An earlier hypothesis in
+this cycle held that the TensorRT boundary casts dominated the decoder, and that this explained
+both the INT8 null result and the tail engines' modest gain. **That hypothesis is refuted by
+measurement.** Casts are 159.1 ms/window — 14.1% of decode, 9.2% of wall. `trt.execute` is 61.9%
+of decode. The surviving explanation for the INT8 result is the hardware one: on Ada, INT8 and
+FP16-with-FP16-accumulate share the same tensor-core tier and the shipped FP16 engines already
+run an f16-accumulate tactic, so there was never arithmetic headroom to pay the Q/DQ reformat tax.
+
+**2. The serialized enqueue lock is a non-issue.** `trt.bind_enqueue_fence` is the *outer* scope
+wrapping `trt.execute`: 698.5 vs 698.4 ms. The lock, fence and binding cost **0.08 ms/window**.
+Any plan premised on contention there is chasing nothing.
+
+### Amdahl against the measured budget
+
+The decoder (engines + non-engine ops + casts) is **1,128.6 ms of 1,728.5 ms = 65.3%**.
+Because D2 and the stacked DiT work shrank everything around it, the decoder's share has *risen*
+from 52.0% at the original 4-step baseline to 65.3% today.
+
+- With DiT, motion encode and audio all at **zero**: 250 / 10.241 = **23.6 FPS ceiling** `[E]`
+- To reach 20 FPS (1,389 ms/window) from 1,733: cut the decoder **1.43x**, or cut
+  everything-else **2.37x**. The decoder route is the only tractable one.
+
 ## Where this leaves the 20 FPS goal
 
 16.0275 FPS is **80.1%** of 20 FPS. Closing the remaining 24.8% `[E]`:
 
-| lever | est. delta | status |
-| --- | --- | --- |
-| `chunk_frames` 28 -> 36 | −0.85 s | untested, low effort |
-| 1 sampling step | −2.08 s | untested, quality-gated |
-| decoder cache persistence | −1.7 to −1.9 s | blocked: `vae.encode` clears the cache |
-| distilled decoder tail | −2.5 to −3.5 s | research, weeks |
+**SUPERSEDED 2026-09-21** by `PRO_THROUGHPUT_PLAN_2026-09-21.md`, which is the definitive
+plan. The table below is kept only so the corrections are visible; **do not plan off it.**
 
-At 15.598 s (the stackedB total), reaching 20 FPS needs 12.5 s — another **3.1 s**. Only the
-last two levers are individually large enough, and both are high-risk.
+| lever | est. delta (as written) | **corrected 2026-09-21** |
+| --- | --- | --- |
+| `chunk_frames` 28 -> 36 | −0.85 s | **Not a DiT lever.** 11 latent frames x 720 = 7,920 tokens; `7 x (334.0 x 7920/6480 + 92.6 x (62/51)^2) = ~3,823 ms` per 250 frames against today's `9 x 426.6 = 3,839` — a **16 ms wash** on the DiT. The −0.85 s is decoder/encoder amortisation and belongs to the decoder components. **Do not double-count it.** Unflagged product cost: buffered audio per window 1.32 s -> **1.64 s**. |
+| 1 sampling step | −2.08 s | **−1.92 s.** The −2.08 was computed off the D2 baseline DiT (4.1623/2); against stackedB's faster DiT (3.8307 s) it is −1.92 s = **−212.8 ms/window**. MEASURED. Still the single biggest lever, still ungated on quality — **no 1-step arm exists anywhere in `benchmarks/`.** |
+| decoder cache persistence | −1.7 to −1.9 s | **~−150 ms/window (~−1.35 s).** The MEASURED core is **98.87 ms/window** (the sig0+sig1 engine calls), +10.15 boundary casts, +~41 non-engine. **The blocker named here was only half the story:** `cached_decode` omits the two `clear_cache()` calls in `decode`, but `WanVAE_.encode` calls `clear_cache()` at `vae.py:771` **and** `:798`, and `clear_cache` resets the **decoder** `_feat_map` at `:898`. The pipeline runs `encode` between decodes, so the encoder wipes the decoder cache every window regardless of entry point. The fix is a `_feat_map` save/restore around `flash_head_pipeline.py:404`, **not** a `decode` -> `cached_decode` swap. New quality exposure: `cond_frame` is taken **after** `match_and_blend_colors_torch`, so persisting the cache removes colour correction from the cross-window feedback loop. |
+| distilled decoder tail | −2.5 to −3.5 s | **−124 to −280 ms/window (−1.1 to −2.5 s).** FLOP scaling is the right model (conv-only arithmetic intensity 864 FLOP/B against a 563 machine balance — the convolutions are **compute-bound**, contrary to the whole-engine figure). Still weeks, still trips both the weights and source gates. |
+
+At 15.598 s (the stackedB total), reaching 20 FPS needs 12.5 s — another **3.1 s**. The
+2026-09-21 plan closes ~126 ms/window with no quality exposure and no rebuild (17.3 FPS), ~276
+with the overlap-skip (19.1 FPS), and **clears 20 FPS only by spending a sampling step or the
+motion-history window.**
 
 **VRAM is now the more urgent constraint.** stackedB peaks at 11,849 of 12,282 MiB — 433 MiB
 of headroom. A second PRO instance does not fit, so aggregate FPS across concurrent streams is
-still bounded by one instance per GPU. If concurrency is the goal, the +1,138 MiB the tail
-engines cost is arguably worse than the +2.56% they buy, and stackedA is the better shipping
-target at +5.02% for +32 MiB.
+still bounded by one instance per GPU. If concurrency is the goal, the tail engines' VRAM cost
+is arguably worse than the +2.56% they buy, and stackedA is the better shipping target at
++5.02%.
+
+**Correction 2026-09-21 — quote the tail engines' VRAM cost as two numbers, not one.** The
+"+1,138 MiB" conflated allocated and reserved. From `runs[0]` of `tailtest-stackedA-control` vs
+`tailtest-stackedB-tail`: `peak_allocated_mib` 4,904.84 -> 6,431.49 (**+1,526.6 MiB**) while
+`peak_reserved_mib` 10,014 -> 11,162 (**+1,148 MiB**). **Reserved is the number that decides
+whether a second instance fits.** Reverting the tail group is a policy-file edit only (drop
+`[12,13,14]` from `policies/stacked_b_full.json`), costs a MEASURED **43.2 ms/window** (0.4 FPS),
+and returns **−1,148 MiB reserved**. Note also that "`peak_reserved` 11,164 minus
+`peak_allocated` 6,430 = 4,734 MiB of slack" is an artifact — in `resources-0.json` the two are
+**anti-correlated** and never peak together; instantaneous slack is 1.4 GiB at the allocated
+peak and 6.2 GiB at the reserved peak. **Even with every VRAM lever in the 2026-09-21 plan the
+process lands near 10.2 GiB: a second instance does not fit on a 12 GB card at any point in
+this plan.**
 
 ## Files changed
 

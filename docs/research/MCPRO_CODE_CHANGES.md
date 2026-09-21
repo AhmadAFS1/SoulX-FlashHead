@@ -145,12 +145,22 @@ Each of these is regression-guarded in `tests/test_shipped_behaviour_preserved.p
 
 - **`tests/test_wave1_execution.py` has never executed.** It needs torch, absent
   on the dev machine. Its first run is Step 0 of the runbook.
-- **No roofline microbenchmark (W0.3).** `combined_fp16_sage_fp8_fastaccum.json`
-  will run, but a null result is uninterpretable without it.
+- ~~**No roofline microbenchmark (W0.3).**~~ **CLOSED 2026-09-21.** Roofline run:
+  FP8 peaks at 141.8 TFLOP/s (the FP32-accumulate cap), `fast_accum` is a measured
+  **no-op worth 0.47 ms/window**, and `combined_fp16_sage_fp8_fastaccum.json`
+  should not be run.
 - **`decoder_trial.py` fixed-latent control not fixed (W0.6).** Its cross-process
   spread is 7.9%, wider than the 5% promotion gate.
 - **No TRT stage runtime contract tests (W0.8).** `TensorRTStage.__call__` and
   `install_stage_plan` remain untested.
 - **W1.2 delayed FP8 activation scales not implemented.** Still
   `flat.abs().amax()` per call; `triton_red_fused_abs_amax_5` alone is
-  27.545 ms/window at ~506 GB/s, i.e. 100% of DRAM bandwidth.
+  27.545 ms/window. **Two corrections (2026-09-21):** (a) "~506 GB/s, i.e. 100% of
+  DRAM bandwidth" is wrong — achievable on this part is **420-475 GB/s** (506 is
+  100.4% of the 504.2 GB/s spec, impossible for a pure HBM pass); those kernels are
+  partly L2-served. (b) That two-kernel split is the **FP8 tensorwise** path, where
+  the amax is global and must materialise before any element can be scaled. The
+  shipping **INT8** FFN has no such barrier: inductor already emits **one** kernel,
+  `triton_red_fused__to_copy_abs_amax_clamp_clamp_min_div_round_1`. The real cost
+  there is that it reads the **232 MB INT32 `_int_mm` output twice** — worth
+  **-33.5 ms/window** to fix. See `PRO_THROUGHPUT_PLAN_2026-09-21.md` section 4.1.
