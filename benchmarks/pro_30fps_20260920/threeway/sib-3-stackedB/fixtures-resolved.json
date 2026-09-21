@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260920/tts-fixtures/sibilants.wav",
+    "sha256": "a95624fd527c4bd6f106de744cf11080dda8f1e6ff45ca9686d30f3eaafe986a"
+  },
+  "fixtures_source": "benchmarks/pro_30fps_20260920/tts-fixtures/fixtures.json",
+  "fps": 25,
+  "framing": "1.50x",
+  "id": "tts-sibilants",
+  "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+  "notes": "Sibilants and fricatives; sustained teeth exposure. Voice held constant across all tts-* fixtures so speech content is the only variable.",
+  "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 14.15s truncated to 10.0s. Generated 2026-09-20.",
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+  },
+  "sample_rate": 16000,
+  "split": "synthetic-phonetic-probe"
+}

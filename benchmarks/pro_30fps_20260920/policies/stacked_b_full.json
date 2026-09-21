@@ -1,0 +1,41 @@
+{
+ "schema_version": 1,
+ "name": "pro30-stacked-b-int8ffn-crossqo-tail",
+ "base": "pro-fp8-v1",
+ "ffn": {
+  "scheme": "int8_w8a8",
+  "exclude": []
+ },
+ "self_attention_projections": {
+  "scheme": "fp8_e4m3_w8a8",
+  "include": [
+   "blocks.*.self_attn.q",
+   "blocks.*.self_attn.k",
+   "blocks.*.self_attn.v",
+   "blocks.*.self_attn.o"
+  ],
+  "exclude": [],
+  "packing": "separate"
+ },
+ "self_attention_kernel": {
+  "backend": "sage2"
+ },
+ "cross_attention_projections": {
+  "scheme": "fp8_e4m3_w8a8",
+  "include": [
+   "blocks.*.cross_attn.q",
+   "blocks.*.cross_attn.o"
+  ],
+  "exclude": []
+ },
+ "decoder": {
+  "scheme": "fp16_stage_control",
+  "backend": "trt_stage_compile",
+  "plan": "benchmarks/pro_30fps_20260920/stage-fp16-tail-build-r01/results.json"
+ },
+ "compile": {
+  "dit": true,
+  "ffn_only": false
+ },
+ "prepared_conditioning": true
+}

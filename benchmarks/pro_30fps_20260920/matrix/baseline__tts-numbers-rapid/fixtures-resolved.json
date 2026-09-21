@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260920/tts-fixtures/numbers-rapid.wav",
+    "sha256": "43b395045ff4444084583b34f8cc0b9ac57e8d0c528faa980c8897202b752ca6"
+  },
+  "fixtures_source": "benchmarks/pro_30fps_20260920/tts-fixtures/fixtures.json",
+  "fps": 25,
+  "framing": "1.50x",
+  "id": "tts-numbers-rapid",
+  "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+  "notes": "Dense numeric articulation; fast consonant transitions. Voice held constant across all tts-* fixtures so speech content is the only variable.",
+  "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 18.225s truncated to 10.0s. Generated 2026-09-20.",
+  "reference": {
+    "path": "/workspace/SoulX-FlashHead/benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+  },
+  "sample_rate": 16000,
+  "split": "synthetic-phonetic-probe"
+}

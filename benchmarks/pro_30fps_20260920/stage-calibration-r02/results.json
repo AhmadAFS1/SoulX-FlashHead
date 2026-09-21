@@ -1,0 +1,1051 @@
+{
+  "arguments": {
+    "captures": "benchmarks/pro_30fps_20260919/real-inputs-r01/manifest.json",
+    "command": "capture",
+    "gpu_lock": "/workspace/SoulX-FlashHead/.gpu-owner.lock",
+    "groups": "['4,5,6', '8,9,10', '12,13,14']",
+    "max_latents": "4",
+    "max_raw_mib": "2048",
+    "output": "benchmarks/pro_30fps_20260920/stage-calibration-r02"
+  },
+  "calibration": {
+    "12-13-14": {
+      "1x96x1x576x320": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 2.734375,
+          "output_max": 2.171875
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 5.375,
+          "output_max": 6.0625
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 2.828125,
+          "output_max": 2.890625
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 7.84375,
+          "output_max": 7.03125
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 3.046875,
+          "output_max": 2.515625
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 4.8125,
+          "output_max": 6.59375
+        }
+      },
+      "1x96x4x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 2.828125,
+          "output_max": 2.890625
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 6.59375,
+          "output_max": 8.9375
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 2.90625,
+          "output_max": 4.1875
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 9.375,
+          "output_max": 11.625
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 3.046875,
+          "output_max": 4.21875
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 6.75,
+          "output_max": 16.375
+        }
+      },
+      "1x96x4x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320": {
+        "blocks.0.residual.2": {
+          "count": 28,
+          "input_max": 2.828125,
+          "output_max": 3.171875
+        },
+        "blocks.0.residual.6": {
+          "count": 28,
+          "input_max": 8.3125,
+          "output_max": 11.75
+        },
+        "blocks.1.residual.2": {
+          "count": 28,
+          "input_max": 3.546875,
+          "output_max": 5.5625
+        },
+        "blocks.1.residual.6": {
+          "count": 28,
+          "input_max": 10.0625,
+          "output_max": 11.6875
+        },
+        "blocks.2.residual.2": {
+          "count": 28,
+          "input_max": 3.0,
+          "output_max": 4.71875
+        },
+        "blocks.2.residual.6": {
+          "count": 28,
+          "input_max": 7.15625,
+          "output_max": 17.0
+        }
+      }
+    },
+    "4-5-6": {
+      "1x192x1x144x80": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 7.75,
+          "output_max": 9.3125
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 2.609375,
+          "output_max": 3.625
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 3.125,
+          "output_max": 3.859375
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 4.09375,
+          "output_max": 5.125
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 2.65625,
+          "output_max": 8.8125
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 3.890625,
+          "output_max": 3.203125
+        }
+      },
+      "1x192x2x144x80__1x192x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 10.125,
+          "output_max": 13.9375
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 3.046875,
+          "output_max": 5.875
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 4.125,
+          "output_max": 5.21875
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 5.09375,
+          "output_max": 8.1875
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 3.078125,
+          "output_max": 5.5625
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 4.625,
+          "output_max": 4.9375
+        }
+      },
+      "1x192x2x144x80__1x192x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80": {
+        "blocks.0.residual.2": {
+          "count": 28,
+          "input_max": 10.125,
+          "output_max": 14.0625
+        },
+        "blocks.0.residual.6": {
+          "count": 28,
+          "input_max": 4.125,
+          "output_max": 5.84375
+        },
+        "blocks.1.residual.2": {
+          "count": 28,
+          "input_max": 4.5625,
+          "output_max": 6.5
+        },
+        "blocks.1.residual.6": {
+          "count": 28,
+          "input_max": 5.4375,
+          "output_max": 8.6875
+        },
+        "blocks.2.residual.2": {
+          "count": 28,
+          "input_max": 3.609375,
+          "output_max": 6.25
+        },
+        "blocks.2.residual.6": {
+          "count": 28,
+          "input_max": 4.625,
+          "output_max": 6.15625
+        }
+      }
+    },
+    "8-9-10": {
+      "1x192x1x288x160": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 3.890625,
+          "output_max": 3.8125
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 4.28125,
+          "output_max": 4.71875
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 2.75,
+          "output_max": 3.109375
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 4.46875,
+          "output_max": 11.875
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 3.328125,
+          "output_max": 3.765625
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 3.75,
+          "output_max": 6.5625
+        }
+      },
+      "1x192x4x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160": {
+        "blocks.0.residual.2": {
+          "count": 4,
+          "input_max": 3.921875,
+          "output_max": 5.09375
+        },
+        "blocks.0.residual.6": {
+          "count": 4,
+          "input_max": 5.1875,
+          "output_max": 6.96875
+        },
+        "blocks.1.residual.2": {
+          "count": 4,
+          "input_max": 2.96875,
+          "output_max": 4.0625
+        },
+        "blocks.1.residual.6": {
+          "count": 4,
+          "input_max": 6.4375,
+          "output_max": 17.75
+        },
+        "blocks.2.residual.2": {
+          "count": 4,
+          "input_max": 3.390625,
+          "output_max": 4.5
+        },
+        "blocks.2.residual.6": {
+          "count": 4,
+          "input_max": 5.46875,
+          "output_max": 11.1875
+        }
+      },
+      "1x192x4x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160": {
+        "blocks.0.residual.2": {
+          "count": 28,
+          "input_max": 4.375,
+          "output_max": 4.84375
+        },
+        "blocks.0.residual.6": {
+          "count": 28,
+          "input_max": 5.5,
+          "output_max": 8.6875
+        },
+        "blocks.1.residual.2": {
+          "count": 28,
+          "input_max": 3.359375,
+          "output_max": 3.828125
+        },
+        "blocks.1.residual.6": {
+          "count": 28,
+          "input_max": 7.21875,
+          "output_max": 20.875
+        },
+        "blocks.2.residual.2": {
+          "count": 28,
+          "input_max": 4.21875,
+          "output_max": 4.5625
+        },
+        "blocks.2.residual.6": {
+          "count": 28,
+          "input_max": 5.84375,
+          "output_max": 12.5
+        }
+      }
+    }
+  },
+  "date_utc": "2026-09-20T22:44:17.500562+00:00",
+  "environment": {
+    "attention_backend_availability": {
+      "flash_attention_2": true,
+      "sageattention": true
+    },
+    "available_disk": {
+      "free_bytes": 24199213056,
+      "path": "/workspace/SoulX-FlashHead",
+      "total_bytes": 219043332096
+    },
+    "compiler_caches": {
+      "torchinductor": {
+        "existed_before_run": false,
+        "path": "/root/.cache/torch/inductor"
+      },
+      "triton": {
+        "existed_before_run": true,
+        "path": "/root/.triton/cache"
+      }
+    },
+    "cuda_compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Mon_Apr__3_17:16:06_PDT_2023\nCuda compilation tools, release 12.1, V12.1.105\nBuild cuda_12.1.r12.1/compiler.32688072_0",
+    "cuda_runtime": "12.8",
+    "date_utc": "2026-09-20T22:44:17.504291+00:00",
+    "environment_overrides": {
+      "CUDA_VERSION": "12.1.1",
+      "NCCL_VERSION": "2.17.1-1",
+      "PYTHONPATH": "/workspace/experiments/pro30-deps/sage-sm89:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.",
+      "PYTHONUNBUFFERED": "1",
+      "PYTHON_VERSION": "3.10"
+    },
+    "git": {
+      "commit": "51225f5f291ec7c1b09c2bbfca6246bca09f417f",
+      "dirty": true,
+      "status": [
+        "M benchmarks/pro_quantization_v2_20260918/review.py",
+        " M benchmarks/pro_quantization_v2_20260918/run.py",
+        " M docs/research/README.md",
+        " M soulx_rtc/pro_quantization.py",
+        "?? benchmarks/pro_30fps_20260920/",
+        "?? docs/research/RTX4070_RUN_RESULTS_2026-09-20.md"
+      ]
+    },
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "compute_capability": "8.9",
+          "driver": "595.84",
+          "name": "NVIDIA GeForce RTX 4070 SUPER",
+          "used_vram_mib": 3125,
+          "uuid": "GPU-69894a01-4488-37ac-5fd8-878224044365",
+          "visible_vram_mib": 12282
+        }
+      ]
+    },
+    "hostname": "400445b4c77b",
+    "packages": {
+      "absl-py": "2.5.0",
+      "accelerate": "1.15.0",
+      "addict": "2.4.0",
+      "aiofiles": "24.1.0",
+      "aiohappyeyeballs": "2.7.1",
+      "aiohttp": "3.14.3",
+      "aioice": "0.10.2",
+      "aiortc": "1.14.0",
+      "aiosignal": "1.4.0",
+      "annotated-doc": "0.0.5",
+      "annotated-types": "0.8.0",
+      "anyio": "4.15.1",
+      "asttokens": "3.0.2",
+      "async-timeout": "5.0.1",
+      "attrs": "26.1.0",
+      "audioread": "3.1.0",
+      "av": "16.1.0",
+      "beautifulsoup4": "4.15.0",
+      "bleach": "6.4.0",
+      "blinker": "1.9.0",
+      "blis": "1.3.3",
+      "brotli": "1.2.0",
+      "catalogue": "2.0.10",
+      "certifi": "2026.7.22",
+      "cffi": "2.1.1",
+      "charset-normalizer": "3.5.1",
+      "click": "8.5.0",
+      "cloudpathlib": "0.25.0",
+      "cloudpickle": "3.1.2",
+      "comm": "0.2.3",
+      "confection": "1.3.3",
+      "contourpy": "1.3.2",
+      "cryptography": "50.0.1",
+      "cycler": "0.12.1",
+      "cymem": "2.0.13",
+      "debugpy": "1.8.22",
+      "decorator": "5.3.1",
+      "decord": "0.6.0",
+      "defusedxml": "0.7.1",
+      "diffusers": "0.39.0",
+      "distvae": "0.1.0",
+      "dlinfo": "2.0.0",
+      "dnspython": "2.8.0",
+      "easydict": "1.13",
+      "einops": "0.8.2",
+      "en_core_web_sm": "3.8.0",
+      "espeakng-loader": "0.2.4",
+      "exceptiongroup": "1.3.1",
+      "executing": "2.2.1",
+      "fastapi": "0.141.1",
+      "fastjsonschema": "2.22.2",
+      "ffmpy": "1.0.0",
+      "filelock": "3.32.3",
+      "flash_attn": "2.8.0.post2",
+      "flask": "3.1.3",
+      "flatbuffers": "25.12.19",
+      "fonttools": "4.65.0",
+      "frozenlist": "1.8.0",
+      "fsspec": "2026.7.0",
+      "ftfy": "6.3.1",
+      "google-crc32c": "1.8.0",
+      "gradio": "5.50.0",
+      "gradio_client": "1.14.0",
+      "groovy": "0.1.2",
+      "h11": "0.16.0",
+      "hf-xet": "1.6.0",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.19",
+      "ifaddr": "0.2.0",
+      "imageio": "2.37.4",
+      "imageio-ffmpeg": "0.6.0",
+      "importlib_metadata": "9.0.1",
+      "iniconfig": "2.3.0",
+      "ipykernel": "7.3.0",
+      "ipython": "8.39.0",
+      "itsdangerous": "2.2.0",
+      "jedi": "0.20.0",
+      "jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jupyter_client": "8.10.0",
+      "jupyter_core": "5.9.1",
+      "jupyterlab_pygments": "0.3.0",
+      "kiwisolver": "1.5.1",
+      "kokoro": "0.9.4",
+      "lazy-loader": "0.5",
+      "librosa": "0.11.0",
+      "llvmlite": "0.49.0",
+      "loguru": "0.7.3",
+      "markdown-it-py": "4.2.0",
+      "markupsafe": "3.0.3",
+      "matplotlib": "3.10.9",
+      "matplotlib-inline": "0.2.2",
+      "mdurl": "0.1.2",
+      "mediapipe": "0.10.9",
+      "misaki": "0.9.4",
+      "mistune": "3.3.4",
+      "mpmath": "1.3.0",
+      "msgpack": "1.2.2",
+      "multidict": "6.8.0",
+      "murmurhash": "1.0.15",
+      "nbclient": "0.11.0",
+      "nbconvert": "7.17.1",
+      "nbformat": "5.11.1",
+      "nest-asyncio2": "1.7.2",
+      "networkx": "3.4.2",
+      "num2words": "0.5.14",
+      "numba": "0.67.0",
+      "numpy": "2.2.6",
+      "nvidia-cublas-cu12": "12.8.3.14",
+      "nvidia-cuda-cupti-cu12": "12.8.57",
+      "nvidia-cuda-nvrtc-cu12": "12.8.61",
+      "nvidia-cuda-runtime-cu12": "12.8.57",
+      "nvidia-cudnn-cu12": "9.7.1.26",
+      "nvidia-cufft-cu12": "11.3.3.41",
+      "nvidia-cufile-cu12": "1.13.0.11",
+      "nvidia-curand-cu12": "10.3.9.55",
+      "nvidia-cusolver-cu12": "11.7.2.55",
+      "nvidia-cusparse-cu12": "12.5.7.53",
+      "nvidia-cusparselt-cu12": "0.6.3",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.8.61",
+      "nvidia-nvtx-cu12": "12.8.55",
+      "onnx": "1.17.0",
+      "opencv-contrib-python": "5.0.0.93",
+      "opencv-python": "5.0.0.93",
+      "opencv-python-headless": "5.0.0.93",
+      "orjson": "3.12.0",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pandocfilters": "1.5.1",
+      "parso": "0.8.7",
+      "peft": "0.20.0",
+      "pexpect": "4.9.0",
+      "phonemizer": "3.4.0",
+      "pillow": "11.3.0",
+      "pip": "25.2",
+      "platformdirs": "4.11.8",
+      "pluggy": "1.6.0",
+      "pooch": "1.9.0",
+      "preshed": "3.0.13",
+      "prompt_toolkit": "3.0.53",
+      "propcache": "0.5.2",
+      "protobuf": "3.20.3",
+      "psutil": "7.2.2",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.4",
+      "pycparser": "3.0",
+      "pydantic": "2.12.3",
+      "pydantic_core": "2.41.4",
+      "pydub": "0.25.1",
+      "pyee": "13.0.1",
+      "pygments": "2.21.0",
+      "pylibsrtp": "1.0.0",
+      "pyloudnorm": "0.2.0",
+      "pyopenssl": "26.4.0",
+      "pyparsing": "3.3.2",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "python-multipart": "0.0.32",
+      "pytz": "2026.3.post1",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.2.0",
+      "referencing": "0.37.0",
+      "regex": "2026.9.10",
+      "requests": "2.34.2",
+      "rich": "15.0.0",
+      "rpds-py": "0.30.0",
+      "ruff": "0.16.7",
+      "safehttpx": "0.1.7",
+      "safetensors": "0.8.0",
+      "sageattention": "1.0.6",
+      "scikit-image": "0.25.2",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.15.3",
+      "semantic-version": "2.10.0",
+      "sentencepiece": "0.2.2",
+      "setuptools": "59.6.0",
+      "shellingham": "1.5.4",
+      "six": "1.17.0",
+      "smart_open": "8.0.1",
+      "sounddevice": "0.5.6",
+      "soundfile": "0.14.0",
+      "soupsieve": "2.9.2",
+      "soxr": "1.1.0",
+      "spacy": "3.8.16",
+      "spacy-legacy": "3.0.12",
+      "spacy-loggers": "1.0.5",
+      "srsly": "2.5.3",
+      "stack-data": "0.6.3",
+      "starlette": "0.52.1",
+      "sympy": "1.14.0",
+      "tensorrt-cu12": "10.9.0.34",
+      "tensorrt_cu12_bindings": "10.9.0.34",
+      "tensorrt_cu12_libs": "10.9.0.34",
+      "thinc": "8.3.13",
+      "threadpoolctl": "3.6.0",
+      "tifffile": "2025.5.10",
+      "tinycss2": "1.5.1",
+      "tokenizers": "0.22.2",
+      "tomli": "2.4.1",
+      "tomlkit": "0.13.3",
+      "torch": "2.7.1+cu128",
+      "torchaudio": "2.7.1+cu128",
+      "torchvision": "0.22.1+cu128",
+      "tornado": "6.5.10",
+      "tqdm": "4.70.1",
+      "traitlets": "5.16.1",
+      "transformers": "4.57.3",
+      "triton": "3.3.1",
+      "typer": "0.27.2",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.4",
+      "urllib3": "2.7.0",
+      "uvicorn": "0.53.0",
+      "wasabi": "1.1.3",
+      "wcwidth": "0.8.3",
+      "weasel": "1.0.0",
+      "webencodings": "0.6.1",
+      "websockets": "15.0.1",
+      "werkzeug": "3.1.8",
+      "wheel": "0.48.0",
+      "wrapt": "2.4.1",
+      "xformers": "0.0.31",
+      "xfuser": "0.6.0",
+      "yarl": "1.24.5",
+      "yunchang": "0.6.4",
+      "zipp": "4.1.0"
+    },
+    "physical_ram_bytes": 32455614464,
+    "physical_vram_class": "unverified in this run",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "resident_gpu_processes": [
+      {
+        "pid": "157695",
+        "process": ".venv/bin/python",
+        "used_memory_mib": "2876"
+      },
+      {
+        "pid": "246436",
+        "process": "/workspace/experiments/ltx23-soulx-transfer/.venv/bin/python",
+        "used_memory_mib": "234"
+      }
+    ],
+    "torch": "2.7.1+cu128"
+  },
+  "execution": "fresh GPU stage diagnostic; not end-to-end video throughput",
+  "groups": [
+    [
+      4,
+      5,
+      6
+    ],
+    [
+      8,
+      9,
+      10
+    ],
+    [
+      12,
+      13,
+      14
+    ]
+  ],
+  "max_bytes": 2147483648,
+  "retained_bytes": 1601372160,
+  "samples": {
+    "12-13-14": {
+      "1x96x1x576x320": {
+        "count": 4,
+        "path": "stage-12-13-14-sample-0.pt",
+        "sha256": "906f860f7e8669fa80473f8cb7af7196d7be7e15525b53b4093ff282564f090f",
+        "shapes": [
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ]
+        ]
+      },
+      "1x96x4x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320__1x96x1x576x320": {
+        "count": 4,
+        "path": "stage-12-13-14-sample-1.pt",
+        "sha256": "f747ed20c3781c676bf13284e55c08dd047daebc8b9b6ab9a56fbaaa5b7b153e",
+        "shapes": [
+          [
+            1,
+            96,
+            4,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            1,
+            576,
+            320
+          ]
+        ]
+      },
+      "1x96x4x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320__1x96x2x576x320": {
+        "count": 28,
+        "path": "stage-12-13-14-sample-2.pt",
+        "sha256": "1e9638c807da5567b74356d64987bed3ddbfef2dc266b3dde10148fb34d84205",
+        "shapes": [
+          [
+            1,
+            96,
+            4,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ],
+          [
+            1,
+            96,
+            2,
+            576,
+            320
+          ]
+        ]
+      }
+    },
+    "4-5-6": {
+      "1x192x1x144x80": {
+        "count": 4,
+        "path": "stage-4-5-6-sample-0.pt",
+        "sha256": "b0edb19d256316085b6887f9d8cf39d0291a2f2870aaf09187fe86c8a5f1b177",
+        "shapes": [
+          [
+            1,
+            192,
+            1,
+            144,
+            80
+          ]
+        ]
+      },
+      "1x192x2x144x80__1x192x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80__1x384x1x144x80": {
+        "count": 4,
+        "path": "stage-4-5-6-sample-1.pt",
+        "sha256": "2a13d07548120d19f7df4d6a355b46bbaf82699db6a6cf9028b38f5f2010e219",
+        "shapes": [
+          [
+            1,
+            192,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            192,
+            1,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            1,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            1,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            1,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            1,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            1,
+            144,
+            80
+          ]
+        ]
+      },
+      "1x192x2x144x80__1x192x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80__1x384x2x144x80": {
+        "count": 28,
+        "path": "stage-4-5-6-sample-2.pt",
+        "sha256": "7ba88765d4029c3412ae9d12f73ab0139101794f0b7e3aa51c1a851728fb4596",
+        "shapes": [
+          [
+            1,
+            192,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            192,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            2,
+            144,
+            80
+          ],
+          [
+            1,
+            384,
+            2,
+            144,
+            80
+          ]
+        ]
+      }
+    },
+    "8-9-10": {
+      "1x192x1x288x160": {
+        "count": 4,
+        "path": "stage-8-9-10-sample-0.pt",
+        "sha256": "85ec403914798c14e8f345ec2079898147b389faaf842586cde69d9d88002ffa",
+        "shapes": [
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ]
+        ]
+      },
+      "1x192x4x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160__1x192x1x288x160": {
+        "count": 4,
+        "path": "stage-8-9-10-sample-1.pt",
+        "sha256": "6ef4a7a0d9165523e3ffb2b0df253bb6b2f3abf5e0feb9673277d2bb5d528bda",
+        "shapes": [
+          [
+            1,
+            192,
+            4,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            1,
+            288,
+            160
+          ]
+        ]
+      },
+      "1x192x4x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160__1x192x2x288x160": {
+        "count": 28,
+        "path": "stage-8-9-10-sample-2.pt",
+        "sha256": "9fa23fea7063ef80bde5a9532742334400a09dd063fca014bc6c9ca36b776282",
+        "shapes": [
+          [
+            1,
+            192,
+            4,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ],
+          [
+            1,
+            192,
+            2,
+            288,
+            160
+          ]
+        ]
+      }
+    }
+  },
+  "source_capture": {
+    "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/manifest.json",
+    "sha256": "58dd0f5cfdf12a6d530e96977f5fd0fb90930c15b3e7c3d3feed9aa8fda618d1"
+  },
+  "source_latents": [
+    {
+      "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-0.pt",
+      "sha256": "3b8b90cf3cf186f6dd86dfa6c2c75f9a6cfe09c61ed6d88eee92b551149d5a4b"
+    },
+    {
+      "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-1.pt",
+      "sha256": "40090a4ea6ea70bd289d48c35ea285861fd53b13ad9ffd2a839a3ba8b9f705dd"
+    },
+    {
+      "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-6.pt",
+      "sha256": "6db6754a453d6eabaa04e20afb83f783179b31f1cdb8c36e470300c6b309da89"
+    },
+    {
+      "path": "benchmarks/pro_30fps_20260919/real-inputs-r01/tensors/vae_public_decode-public_vae_latent-10.pt",
+      "sha256": "c0d960935b564b48ecb8852732216e6357865b4ed158cad8e17e326ff8cbedbe"
+    }
+  ],
+  "source_sha256": {
+    "benchmarks/pro_30fps_20260919/decoder_stages.py": "3109322a5d07cdb234db71967bfb05672c73938df22aabc3e5b83864eb8c6e3b",
+    "benchmarks/pro_quantization_v2_20260918/build_decoder_engine.py": "ceff9bd9a051ca2fc4432d7166b6e497fa22eb8d80ca9bdfae2896e6c37839e0",
+    "flash_head/wan/modules/vae.py": "7071d15350f30eed21a363c624e36c646ae8f7ec81303b83575dcf63bfbc49eb",
+    "soulx_rtc/pro_vae_stage_backend.py": "34f940a5e3870b3f32215bb4330de9cceb63604f5dba0b2547c82222820fdfaa"
+  },
+  "status": "complete",
+  "weights_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+}

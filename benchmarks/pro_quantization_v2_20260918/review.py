@@ -34,9 +34,12 @@ def _load_run(directory: Path) -> dict[str, Any]:
     return result
 
 
-def _profile_key(run: dict[str, Any]) -> tuple[Any, ...]:
+_PROFILE_FIELDS = ("width", "height", "fps", "frames", "steps", "shift", "motion_latents")
+
+
+def _profile_key(run: dict[str, Any], skip: tuple[str, ...] = ()) -> tuple[Any, ...]:
     profile = run["profile"]
-    return tuple(profile.get(name) for name in ("width", "height", "fps", "frames", "steps", "shift", "motion_latents"))
+    return tuple(profile.get(name) for name in _PROFILE_FIELDS if name not in skip)
 
 
 def _select_frames(frames: list[dict[str, Any]], fps: int) -> dict[str, Any]:
@@ -204,11 +207,17 @@ def main() -> None:
     parser.add_argument("--baseline-label", required=True)
     parser.add_argument("--candidate-label", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--allow-steps-drift", action="store_true",
+                        help="Permit the denoising step count to differ between baseline and candidate. "
+                             "Every other profile field is still enforced. A fresh randn is drawn per step, "
+                             "so seeds are NOT aligned across step counts: treat the result as a "
+                             "distributional comparison, never a paired one.")
     args = parser.parse_args()
     output = ensure_new_directory(args.output)
     cv2.setNumThreads(1)
     baseline_run, candidate_run = _load_run(args.baseline), _load_run(args.candidate)
-    if _profile_key(baseline_run) != _profile_key(candidate_run):
+    profile_skip = ("steps",) if args.allow_steps_drift else ()
+    if _profile_key(baseline_run, profile_skip) != _profile_key(candidate_run, profile_skip):
         raise ValueError("Baseline and candidate profiles differ; a paired review would be misleading")
     baseline_analysis = inspect(args.baseline)
     candidate_analysis = inspect(args.candidate)
@@ -266,6 +275,19 @@ def main() -> None:
         "comparison": {"path": comparison.name, "media": probe(comparison)},
         "mouth_comparison": mouth_comparison,
         "limitations": "Face landmarks and edge energy are diagnostics, not dental correctness or audio-sync certification.",
+        "profile_drift": {
+            "waived_fields": list(profile_skip),
+            "steps": {
+                "baseline": baseline_run["profile"].get("steps"),
+                "candidate": candidate_run["profile"].get("steps"),
+            },
+            "note": (
+                "Denoising step counts differ and were waived explicitly. A fresh randn is drawn per "
+                "step, so the generator streams are not aligned: the paired per-frame metrics below "
+                "compare two independent trajectories and must be read distributionally across seeds."
+                if profile_skip else "No profile fields were waived; the pairing is fully controlled."
+            ),
+        },
     }
     atomic_write_json(output / "review.json", result)
     print(json.dumps({"output": str(output), "paired": result["paired"]}, indent=2))

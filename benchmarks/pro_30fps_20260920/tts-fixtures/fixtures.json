@@ -1,0 +1,131 @@
+{
+ "schema_version": 1,
+ "fixtures": [
+  {
+   "id": "indian150-a",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_lite_150x_20260917/audio.wav",
+    "sha256": "0bbc0e4d1f1e4ecaad1f425e311e8f3ced2d1011d65a30b46487389331b456b2"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "calibration-and-acceptance",
+   "framing": "1.50x",
+   "license": "Local repository benchmark fixture; retain its existing provenance.",
+   "provenance": "Accepted PRO FP8 fixture preserved in benchmarks/pro_quantization_20260918/PRO_FP8/manifest.json.",
+   "notes": "Use seed 50 only for fitting, seed 51 for development validation, and seeds 0/1 for final held-out trajectory checks. Additional utterances must be registered with hashes before use."
+  },
+  {
+   "id": "tts-plosives",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/plosives.wav",
+    "sha256": "711aed1107c2d07f662d1d3d924657487a9e5b332bbc7e5b874bdb816995d4ee"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 15.075s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Bilabial and plosive stops; maximal lip closure and release. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  },
+  {
+   "id": "tts-sibilants",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/sibilants.wav",
+    "sha256": "a95624fd527c4bd6f106de744cf11080dda8f1e6ff45ca9686d30f3eaafe986a"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 14.15s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Sibilants and fricatives; sustained teeth exposure. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  },
+  {
+   "id": "tts-open-vowels",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/open-vowels.wav",
+    "sha256": "ca7ab64bdab7a5505a9e08703897377c18f82d851e44dbd03ad83feaa5ec6a09"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 15.275s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Open and low vowels; wide jaw excursion. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  },
+  {
+   "id": "tts-rounded",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/rounded.wav",
+    "sha256": "f0428ebf85cd1bea7228fbd93131d67054ca48b48260d16513bb931814399251"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 12.375s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Rounded vowels and glides; lip protrusion. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  },
+  {
+   "id": "tts-numbers-rapid",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/numbers-rapid.wav",
+    "sha256": "43b395045ff4444084583b34f8cc0b9ac57e8d0c528faa980c8897202b752ca6"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 18.225s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Dense numeric articulation; fast consonant transitions. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  },
+  {
+   "id": "tts-conversational",
+   "reference": {
+    "path": "benchmarks/pro_lite_150x_20260917/reference-150x.png",
+    "sha256": "a0a2317609afe70ed6c3fa3c620654dc56b123981429b2316dc6f7cc8222d676"
+   },
+   "audio": {
+    "path": "benchmarks/pro_30fps_20260920/tts-fixtures/conversational.wav",
+    "sha256": "7a1de4cf14409c8d6ae7dd47a56fd7694276ff625593aec51b8c8b07dcef755f"
+   },
+   "sample_rate": 16000,
+   "fps": 25,
+   "split": "synthetic-phonetic-probe",
+   "framing": "1.50x",
+   "license": "Synthesised locally with Kokoro-82M (Apache-2.0) for internal benchmark use.",
+   "provenance": "kokoro 0.9.4, repo hexgrad/Kokoro-82M, voice am_michael, speed 1.0, 24kHz -> 16kHz resample_poly, peak-normalised 0.95, raw 16.25s truncated to 10.0s. Generated 2026-09-20.",
+   "notes": "Natural prosody with questions and pauses. Voice held constant across all tts-* fixtures so speech content is the only variable."
+  }
+ ]
+}

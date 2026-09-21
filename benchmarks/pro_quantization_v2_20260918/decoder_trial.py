@@ -253,12 +253,43 @@ def main() -> None:
             )
             result["rows"].append(row)
             save()
-            if (not row["comparison_to_original"]["finite"]
-                    or not row["repeat_same_latent_exact"]
-                    or not row["reset_after_different_latent_exact"]
-                    or not row["encode_after_decode_finite"]
-                    or row["adapter_bf16"]["comparison"]["max_abs"] != 0):
-                raise RuntimeError("Decoder failed finite/cache-reset/BF16-adapter qualification")
+            # Report WHICH condition failed and by how much. The gate is unchanged
+            # in strictness -- every condition below is still fatal -- but a bare
+            # "failed qualification" string cannot be acted on, and this gate has a
+            # history of ambiguous verdicts: stage-int8-trial-r01 failed here while
+            # cache-int8-r01 replayed the same plan and reported all_exact on all
+            # eight checks, and stage-bf16-trial-r01 failed before r02 passed.
+            # Whoever reads the next failure needs the discriminating numbers.
+            failures = []
+            if not row["comparison_to_original"]["finite"]:
+                failures.append("output is not finite vs the BF16 original")
+            if not row["repeat_same_latent_exact"]:
+                failures.append(
+                    "decoding the same latent twice is not bitwise equal "
+                    f"(max_abs={row['repeat_comparison']['max_abs']}, "
+                    f"relative_l2={row['repeat_comparison']['relative_l2']}) -- "
+                    "a nondeterministic kernel/tactic, not an accuracy problem"
+                )
+            if not row["reset_after_different_latent_exact"]:
+                failures.append(
+                    "the causal feature cache does not reset between latents "
+                    f"(max_abs={row['reset_comparison']['max_abs']}, "
+                    f"relative_l2={row['reset_comparison']['relative_l2']})"
+                )
+            if not row["encode_after_decode_finite"]:
+                failures.append("re-encoding the decoded frames produced non-finite motion latents")
+            if row["adapter_bf16"]["comparison"]["max_abs"] != 0:
+                failures.append(
+                    "the BF16 adapter is not a no-op "
+                    f"(max_abs={row['adapter_bf16']['comparison']['max_abs']})"
+                )
+            if failures:
+                row["qualification_failures"] = failures
+                save()
+                raise RuntimeError(
+                    "Decoder failed finite/cache-reset/BF16-adapter qualification: "
+                    + "; ".join(failures)
+                )
             if args.candidate_adapter_control:
                 remove_decoder_adapters(vae)
             del (
