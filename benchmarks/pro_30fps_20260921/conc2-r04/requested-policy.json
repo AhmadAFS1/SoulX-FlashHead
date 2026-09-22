@@ -1,0 +1,41 @@
+{
+  "base": "pro-fp8-v1",
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "cross_attention_projections": {
+    "exclude": [],
+    "include": [
+      "blocks.*.cross_attn.q",
+      "blocks.*.cross_attn.o"
+    ],
+    "scheme": "fp8_e4m3_w8a8"
+  },
+  "decoder": {
+    "backend": "trt_stage_compile",
+    "plan": "benchmarks/pro_30fps_20260921/stage-fp16-448x256-build-r01/results.json",
+    "scheme": "fp16_stage_control"
+  },
+  "ffn": {
+    "exclude": [],
+    "scheme": "int8_w8a8"
+  },
+  "name": "pro30-448x256-fp16stages",
+  "prepared_conditioning": true,
+  "schema_version": 1,
+  "self_attention_kernel": {
+    "backend": "sage2"
+  },
+  "self_attention_projections": {
+    "exclude": [],
+    "include": [
+      "blocks.*.self_attn.q",
+      "blocks.*.self_attn.k",
+      "blocks.*.self_attn.v",
+      "blocks.*.self_attn.o"
+    ],
+    "packing": "separate",
+    "scheme": "fp8_e4m3_w8a8"
+  }
+}

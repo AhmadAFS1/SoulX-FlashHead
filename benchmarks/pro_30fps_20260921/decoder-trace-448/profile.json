@@ -1,0 +1,12 @@
+{
+  "aggregated": "aggregated.csv",
+  "component": "decoder",
+  "decoder_execution": "policy-selected backend preserved",
+  "execution": "GPU profiling diagnostic; not a throughput measurement",
+  "gpu_timing_qualified": true,
+  "mode": "trace",
+  "note": "CPU operator rows and CUDA kernel rows overlap; sum only CUDA rows for exclusive device totals.",
+  "rows": 621,
+  "status": "complete",
+  "trace": "trace.json"
+}

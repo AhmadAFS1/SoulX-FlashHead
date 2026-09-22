@@ -1,0 +1,119 @@
+{
+  "output": "benchmarks/pro_30fps_20260921/conc2-r02",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 14.957345495000482,
+      "sessions": 2,
+      "frames_per_session": 250,
+      "frames_total": 500,
+      "useful_fps": 33.42839143263261,
+      "useful_fps_per_session": 16.714195716316304,
+      "first_window_latency_s": 1.7327339629409835,
+      "chunk_times_s": [
+        [
+          1.7327339629409835,
+          1.6211422969354317,
+          1.6279965030262247,
+          1.6378334219334647,
+          1.6261036430951208,
+          1.624782324070111,
+          1.6276047170395032,
+          1.6317307680146769,
+          1.6367453869897872
+        ],
+        [
+          1.7220525500597432,
+          1.6209958449471742,
+          1.6357904659816995,
+          1.6312551230657846,
+          1.6211565599078313,
+          1.6323317079804838,
+          1.6289492020150647,
+          1.6328091450268403,
+          0.8881778729846701
+        ]
+      ],
+      "chunk_distribution_s": {
+        "count": 18,
+        "min": 0.8881778729846701,
+        "p50": 1.6301021625404246,
+        "p95": 1.7236547619919294,
+        "p99": 1.7309181227511725,
+        "max": 1.7327339629409835
+      },
+      "stage_seconds": {
+        "audio": 1.1699220552444458,
+        "dit": 4.079181297302246,
+        "vae_decode": 9.166883300781251,
+        "motion_encode": 1.4331804809570312
+      },
+      "stage_seconds_per_session": [
+        {
+          "audio": 0.5479163942337036,
+          "dit": 2.041866226196289,
+          "vae_decode": 4.582533355712891,
+          "motion_encode": 0.7186096267700195
+        },
+        {
+          "audio": 0.6220056610107422,
+          "dit": 2.037315071105957,
+          "vae_decode": 4.58434994506836,
+          "motion_encode": 0.7145708541870116
+        }
+      ],
+      "stage_seconds_note": "per-session CUDA event spans; DiT/audio/encode on the session's stream, vae_decode on the shared decode stream; sessions overlap, so the sums exceed wall time by design",
+      "host_decode_wait_s": 8.752010762691498e-05,
+      "peak_allocated_mib": 7206.990234375,
+      "peak_reserved_mib": 10756.0,
+      "resource_summary": {
+        "sample_count": 28,
+        "gpu_utilization_percent": {
+          "mean": 99.96428571428571,
+          "min": 99.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 11375.0,
+          "min": 11343.0,
+          "max": 11471.0
+        },
+        "system_cpu_percent": {
+          "mean": 6.596428571428572,
+          "min": 0.0,
+          "max": 14.7
+        },
+        "process_cpu_percent": {
+          "mean": 101.39285714285712,
+          "min": 0.0,
+          "max": 110.0
+        },
+        "system_ram_used_mib": {
+          "mean": 20152.95926339286,
+          "min": 20057.09375,
+          "max": 20320.9453125
+        },
+        "system_ram_percent": {
+          "mean": 65.10714285714285,
+          "min": 64.8,
+          "max": 65.7
+        },
+        "process_rss_mib": {
+          "mean": 3662.2918526785716,
+          "min": 3595.06640625,
+          "max": 3739.05078125
+        },
+        "torch_allocated_mib": {
+          "mean": 6382.50554547991,
+          "min": 6206.568359375,
+          "max": 6534.7490234375
+        },
+        "torch_reserved_mib": {
+          "mean": 10660.0,
+          "min": 10628.0,
+          "max": 10756.0
+        }
+      }
+    }
+  ]
+}

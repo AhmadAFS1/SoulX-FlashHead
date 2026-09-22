@@ -1,0 +1,102 @@
+{
+  "output": "benchmarks/pro_30fps_20260921/sched1-r01",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 7.6114089380716905,
+      "sessions": 1,
+      "frames_per_session": 250,
+      "frames_total": 250,
+      "useful_fps": 32.84543006873786,
+      "useful_fps_per_session": 32.84543006873786,
+      "first_window_latency_s": 0.906042396905832,
+      "chunk_times_s": [
+        [
+          0.906042396905832,
+          0.8219865740975365,
+          0.8229468129575253,
+          0.8205271960468963,
+          0.8229291009483859,
+          0.823710439959541,
+          0.8234457699581981,
+          0.8230763809988275,
+          0.8279456309974194
+        ]
+      ],
+      "chunk_distribution_s": {
+        "count": 9,
+        "min": 0.8205271960468963,
+        "p50": 0.8230763809988275,
+        "p95": 0.8748036905424669,
+        "p99": 0.899794655633159,
+        "max": 0.906042396905832
+      },
+      "stage_seconds": {
+        "audio": 0.07270950508117674,
+        "dit": 2.032470001220703,
+        "vae_decode": 4.569271392822266,
+        "motion_encode": 0.690515396118164
+      },
+      "stage_seconds_per_session": [
+        {
+          "audio": 0.07270950508117674,
+          "dit": 2.032470001220703,
+          "vae_decode": 4.569271392822266,
+          "motion_encode": 0.690515396118164
+        }
+      ],
+      "stage_seconds_note": "per-session CUDA event spans; DiT/audio/encode on the session's stream, vae_decode on the shared decode stream; sessions overlap, so the sums exceed wall time by design",
+      "host_decode_wait_s": 4.49400395154953e-05,
+      "peak_allocated_mib": 7069.177734375,
+      "peak_reserved_mib": 9370.0,
+      "resource_summary": {
+        "sample_count": 14,
+        "gpu_utilization_percent": {
+          "mean": 97.64285714285714,
+          "min": 84.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 10085.0,
+          "min": 10085.0,
+          "max": 10085.0
+        },
+        "system_cpu_percent": {
+          "mean": 6.6642857142857155,
+          "min": 0.0,
+          "max": 10.6
+        },
+        "process_cpu_percent": {
+          "mean": 97.83571428571429,
+          "min": 0.0,
+          "max": 111.3
+        },
+        "system_ram_used_mib": {
+          "mean": 20318.82979910714,
+          "min": 20291.98828125,
+          "max": 20370.15625
+        },
+        "system_ram_percent": {
+          "mean": 65.65714285714286,
+          "min": 65.6,
+          "max": 65.8
+        },
+        "process_rss_mib": {
+          "mean": 3554.1598772321427,
+          "min": 3509.41015625,
+          "max": 3595.43359375
+        },
+        "torch_allocated_mib": {
+          "mean": 6267.943219866072,
+          "min": 6198.5234375,
+          "max": 6301.10498046875
+        },
+        "torch_reserved_mib": {
+          "mean": 9370.0,
+          "min": 9370.0,
+          "max": 9370.0
+        }
+      }
+    }
+  ]
+}

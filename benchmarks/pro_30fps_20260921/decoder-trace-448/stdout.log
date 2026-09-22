@@ -1,0 +1,80 @@
+{
+  "output": "benchmarks/pro_30fps_20260921/decoder-trace-448",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 2.5766825119499117,
+      "useful_fps": 32.60005825724829,
+      "first_window_latency_s": 0.9060325229074806,
+      "chunk_times_s": [
+        0.9060325229074806,
+        0.8177009749924764,
+        0.8202052339911461
+      ],
+      "chunk_distribution_s": {
+        "count": 3,
+        "min": 0.8177009749924764,
+        "p50": 0.8202052339911461,
+        "p95": 0.8974497940158471,
+        "p99": 0.9043159771291539,
+        "max": 0.9060325229074806
+      },
+      "stage_seconds": {
+        "audio": 0.025813280105590822,
+        "dit": 0.6737227172851563,
+        "vae_decode": 1.5629962768554688,
+        "motion_encode": 0.22969996643066407
+      },
+      "peak_allocated_mib": 6472.49072265625,
+      "peak_reserved_mib": 7538.0,
+      "resource_summary": {
+        "sample_count": 5,
+        "gpu_utilization_percent": {
+          "mean": 99.8,
+          "min": 99.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 8269.0,
+          "min": 8269.0,
+          "max": 8269.0
+        },
+        "system_cpu_percent": {
+          "mean": 5.720000000000001,
+          "min": 0.0,
+          "max": 10.1
+        },
+        "process_cpu_percent": {
+          "mean": 83.24,
+          "min": 0.0,
+          "max": 109.2
+        },
+        "system_ram_used_mib": {
+          "mean": 21841.5421875,
+          "min": 21817.58984375,
+          "max": 21866.45703125
+        },
+        "system_ram_percent": {
+          "mean": 70.55999999999999,
+          "min": 70.5,
+          "max": 70.6
+        },
+        "process_rss_mib": {
+          "mean": 5090.475,
+          "min": 5054.94921875,
+          "max": 5116.18359375
+        },
+        "torch_allocated_mib": {
+          "mean": 5650.4193359375,
+          "min": 5559.94140625,
+          "max": 5682.91943359375
+        },
+        "torch_reserved_mib": {
+          "mean": 7538.0,
+          "min": 7538.0,
+          "max": 7538.0
+        }
+      }
+    }
+  ]
+}

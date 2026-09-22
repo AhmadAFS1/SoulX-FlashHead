@@ -1,0 +1,80 @@
+{
+  "output": "benchmarks/pro_30fps_20260921/classic-freshcache-r01",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 2.5958726450335234,
+      "useful_fps": 32.359060511196695,
+      "first_window_latency_s": 0.9059572760015726,
+      "chunk_times_s": [
+        0.9059572760015726,
+        0.8244635340524837,
+        0.836117269936949
+      ],
+      "chunk_distribution_s": {
+        "count": 3,
+        "min": 0.8244635340524837,
+        "p50": 0.836117269936949,
+        "p95": 0.8989732753951103,
+        "p99": 0.9045604758802801,
+        "max": 0.9059572760015726
+      },
+      "stage_seconds": {
+        "audio": 0.024799391746520995,
+        "dit": 0.6754662399291993,
+        "vae_decode": 1.5914281005859374,
+        "motion_encode": 0.23111541748046877
+      },
+      "peak_allocated_mib": 7052.27197265625,
+      "peak_reserved_mib": 8212.0,
+      "resource_summary": {
+        "sample_count": 5,
+        "gpu_utilization_percent": {
+          "mean": 96.8,
+          "min": 84.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 8929.0,
+          "min": 8929.0,
+          "max": 8929.0
+        },
+        "system_cpu_percent": {
+          "mean": 5.720000000000001,
+          "min": 0.0,
+          "max": 8.5
+        },
+        "process_cpu_percent": {
+          "mean": 83.14,
+          "min": 0.0,
+          "max": 110.0
+        },
+        "system_ram_used_mib": {
+          "mean": 22704.68515625,
+          "min": 22680.171875,
+          "max": 22746.02734375
+        },
+        "system_ram_percent": {
+          "mean": 73.35999999999999,
+          "min": 73.3,
+          "max": 73.5
+        },
+        "process_rss_mib": {
+          "mean": 5238.065625,
+          "min": 5220.93359375,
+          "max": 5275.6015625
+        },
+        "torch_allocated_mib": {
+          "mean": 6225.58046875,
+          "min": 6139.9296875,
+          "max": 6263.34912109375
+        },
+        "torch_reserved_mib": {
+          "mean": 8212.0,
+          "min": 8212.0,
+          "max": 8212.0
+        }
+      }
+    }
+  ]
+}

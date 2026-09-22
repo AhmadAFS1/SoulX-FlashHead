@@ -1,0 +1,67 @@
+[
+  {
+    "elapsed_s": 0.0033697379985824227,
+    "gpu_utilization_percent": 77.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 10085.0,
+    "process_cpu_percent": 0.0,
+    "process_rss_mib": 5110.6875,
+    "system_cpu_percent": 0.0,
+    "system_ram_percent": 70.9,
+    "system_ram_used_mib": 21941.08984375,
+    "torch_allocated_mib": 6198.5234375,
+    "torch_reserved_mib": 9370.0
+  },
+  {
+    "elapsed_s": 0.5656854369444773,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 10085.0,
+    "process_cpu_percent": 99.6,
+    "process_rss_mib": 5110.265625,
+    "system_cpu_percent": 10.8,
+    "system_ram_percent": 70.8,
+    "system_ram_used_mib": 21921.1953125,
+    "torch_allocated_mib": 6232.5537109375,
+    "torch_reserved_mib": 9370.0
+  },
+  {
+    "elapsed_s": 1.106365535990335,
+    "gpu_utilization_percent": 83.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 10085.0,
+    "process_cpu_percent": 105.4,
+    "process_rss_mib": 5112.328125,
+    "system_cpu_percent": 7.9,
+    "system_ram_percent": 70.7,
+    "system_ram_used_mib": 21891.08203125,
+    "torch_allocated_mib": 6211.4443359375,
+    "torch_reserved_mib": 9370.0
+  },
+  {
+    "elapsed_s": 1.6645773620111868,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 10085.0,
+    "process_cpu_percent": 100.3,
+    "process_rss_mib": 5112.328125,
+    "system_cpu_percent": 4.7,
+    "system_ram_percent": 70.7,
+    "system_ram_used_mib": 21892.125,
+    "torch_allocated_mib": 6233.3994140625,
+    "torch_reserved_mib": 9370.0
+  },
+  {
+    "elapsed_s": 2.2057394109433517,
+    "gpu_utilization_percent": 95.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 10085.0,
+    "process_cpu_percent": 107.2,
+    "process_rss_mib": 5114.328125,
+    "system_cpu_percent": 3.6,
+    "system_ram_percent": 70.7,
+    "system_ram_used_mib": 21885.140625,
+    "torch_allocated_mib": 6232.4306640625,
+    "torch_reserved_mib": 9370.0
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "elapsed_s": 0.0032358920434489846,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8269.0,
+    "process_cpu_percent": 0.0,
+    "process_rss_mib": 5054.94921875,
+    "system_cpu_percent": 0.0,
+    "system_ram_percent": 70.5,
+    "system_ram_used_mib": 21817.58984375,
+    "torch_allocated_mib": 5559.94140625,
+    "torch_reserved_mib": 7538.0
+  },
+  {
+    "elapsed_s": 0.5415440680226311,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8269.0,
+    "process_cpu_percent": 100.3,
+    "process_rss_mib": 5059.1875,
+    "system_cpu_percent": 3.9,
+    "system_ram_percent": 70.6,
+    "system_ram_used_mib": 21838.9921875,
+    "torch_allocated_mib": 5682.91943359375,
+    "torch_reserved_mib": 7538.0
+  },
+  {
+    "elapsed_s": 1.081716589978896,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8269.0,
+    "process_cpu_percent": 109.2,
+    "process_rss_mib": 5110.76953125,
+    "system_cpu_percent": 7.3,
+    "system_ram_percent": 70.6,
+    "system_ram_used_mib": 21855.02734375,
+    "torch_allocated_mib": 5644.19384765625,
+    "torch_reserved_mib": 7538.0
+  },
+  {
+    "elapsed_s": 1.6208237250102684,
+    "gpu_utilization_percent": 100.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8269.0,
+    "process_cpu_percent": 100.2,
+    "process_rss_mib": 5111.28515625,
+    "system_cpu_percent": 7.3,
+    "system_ram_percent": 70.6,
+    "system_ram_used_mib": 21866.45703125,
+    "torch_allocated_mib": 5682.84912109375,
+    "torch_reserved_mib": 7538.0
+  },
+  {
+    "elapsed_s": 2.165389269008301,
+    "gpu_utilization_percent": 99.0,
+    "gpu_vram_total_mib": 12282.0,
+    "gpu_vram_used_mib": 8269.0,
+    "process_cpu_percent": 106.5,
+    "process_rss_mib": 5116.18359375,
+    "system_cpu_percent": 10.1,
+    "system_ram_percent": 70.5,
+    "system_ram_used_mib": 21829.64453125,
+    "torch_allocated_mib": 5682.19287109375,
+    "torch_reserved_mib": 7538.0
+  }
+]
