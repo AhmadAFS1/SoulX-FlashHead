@@ -1,0 +1,191 @@
+{
+  "args": {
+    "data": "/workspace/SoulX-FlashHead/benchmarks/pro_30fps_20260922/distill-data",
+    "skip": [
+      9,
+      10,
+      13,
+      14
+    ],
+    "train": [
+      "upsamples.7",
+      "upsamples.8",
+      "upsamples.11",
+      "upsamples.12",
+      "head"
+    ],
+    "holdout": "tts-conversational",
+    "epochs": 6,
+    "lr": 3e-05,
+    "min_lr": 3e-06,
+    "grad_weight": 3.0,
+    "mouth_weight": 4.0,
+    "clip": 1.0,
+    "max_windows": null,
+    "eval_only": false,
+    "out": "benchmarks/pro_30fps_20260922/distill/vae_skip9-10-13-14_ft2.pth",
+    "log": null,
+    "seed": 0,
+    "init_weights": "benchmarks/pro_30fps_20260922/distill/vae_skip9-10-13-14_ft.pth"
+  },
+  "skip_manifest": {
+    "decoder_block_skip": {
+      "skipped": [
+        9,
+        10,
+        13,
+        14
+      ],
+      "blocks": [
+        {
+          "index": 9,
+          "class": "ResidualBlock",
+          "cache_slots": 2,
+          "channels": 192
+        },
+        {
+          "index": 10,
+          "class": "ResidualBlock",
+          "cache_slots": 2,
+          "channels": 192
+        },
+        {
+          "index": 13,
+          "class": "ResidualBlock",
+          "cache_slots": 2,
+          "channels": 96
+        },
+        {
+          "index": 14,
+          "class": "ResidualBlock",
+          "cache_slots": 2,
+          "channels": 96
+        }
+      ],
+      "cache_slots_advanced": 8,
+      "verification": {
+        "latent_shape": [
+          1,
+          16,
+          2,
+          4,
+          4
+        ],
+        "cursor_end_per_frame": [
+          32,
+          32
+        ],
+        "cache_slots_total": 33,
+        "skipped_slots": [
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30
+        ],
+        "output_shape": [
+          1,
+          3,
+          4,
+          32,
+          32
+        ]
+      }
+    }
+  },
+  "trainable_params": 4212579,
+  "train_pairs": 77,
+  "holdout_pairs": 11,
+  "epochs": [
+    {
+      "epoch": 0,
+      "train_loss": 0.04910512716330662,
+      "seconds": 243.38294577598572,
+      "holdout": {
+        "psnr": 47.462836584611274,
+        "mouth_psnr": 43.08134653881451,
+        "sharpness_ratio": 0.9367539119636453,
+        "mouth_sharpness_ratio": 0.9388100877253922,
+        "windows": 11
+      }
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.047014815141520803,
+      "seconds": 240.26988768577576,
+      "holdout": {
+        "psnr": 47.73624685182107,
+        "mouth_psnr": 43.27743726327763,
+        "sharpness_ratio": 0.9408461434460631,
+        "mouth_sharpness_ratio": 0.9402214577970605,
+        "windows": 11
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0449922044894525,
+      "seconds": 239.81274461746216,
+      "holdout": {
+        "psnr": 48.2170325768001,
+        "mouth_psnr": 43.701374107833026,
+        "sharpness_ratio": 0.9406547919065286,
+        "mouth_sharpness_ratio": 0.9429930920836082,
+        "windows": 11
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.04382484640608961,
+      "seconds": 239.9110894203186,
+      "holdout": {
+        "psnr": 48.39815574174735,
+        "mouth_psnr": 43.89607644774906,
+        "sharpness_ratio": 0.9475035417952722,
+        "mouth_sharpness_ratio": 0.9477854782283951,
+        "windows": 11
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.043128773938289275,
+      "seconds": 239.9325397014618,
+      "holdout": {
+        "psnr": 48.597009110355664,
+        "mouth_psnr": 44.05044757617241,
+        "sharpness_ratio": 0.945098984545941,
+        "mouth_sharpness_ratio": 0.9450183298776029,
+        "windows": 11
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.04268906898205242,
+      "seconds": 240.10079216957092,
+      "holdout": {
+        "psnr": 48.68183619672302,
+        "mouth_psnr": 44.12381055836858,
+        "sharpness_ratio": 0.9458916402416129,
+        "mouth_sharpness_ratio": 0.9464275842882928,
+        "windows": 11
+      }
+    }
+  ],
+  "before": {
+    "psnr": 47.18389594653108,
+    "mouth_psnr": 42.6084136112127,
+    "sharpness_ratio": 0.9236264331742433,
+    "mouth_sharpness_ratio": 0.923063815851219,
+    "windows": 11
+  },
+  "after": {
+    "psnr": 48.68183619672302,
+    "mouth_psnr": 44.12381055836858,
+    "sharpness_ratio": 0.9458916402416129,
+    "mouth_sharpness_ratio": 0.9464275842882928,
+    "windows": 11
+  },
+  "wall_seconds": 1461.369206905365
+}

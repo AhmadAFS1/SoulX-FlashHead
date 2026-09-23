@@ -363,3 +363,491 @@ frames), six full-tensor reformats feeding the cache-out `Slice` (TRT reformats 
 4-frame tensor before slicing 2 frames of it), the network input and output. Those are the
 next candidates, but they need TensorRT to slice before it reformats or a different cache
 contract, so they are parked behind the end-to-end measurement of this step.
+
+## 2026-09-22 — goal restated: 30 FPS on the 576×320 build
+
+The user's standing goal is now **at least 30 FPS on the high-resolution (576×320) build**, with
+quality risk explicitly accepted as long as every change is validated on video before it is
+kept. Reference for every 576×320 measurement in this section: `benchmarks/pro_30fps_20260921/s30-reuse`
+(19.62 FPS, `raw.npy` saved; RTX 4070 SUPER, 12,282 MiB visible, seed 50, `indian150-a`, 250 frames).
+
+**Budget.** 30 FPS = 933 ms per 28-frame window. The reference window is 1,427 ms:
+
+| component (576×320, per window) | ms | share |
+| --- | ---: | ---: |
+| VAE decode — three FP16 TensorRT stage engines | ≈ 630 | 44% |
+| VAE decode — non-engine ops, boundary casts | ≈ 224 | 16% |
+| DiT (2 steps, 30 blocks) | 394 | 28% |
+| motion encode (5 frames) | 124 | 9% |
+| audio + host + delivery | ≈ 55 | 4% |
+
+−494 ms is needed. Every kernel-level lever is exhausted (iterations 1–5), so this section tries
+**structural** ones, each behind a flag with a one-line rollback, each gated by `review.py` against
+the reference plus colour drift plus a labelled video:
+
+1. drop decoder residual blocks (the tail engine `upsamples[12-14]` alone is ~340 ms; every block
+   is a `y = x + f(x)` residual, so bypassing one is well-defined and the stage engines can be
+   rebuilt for any prefix of a group from the existing calibration samples);
+2. drop DiT blocks (whole run, or only at the refinement step);
+3. latent feedback: reuse the DiT's trailing latents as the next window's motion history instead
+   of decoding, colour-correcting and re-encoding five frames (−124 ms if the model tolerates it);
+4. CUDA graphs for the launch-bound low-resolution decoder segments.
+
+Implementation, adversarial review and the two analyses ran as a multi-agent workflow
+(`pro-30fps-576-levers`); the GPU experiments below are serial and single-tenant.
+
+### Iteration 6 — structural levers built and reviewed (workflow `pro-30fps-576-levers`)
+
+Ten agents: three implementers on disjoint files, an adversarial reviewer per implementation,
+a fix pass where the reviewer found something, and two analyses. Everything is behind a flag
+that defaults off; flag absent is the byte-identical shipped path.
+
+**Decoder residual-block skipping** (`soulx_rtc/pro_decoder_ops.py`,
+`decoder_stages.py`, `pro_vae_stage_backend.py`). `install_decoder_block_skip(vae, indices)`
+replaces `upsamples[i]` by `SkippedResidualBlock`, an identity that advances the causal-cache
+cursor by the two slots the block's two `CausalConv3d` would have consumed and never writes
+them, so every downstream slot — including the head's — stays aligned under the overlap-skip
+shim and `torch.compile`. Only same-width `ResidualBlock`s may be skipped (`upsamples[4]`
+changes 192→384 and is refused). The bypassed block stays in the module tree as a child
+because `clear_cache` sizes `_feat_map` by counting `CausalConv3d` modules after the install
+— a bare identity would shrink the map and the head would `IndexError`; the install runs a
+4×4 self-check that replays the cursor walk. Engines: `decoder_stages.py build --use-blocks
+"4,5,6" "8,9,10" "12"` builds a **prefix** of each calibration group from the existing
+samples (a prefix of k blocks needs `(x, *caches[:2k])`, in block order), records
+`skipped_blocks`, and `install_stage_plan` refuses a plan whose `skipped_blocks` differ from
+what the VAE actually has skipped. Non-prefix patterns need `capture --skip-blocks` first.
+Reviewer found a blocker (scales looked up by the prefix key after rebinding → `KeyError`
+on every prefix build), fixed; plus stale-calibration bookkeeping for groups downstream of a
+skipped block (accepted for fp16, refused for INT8).
+
+**DiT block skipping** (`soulx_rtc/pro_dit_ops.py`). Drop mode re-lists `model.blocks`
+after quantization/static scales/attention backend (all keyed by original names) and
+before prepared conditioning + compile (which iterate survivors). Step-aware mode wraps the
+listed blocks to return the residual stream unchanged when `CURRENT_STEP[0]` equals the
+chosen step — one Dynamo guard, two specialisations. Reviewer: drop mode would silently
+corrupt an INT8 calibration run (amax collection keyed by block names) → now refused;
+`--dit-skip-step` beyond the schedule → detectable via the manifest. `suggest_skip_sets()`
+gives the ladder (evenly spaced middle blocks; the blocks before the last; step-1-only
+variants; a step-0 control), every set keeping blocks 0 and 29.
+
+**Latent feedback** (`flash_head_pipeline.py`). `pipeline.latent_feedback = "last2"`
+replaces the 124 ms/window re-encode with the DiT's trailing two latents. Known mismatch,
+documented in the code: the causal VAE's slot 0 is a single-frame keyframe latent, the DiT's
+trailing latents are both 4-frame latents, and the colour-correction feedback loop
+disappears. `"last2-fix0"` re-encodes only the single frame for slot 0 (~30 ms instead of
+124; the 1×1×1 `conv1` has no temporal mixing so slot 0 equals the shipped one up to compile
+numerics). Reviewer: sound.
+
+**Analysis: CUDA graphs — dead, with the traces to prove it.** Inside decode the host runs
+43–151 ms *ahead* of the GPU and the non-engine segments are 98.5–99.4% GPU-busy (576×320:
+the per-frame head segment spans 15.83 ms with 15.72 ms of kernels). The ~1,500 small
+launches per window are GPU time, not launch overhead. Inductor cudagraph trees also break on
+the overlap-skip shim (a persisted output fed back as input: "accessing tensor output of
+CUDAGraphs that has been overwritten", reproduced). Ceiling ≈ 1 ms/window. Not built. The
+by-product is a non-engine breakdown per 576×320 frame: head segment 15.8 ms (12 low-res
+convs at ~25% of bf16 peak with 36 NCHW↔NHWC transposes), `Resample[7]` 8.1 ms
+(sub-pixel-foldable like `[11]`, ≈ −15 ms/window), `Resample[11]` 6.9 ms, and an apparent
+graph break inside `decoder.head` leaving SiLU and copies eager.
+
+**Analysis: missed levers.** Ranked, with code pointers: (C1) merge `Resample[7]`,
+`Resample[11]` and the head into the `[8-10]`/`[12-14]` engines (≈ −50±25 ms; parked
+earlier on VRAM, re-opened by the norm-conv arena shrink); (C2) INT8 FFN GEMM with a fused
+dequant→GELU→requant epilogue (≈ −55±30 ms; the 232 MB INT32 `_int_mm` output is written
+and read back today); (C3) `--lean-delivery --force-scheduler` (zero code, ≈ −25–35 ms of
+window-boundary host serialisation); (C5) INT8 W8A8 on the self-attention projections; (C6)
+2:4 sparsity probe; (C7) a TAEHV-class drop-in decoder if block dropping fails the video
+gate. Nothing exact reaches 933 ms on its own.
+
+**Ladder** (serial, single-tenant GPU, reference `s30-reuse` 19.62 FPS; every arm gated by
+`review.py` + colour drift + labelled video): control on the norm-conv 576 plan; decoder
+skips A `[12]` (skip 13,14), D `[8]+[12]` (skip 9,10,13,14), B `[12,13]`, C `[8,9]+[12]`;
+DiT mid6, tail6, mid9, mid6-step1; latent feedback last2; lean delivery through the
+scheduler. Results follow.
+
+**Ladder, first pass (2026-09-22 10:55–11:02).** Engine builds: norm-conv control plan and
+plans A (`[12]`) and C (`[8,9]+[12]`) built (arena 484 MiB for all three — the norm-conv
+rewrite alone takes the 576×320 arena from 1,488 to 484 MiB); plans B and D failed with a
+TensorRT `OutOfMemory` during tactic timing — a build process peaks at ~9.3 GB (calibration
+samples, eager stage comparison at full resolution, 2 GB builder workspace) and a second GPU
+tenant appeared at the same moment. Control run on the norm-conv plan: **19.71 FPS**
+(reference 19.62; DiT 3.555 s, encode 1.110, decode 7.610 over 9 windows; torch reserved
+10,420 MiB vs 11,160). Every following arm then failed in two seconds with "Another SoulX GPU
+owner from this checkout is running": the `.gpu-owner.lock` flock had been taken at 11:01:22 —
+the instant the control run released it — by another agent's job on this machine
+(`experiments/ltx23_musetalk_lip_override_20260922/scripts/run_ltx.py`, launched from the
+VS Code Codex extension, which starts a ComfyUI server with `--reserve-vram 3` and holds the
+lease for up to an hour per phase). Not mine to stop. The ladder was rewritten to wait for a
+free lease **and** a quiet GPU (`wait_lease.sh`: `flock -n` probe, <1.5 GB used, <10% util)
+before every build and run, to retry once on a lease race, and to rebuild plans B and D
+first. Measurements below carry the resident-process record from each run's
+`environment_after` as evidence of a clean GPU.
+
+**Ladder, measured (2026-09-22 11:07–11:19, lease-aware, GPU clean per `environment_after`).**
+Control on the norm-conv plan: 19.71 FPS. Reference for quality: `s30-reuse` (19.62 FPS).
+Gate columns: `review.py` opening correlation (lip motion vs reference; accepted builds score
+0.94–0.97), oral edge ratio (mouth edge energy vs reference; accepted builds 0.95–1.07; the
+rejected 1-step arm scored 1.32), colour-drift max over 9 windows (reference itself 1.48/255).
+
+| arm | FPS | Δ ms/window | corr | edge ratio | drift max | verdict |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| decoder skip 14 (`[12,13]`) | 21.48 | −117 | 0.962 | **0.32** | 1.28 | lip-sync intact, mouth detail lost |
+| decoder skip 13,14 (`[12]`) | 23.39 | −220 | 0.967 | **0.25** | 0.40 | same, worse |
+| decoder skip 10,13,14 | 25.43 | −322 | 0.920 | **0.22** | 0.24 | same, worse |
+| decoder skip 9,10,13,14 | **27.38** | −398 | 0.902 | **0.20** | 0.29 | same, worst |
+| DiT drop 6 middle blocks | 20.50 | −80 | **0.58** | 0.67 | 0.67 | lip-sync broken |
+| DiT drop 6 late blocks | 20.92 | −78 | **0.44** | 0.83 | 0.45 | broken |
+| DiT drop 9 middle blocks | 21.54 | −119 | — | — | 0.75 | review found too few mouths; broken |
+| DiT 6 middle blocks, step 1 only | 20.28 | −40 | 0.89 | **1.27** | 1.54 | over-sharpened, like the rejected 1-step |
+| latent feedback `last2` | 21.57 | −124 | 0.90 | **2.65** | **2.56** | artefacts + colour drift |
+| latent feedback `last2-fix0` | 20.67 | −90 | 0.941 | 0.93 | **2.77** (slope R +0.34/window) | motion fine, colour drifts without the pixel loop |
+| `--lean-delivery --force-scheduler` | 19.51 | +14 | — | — | — | slower at 576×320; dropped |
+
+Decoder-only arms share the DiT with the control, so window 0 (before the motion feedback
+diverges the trajectories) isolates the decoder's own loss: see the fidelity table that
+follows. Reading: **every structural lever buys its predicted time and fails the quality gate
+as-is.** DiT block dropping is dead (the 2-step distilled sampler has no slack; lip sync
+collapses). Latent feedback needs the colour-correction loop, which the pixel re-encode
+provides and the latent path cannot; `last2-fix0` fixes the keyframe semantics but not the
+drift. Decoder block skipping is the one lever whose failure mode is *soft*, not *wrong*:
+lip motion tracks the reference (0.90–0.97), colour is stable, and what is lost is the
+high-frequency detail the removed full-resolution blocks produce. That is exactly what a
+decoder-only fine-tune (distillation from the full decoder on the same latents) can put back,
+and it is the next step: fine-tune the surviving blocks of the pruned decoder to reproduce the
+full decoder's frames, then recalibrate and rebuild its engines from the fine-tuned weights.
+Videos for the user's own judgement: `benchmarks/pro_30fps_20260922/visual/skip-tail12-r01-*`,
+`skip-mid8-tail12-r01-*`, `latfb-fix0-r01-*` (reference on the left/top).
+
+**Exact win landed in parallel (lever C2):** `soulx_rtc/pro_int8_gemm.py` — a Triton INT8
+GEMM for `ffn.0` whose epilogue dequantises, adds bias, applies the tanh-GELU and requantises
+to int8 with `ffn.2`'s static scale, so the 232 MB INT32 intermediate is never written.
+Bit-identical to the shipped compiled path (0 differing elements in 12 cases, `torch.equal`
+end to end), 0.98 ms vs 1.55 ms for GEMM + requant at (6480,1536,8960), −29 ms/window at
+576×320 measured at the FFN level. Wired as `--fused-int8-ffn`; end-to-end measurement below.
+
+**Fused INT8 FFN, end to end (`fused-r01`):** DiT CUDA-event time 3.555 → 3.308 s over 9
+windows (−27 ms/window, as predicted) but **19.66 FPS vs 19.71** — the window wall did not
+move. Wall − stage spans (GPU idle) rose from 37 to 65 ms/window: at 576×320 the DiT phase
+is host-issue-bound, so a pure GPU-time saving turns into idle and only a lever that also
+removes host work (dropping blocks did both) shows up in FPS. The kernel is kept (exact, and
+it will count once the host side is graph-captured: a DiT CUDA graph is now the obvious
+follow-up, with ≈ 40–65 ms/window of measured GPU idle to recover — the cudagraph analysis
+above ruled it out for the *decoder*, where the host runs far ahead, not for the DiT).
+
+### Iteration 7 — distilling the pruned decoder
+
+Data: `SOULX_DUMP_DIR` runs of the shipped 576×320 decoder **without** overlap-skip on all
+seven fixtures (seed 50) plus `indian150-a` at seed 51 → 88 windows of (9 latents → 33
+frames), the frames from the FP16 stage-engine decoder, i.e. the accepted teacher
+(`benchmarks/pro_30fps_20260922/distill-data/`; the run filled the 204 GB shared disk to 100%
+once — 35 `raw.npy` files of rejected arms were deleted). Script:
+`benchmarks/pro_30fps_20260922/distill_decoder.py`. Student = stock VAE with
+`upsamples[9,10,13,14]` bypassed; trainable = `upsamples[7]` (Resample feeding the pruned mid
+group), `[8]`, `[11]` (Resample feeding the tail), `[12]`, `head` — 4.21 M parameters in fp32
+under bf16 autocast, everything upstream frozen; forward mirrors `WanVAE_.decode` with
+per-latent-frame truncated backprop through the shared causal cache; loss = mouth-weighted
+(×3 on the review's mouth crop) L1 + L1 on spatial gradients; AdamW 5e-5 → 5e-6 cosine, 3
+epochs over 77 training windows, `tts-conversational` (11 windows) held out.
+
+Hold-out before training (pruned, untrained, vs teacher): PSNR 28.55 dB, mouth PSNR 28.77,
+sharpness ratio 0.790, mouth sharpness ratio 0.785. Results follow.
+
+**Lever C1 landed in code (merged span engines), measurement pending.** `soulx_rtc/pro_vae_stage_backend.py`
+gained `DecoderSpanStage`: a TensorRT stage may now cover a contiguous slice of
+`decoder.upsamples` that includes `Resample` layers and, as the last token of the last group,
+the decoder `head` (`--groups "4,5,6" "7,8,9,10" "11,12,13,14,head"`). Cache slots are read from
+the module classes (ResidualBlock 2, `upsample3d` Resample 1 for its `time_conv`, `upsample2d`
+0, head 1); the Resample's first-call `"Rep"` sentinel is materialised as a zero 2-frame cache,
+which is bit-identical to the stock path (CPU and CUDA, 3 frames, every cache slot compared);
+`decoder.head` becomes a pass-through so the engine's `y` is the decoder output;
+`install_stage_plan` validates the recorded span module classes against the live decoder and
+refuses a mismatch (e.g. a plan captured with the sub-pixel fold installed on a stock decoder).
+`Upsample(nearest-exact)` has no ONNX symbolic in torch 2.7, so the span exports
+`Resize(nearest, floor)`, which equals nearest-exact for integer scale 2 (asserted at
+construction, checked with the pure-numpy ONNX reference). The whole thing is behind the plan
+format: an old plan installs exactly as before. Constraint for the harness: a span plan must be
+run **without** `--subpixel-resample --channels-last-head` (those modules now live inside the
+engines). Expected −50±25 ms/window at 576×320 from the eager Resample/head segments;
+arena estimate 620–800 MiB (stock Resample form). Also from this agent: `--vae-weights` on
+`capture`/`build` (the plan records the weights' sha256 and `install_stage_plan(vae, path,
+vae_weights=…)` refuses a mismatch), which the harness now threads through.
+
+**Distillation result (`distill/vae_skip9-10-13-14_ft.{pth,json}`, 3 epochs × 77 windows,
+~3 s per window on the RTX 4070 SUPER, 12 min wall):**
+
+| hold-out `tts-conversational`, 11 windows vs the full FP16 decoder | PSNR | mouth PSNR | sharpness ratio | mouth sharpness ratio |
+| --- | ---: | ---: | ---: | ---: |
+| pruned, untrained | 28.55 dB | 28.77 | 0.790 | 0.785 |
+| after epoch 1 | 45.42 | 41.20 | 0.901 | 0.903 |
+| after epoch 2 | 46.64 | 42.13 | 0.915 | 0.914 |
+| **after epoch 3** | **47.18** | **42.61** | **0.924** | **0.924** |
+
+Reading: 47 dB is an RMS error of ~1.1/255 against the teacher — the four removed blocks'
+function is almost entirely absorbed by 4.2 M parameters in the surviving tail. The residual
+8% sharpness gap is what the harness gate will judge. Next: `capture --skip-blocks 9 10 13 14
+--vae-weights …` → `build --graph-rewrite norm-conv --vae-weights …` → harness with
+`--vae-weights … --skip-decoder-blocks 9 10 13 14` → `review.py` + colour drift + video.
+
+**Fine-tuned pruned decoder in the real pipeline (`ft-mid8-tail12-r01`; engines rebuilt
+from the fine-tuned weights with `capture --skip-blocks 9 10 13 14 --vae-weights …` →
+`build --graph-rewrite norm-conv --vae-weights …`, harness `--vae-weights … --skip-decoder-blocks
+9 10 13 14`):** **27.78 FPS** (VAE decode 7.61 → 3.88 s over 9 windows; VRAM 8,825 MiB vs
+10,895 for the control). Gate vs the 19.62 FPS reference: opening correlation **0.954**,
+mouth-centre distance 3.1 px, colour drift max 1.37/255 (reference itself 1.48), oral edge
+ratio **0.638** (untrained pruned: 0.198; accepted builds 0.95–1.07). Window-0 fidelity vs the
+control (decoder-only): PSNR 33.2 → **43.9 dB**, mouth PSNR 32.6 → 39.6, mouth sharpness 0.74
+→ 0.92. Verdict: lip sync and colour are those of the reference; the mouth is still softer
+than the full decoder (edge energy at 64%). Kept as the working build; a second, longer,
+edge-weighted fine-tune (6 epochs from these weights, gradient-loss weight 3, mouth weight 4)
+is running to close the remaining gap. Video: `visual/ft-mid8-tail12-r01-*-vs-reference.mp4`.
+
+**DiT CUDA graph, measured (`graph-r01`, `graph-fused-r01`, full decoder):**
+
+| arm | FPS | window p50 | DiT s | VAE decode s | VRAM |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| control (norm-conv plan) | 19.71 | 1.378 s | 3.555 | 7.610 | 10,895 |
+| `--fused-int8-ffn` | 19.66 | 1.374 | 3.308 | 7.637 | 10,897 |
+| `--dit-cuda-graph` | **21.13** | 1.289 | 3.381 | 7.015 | 11,485 |
+| `--dit-cuda-graph --fused-int8-ffn` | **21.22** | 1.274 | 3.073 | 7.013 | 11,303 |
+
+−89 ms/window from the graph alone (+7.2%), more than the 37–65 ms of DiT-phase idle: the
+*decode* event span also fell by 66 ms/window, i.e. the host was pacing the decode too, and
+with the DiT issued in one launch it runs far enough ahead to feed the decoder back to back.
+The fused FFN now shows up (+0.5% on top). Both are exact (bitwise-identical FFN; the graph
+replays the same kernels). Cost: ~600 MiB for the graph pools at 576×320.
+
+**Race incident, recorded because it cost a run:** two of my own queued chains woke on the
+same free-lease poll; the loser hit "Another SoulX GPU owner" and its whole chain skipped
+forward. Chains are now strictly sequential in one queue.
+
+**Fine-tune v2** (6 more epochs from v1, gradient-loss weight 3, mouth weight 4, lr 3e-5 →
+3e-6; `distill/vae_skip9-10-13-14_ft2.{pth,json}`): hold-out PSNR 47.18 → **48.68 dB**, mouth
+42.61 → **44.12**, sharpness 0.924 → **0.946**. In the pipeline (`ft-mid8-tail12-v2-r01`):
+27.75 FPS, correlation **0.958**, oral edge ratio **0.796** (v1 0.638), mouth 3.4 px, drift
+max 1.22/255.
+
+**Combined candidate (`combo-v2-r01`)** = fine-tune v2 pruned decoder + `--dit-cuda-graph` +
+`--fused-int8-ffn`: **28.69 FPS**, window p50 **937 ms** (target 933), DiT 3.085 s, decode
+3.911 s, motion encode 1.049 s over 9 windows, VRAM 9,221 MiB. Gate: correlation **0.958**,
+oral edge ratio **0.838**, mouth-centre distance **2.6 px**, colour drift max 1.25/255
+(reference 1.48). The graph is worth −31 ms/window here (vs −89 on the full decoder: the
+pruned decode is no longer host-paced). Video: `visual/combo-v2-r01-*-vs-reference.mp4`.
+Remaining to 30 FPS: 4 ms/window; the merged Resample engines (`"7,8"` and `"11,12"` spans
+around the skipped blocks) are next in the queue.
+
+**Merged span engines, measured.** Full decoder, stock weights, groups `"4,5,6" "7,8,9,10"
+"11,12,13,14,head"` (`spans-r01`, arena 675 MiB): **21.16 FPS** vs 19.71 control, decode 7.61 →
+6.95 s over 9 windows (−73 ms/window) — inside the analysis estimate of −50±25. On the pruned
+decoder the head cannot join the tail span (the group must end at index 14 and may not contain
+skipped blocks), so the final chain used `"4,5,6" "7,8" "11,12"` with `--skip-blocks 9 10 13 14`
+(arena 551 MiB): −21 ms/window.
+
+### Final candidate so far — `final-v2-r01`: 29.63 FPS at 576×320
+
+Fine-tune v2 pruned decoder (blocks 9, 10, 13, 14 bypassed; `upsamples[7,8,11,12]` + head
+distilled), span engines `"4,5,6" "7,8" "11,12"` rebuilt from the fine-tuned weights with the
+norm-conv rewrite, DiT CUDA graph, fused INT8 FFN; everything else as the 19.62 FPS reference.
+
+| | reference | final-v2-r01 |
+| --- | ---: | ---: |
+| useful FPS, 250 frames | 19.62 | **29.63** |
+| window p50 | 1,427 ms | **916 ms** (steady state 30.57 FPS; window 0 is 994 ms) |
+| DiT / decode / encode s over 9 windows | 3.54 / 7.68 / 1.12 | 3.08 / 3.93 / 1.05 |
+| nvidia-smi peak | 11,160 MiB | **9,039 MiB** |
+| opening correlation | — | **0.956** |
+| oral edge ratio | — | **0.818** |
+| mouth-centre distance | — | 3.0 px |
+| colour drift max (ref 1.48/255) | — | 1.25/255 |
+
+Video: `benchmarks/pro_30fps_20260922/visual/final-v2-r01-vs-reference.mp4` and
+`final-v2-r01-mouth-vs-reference.mp4`. The 250-frame average sits 0.4 FPS under the target
+because window 0 pays the overlap-skip's cold full decode; steady state is over 30. Remaining
+exact levers in flight: `--lean-delivery` (queued), the head inside the tail span despite the
+skipped blocks (agent), a TensorRT engine for the motion encoder (117 ms/window, agent).
+
+## Superseded result — 30.04 FPS (`final-v2-lean-r01`, 2026-09-22 19:11); see the final result below
+
+**Hardware:** NVIDIA GeForce RTX 4070 SUPER, 12,282 MiB visible VRAM (physical class
+unverified in this run), driver 595.84, Torch 2.7.1+cu128, TensorRT 10.9.0.34, SageAttention
+2.2.0 stream-patched build (`sage-sm89-stream`). **Fresh local GPU inference**, seed 50,
+`indian150-a`, 250 frames, 2 sampling steps, single tenant on the GPU for the whole run
+(`environment_after.resident_gpu_processes` = this process only).
+
+| | reference `s30-reuse` | `final-v2-r01` | `final-v2-lean-r01` | `final-v2-r02` (repeat) |
+| --- | ---: | ---: | ---: | ---: |
+| useful FPS (250 frames, includes window 0) | 19.62 | 29.63 | **30.04** | 29.68 |
+| window p50 | 1,427 ms | 916 | **916** | 915 |
+| DiT / decode / encode over 9 windows | 3.54 / 7.68 / 1.12 s | 3.08 / 3.93 / 1.05 | 3.08 / 3.92 / 1.05 | 3.08 / 3.92 / 1.05 |
+| nvidia-smi peak / torch reserved | 11,160 / 11,160 MiB | 9,039 / 8,550 | **9,039 / 8,550** | 9,039 / 8,550 |
+| raw frames | — | sha A | **identical to sha A** (bitwise) | — |
+
+Quality gate against the reference (`review.py`, colour drift over 9 windows):
+
+| | accepted-build range | `final-v2-lean-r01` |
+| --- | --- | ---: |
+| opening correlation (lip motion) | 0.94–0.97 | **0.957** |
+| mouth-centre distance | ≤ 3.4 px | 2.9 px |
+| oral edge ratio (mouth edge energy) | 0.95–1.07 | **0.818** |
+| colour drift max / slope R | ref 1.48 / +0.106 per window | 1.15 / +0.085 |
+
+Reading: lip sync, timing and colour are those of the reference; the mouth carries ~18% less
+edge energy than the full decoder (the fine-tune recovered it from 20% to 82% of the
+reference; a third fine-tune or skipping one block fewer would trade FPS back for it). Judge on
+the labelled videos, which are frame-identical to the lean run:
+`benchmarks/pro_30fps_20260922/visual/final-v2-r01-vs-reference.mp4` (full frame, reference
+left) and `final-v2-r01-mouth-vs-reference.mp4` (mouth crop, reference top).
+
+**What the build is (every item behind a flag; omit it to roll back):**
+
+1. Decoder residual blocks `upsamples[9,10,13,14]` bypassed (`--skip-decoder-blocks 9 10 13 14`,
+   `SkippedResidualBlock` keeps the causal-cache cursor aligned) — the only structural lever whose
+   failure mode was softness rather than wrong motion.
+2. The surviving `upsamples[7,8,11,12]` and the head **distilled** from the full FP16 decoder on
+   88 windows of the pipeline's own latents (`distill_decoder.py`, two rounds: 3 epochs, then 6
+   edge-weighted epochs; hold-out PSNR 28.6 → 48.7 dB, sharpness 0.79 → 0.95) →
+   `distill/vae_skip9-10-13-14_ft2.pth` (`--vae-weights`, loaded before any decoder rewrite; the
+   stage plan records the weights' sha256 and refuses a mismatch).
+3. TensorRT FP16 span engines `"4,5,6" "7,8" "11,12"` built from those weights with the
+   norm-conv ONNX rewrite (`decoder_stages.py capture --skip-blocks … --vae-weights …` →
+   `build --graph-rewrite norm-conv --vae-weights …`; policy `policies/final_v2.json`); the span
+   stages absorb `Resample[7]` and `Resample[11]`, so the harness runs **without**
+   `--subpixel-resample --channels-last-head`.
+4. `--dit-cuda-graph`: the two-step DiT forward captured once per step into CUDA graphs
+   (possible only because SageAttention now launches on the current stream).
+5. `--fused-int8-ffn`: Triton INT8 GEMM with fused dequant → GELU → requant epilogue for
+   `ffn.0` (bit-identical to the compiled path).
+6. `--lean-delivery`: device-side uint8 trim, one quarter of the bytes over the bus (bit-identical
+   frames).
+7. Unchanged from the reference: 2 distilled steps, INT8 W8A8 FFN with static `ffn.2` scales,
+   FP8 attention projections, SageAttention INT8-QK/FP8-PV, prepared cross-attention
+   conditioning, overlap-skip decoder cache, FP16 cache passthrough, output-buffer reuse.
+
+Exact command (from `hires_span.sh`):
+```
+POLICY=benchmarks/pro_30fps_20260920/policies/final_v2.json  # decoder.plan -> stage-fp16-576x320-final-v2-r01
+.venv/bin/python benchmarks/pro_quantization_v2_20260918/run.py --policy $POLICY \
+  --fixtures benchmarks/pro_30fps_20260920/tts-fixtures/fixtures.json --fixture-id indian150-a \
+  --seed 50 --frames 250 --repeats 1 --sampling-steps 2 --timestep-variant distilled_aligned \
+  --static-int8-scales benchmarks/pro_30fps_20260921/int8-amax.json --overlap-skip \
+  --compile-vae-encode --vae-weights benchmarks/pro_30fps_20260922/distill/vae_skip9-10-13-14_ft2.pth \
+  --skip-decoder-blocks 9 10 13 14 --dit-cuda-graph --fused-int8-ffn --lean-delivery --save-raw \
+  --output benchmarks/pro_30fps_20260922/final-v2-lean-r01
+```
+(with `PYTHONPATH=/workspace/experiments/pro30-deps/sage-sm89-stream:.pro-quant-deps:/workspace/experiments/ojin-components-deps:.`,
+`SOULX_STAGE_REUSE_OUTPUTS=1`, `PYTORCH_CUDA_ALLOC_CONF` unset.)
+
+Still in flight for headroom (to buy quality back at ≥ 30 FPS): the decoder head inside the tail
+span despite the skipped blocks, and a TensorRT engine for the motion encoder (117 ms/window).
+
+### Iteration 8 — the head inside the tail engine: faster, softer
+
+`soulx_rtc/pro_vae_stage_backend.py` now accepts `"11,12,head"` as a group when every
+`upsamples` index after the group is a `SkippedResidualBlock`. The skipped identities stay in
+the module list and keep advancing the cursor; the span maps its own three caches onto slots
+25, 26 and 31 through a new `slot_offsets` list, so slots 27–30 stay `None` and the total walk
+still ends at 32 — bit-identical to the pruned eager decoder on CPU and on the GPU (3 frames,
+all 33 slot states, plus the real `WanVAE.decode` entry point). `install_stage_plan` refuses a
+plan whose recorded span says `after-skipped:13,14` when the live decoder has those blocks, and
+vice versa.
+
+Measured (`final-headspan-r01`, same weights and flags as the final candidate, no lean
+delivery): **30.39 FPS**, window p50 **893 ms**, decode 3.93 → 3.72 s over 9 windows
+(−23 ms/window), arena unchanged at 551 MiB, VRAM 8,975 MiB. Gate: opening correlation 0.950,
+mouth-centre distance 4.0 px, colour drift max **0.884**/255 (the best of any arm), but oral
+edge ratio **0.736** against 0.818 with the head eager.
+
+**Conclusion: not shipped.** The head is precision-sensitive — moving its RMS-norm + SiLU +
+3-channel convolution from eager bf16 into the FP16 engine costs ~0.08 of oral edge ratio for
+23 ms/window. Since the goal is 30 FPS *with acceptable quality* and the head-eager build
+already clears 30, the 0.35 FPS is not worth the mouth detail. Kept as a documented
+alternative (`policies/final_headspan.json`, plan `stage-fp16-576x320-headspan-r01`) and as the
+mechanism to use if a future build needs the time back. A distillation round that trains the
+head *through* the FP16 engine would likely recover it; not attempted.
+
+With lean delivery (`final-headspan-lean-r01`): **30.87 FPS**, window 892 ms, VRAM 8,939 MiB,
+correlation 0.951, edge ratio 0.759, drift 0.884/255. So the full trade at 576×320 is
+**+0.83 FPS for −0.06 oral edge ratio**; the head-eager build ships.
+
+**Blocked:** the TensorRT motion-encoder engine (lever C4, 117 ms/window) was being built by an
+agent that stopped on an account spend limit for its model. The encoder remains eager/compiled.
+
+**Regression check.** `pytest tests/` on this working tree: 294 passed, 16 failed, 1 skipped.
+The same 16 fail with every change of this programme stashed (verified by `git stash` and a
+re-run), so they are pre-existing in this checkout — missing gitignored fixtures
+(`examples/girl.png`), an RTC server binding, and policy/preflight fixtures. No test regressed.
+
+### Iteration 9 — the sharpness gap was capacity, not optimisation
+
+Rounds 1–3 of the distillation trained only `upsamples[7,8,11,12]` + head — 4.21 M parameters
+— and plateaued: round 2 ended at hold-out sharpness 0.946, and round 3 (8 epochs, gradient
+weight 6) moved its first epoch by **+0.002**, so it was stopped. Round 4 added the
+384-channel group `upsamples[4,5,6]` that feeds the pruned levels, **26.19 M** trainable
+parameters, 8 epochs from the round-2 weights, gradient weight 4, mouth weight 4, lr 3e-5 →
+3e-6 (`distill/vae_skip9-10-13-14_ft4.{pth,json}`, 46 min):
+
+| hold-out `tts-conversational` vs the full FP16 decoder | PSNR | mouth PSNR | sharpness | mouth sharpness |
+| --- | ---: | ---: | ---: | ---: |
+| pruned, untrained | 28.55 dB | 28.77 | 0.790 | 0.785 |
+| round 1 (3 ep, 4.2 M) | 47.18 | 42.61 | 0.924 | 0.924 |
+| round 2 (6 ep, 4.2 M) | 48.68 | 44.12 | 0.945 | 0.946 |
+| round 3 (4.2 M, edge-weighted) | *stopped, +0.002 in epoch 1* | | | |
+| **round 4 (8 ep, 26.2 M)** | **49.66** | **45.04** | **0.956** | **0.955** |
+
+Both terms improved together once the capacity was there: the first epoch traded fidelity for
+edges (46.53 dB / 0.950), and by epoch 8 fidelity had passed every earlier round as well.
+
+## Final result — 30.22 FPS at 576×320 (`final-v4-lean-r01`, 2026-09-22 23:03)
+
+**Hardware:** NVIDIA GeForce RTX 4070 SUPER, 12,282 MiB visible VRAM (physical class
+unverified in this run), driver 595.84, Torch 2.7.1+cu128, TensorRT 10.9.0.34, SageAttention
+2.2.0 stream-patched build. **Fresh local GPU inference**, seed 50, `indian150-a`, 250 frames,
+2 sampling steps, single tenant on the GPU.
+
+| | reference `s30-reuse` | **`final-v4-lean-r01`** |
+| --- | ---: | ---: |
+| useful FPS, 250 frames (includes the cold window 0) | 19.62 | **30.22** |
+| steady-state FPS (windows 1–8) | — | 30.74 |
+| window p50 | 1,427 ms | **912 ms** |
+| DiT / decode / motion encode over 9 windows | 3.54 / 7.68 / 1.12 s | 3.09 / 3.91 / 1.05 s |
+| nvidia-smi peak VRAM | 11,160 MiB | **9,039 MiB** |
+
+Quality gate against the reference (`review.py`; accepted builds of this programme scored
+0.94–0.97 correlation and 0.95–1.07 edge ratio):
+
+| | reference band | `final-v4-lean-r01` | previous best `final-v2-lean-r01` |
+| --- | --- | ---: | ---: |
+| opening correlation (lip motion) | 0.94–0.97 | **0.970** | 0.957 |
+| oral edge ratio (mouth detail) | 0.95–1.07 | **0.907** | 0.818 |
+| mouth-centre distance | ≤ 3.4 px | **2.2 px** | 2.9 px |
+| colour drift max / slope R (ref 1.48 / +0.106) | — | 1.32 / +0.117 | 1.15 / +0.085 |
+| decoder-only window 0: mouth PSNR / mouth sharpness vs control | — | **30.5 dB / 0.954** | 28.7 / 0.953 |
+
+**+54% FPS, −19% VRAM, and lip sync better than any earlier accepted arm.** The mouth still
+carries ~9% less edge energy than the full decoder (was 80% less before any distillation);
+everything else is at or better than reference. Videos:
+`benchmarks/pro_30fps_20260922/visual/final-v4-lean-r01-vs-reference.mp4` (full frame,
+reference left) and `final-v4-lean-r01-mouth-vs-reference.mp4` (mouth crop, reference top).
+
+**The shipping build** (each item behind a flag; omit it to roll back):
+`policies/final_v4.json` (span engines `"4,5,6" "7,8" "11,12"` built from the round-4 weights
+with the norm-conv rewrite) plus
+`--vae-weights benchmarks/pro_30fps_20260922/distill/vae_skip9-10-13-14_ft4.pth
+--skip-decoder-blocks 9 10 13 14 --dit-cuda-graph --fused-int8-ffn --lean-delivery`, and
+**not** `--subpixel-resample` / `--channels-last-head`. Everything else as the reference
+(2 distilled steps, INT8 W8A8 FFN with static `ffn.2` scales, FP8 attention projections,
+SageAttention INT8-QK/FP8-PV, prepared cross-attention conditioning, overlap-skip decoder
+cache, FP16 cache passthrough, output-buffer reuse).
+
+**Artifacts kept** (the shared 204 GB disk ran to 100% twice during this work, so regenerable
+things were deleted): the shipping weights `distill/vae_skip9-10-13-14_ft4.pth` and their
+round-2 initialiser `_ft2.pth` with both JSON logs; the plan
+`stage-fp16-576x320-final-v4-r01` and its calibration; `final-v4-lean-r01` /
+`final-v2-lean-r01` / `ctl-r01` with `raw.npy`; every arm's `results.json`, `video.mp4` and
+`review-*/`; the labelled comparison videos. **Regenerable, deleted:** the 88-window
+distillation dataset (3.2 GB — `hires_dump.sh <fixture> <seed>` over the seven TTS fixtures
+plus `indian150-a` seed 51 rebuilds it in ~6 minutes), the `raw.npy` of gated non-shipping
+arms, superseded calibrations and engines, round 1 and the abandoned round 3 checkpoints.
+
+Remaining headroom if more speed is ever needed: the head inside the tail engine
+(`policies/final_headspan.json`, +0.65 FPS for −0.15 edge ratio on the v2 weights — worth
+re-testing on v4 since its head is better trained) and the TensorRT motion encoder
+(117 ms/window, not built).

@@ -1,0 +1,86 @@
+{
+  "output": "benchmarks/pro_30fps_20260922/final-headspan-lean-r01",
+  "runs": [
+    {
+      "repeat": 0,
+      "generation_s": 8.098390417988412,
+      "useful_fps": 30.870331892704474,
+      "first_window_latency_s": 0.9613255559233949,
+      "chunk_times_s": [
+        0.9613255559233949,
+        0.8894672399619594,
+        0.8882006289204583,
+        0.8896951379720122,
+        0.8949542619520798,
+        0.8942655940772966,
+        0.8913847710937262,
+        0.8915188099490479,
+        0.8918686470715329
+      ],
+      "chunk_distribution_s": {
+        "count": 9,
+        "min": 0.8882006289204583,
+        "p50": 0.8915188099490479,
+        "p95": 0.9347770383348688,
+        "p99": 0.9560158524056896,
+        "max": 0.9613255559233949
+      },
+      "stage_seconds": {
+        "audio": 0.0694379849433899,
+        "dit": 3.063974090576172,
+        "vae_decode": 3.7025883483886726,
+        "motion_encode": 1.0499253768920898
+      },
+      "peak_allocated_mib": 6863.0126953125,
+      "peak_reserved_mib": 8450.0,
+      "resource_summary": {
+        "sample_count": 15,
+        "gpu_utilization_percent": {
+          "mean": 98.8,
+          "min": 91.0,
+          "max": 100.0
+        },
+        "gpu_vram_used_mib": {
+          "mean": 8939.0,
+          "min": 8939.0,
+          "max": 8939.0
+        },
+        "system_cpu_percent": {
+          "mean": 6.4,
+          "min": 0.0,
+          "max": 27.9
+        },
+        "process_cpu_percent": {
+          "mean": 235.89333333333332,
+          "min": 98.1,
+          "max": 2136.2
+        },
+        "system_ram_used_mib": {
+          "mean": 17228.001302083332,
+          "min": 17052.58984375,
+          "max": 17533.3203125
+        },
+        "system_ram_percent": {
+          "mean": 55.653333333333336,
+          "min": 55.1,
+          "max": 56.6
+        },
+        "process_rss_mib": {
+          "mean": 3528.48515625,
+          "min": 3472.95703125,
+          "max": 3594.32421875
+        },
+        "torch_allocated_mib": {
+          "mean": 5581.764485677083,
+          "min": 5516.0263671875,
+          "max": 5593.94775390625
+        },
+        "torch_reserved_mib": {
+          "mean": 8450.0,
+          "min": 8450.0,
+          "max": 8450.0
+        }
+      }
+    }
+  ]
+}

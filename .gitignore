@@ -24,6 +24,7 @@ tools/
 # Generated benchmark/capture artifacts omitted from the GitHub source branch.
 # The complete files remain intact on the local preservation branch.
 **/*.pt
+**/*.pth
 **/*.npy
 **/*.png
 **/*.mp4
@@ -35,3 +36,6 @@ tools/
 **/*.cubin
 **/*.best_config
 .inductor-cache/
+
+# Locally restored third-party runtime dependencies.
+.restored-deps*/
