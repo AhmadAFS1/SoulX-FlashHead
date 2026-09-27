@@ -1,0 +1,1434 @@
+{
+ "execution": "fresh local GPU inference on RTX 4070 SUPER",
+ "date_utc": "2026-09-26T20:47:36Z",
+ "inputs": {
+  "windows": [
+   {
+    "fixture": "indian150-a",
+    "window": 0,
+    "file": "indian150-a-s50-w0.pt",
+    "seconds": 7.130272388458252
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 1,
+    "file": "indian150-a-s50-w1.pt",
+    "seconds": 6.523199081420898
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 2,
+    "file": "indian150-a-s50-w2.pt",
+    "seconds": 6.528193950653076
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 3,
+    "file": "indian150-a-s50-w3.pt",
+    "seconds": 6.276644468307495
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 4,
+    "file": "indian150-a-s50-w4.pt",
+    "seconds": 6.277408123016357
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 5,
+    "file": "indian150-a-s50-w5.pt",
+    "seconds": 6.271270275115967
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 6,
+    "file": "indian150-a-s50-w6.pt",
+    "seconds": 6.270068168640137
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 7,
+    "file": "indian150-a-s50-w7.pt",
+    "seconds": 6.272428274154663
+   },
+   {
+    "fixture": "indian150-a",
+    "window": 8,
+    "file": "indian150-a-s50-w8.pt",
+    "seconds": 6.27455997467041
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 0,
+    "file": "tts-open-vowels-s50-w0.pt",
+    "seconds": 6.736407279968262
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 1,
+    "file": "tts-open-vowels-s50-w1.pt",
+    "seconds": 6.27054500579834
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 2,
+    "file": "tts-open-vowels-s50-w2.pt",
+    "seconds": 6.278455018997192
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 3,
+    "file": "tts-open-vowels-s50-w3.pt",
+    "seconds": 6.27495551109314
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 4,
+    "file": "tts-open-vowels-s50-w4.pt",
+    "seconds": 6.27285623550415
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 5,
+    "file": "tts-open-vowels-s50-w5.pt",
+    "seconds": 6.273363828659058
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 6,
+    "file": "tts-open-vowels-s50-w6.pt",
+    "seconds": 6.273518323898315
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 7,
+    "file": "tts-open-vowels-s50-w7.pt",
+    "seconds": 6.278059720993042
+   },
+   {
+    "fixture": "tts-open-vowels",
+    "window": 8,
+    "file": "tts-open-vowels-s50-w8.pt",
+    "seconds": 6.2770702838897705
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 0,
+    "file": "tts-plosives-s50-w0.pt",
+    "seconds": 6.741394519805908
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 1,
+    "file": "tts-plosives-s50-w1.pt",
+    "seconds": 6.272814989089966
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 2,
+    "file": "tts-plosives-s50-w2.pt",
+    "seconds": 6.277414321899414
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 3,
+    "file": "tts-plosives-s50-w3.pt",
+    "seconds": 6.273101568222046
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 4,
+    "file": "tts-plosives-s50-w4.pt",
+    "seconds": 6.272498846054077
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 5,
+    "file": "tts-plosives-s50-w5.pt",
+    "seconds": 6.273278713226318
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 6,
+    "file": "tts-plosives-s50-w6.pt",
+    "seconds": 6.277908802032471
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 7,
+    "file": "tts-plosives-s50-w7.pt",
+    "seconds": 6.272723436355591
+   },
+   {
+    "fixture": "tts-plosives",
+    "window": 8,
+    "file": "tts-plosives-s50-w8.pt",
+    "seconds": 6.275397300720215
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 0,
+    "file": "tts-sibilants-s50-w0.pt",
+    "seconds": 6.7427661418914795
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 1,
+    "file": "tts-sibilants-s50-w1.pt",
+    "seconds": 6.2753119468688965
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 2,
+    "file": "tts-sibilants-s50-w2.pt",
+    "seconds": 6.275723695755005
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 3,
+    "file": "tts-sibilants-s50-w3.pt",
+    "seconds": 6.274747610092163
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 4,
+    "file": "tts-sibilants-s50-w4.pt",
+    "seconds": 6.2693095207214355
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 5,
+    "file": "tts-sibilants-s50-w5.pt",
+    "seconds": 6.2754504680633545
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 6,
+    "file": "tts-sibilants-s50-w6.pt",
+    "seconds": 6.274150133132935
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 7,
+    "file": "tts-sibilants-s50-w7.pt",
+    "seconds": 6.2735748291015625
+   },
+   {
+    "fixture": "tts-sibilants",
+    "window": 8,
+    "file": "tts-sibilants-s50-w8.pt",
+    "seconds": 6.274757146835327
+   }
+  ],
+  "n_windows": 36,
+  "fixtures": [
+   "indian150-a",
+   "tts-open-vowels",
+   "tts-plosives",
+   "tts-sibilants"
+  ],
+  "note": "The 4 'real latent' windows listed in benchmarks/pro_30fps_20260919/real-inputs-r01/manifest.json no longer exist (its tensors/ directory is empty), so all windows here are fresh DiT latents from decoder_bakeoff/dump_latents.sh (fixtures indian150-a, tts-plosives, tts-open-vowels, tts-sibilants; seed 50; measured windows 0-8 of each run)."
+ },
+ "sanity_reference_vs_in_loop_decode_maxabs": {
+  "indian150-a": 0.0,
+  "tts-open-vowels": 0.0,
+  "tts-plosives": 0.0,
+  "tts-sibilants": 0.0
+ },
+ "conventions": {
+  "chosen": {
+   "taew2_1": {
+    "latent": "norm",
+    "offset": 0,
+    "trim": "drop first 3, last 0 of 36 raw frames",
+    "psnr_full_mean": 39.629373664558926,
+    "matches_assumed": true
+   },
+   "lighttaew2_1": {
+    "latent": "unnorm",
+    "offset": 0,
+    "trim": "drop first 3, last 0 of 36 raw frames",
+    "psnr_full_mean": 39.04003140782282,
+    "matches_assumed": true
+   },
+   "lightvaew2_1": {
+    "latent": "normalised, decode(z, wan scale)",
+    "offset": 0,
+    "psnr_full_mean": 40.302935284034945
+   }
+  },
+  "search_mean_over_windows": {
+   "taew2_1 latent=norm": {
+    "psnr_full_mean": 39.629373664558926,
+    "psnr_mouth_mean": 35.38097128469402,
+    "offsets": {
+     "-3": {
+      "psnr_full_mean": 27.43878902816244,
+      "psnr_mouth_mean": 20.51359736164382,
+      "frames": 33
+     },
+     "-2": {
+      "psnr_full_mean": 29.184006812467015,
+      "psnr_mouth_mean": 21.77446141649462,
+      "frames": 33
+     },
+     "-1": {
+      "psnr_full_mean": 32.36463892224887,
+      "psnr_mouth_mean": 24.798763522970074,
+      "frames": 33
+     },
+     "0": {
+      "psnr_full_mean": 39.629373664558926,
+      "psnr_mouth_mean": 35.38097128469402,
+      "frames": 33
+     },
+     "1": {
+      "psnr_full_mean": 32.184282933677395,
+      "psnr_mouth_mean": 24.592231843012986,
+      "frames": 32
+     },
+     "2": {
+      "psnr_full_mean": 28.93578638928132,
+      "psnr_mouth_mean": 21.501975787817855,
+      "frames": 31
+     }
+    },
+    "colour_offset_rgb_mean": [
+     -0.2749230553292566,
+     0.23543693663345444,
+     0.32654186752107406
+    ],
+    "mae_full_mean": 1.8255403538544972
+   },
+   "taew2_1 latent=unnorm": {
+    "psnr_full_mean": 19.03591508260019,
+    "psnr_mouth_mean": 17.83396750013368,
+    "offsets": {
+     "-3": {
+      "psnr_full_mean": 18.538416639581836,
+      "psnr_mouth_mean": 15.723926283019997,
+      "frames": 33
+     },
+     "-2": {
+      "psnr_full_mean": 18.68409191313955,
+      "psnr_mouth_mean": 16.222777685315478,
+      "frames": 33
+     },
+     "-1": {
+      "psnr_full_mean": 18.889608517838738,
+      "psnr_mouth_mean": 17.056875610135187,
+      "frames": 33
+     },
+     "0": {
+      "psnr_full_mean": 19.03591508260019,
+      "psnr_mouth_mean": 17.83396750013368,
+      "frames": 33
+     },
+     "1": {
+      "psnr_full_mean": 18.867550201144258,
+      "psnr_mouth_mean": 17.05426520014398,
+      "frames": 32
+     },
+     "2": {
+      "psnr_full_mean": 18.614277241907587,
+      "psnr_mouth_mean": 16.16793881121334,
+      "frames": 31
+     }
+    },
+    "colour_offset_rgb_mean": [
+     2.685987263917923,
+     1.9833059708277385,
+     -2.4371818833880954
+    ],
+    "mae_full_mean": 24.88782522413466
+   },
+   "taew2_1 output read as [-1,1] (wrong range)": {
+    "psnr_full_mean": 8.786249148814859
+   },
+   "lighttaew2_1 latent=norm": {
+    "psnr_full_mean": 20.24936251496646,
+    "psnr_mouth_mean": 20.698556007043365,
+    "offsets": {
+     "-3": {
+      "psnr_full_mean": 19.77490007852214,
+      "psnr_mouth_mean": 18.77972434324833,
+      "frames": 33
+     },
+     "-2": {
+      "psnr_full_mean": 19.94341906643621,
+      "psnr_mouth_mean": 19.214063498041657,
+      "frames": 33
+     },
+     "-1": {
+      "psnr_full_mean": 20.136545530268897,
+      "psnr_mouth_mean": 19.958412828080824,
+      "frames": 33
+     },
+     "0": {
+      "psnr_full_mean": 20.24936251496646,
+      "psnr_mouth_mean": 20.698556007043365,
+      "frames": 33
+     },
+     "1": {
+      "psnr_full_mean": 20.118454630832954,
+      "psnr_mouth_mean": 19.83912165257972,
+      "frames": 32
+     },
+     "2": {
+      "psnr_full_mean": 19.94479857647841,
+      "psnr_mouth_mean": 19.11467040692393,
+      "frames": 31
+     }
+    },
+    "colour_offset_rgb_mean": [
+     5.518249485227797,
+     6.970309283998278,
+     7.721834871504042
+    ],
+    "mae_full_mean": 21.718131489223904
+   },
+   "lighttaew2_1 latent=unnorm": {
+    "psnr_full_mean": 39.04003140782282,
+    "psnr_mouth_mean": 34.46226293749267,
+    "offsets": {
+     "-3": {
+      "psnr_full_mean": 27.763685766777442,
+      "psnr_mouth_mean": 20.68277359624038,
+      "frames": 33
+     },
+     "-2": {
+      "psnr_full_mean": 29.360880169626505,
+      "psnr_mouth_mean": 21.95532905151684,
+      "frames": 33
+     },
+     "-1": {
+      "psnr_full_mean": 32.5330023665694,
+      "psnr_mouth_mean": 25.020357951539317,
+      "frames": 33
+     },
+     "0": {
+      "psnr_full_mean": 39.04003140782282,
+      "psnr_mouth_mean": 34.46226293749267,
+      "frames": 33
+     },
+     "1": {
+      "psnr_full_mean": 32.563063499678925,
+      "psnr_mouth_mean": 25.002217143454335,
+      "frames": 32
+     },
+     "2": {
+      "psnr_full_mean": 29.306980431872653,
+      "psnr_mouth_mean": 21.819155566827614,
+      "frames": 31
+     }
+    },
+    "colour_offset_rgb_mean": [
+     0.6817650356226497,
+     0.7217129800054762,
+     0.3535090937382645
+    ],
+    "mae_full_mean": 1.959255599313312
+   },
+   "lighttaew2_1 output read as [-1,1] (wrong range)": {
+    "psnr_full_mean": 8.754821470376944
+   },
+   "lightvaew2_1 decode(z, wan scale)": {
+    "offsets": {
+     "-2": {
+      "psnr_full_mean": 29.412503317964592,
+      "psnr_mouth_mean": 21.8939997151048,
+      "frames": 31
+     },
+     "-1": {
+      "psnr_full_mean": 32.835998224825985,
+      "psnr_mouth_mean": 25.145974489856577,
+      "frames": 32
+     },
+     "0": {
+      "psnr_full_mean": 40.302935284034945,
+      "psnr_mouth_mean": 34.9319944622564,
+      "frames": 33
+     },
+     "1": {
+      "psnr_full_mean": 33.13718263459033,
+      "psnr_mouth_mean": 25.409455082344046,
+      "frames": 32
+     },
+     "2": {
+      "psnr_full_mean": 29.594637019767603,
+      "psnr_mouth_mean": 22.033463430320552,
+      "frames": 31
+     }
+    }
+   },
+   "lightvaew2_1 decode(z, no un-normalisation)": {
+    "psnr_full_mean": 20.336711168720814
+   }
+  },
+  "layout_NCTHW_into_TAEHV": "RuntimeError: Given groups=1, weight of size [256, 16, 3, 3], expected input[16, 9, 72, 40] to have 16 channels, but got 9 channels instead",
+  "precision_check_taew2_1_fp32_vs_fp16": [
+   {
+    "taew2_1_fp32_vs_fp16_psnr": 61.734764388614295,
+    "taew2_1_fp32_vs_ref_psnr": 39.332264045140555
+   },
+   {
+    "taew2_1_fp32_vs_fp16_psnr": 61.69234574480881,
+    "taew2_1_fp32_vs_ref_psnr": 38.95208333999612
+   },
+   {
+    "taew2_1_fp32_vs_fp16_psnr": 61.69628201513079,
+    "taew2_1_fp32_vs_ref_psnr": 39.512843929316304
+   }
+  ]
+ },
+ "quality_window_mode": {
+  "shipping": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 49.00695335648293,
+    "worst": 48.4332065986936
+   },
+   "psnr_mouth": {
+    "mean": 44.852816756577695,
+    "worst": 43.466130962643554
+   },
+   "mae_full": {
+    "mean": 0.5449854706724485,
+    "worst": 0.5888473391532898
+   },
+   "sharp_full": {
+    "mean": 0.9555277890276399,
+    "worst": 0.9485020370342976
+   },
+   "sharp_mouth": {
+    "mean": 0.9573871173008934,
+    "worst": 0.9381898851067784
+   },
+   "flicker": {
+    "mean": 0.961550561068609,
+    "worst": 0.9441773199548169
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.038942948915064335,
+     0.0016850817341441547,
+     -0.028906956547871232
+    ],
+    "worst_abs": [
+     0.07488656044006348,
+     0.01676185615360737,
+     0.042685478925704956
+    ]
+   }
+  },
+  "taew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 39.629373664558926,
+    "worst": 38.94512992565919
+   },
+   "psnr_mouth": {
+    "mean": 35.38097128469402,
+    "worst": 33.98737750215266
+   },
+   "mae_full": {
+    "mean": 1.8255403538544972,
+    "worst": 1.9283866882324219
+   },
+   "sharp_full": {
+    "mean": 0.9605064939866246,
+    "worst": 0.9493054562549125
+   },
+   "sharp_mouth": {
+    "mean": 0.9785374166510176,
+    "worst": 0.9561589425619782
+   },
+   "flicker": {
+    "mean": 0.9996057152188915,
+    "worst": 1.064961550589866
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     -0.2749230553292566,
+     0.23543693663345444,
+     0.32654186752107406
+    ],
+    "worst_abs": [
+     0.3912666440010071,
+     0.29514840245246887,
+     0.42890557646751404
+    ]
+   }
+  },
+  "lighttaew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 39.04003140782282,
+    "worst": 37.86036043541496
+   },
+   "psnr_mouth": {
+    "mean": 34.46226293749267,
+    "worst": 32.585207516877816
+   },
+   "mae_full": {
+    "mean": 1.959255599313312,
+    "worst": 2.0820021629333496
+   },
+   "sharp_full": {
+    "mean": 0.9403827503834175,
+    "worst": 0.9267532464526217
+   },
+   "sharp_mouth": {
+    "mean": 0.9431286151579596,
+    "worst": 0.9236942382325198
+   },
+   "flicker": {
+    "mean": 0.8256298868439198,
+    "worst": 0.7791473908343518
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.6817650356226497,
+     0.7217129800054762,
+     0.3535090937382645
+    ],
+    "worst_abs": [
+     0.8628045916557312,
+     0.8477892279624939,
+     0.49931639432907104
+    ]
+   }
+  },
+  "lightvaew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 40.302935284034945,
+    "worst": 38.76251673534452
+   },
+   "psnr_mouth": {
+    "mean": 34.9319944622564,
+    "worst": 32.91407960315469
+   },
+   "mae_full": {
+    "mean": 1.5766149593724146,
+    "worst": 1.7470461130142212
+   },
+   "sharp_full": {
+    "mean": 0.8172146022344772,
+    "worst": 0.79884016304384
+   },
+   "sharp_mouth": {
+    "mean": 0.8348622185782593,
+    "worst": 0.7948608506414363
+   },
+   "flicker": {
+    "mean": 0.7690015988459838,
+    "worst": 0.6989097559148526
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.03493366777062571,
+     -0.15271387808024883,
+     -0.26740674260589814
+    ],
+    "worst_abs": [
+     0.1407063752412796,
+     0.2632156312465668,
+     0.5390074253082275
+    ]
+   }
+  },
+  "taew2_1_bf16": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 39.507413081684504,
+    "worst": 38.82903084506474
+   },
+   "psnr_mouth": {
+    "mean": 35.31644905597025,
+    "worst": 33.909022143116225
+   },
+   "mae_full": {
+    "mean": 1.8672005732854207,
+    "worst": 1.9711848497390747
+   },
+   "sharp_full": {
+    "mean": 0.9619608461477647,
+    "worst": 0.9507137963874193
+   },
+   "sharp_mouth": {
+    "mean": 0.9803988429886209,
+    "worst": 0.9582149315499413
+   },
+   "flicker": {
+    "mean": 1.0034713279809908,
+    "worst": 1.0686326957707135
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     -0.2932419826587041,
+     0.3041891045868397,
+     0.4690290258990394
+    ],
+    "worst_abs": [
+     0.41010427474975586,
+     0.36309561133384705,
+     0.57280433177948
+    ]
+   }
+  },
+  "lighttaew2_1_bf16": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 39.06065198138003,
+    "worst": 37.877615860230385
+   },
+   "psnr_mouth": {
+    "mean": 34.457850086185395,
+    "worst": 32.58834917645118
+   },
+   "mae_full": {
+    "mean": 1.9501599073410034,
+    "worst": 2.0720298290252686
+   },
+   "sharp_full": {
+    "mean": 0.9424658176510713,
+    "worst": 0.9288099576302451
+   },
+   "sharp_mouth": {
+    "mean": 0.9451459040796135,
+    "worst": 0.9257072822807867
+   },
+   "flicker": {
+    "mean": 0.8289149919620671,
+    "worst": 0.7829576644898919
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.6626904846893417,
+     0.6916114555464851,
+     0.1356414701343359
+    ],
+    "worst_abs": [
+     0.8451148271560669,
+     0.8173674941062927,
+     0.28508949279785156
+    ]
+   }
+  }
+ },
+ "quality_stream_mode_delivered_frames": {
+  "stock": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 48.3134350390859,
+    "worst": 41.4890351670892
+   },
+   "psnr_mouth": {
+    "mean": 48.12315946926819,
+    "worst": 40.29462035081859
+   },
+   "mae_full": {
+    "mean": 1.0026373432742224,
+    "worst": 1.2389219999313354
+   },
+   "sharp_full": {
+    "mean": 0.9895158686843865,
+    "worst": 0.9854740003902455
+   },
+   "sharp_mouth": {
+    "mean": 0.9834678790314878,
+    "worst": 0.9777482231040209
+   },
+   "flicker": {
+    "mean": 1.0344003116836464,
+    "worst": 1.0759940792878961
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     -0.019417829391184367,
+     0.030684467524729878,
+     0.5861568732394112
+    ],
+    "worst_abs": [
+     0.13751201331615448,
+     0.12815387547016144,
+     0.7566046118736267
+    ]
+   }
+  },
+  "shipping": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 42.378081356918436,
+    "worst": 41.122503897041
+   },
+   "psnr_mouth": {
+    "mean": 40.790676442845594,
+    "worst": 39.20635353119892
+   },
+   "mae_full": {
+    "mean": 1.2024887998898823,
+    "worst": 1.365663766860962
+   },
+   "sharp_full": {
+    "mean": 0.9452547402993956,
+    "worst": 0.9380119636617695
+   },
+   "sharp_mouth": {
+    "mean": 0.9405129617654959,
+    "worst": 0.9173309104522284
+   },
+   "flicker": {
+    "mean": 0.9948418929866281,
+    "worst": 0.9705861097401769
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.028018877912674926,
+     0.015432152754859393,
+     0.514763512959083
+    ],
+    "worst_abs": [
+     0.09886901080608368,
+     0.09788469970226288,
+     0.66689532995224
+    ]
+   }
+  },
+  "lightvaew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 38.691438399762404,
+    "worst": 37.336871087228836
+   },
+   "psnr_mouth": {
+    "mean": 34.22857075738494,
+    "worst": 32.285783485813184
+   },
+   "mae_full": {
+    "mean": 1.9546708663304646,
+    "worst": 2.1953678131103516
+   },
+   "sharp_full": {
+    "mean": 0.8040734603678223,
+    "worst": 0.7897628548946364
+   },
+   "sharp_mouth": {
+    "mean": 0.8220081814809647,
+    "worst": 0.781208863485177
+   },
+   "flicker": {
+    "mean": 0.7999837267620203,
+    "worst": 0.749848216558599
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.33744432404637337,
+     0.21945925967560875,
+     0.21342573853002655
+    ],
+    "worst_abs": [
+     0.5473712086677551,
+     0.5140783786773682,
+     0.5196577906608582
+    ]
+   }
+  },
+  "taew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 38.51918739526132,
+    "worst": 37.84449920791221
+   },
+   "psnr_mouth": {
+    "mean": 34.76480058719221,
+    "worst": 33.341271563033246
+   },
+   "mae_full": {
+    "mean": 2.0762640833854675,
+    "worst": 2.2276625633239746
+   },
+   "sharp_full": {
+    "mean": 0.9517925762561605,
+    "worst": 0.942997145473919
+   },
+   "sharp_mouth": {
+    "mean": 0.9613781972197332,
+    "worst": 0.9362773332253973
+   },
+   "flicker": {
+    "mean": 1.016685300743717,
+    "worst": 1.0588160047832282
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     -0.3843504608505302,
+     0.08984229245430066,
+     0.5919695330990685
+    ],
+    "worst_abs": [
+     0.557299792766571,
+     0.2199639230966568,
+     0.7857001423835754
+    ]
+   }
+  },
+  "lighttaew2_1": {
+   "n_windows": 36,
+   "psnr_full": {
+    "mean": 37.87249405500151,
+    "worst": 36.83759865017815
+   },
+   "psnr_mouth": {
+    "mean": 33.912858658956885,
+    "worst": 32.07312515256231
+   },
+   "mae_full": {
+    "mean": 2.2678016126155853,
+    "worst": 2.474001407623291
+   },
+   "sharp_full": {
+    "mean": 0.9310979432987941,
+    "worst": 0.9175657010682826
+   },
+   "sharp_mouth": {
+    "mean": 0.9286022785320355,
+    "worst": 0.9081536853156892
+   },
+   "flicker": {
+    "mean": 0.8305070660003481,
+    "worst": 0.7864088174108961
+   },
+   "colour_offset_rgb": {
+    "mean": [
+     0.40820332657959724,
+     0.5493175130751398,
+     0.6427771713998582
+    ],
+    "worst_abs": [
+     0.5899970531463623,
+     0.7161908149719238,
+     0.8764916062355042
+    ]
+   }
+  }
+ },
+ "speed": {
+  "execution": "fresh local GPU inference on RTX 4070 SUPER",
+  "date_utc": "2026-09-26T20:51:47Z",
+  "torch": "2.7.1+cu128",
+  "cudnn_benchmark": true,
+  "gpu_at_start": {
+   "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1 MiB, 12282 MiB, 0 %, 595.84",
+   "compute_apps": []
+  },
+  "cases": {
+   "taehv fp16 eager nchw cold9": {
+    "median_ms": 90.02816009521484,
+    "min_ms": 89.79647827148438,
+    "max_ms": 90.32048034667969,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 4269.18115234375,
+    "peak_over_resident_mib": 3789.79931640625,
+    "frames_out": 33,
+    "gpu_after": [
+     "2681775, 5902 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 eager nchw warm7": {
+    "median_ms": 70.6242904663086,
+    "min_ms": 70.47245025634766,
+    "max_ms": 70.84441375732422,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3403.66162109375,
+    "peak_over_resident_mib": 2924.27978515625,
+    "frames_out": 28,
+    "gpu_after": [
+     "2681775, 4750 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 torch.compile nchw cold9": {
+    "median_ms": 58.48086357116699,
+    "min_ms": 58.17744064331055,
+    "max_ms": 58.92915344238281,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2372.70849609375,
+    "peak_over_resident_mib": 1823.71630859375,
+    "frames_out": 33,
+    "first_call_s": 6.1178669929504395,
+    "maxabs_vs_eager": 0.0078125,
+    "gpu_after": [
+     "2681775, 3728 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 torch.compile nchw warm7": {
+    "median_ms": 45.29240036010742,
+    "min_ms": 45.15020751953125,
+    "max_ms": 45.70521545410156,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1947.40771484375,
+    "peak_over_resident_mib": 1398.41552734375,
+    "frames_out": 28,
+    "first_call_s": 5.20232081413269,
+    "gpu_after": [
+     "2681775, 3078 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 eager channels_last cold9": {
+    "median_ms": 85.3015365600586,
+    "min_ms": 85.02662658691406,
+    "max_ms": 85.66476440429688,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3531.6962890625,
+    "peak_over_resident_mib": 2980.978515625,
+    "frames_out": 33,
+    "gpu_after": [
+     "2681775, 4764 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 eager channels_last warm7": {
+    "median_ms": 65.62900924682617,
+    "min_ms": 65.51615905761719,
+    "max_ms": 65.7817611694336,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2844.9267578125,
+    "peak_over_resident_mib": 2294.208984375,
+    "frames_out": 28,
+    "gpu_after": [
+     "2681775, 3916 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 torch.compile channels_last cold9": {
+    "median_ms": 58.13772773742676,
+    "min_ms": 58.0239372253418,
+    "max_ms": 58.380287170410156,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2650.89453125,
+    "peak_over_resident_mib": 2068.853515625,
+    "frames_out": 33,
+    "first_call_s": 3.106029748916626,
+    "maxabs_vs_eager": 0.0078125,
+    "gpu_after": [
+     "2681775, 3908 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 torch.compile channels_last warm7": {
+    "median_ms": 44.89727973937988,
+    "min_ms": 44.681217193603516,
+    "max_ms": 44.960575103759766,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2136.177734375,
+    "peak_over_resident_mib": 1585.458984375,
+    "frames_out": 28,
+    "first_call_s": 3.1273844242095947,
+    "gpu_after": [
+     "2681775, 3364 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 eager nchw cold9": {
+    "median_ms": 89.39971160888672,
+    "min_ms": 89.28828430175781,
+    "max_ms": 89.58013153076172,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 4339.98583984375,
+    "peak_over_resident_mib": 3789.74462890625,
+    "frames_out": 33,
+    "gpu_after": [
+     "2681775, 5748 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 eager nchw warm7": {
+    "median_ms": 69.51356506347656,
+    "min_ms": 69.4217300415039,
+    "max_ms": 69.66886138916016,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3474.52099609375,
+    "peak_over_resident_mib": 2924.27978515625,
+    "frames_out": 28,
+    "gpu_after": [
+     "2681775, 4826 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 torch.compile nchw cold9": {
+    "median_ms": 57.73465538024902,
+    "min_ms": 57.59571075439453,
+    "max_ms": 58.07900619506836,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2407.23974609375,
+    "peak_over_resident_mib": 1822.19287109375,
+    "frames_out": 33,
+    "first_call_s": 5.1870739459991455,
+    "maxabs_vs_eager": 0.046875,
+    "gpu_after": [
+     "2681775, 4030 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 torch.compile nchw warm7": {
+    "median_ms": 44.96724891662598,
+    "min_ms": 44.73241424560547,
+    "max_ms": 45.3746223449707,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1982.49365234375,
+    "peak_over_resident_mib": 1397.44677734375,
+    "frames_out": 28,
+    "first_call_s": 5.145970106124878,
+    "gpu_after": [
+     "2681775, 3490 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 eager channels_last cold9": {
+    "median_ms": 84.87680053710938,
+    "min_ms": 84.53945922851562,
+    "max_ms": 85.00736236572266,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3564.1884765625,
+    "peak_over_resident_mib": 2980.228515625,
+    "frames_out": 33,
+    "gpu_after": [
+     "2681775, 4782 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 eager channels_last warm7": {
+    "median_ms": 65.36127853393555,
+    "min_ms": 65.20832061767578,
+    "max_ms": 65.4366683959961,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2878.1689453125,
+    "peak_over_resident_mib": 2294.208984375,
+    "frames_out": 28,
+    "gpu_after": [
+     "2681775, 4038 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 torch.compile channels_last cold9": {
+    "median_ms": 57.56620788574219,
+    "min_ms": 56.96473693847656,
+    "max_ms": 57.73484802246094,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2652.939453125,
+    "peak_over_resident_mib": 2068.978515625,
+    "frames_out": 33,
+    "first_call_s": 2.99051570892334,
+    "maxabs_vs_eager": 0.046875,
+    "gpu_after": [
+     "2681775, 3950 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv bf16 torch.compile channels_last warm7": {
+    "median_ms": 44.66694259643555,
+    "min_ms": 44.49382400512695,
+    "max_ms": 44.800926208496094,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2169.919921875,
+    "peak_over_resident_mib": 1585.958984375,
+    "frames_out": 28,
+    "first_call_s": 2.870713233947754,
+    "gpu_after": [
+     "2681775, 3408 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 TensorRT cold9": {
+    "median_ms": 46.292991638183594,
+    "min_ms": 46.11686325073242,
+    "max_ms": 46.43964767456055,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2443.3828125,
+    "peak_over_resident_mib": 69.609375,
+    "frames_out": 33,
+    "trt_workspace_mib": 1721.25,
+    "gpu_after": [
+     "2681775, 3136 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 TensorRT warm7": {
+    "median_ms": 36.11275100708008,
+    "min_ms": 36.00678253173828,
+    "max_ms": 36.199424743652344,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2065.0546875,
+    "peak_over_resident_mib": 59.0625,
+    "frames_out": 28,
+    "trt_workspace_mib": 1338.75,
+    "gpu_after": [
+     "2681775, 3440 MiB, .venv/bin/python"
+    ]
+   },
+   "lightvaew2_1 bf16 eager cold9": {
+    "median_ms": 263.56585693359375,
+    "min_ms": 263.2957763671875,
+    "max_ms": 263.96636962890625,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1082.01025390625,
+    "peak_over_resident_mib": 290.52880859375,
+    "frames_out": 33,
+    "first_call_s": 0.5252804756164551,
+    "gpu_after": [
+     "2681775, 1716 MiB, .venv/bin/python"
+    ]
+   },
+   "lightvaew2_1 bf16 eager warm7": {
+    "median_ms": 225.56835174560547,
+    "min_ms": 224.96153259277344,
+    "max_ms": 225.93728637695312,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1076.16650390625,
+    "peak_over_resident_mib": 284.77880859375,
+    "frames_out": 28,
+    "first_call_s": 0.2888820171356201,
+    "gpu_after": [
+     "2681775, 1710 MiB, .venv/bin/python"
+    ]
+   },
+   "lightvaew2_1 bf16 torch.compile cold9": {
+    "median_ms": 207.9997787475586,
+    "min_ms": 207.2033233642578,
+    "max_ms": 208.13414001464844,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1658.6875,
+    "peak_over_resident_mib": 866.70849609375,
+    "frames_out": 33,
+    "first_call_s": 44.63364219665527,
+    "gpu_after": [
+     "2681775, 2080 MiB, .venv/bin/python"
+    ]
+   },
+   "lightvaew2_1 bf16 torch.compile warm7": {
+    "median_ms": 175.38365173339844,
+    "min_ms": 175.10707092285156,
+    "max_ms": 175.6559295654297,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 1873.052734375,
+    "peak_over_resident_mib": 1079.3671875,
+    "frames_out": 28,
+    "first_call_s": 32.915217876434326,
+    "gpu_after": [
+     "2681775, 2244 MiB, .venv/bin/python"
+    ]
+   },
+   "shipping (pruned+ft4) bf16 eager cold9": {
+    "median_ms": 819.6431884765625,
+    "min_ms": 818.8180541992188,
+    "max_ms": 821.5531616210938,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2294.546875,
+    "peak_over_resident_mib": 1053.88671875,
+    "frames_out": 33,
+    "first_call_s": 2.025005578994751,
+    "gpu_after": [
+     "2681775, 3278 MiB, .venv/bin/python"
+    ]
+   },
+   "shipping (pruned+ft4) bf16 eager warm7": {
+    "median_ms": 693.2746276855469,
+    "min_ms": 692.0803833007812,
+    "max_ms": 694.635986328125,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 2287.94970703125,
+    "peak_over_resident_mib": 1047.53955078125,
+    "frames_out": 28,
+    "first_call_s": 0.9572937488555908,
+    "gpu_after": [
+     "2681775, 3368 MiB, .venv/bin/python"
+    ]
+   },
+   "shipping (pruned+ft4) bf16 torch.compile cold9": {
+    "median_ms": 770.9457397460938,
+    "min_ms": 768.8551635742188,
+    "max_ms": 772.73193359375,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3543.9892578125,
+    "peak_over_resident_mib": 2303.2099609375,
+    "frames_out": 33,
+    "first_call_s": 39.23307538032532,
+    "gpu_after": [
+     "2681775, 4424 MiB, .venv/bin/python"
+    ]
+   },
+   "shipping (pruned+ft4) bf16 torch.compile warm7": {
+    "median_ms": 645.3994750976562,
+    "min_ms": 643.70263671875,
+    "max_ms": 646.6625366210938,
+    "n": 12,
+    "warmup": 3,
+    "peak_alloc_mib": 3977.11474609375,
+    "peak_over_resident_mib": 2736.89990234375,
+    "frames_out": 28,
+    "first_call_s": 29.479039430618286,
+    "gpu_after": [
+     "2681775, 4960 MiB, .venv/bin/python"
+    ]
+   },
+   "stock Wan 2.1 bf16 eager cold9": {
+    "median_ms": 1628.7465209960938,
+    "min_ms": 1627.1492919921875,
+    "max_ms": 1630.754150390625,
+    "n": 10,
+    "warmup": 3,
+    "peak_alloc_mib": 2699.1015625,
+    "peak_over_resident_mib": 1053.88671875,
+    "frames_out": 33,
+    "first_call_s": 1.6250286102294922,
+    "gpu_after": [
+     "2681775, 3718 MiB, .venv/bin/python"
+    ]
+   },
+   "stock Wan 2.1 bf16 eager warm7": {
+    "median_ms": 1383.99072265625,
+    "min_ms": 1383.052978515625,
+    "max_ms": 1385.0631103515625,
+    "n": 10,
+    "warmup": 3,
+    "peak_alloc_mib": 2693.5966796875,
+    "peak_over_resident_mib": 1048.1865234375,
+    "frames_out": 28,
+    "first_call_s": 1.7746992111206055,
+    "gpu_after": [
+     "2681775, 3850 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 TensorRT cold9 (side stream)": {
+    "median_ms": 46.00729560852051,
+    "min_ms": 45.8834228515625,
+    "max_ms": 46.13119888305664,
+    "n": 20,
+    "warmup": 3,
+    "peak_alloc_mib": 2339.2421875,
+    "peak_over_resident_mib": 69.609375,
+    "frames_out": 33,
+    "trt_workspace_mib": 1721.25,
+    "stream": "non-default torch.cuda.Stream",
+    "gpu_after": [
+     "2695401, 2918 MiB, .venv/bin/python"
+    ]
+   },
+   "taehv fp16 TensorRT warm7 (side stream)": {
+    "median_ms": 35.87236785888672,
+    "min_ms": 35.771392822265625,
+    "max_ms": 35.99359893798828,
+    "n": 20,
+    "warmup": 3,
+    "peak_alloc_mib": 1936.3515625,
+    "peak_over_resident_mib": 59.0625,
+    "frames_out": 28,
+    "trt_workspace_mib": 1338.75,
+    "stream": "non-default torch.cuda.Stream",
+    "gpu_after": [
+     "2695401, 2918 MiB, .venv/bin/python"
+    ]
+   }
+  },
+  "notes": [
+   "TensorRT 10.3.0 python bindings were borrowed read-only via symlinks in decoder_bakeoff/_trt10_path/ -> /workspace/.venvs/musetalk_trt_stagewise (tensorrt, tensorrt_libs, tensorrt_bindings, onnx 1.17.0); the SoulX venv has no tensorrt/onnx and the TensorRT 10.9 deps directories used by the shipping build are gone. ONNX and engine files were deleted after timing (sha256 kept)."
+  ],
+  "latent_window": "indian150-a-s50-w4.pt",
+  "trt": {
+   "T9": {
+    "onnx": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T9.onnx",
+    "engine": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T9.engine",
+    "onnx_bytes": 19717477,
+    "engine_bytes": 21264692,
+    "export_s": 0.1857767105102539,
+    "build_s": 19.33615517616272,
+    "opset": 18,
+    "tensorrt": "10.3.0",
+    "maxabs_vs_eager_fp16": 0.0166015625,
+    "psnr_u8_vs_eager_fp16": 59.77082118377764,
+    "onnx_sha256": "ebcde8772440f745ac726f6935141deb733f12ec652ab029315aee49a8c46622",
+    "engine_sha256": "e7288f81e157ee6f2577357ef09cd0b372f5b10887249b490e4acb4e6fd69bc5",
+    "deleted_after_measurement": true
+   },
+   "T7": {
+    "onnx": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T7.onnx",
+    "engine": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T7.engine",
+    "onnx_bytes": 19717477,
+    "engine_bytes": 21239732,
+    "export_s": 0.13965153694152832,
+    "build_s": 15.110573530197144,
+    "opset": 18,
+    "tensorrt": "10.3.0",
+    "maxabs_vs_eager_fp16": 0.01171875,
+    "psnr_u8_vs_eager_fp16": 59.85623236642016,
+    "onnx_sha256": "d2b3993a7229a498eb271be772ac988551ec0d02509a67766f82bc10e92a1dd6",
+    "engine_sha256": "45ca9e3f72208c7220a6a6dc1cc94b4515510bebd28f51b18925e3c5a40d59e3",
+    "deleted_after_measurement": true
+   }
+  },
+  "gpu_at_end": {
+   "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1705 MiB, 12282 MiB, 100 %, 595.84",
+   "compute_apps": [
+    "2681775, 1696 MiB, .venv/bin/python"
+   ]
+  },
+  "trt_stream_followup_utc": "2026-09-26T20:58:50Z"
+ },
+ "shipping_harness_reference": {
+  "run": "benchmarks/pro_30fps_20260922/final-v4-lean-r01/results.json",
+  "execution": "fresh local GPU inference",
+  "date_utc": "2026-09-22T23:02:50.420954+00:00",
+  "useful_fps": 30.220631126018098,
+  "stage_seconds": {
+   "audio": 0.06978707122802734,
+   "dit": 3.0900766448974606,
+   "motion_encode": 1.0525525131225586,
+   "vae_decode": 3.9055378417968747
+  },
+  "vae_decode_ms_per_window": 433.94864908854163,
+  "note": "FP16 TensorRT spans + torch.compile, overlap-skip (window 0 cold 9 latents, windows 1-8 warm 7 latents), reused not re-run"
+ },
+ "projection_not_measured": {
+  "method": "shipping 2026-09-22 generation_s minus its vae_decode total, plus (cold9 + 8 x warm7) median of the candidate decoder",
+  "non_decode_s": 4.366956500148401,
+  "other_s": 0.15454027090035538,
+  "by_candidate": {
+   "taew2_1 fp16 TensorRT": {
+    "generation_s": 4.702151499843225,
+    "useful_fps": 53.16715125157819
+   },
+   "taew2_1 fp16 torch.compile": {
+    "generation_s": 4.787776566600427,
+    "useful_fps": 52.21630469224531
+   },
+   "taew2_1 fp16 eager channels_last": {
+    "generation_s": 4.977290110683069,
+    "useful_fps": 50.228135077641824
+   },
+   "lightvaew2_1 bf16 torch.compile": {
+    "generation_s": 5.978025492763147,
+    "useful_fps": 41.8198283534662
+   }
+  }
+ },
+ "visuals": [
+  "benchmarks/tiny_vae_20260926/decoder_bakeoff/visual/grid_indian150-a_w4_f24.png",
+  "benchmarks/tiny_vae_20260926/decoder_bakeoff/visual/mouth3x_indian150-a_w4_f24.png",
+  "benchmarks/tiny_vae_20260926/decoder_bakeoff/visual/sbs_indian150-a_w4_33f_10fps.mp4",
+  "benchmarks/tiny_vae_20260926/decoder_bakeoff/visual/grid_tts-open-vowels_w6_f7.png",
+  "benchmarks/tiny_vae_20260926/decoder_bakeoff/visual/mouth3x_tts-open-vowels_w6_f7.png"
+ ]
+}

@@ -1,0 +1,209 @@
+{
+ "label": "fresh local GPU inference on RTX 4070 SUPER (adapter unit check, not a harness run)",
+ "gpu": {
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1 MiB, 12282 MiB, 0 %, 595.84",
+  "compute_apps": []
+ },
+ "date_utc": "2026-09-26T21:52:08Z",
+ "fixture": "indian150-a",
+ "checks": {
+  "taew2_1/eager": {
+   "decoder_install_s": 0.16,
+   "stream_frames": [
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33
+   ],
+   "stream_latents_decoded": [
+    9,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "dtype_ok": true,
+   "range": [
+    -1.0,
+    1.0
+   ],
+   "stream_maxabs_vs_bakeoff_ref": 0.0,
+   "stream_psnr_u8_vs_bakeoff_ref_min": 99.0,
+   "cold9_ms": 90.994,
+   "warm7_ms_incl_state_clone": 70.293,
+   "window_frames": 33,
+   "window_maxabs_vs_bakeoff_ref": 0.0,
+   "window9_ms": 90.766,
+   "encoder_shape": [
+    16,
+    2,
+    72,
+    40
+   ],
+   "encoder_dtype": "torch.bfloat16",
+   "encoder_maxabs_vs_bakeoff_ref": 0.0,
+   "encoder_nrmse_vs_wan_per_slot": [
+    0.123,
+    0.0745
+   ],
+   "encode_ms": 10.638,
+   "encoder_refuses_other_lengths": true,
+   "peak_alloc_mib": 4910
+  },
+  "taew2_1/compile": {
+   "decoder_install_s": 0.09,
+   "stream_frames": [
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33
+   ],
+   "stream_latents_decoded": [
+    9,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "dtype_ok": true,
+   "range": [
+    -1.0,
+    1.0
+   ],
+   "stream_maxabs_vs_bakeoff_ref": 0.015625,
+   "stream_psnr_u8_vs_bakeoff_ref_min": 65.06519651639573,
+   "cold9_ms": 58.099,
+   "warm7_ms_incl_state_clone": 45.486,
+   "window_frames": 33,
+   "window_maxabs_vs_bakeoff_ref": 0.0078125,
+   "window9_ms": 58.093,
+   "encoder_shape": [
+    16,
+    2,
+    72,
+    40
+   ],
+   "encoder_dtype": "torch.bfloat16",
+   "encoder_maxabs_vs_bakeoff_ref": 0.0078125,
+   "encoder_nrmse_vs_wan_per_slot": [
+    0.123,
+    0.0745
+   ],
+   "encode_ms": 6.427,
+   "encoder_refuses_other_lengths": true,
+   "peak_alloc_mib": 9794
+  },
+  "taew2_1/tensorrt": {
+   "decoder_install_s": 39.69,
+   "stream_frames": [
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33
+   ],
+   "stream_latents_decoded": [
+    9,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "dtype_ok": true,
+   "range": [
+    -1.0,
+    1.0
+   ],
+   "stream_maxabs_vs_bakeoff_ref": 0.0224609375,
+   "stream_psnr_u8_vs_bakeoff_ref_min": 59.675193457091744,
+   "cold9_ms": 46.489,
+   "warm7_ms_incl_state_clone": 36.286,
+   "window_frames": 33,
+   "window_maxabs_vs_bakeoff_ref": 0.017578125,
+   "window9_ms": 46.372,
+   "encoder_shape": [
+    16,
+    2,
+    72,
+    40
+   ],
+   "encoder_dtype": "torch.bfloat16",
+   "encoder_maxabs_vs_bakeoff_ref": 0.015625,
+   "encoder_nrmse_vs_wan_per_slot": [
+    0.123,
+    0.0745
+   ],
+   "encode_ms": 6.373,
+   "encoder_refuses_other_lengths": true,
+   "peak_alloc_mib": 9794
+  },
+  "lighttaew2_1/eager": {
+   "stream_frames": [
+    33,
+    33,
+    33
+   ],
+   "psnr_u8_window1_vs_stock_wan": 36.840726263807625,
+   "encoder_shape": [
+    16,
+    2,
+    72,
+    40
+   ],
+   "encoder_nrmse_vs_wan_per_slot": [
+    0.1649,
+    0.0981
+   ]
+  },
+  "lightvaew2_1/eager": {
+   "stream_frames": [
+    33,
+    33,
+    33
+   ],
+   "psnr_u8_window1_vs_stock_wan": 37.336797607579456,
+   "encoder_shape": [
+    16,
+    2,
+    72,
+    40
+   ],
+   "encoder_nrmse_vs_wan_per_slot": [
+    0.1202,
+    0.0775
+   ]
+  }
+ },
+ "gpu_after": {
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 3711 MiB, 12282 MiB, 100 %, 595.84",
+  "compute_apps": [
+   "2720436, 3702 MiB, .venv/bin/python"
+  ]
+ }
+}

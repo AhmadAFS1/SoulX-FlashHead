@@ -1,0 +1,40 @@
+{
+  "base": "pro-fp8-v1",
+  "compile": {
+    "dit": true,
+    "ffn_only": false
+  },
+  "cross_attention_projections": {
+    "exclude": [],
+    "include": [
+      "blocks.*.cross_attn.q",
+      "blocks.*.cross_attn.o"
+    ],
+    "scheme": "fp8_e4m3_w8a8"
+  },
+  "decoder": {
+    "backend": "pytorch",
+    "scheme": "bf16"
+  },
+  "ffn": {
+    "exclude": [],
+    "scheme": "int8_w8a8"
+  },
+  "name": "pro576-taew2_1-flash2",
+  "prepared_conditioning": true,
+  "schema_version": 1,
+  "self_attention_kernel": {
+    "backend": "flash2"
+  },
+  "self_attention_projections": {
+    "exclude": [],
+    "include": [
+      "blocks.*.self_attn.q",
+      "blocks.*.self_attn.k",
+      "blocks.*.self_attn.v",
+      "blocks.*.self_attn.o"
+    ],
+    "packing": "separate",
+    "scheme": "fp8_e4m3_w8a8"
+  }
+}

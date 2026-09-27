@@ -851,3 +851,58 @@ Remaining headroom if more speed is ever needed: the head inside the tail engine
 (`policies/final_headspan.json`, +0.65 FPS for −0.15 edge ratio on the v2 weights — worth
 re-testing on v4 since its head is better trained) and the TensorRT motion encoder
 (117 ms/window, not built).
+
+## 2026-09-26 — tiny VAE (TAEHV `taew2_1`) in place of the Wan VAE: 2x, not the same quality
+
+**Question:** can TAESD replace the VAE, as it did for MuseTalk (about 5x)? The full write-up
+is [`TINY_VAE_FEASIBILITY_2026-09-26.md`](TINY_VAE_FEASIBILITY_2026-09-26.md).
+
+**Hardware:** fresh local GPU inference on NVIDIA GeForce RTX 4070 SUPER, 12,282 MiB visible
+(physical class unverified in this run), driver 595.84, Torch 2.7.1+cu128, CUDA 12.8.
+- Wan span engines: TensorRT 10.9.0.34, runtime-only restore in `.restored-deps-20260926`.
+- Tiny-VAE engines: TensorRT 10.3.0, borrowed.
+- Attention: **FlashAttention-2 in every arm, the control included.** The SageAttention-2 SM89
+  build directory was deleted, and its rebuild was blocked by the permission system. The DiT
+  therefore takes 456.7 ms per window instead of 343.3, and only same-session ratios are
+  measured.
+
+**Answer:**
+- **TAESD itself cannot be used.** It works on SD's 4-channel 2D latents; SoulX decodes Wan 2.1
+  latents (16 channels, 4x causal temporal, 9 latents per 33 frames).
+- **The Wan 2.1 counterpart by the same author, `taew2_1`, fits.** It is integrated behind
+  `--tiny-vae-decoder`, `--tiny-vae-encoder`, `--tiny-vae-backend` and
+  `--tiny-vae-decode-mode` in `run.py` (`soulx_rtc/pro_tiny_vae.py`). The default path is
+  byte-identical (raw sha `e93fb5ab…` on both the edited and the HEAD `run.py`).
+- **Conventions:** taew2_1 decodes the DiT-normalised latent as is and drops the first 3 of 36
+  raw frames. Its encoder end-pads with copies of the last frame. The wrong latent convention
+  costs about 20 dB, which is the MuseTalk lesson again.
+
+**Measured** (`indian150-a`, seed 50, 250 frames, same session):
+
+| arm | useful FPS | decode / encode ms per window | vs reference: corr / edge / mouth px | vs same-session control: corr / edge / mouth px | drift /255 |
+| --- | ---: | --- | --- | --- | ---: |
+| control, shipping VAE (flash2) | 26.81 | 432 / 116 | 0.939 / 0.907 / 2.6 | floor 0.984 / 0.857 / 1.3 | 1.26 |
+| T3: taew2_1 decoder + encoder, TensorRT | **52.90** | **37 / 6.4** | 0.920 / 1.192 / 3.1 | 0.923 / 1.408 / 4.2 | 1.59 |
+| T5: shipping decoder + taew2_1 encoder | 30.02 | 432 / 6.5 | 0.937 / 0.864 / 3.2 | 0.959 / 0.935 / 2.6 | 1.61 |
+| T4: lighttaew2_1 decoder + encoder | 51.57 | 47 / 6.4 | 0.952 / 1.012 / 4.4 | 0.943 / 1.132 / 5.2 | 1.51 |
+
+**Verdicts:**
+- **T3 is not shippable as is.** The tiny decoder adds teeth speckle, a lower-teeth fleck,
+  grainier stubble and about 16% more skin shimmer, and its edge ratio is 1.4-1.8x the paired
+  control on 3 fixtures. Its lip-sync correlation is below the control floor, and fewer
+  closed-mouth frames on plosives is plausible but unproven.
+- **Why not 5x:** the DiT is 83-87% of the window after the swap. The projection with sage2
+  (arithmetic, not measured) is about 67 FPS for T3 and about 34 FPS for T5. A zero-cost VAE
+  would be about 2.5x.
+- **Closed:** lightvaew2_1 (blurry, 175 ms compiled), window-mode tiny decode (no drift
+  benefit, −1 FPS), and Wan-style front padding for the tiny encoder (lip lag).
+
+**Next:**
+1. Restore sage2.
+2. Gate T5 on at least 3 fixtures × 2 seeds, plus a run of 60 s or more.
+3. Distil taew2_1 on SoulX latents with the Wan decoder as teacher on the fly. Storing latents
+   only (about 0.8 MB per window) fits the disk. This is the route to about 2x at the same
+   quality.
+
+**Videos:** `benchmarks/pro_30fps_20260922/visual/tae-*.mp4`, including
+`tae-t5-4way-mouth-grid.mp4` (reference | control | T5 | T3).

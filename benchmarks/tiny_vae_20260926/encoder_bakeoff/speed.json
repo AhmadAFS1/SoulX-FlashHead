@@ -1,0 +1,694 @@
+{
+ "settings": {
+  "cudnn_benchmark=0": {
+   "cases": {
+    "stock Wan 2.1 bf16 eager": {
+     "median_ms": 150.10867309570312,
+     "min_ms": 149.91932678222656,
+     "max_ms": 150.26173400878906,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 1372.26171875,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 2248 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.0
+    },
+    "stock Wan 2.1 bf16 torch.compile (harness --compile-vae-encode)": {
+     "median_ms": 116.50472259521484,
+     "min_ms": 116.14924621582031,
+     "max_ms": 116.780029296875,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 1334.5341796875,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 11.447630167007446,
+     "gpu_after": [
+      "2700485, 2044 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.007392081432044506,
+     "maxabs_vs_eager_same_model": 0.0234375
+    },
+    "lightvaew2_1 bf16 eager": {
+     "median_ms": 23.875088691711426,
+     "min_ms": 23.80793571472168,
+     "max_ms": 23.928895950317383,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 344.90380859375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 718 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.12219935655593872
+    },
+    "lightvaew2_1 bf16 torch.compile": {
+     "median_ms": 18.961200714111328,
+     "min_ms": 18.902015686035156,
+     "max_ms": 18.999296188354492,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 335.830078125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 12.987195014953613,
+     "gpu_after": [
+      "2700485, 680 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.12246471643447876,
+     "maxabs_vs_eager_same_model": 0.0234375
+    },
+    "taew2_1 fp16 eager nchw": {
+     "median_ms": 10.652688026428223,
+     "min_ms": 10.63321590423584,
+     "max_ms": 10.68934440612793,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 600 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11270470917224884,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "taew2_1 fp16 torch.compile nchw": {
+     "median_ms": 6.623744010925293,
+     "min_ms": 6.60262393951416,
+     "max_ms": 6.642687797546387,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 3.04650616645813,
+     "gpu_after": [
+      "2700485, 690 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11268191039562225,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 fp16 eager channels_last": {
+     "median_ms": 13.111792087554932,
+     "min_ms": 13.07472038269043,
+     "max_ms": 13.135871887207031,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 960 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1126975417137146,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 torch.compile channels_last": {
+     "median_ms": 6.588367938995361,
+     "min_ms": 6.568960189819336,
+     "max_ms": 6.604032039642334,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 3.0200891494750977,
+     "gpu_after": [
+      "2700485, 684 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11268191039562225,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 bf16 eager nchw": {
+     "median_ms": 10.836992263793945,
+     "min_ms": 10.808671951293945,
+     "max_ms": 10.880831718444824,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 594 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11172880232334137,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "taew2_1 bf16 torch.compile nchw": {
+     "median_ms": 7.680624008178711,
+     "min_ms": 7.662591934204102,
+     "max_ms": 7.716224193572998,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 2.780410051345825,
+     "gpu_after": [
+      "2700485, 702 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11196202784776688,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 bf16 eager channels_last": {
+     "median_ms": 14.16535997390747,
+     "min_ms": 14.155776023864746,
+     "max_ms": 14.18342399597168,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 994 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11174210906028748,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 bf16 torch.compile channels_last": {
+     "median_ms": 7.654239892959595,
+     "min_ms": 7.61411190032959,
+     "max_ms": 7.664959907531738,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 2.698831558227539,
+     "gpu_after": [
+      "2700485, 700 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11196202784776688,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "lighttaew2_1 fp16 eager nchw": {
+     "median_ms": 10.661520004272461,
+     "min_ms": 10.608287811279297,
+     "max_ms": 10.689855575561523,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 588 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.15193578600883484,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "lighttaew2_1 fp16 eager channels_last": {
+     "median_ms": 13.135248184204102,
+     "min_ms": 13.106016159057617,
+     "max_ms": 13.156352043151855,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2700485, 948 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1519303023815155,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 TensorRT (default stream)": {
+     "median_ms": 6.452175855636597,
+     "min_ms": 6.407167911529541,
+     "max_ms": 6.466591835021973,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 15.8203125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "trt_workspace_mib": 382.5,
+     "gpu_after": [
+      "2700485, 718 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11264126002788544,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 fp16 TensorRT (side stream)": {
+     "median_ms": 6.453167915344238,
+     "min_ms": 6.4159040451049805,
+     "max_ms": 6.475391864776611,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 15.8203125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "trt_workspace_mib": 382.5,
+     "stream": "non-default torch.cuda.Stream",
+     "gpu_after": [
+      "2700485, 758 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11264126002788544,
+     "maxabs_vs_eager_same_model": 0.015625
+    }
+   },
+   "notes": [],
+   "date_utc": "2026-09-26T21:15:34Z",
+   "gpu_at_start": {
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1 MiB, 12282 MiB, 0 %, 595.84",
+    "compute_apps": []
+   },
+   "clip": {
+    "from_window": "indian150-a-s50-w4.pt",
+    "shape": [
+     1,
+     3,
+     5,
+     576,
+     320
+    ],
+    "dtype": "torch.bfloat16"
+   },
+   "gpu_at_end": {
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER, 349 MiB, 12282 MiB, 40 %, 595.84",
+    "compute_apps": [
+     "2700485, 340 MiB, .venv/bin/python"
+    ]
+   }
+  },
+  "cudnn_benchmark=1": {
+   "cases": {
+    "stock Wan 2.1 bf16 eager": {
+     "median_ms": 146.90159606933594,
+     "min_ms": 146.7115478515625,
+     "max_ms": 147.4140167236328,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 1372.31640625,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 2244 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.0
+    },
+    "stock Wan 2.1 bf16 torch.compile (harness --compile-vae-encode)": {
+     "median_ms": 113.25417709350586,
+     "min_ms": 113.01142120361328,
+     "max_ms": 113.61753845214844,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 1333.7529296875,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 2.1722488403320312,
+     "gpu_after": [
+      "2704736, 2040 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.007394240237772465,
+     "maxabs_vs_eager_same_model": 0.0234375
+    },
+    "lightvaew2_1 bf16 eager": {
+     "median_ms": 23.341008186340332,
+     "min_ms": 23.3123836517334,
+     "max_ms": 23.364608764648438,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 344.90380859375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 980 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1220792829990387
+    },
+    "lightvaew2_1 bf16 torch.compile": {
+     "median_ms": 18.282095909118652,
+     "min_ms": 18.250560760498047,
+     "max_ms": 18.303680419921875,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 335.830078125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 1.545973539352417,
+     "gpu_after": [
+      "2704736, 924 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1223171204328537,
+     "maxabs_vs_eager_same_model": 0.0234375
+    },
+    "taew2_1 fp16 eager nchw": {
+     "median_ms": 10.337279796600342,
+     "min_ms": 10.3023042678833,
+     "max_ms": 10.384320259094238,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 826 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11275522410869598,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "taew2_1 fp16 torch.compile nchw": {
+     "median_ms": 6.363568067550659,
+     "min_ms": 6.3447041511535645,
+     "max_ms": 6.380576133728027,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 0.4475681781768799,
+     "gpu_after": [
+      "2704736, 918 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11274664103984833,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 eager channels_last": {
+     "median_ms": 12.904047966003418,
+     "min_ms": 12.883872032165527,
+     "max_ms": 12.926976203918457,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 1208 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11276229470968246,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 torch.compile channels_last": {
+     "median_ms": 6.345360040664673,
+     "min_ms": 6.3264641761779785,
+     "max_ms": 6.3651838302612305,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 0.47742605209350586,
+     "gpu_after": [
+      "2704736, 712 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11274664103984833,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 bf16 eager nchw": {
+     "median_ms": 10.541568279266357,
+     "min_ms": 10.519200325012207,
+     "max_ms": 10.602496147155762,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 602 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1117548868060112,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "taew2_1 bf16 torch.compile nchw": {
+     "median_ms": 6.6405439376831055,
+     "min_ms": 6.623839855194092,
+     "max_ms": 6.685696125030518,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 0.4307568073272705,
+     "gpu_after": [
+      "2704736, 690 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11199003458023071,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 bf16 eager channels_last": {
+     "median_ms": 13.174656391143799,
+     "min_ms": 13.146016120910645,
+     "max_ms": 13.20041561126709,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 984 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11174510419368744,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "taew2_1 bf16 torch.compile channels_last": {
+     "median_ms": 6.614527940750122,
+     "min_ms": 6.579040050506592,
+     "max_ms": 6.643712043762207,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 360.0,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "first_call_s": 0.335587739944458,
+     "gpu_after": [
+      "2704736, 690 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.11199003458023071,
+     "maxabs_vs_eager_same_model": 0.015625
+    },
+    "lighttaew2_1 fp16 eager nchw": {
+     "median_ms": 10.317103862762451,
+     "min_ms": 10.290176391601562,
+     "max_ms": 10.365951538085938,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 278.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 600 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1519293636083603,
+     "maxabs_vs_eager_same_model": 0.0
+    },
+    "lighttaew2_1 fp16 eager channels_last": {
+     "median_ms": 12.893695831298828,
+     "min_ms": 12.85638427734375,
+     "max_ms": 12.912639617919922,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 638.4375,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "gpu_after": [
+      "2704736, 960 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1519274115562439,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 TensorRT (default stream)": {
+     "median_ms": 6.4762561321258545,
+     "min_ms": 6.4235520362854,
+     "max_ms": 6.48908805847168,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 15.8203125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "trt_workspace_mib": 382.5,
+     "gpu_after": [
+      "2704736, 726 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1127266064286232,
+     "maxabs_vs_eager_same_model": 0.0078125
+    },
+    "taew2_1 fp16 TensorRT (side stream)": {
+     "median_ms": 6.467072010040283,
+     "min_ms": 6.4337921142578125,
+     "max_ms": 6.487040042877197,
+     "n": 20,
+     "warmup": 3,
+     "peak_over_resident_mib": 15.8203125,
+     "out_shape": [
+      16,
+      2,
+      72,
+      40
+     ],
+     "trt_workspace_mib": 382.5,
+     "stream": "non-default torch.cuda.Stream",
+     "gpu_after": [
+      "2704736, 768 MiB, .venv/bin/python"
+     ],
+     "nrmse_vs_wan_eager_this_clip": 0.1127266064286232,
+     "maxabs_vs_eager_same_model": 0.0078125
+    }
+   },
+   "notes": [],
+   "date_utc": "2026-09-26T21:16:39Z",
+   "gpu_at_start": {
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1 MiB, 12282 MiB, 0 %, 595.84",
+    "compute_apps": []
+   },
+   "clip": {
+    "from_window": "indian150-a-s50-w4.pt",
+    "shape": [
+     1,
+     3,
+     5,
+     576,
+     320
+    ],
+    "dtype": "torch.bfloat16"
+   },
+   "gpu_at_end": {
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER, 361 MiB, 12282 MiB, 100 %, 595.84",
+    "compute_apps": [
+     "2704736, 352 MiB, .venv/bin/python"
+    ]
+   }
+  }
+ },
+ "execution": "fresh local GPU inference on RTX 4070 SUPER",
+ "torch": "2.7.1+cu128",
+ "trt": {
+  "onnx_sha256": "ef395ae136c82ef9ad4bf32f53487f25a016634fe0c6a48df2c456444470167a",
+  "engine_sha256": "def404955352ba5b3388f16b9daa552cc1cffbca283bbfb473852e3cd792e547",
+  "onnx_bytes": 26188815,
+  "engine_bytes": 11964924,
+  "export_s": 0.3815648555755615,
+  "build_s": 7.580751657485962,
+  "opset": 18,
+  "tensorrt": "10.3.0",
+  "engine_path": "/workspace/SoulX-FlashHead/benchmarks/tiny_vae_20260926/encoder_bakeoff/_trt/taehv_enc_taew2_1_fp16_T8.engine",
+  "onnx_path": "/workspace/SoulX-FlashHead/benchmarks/tiny_vae_20260926/encoder_bakeoff/_trt/taehv_enc_taew2_1_fp16_T8.onnx"
+ }
+}

@@ -1,0 +1,199 @@
+{
+  "hardware": "CPU only (CUDA hidden); not GPU inference",
+  "video": "benchmarks/pro_30fps_20260921/s30-reuse/video.mp4",
+  "frames": [
+    30,
+    38
+  ],
+  "crop_rows_cols": [
+    [
+      128,
+      320
+    ],
+    [
+      64,
+      256
+    ]
+  ],
+  "metric_region": "160x160 interior",
+  "latent_stats": {
+    "z_normalised_mean_std": [
+      -0.027,
+      0.521
+    ],
+    "z_raw_mean_std": [
+      -0.163,
+      1.103
+    ]
+  },
+  "stock_roundtrip_vs_source": {
+    "psnr_db": 37.31,
+    "mae_255": 2.28
+  },
+  "taew2_1": {
+    "decode": {
+      "normalised": {
+        "psnr_vs_stock_decode_db": 36.19,
+        "mae_vs_stock_decode_255": 2.52,
+        "psnr_vs_source_db": 34.92,
+        "mean_rgb_shift_vs_stock_255": [
+          0.6,
+          0.24,
+          -0.01
+        ],
+        "frames": 9
+      },
+      "unnormalised": {
+        "psnr_vs_stock_decode_db": 16.91,
+        "mae_vs_stock_decode_255": 31.53,
+        "psnr_vs_source_db": 16.99,
+        "mean_rgb_shift_vs_stock_255": [
+          26.52,
+          20.36,
+          9.45
+        ],
+        "frames": 9
+      }
+    },
+    "encode": {
+      "frontpad3": {
+        "rel_err_vs_normalised_per_slot": [
+          0.099,
+          0.619,
+          0.593
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.782,
+          0.776,
+          0.782
+        ]
+      },
+      "endpad": {
+        "rel_err_vs_normalised_per_slot": [
+          0.102,
+          0.108,
+          0.11
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.783,
+          0.688,
+          0.686
+        ]
+      },
+      "motion5_frontpad3": {
+        "rel_err_vs_normalised_per_slot": [
+          0.095,
+          0.616
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.784,
+          0.762
+        ]
+      },
+      "motion5_endpad": {
+        "rel_err_vs_normalised_per_slot": [
+          0.099,
+          0.105
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.787,
+          0.708
+        ]
+      }
+    }
+  },
+  "lighttaew2_1": {
+    "decode": {
+      "normalised": {
+        "psnr_vs_stock_decode_db": 19.74,
+        "mae_vs_stock_decode_255": 21.68,
+        "psnr_vs_source_db": 19.56,
+        "mean_rgb_shift_vs_stock_255": [
+          -21.52,
+          -10.08,
+          -2.01
+        ],
+        "frames": 9
+      },
+      "unnormalised": {
+        "psnr_vs_stock_decode_db": 34.36,
+        "mae_vs_stock_decode_255": 3.06,
+        "psnr_vs_source_db": 33.51,
+        "mean_rgb_shift_vs_stock_255": [
+          0.51,
+          0.57,
+          1.0
+        ],
+        "frames": 9
+      }
+    },
+    "encode": {
+      "frontpad3": {
+        "rel_err_vs_normalised_per_slot": [
+          1.622,
+          1.643,
+          1.668
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.125,
+          0.565,
+          0.519
+        ]
+      },
+      "endpad": {
+        "rel_err_vs_normalised_per_slot": [
+          1.609,
+          1.373,
+          1.504
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.127,
+          0.113,
+          0.102
+        ]
+      },
+      "motion5_frontpad3": {
+        "rel_err_vs_normalised_per_slot": [
+          1.643,
+          1.804
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.122,
+          0.525
+        ]
+      },
+      "motion5_endpad": {
+        "rel_err_vs_normalised_per_slot": [
+          1.625,
+          1.489
+        ],
+        "rel_err_vs_unnormalised_per_slot": [
+          0.121,
+          0.105
+        ]
+      }
+    }
+  },
+  "lightvaew2_1": {
+    "decode_normalised": {
+      "psnr_vs_stock_decode_db": 34.7,
+      "mae_vs_stock_decode_255": 2.71,
+      "psnr_vs_source_db": 33.7,
+      "mean_rgb_shift_vs_stock_255": [
+        0.17,
+        -0.12,
+        -0.33
+      ]
+    },
+    "encode_rel_err_vs_normalised_per_slot": [
+      0.122,
+      0.121,
+      0.123
+    ],
+    "encode_motion5_rel_err_vs_normalised_per_slot": [
+      0.128,
+      0.118
+    ],
+    "own_roundtrip_vs_source_psnr_db": 32.87
+  }
+}

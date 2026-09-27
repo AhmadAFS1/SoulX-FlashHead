@@ -1,0 +1,82 @@
+== files (models/tiny_vae) ==
+  models/tiny_vae/SOURCES.txt        2585 B  sha256 b49ebb753fc21f458b6fab3ec556be9395590d5b95134b05e4edfff4c27de071
+  models/tiny_vae/lightx2v/README.md       12979 B  sha256 6919bfd01843f621a236563bb533d2f64efe3cf89f557b63dd5b655bbb4e243e
+  models/tiny_vae/lightx2v/lighttaew2_1.safetensors    45274004 B  sha256 8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19
+  models/tiny_vae/lightx2v/lightvaew2_1.safetensors    32160476 B  sha256 1821a86dacb322e33da0995e920818f11bac1655d38177586f3ebc35bc7a4ba8
+  models/tiny_vae/lightx2v/upstream_src/tae.py       12594 B  sha256 b46a7d20a1c86d7cc423b15bdc7cff58aa86760ea4650e3a4c35b3ccad83abfd
+  models/tiny_vae/lightx2v/upstream_src/vae_py_video_vae_excerpt.py        1815 B  sha256 4095d8ddb0544f5562fe7db15aaeffea3685827ebb52118cec26d5dabe88e415
+  models/tiny_vae/lightx2v/upstream_src/vae_tiny.py        6054 B  sha256 9f4a11be851ffde57d3e060c5a42c671c8ecad6fbc0cd7440436f1853bc101d9
+  models/tiny_vae/taehv/LICENSE        1073 B  sha256 532f9e394518ffddecd294a517d5b41d79d3d3866c3fb95a6cb0e8bcc02370bf
+  models/tiny_vae/taehv/README.md       10016 B  sha256 a1c7afefb557bd09bfd4795e18da2ee3d3ff1c9fb6f3d87e42f6988b9c7718f3
+  models/tiny_vae/taehv/taehv.py       26475 B  sha256 99545f093b36c16297ad182ce18a5dce2ebc98bb611f5e8dfa2dce431ba39ce2
+  models/tiny_vae/taehv/taew2_1.pth    22678901 B  sha256 d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e
+== taew2_1 (models/tiny_vae/taehv/taew2_1.pth) ==
+  checkpoint_dtype: ['torch.float16']
+  tensors: 128
+  params_total: 11315539
+  params_encoder: 1470928
+  params_decoder: 9844611
+  latent_channels: 16
+  patch_size: 1
+  t_downscale: 4
+  t_upscale: 4
+  frames_to_trim: 3
+  decode_in_shape_NTCHW: [1, 3, 16, 8, 8]
+  decode_out_shape_NTCHW: [1, 9, 3, 64, 64]
+  decode_out_range: min +0.0000 max +1.0000 mean +0.3694
+  decode_raw_frames_before_trim: 12
+  parallel_vs_sequential_maxabs: 7.450580596923828e-07
+  chunked_carried_state_vs_full_maxabs: 7.450580596923828e-07
+  chunk_frame_counts: [1, 8]
+  streaming_vs_full_maxabs: 7.450580596923828e-07
+  decode_of_unnormalised_input_range: min +0.0000 max +1.0000 mean +0.3700
+  encode_9f_endpad_shape: [1, 3, 16, 8, 8]
+  encode_9f_frontpad3_shape: [1, 3, 16, 8, 8]
+  encode_5f_motion_endpad_shape: [1, 2, 16, 8, 8]
+  encode_out_range: min -3.1882 max +2.2819 mean +0.1259
+== lighttaew2_1 (models/tiny_vae/lightx2v/lighttaew2_1.safetensors) ==
+  checkpoint_dtype: ['torch.float32']
+  tensors: 128
+  params_total: 11315539
+  params_encoder: 1470928
+  params_decoder: 9844611
+  latent_channels: 16
+  patch_size: 1
+  t_downscale: 4
+  t_upscale: 4
+  frames_to_trim: 3
+  decode_in_shape_NTCHW: [1, 3, 16, 8, 8]
+  decode_out_shape_NTCHW: [1, 9, 3, 64, 64]
+  decode_out_range: min +0.0000 max +1.0000 mean +0.3706
+  decode_raw_frames_before_trim: 12
+  parallel_vs_sequential_maxabs: 5.960464477539062e-07
+  chunked_carried_state_vs_full_maxabs: 3.5762786865234375e-07
+  chunk_frame_counts: [1, 8]
+  streaming_vs_full_maxabs: 5.960464477539062e-07
+  decode_of_unnormalised_input_range: min +0.0000 max +1.0000 mean +0.3730
+  encode_9f_endpad_shape: [1, 3, 16, 8, 8]
+  encode_9f_frontpad3_shape: [1, 3, 16, 8, 8]
+  encode_5f_motion_endpad_shape: [1, 2, 16, 8, 8]
+  encode_out_range: min -2.9919 max +2.9186 mean +0.1059
+== taew2_1 vs lighttaew2_1 state dicts: same keys/shapes True; encoder weights identical (after fp16->fp32) False; decoder max |dw| 3.5476
+== lightvaew2_1 in SoulX's own WanVAE_ (flash_head/wan/modules/vae.py) ==
+  instantiated_as: WanVAE_(dim=24, z_dim=16, dim_mult=[1,2,4,4], num_res_blocks=2, temperal_downsample=[False,True,True])
+  strict_load: <All keys matched successfully>
+  params_total: 8035003
+  params_encoder: 3417392
+  params_decoder: 4617611
+  checkpoint_dtype: ['torch.float32']
+  run_py_vae_weights_path: RuntimeError size mismatch: size mismatch for encoder.conv1.weight: copying a param with shape torch.Size([24, 3, 3, 3, 3]) from checkpoint, the shape in current model 
+  decode_in_shape_NCTHW: [1, 16, 3, 8, 8]
+  decode_out_shape_NCTHW: [1, 3, 9, 64, 64]
+  decode_out_range: min -1.0000 max +1.0000 mean -0.2699
+  encode_9f_shape: [1, 16, 3, 8, 8]
+  encode_out_range: min -2.1770 max +1.8432 mean +0.1102
+== static conv+attention MACs at 576x320 (latent 72x40), meta device ==
+  stock_wan_decoder: first_window_9lat_33f 25,953 GMAC, steady_7lat_28f 21,836 GMAC
+  shipping_pruned_decoder_skip_9_10_13_14: first_window_9lat_33f 13,845 GMAC, steady_7lat_28f 11,563 GMAC
+  lightvae_decoder: first_window_9lat_33f 1,642 GMAC, steady_7lat_28f 1,381 GMAC
+  taehv_family: decode_first_window_9lat 1,130 GMAC, decode_steady_7lat_28f 879 GMAC, encode_motion_8f_to_2lat 112 GMAC
+  stock_wan_encoder_5f: 2,470 GMAC
+  lightvae_encoder_5f: 159 GMAC
+wrote benchmarks/tiny_vae_20260926/load_smoke.json

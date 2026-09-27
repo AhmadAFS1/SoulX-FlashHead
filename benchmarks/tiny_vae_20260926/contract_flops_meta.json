@@ -1,0 +1,81 @@
+{
+  "execution": "CPU-only static analysis: torch FlopCounterMode on meta tensors (no weights, no GPU); not a timing",
+  "resolution": [
+    576,
+    320
+  ],
+  "latent_hw": [
+    72,
+    40
+  ],
+  "columns": [
+    "decode_9_latents_cold_TFLOP",
+    "frames",
+    "decode_7_latents_warm_TFLOP",
+    "frames",
+    "motion_encode_TFLOP",
+    "latent_shape"
+  ],
+  "rows": {
+    "Wan2.1 full (dim 96)": [
+      51.906,
+      33,
+      43.673,
+      28,
+      4.941,
+      [
+        1,
+        16,
+        2,
+        72,
+        40
+      ]
+    ],
+    "Wan2.1 shipping pruned 9,10,13,14": [
+      27.689,
+      33,
+      23.125,
+      28,
+      4.941,
+      [
+        1,
+        16,
+        2,
+        72,
+        40
+      ]
+    ],
+    "LightVAE lightvaew2_1 (dim 24)": [
+      3.285,
+      33,
+      2.763,
+      28,
+      0.317,
+      [
+        1,
+        16,
+        2,
+        72,
+        40
+      ]
+    ],
+    "TAEHV taew2_1 / lighttaew2_1 arch": [
+      2.26,
+      33,
+      1.758,
+      28,
+      0.223,
+      [
+        1,
+        2,
+        16,
+        72,
+        40
+      ]
+    ]
+  },
+  "checkpoint_layout": {
+    "lightvaew2_1_equals_WanVAE__dim24": true,
+    "lighttaew2_1_equals_taew2_1_layout": true
+  }
+}

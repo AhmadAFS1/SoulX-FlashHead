@@ -1,0 +1,22 @@
+{
+ "label": "fresh local GPU inference on RTX 4070 SUPER (analysis of the saved raw.npy, CPU)",
+ "metric": "mean |frame(t+1)-frame(t)| in /255 units; boundary = the 8 transitions between delivered windows (frame 28k-1 -> 28k); mouth crop rows 193:289 cols 86:246",
+ "runs": {
+  "tae-ctl-r01": {
+   "full_boundary": 2.968,
+   "full_inner": 2.749,
+   "full_ratio": 1.08,
+   "mouth_boundary": 8.261,
+   "mouth_inner": 8.768,
+   "mouth_ratio": 0.942
+  },
+  "tae-decenc-trt-r01": {
+   "full_boundary": 3.107,
+   "full_inner": 2.946,
+   "full_ratio": 1.055,
+   "mouth_boundary": 8.535,
+   "mouth_inner": 9.552,
+   "mouth_ratio": 0.894
+  }
+ }
+}

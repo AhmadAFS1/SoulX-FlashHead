@@ -1,0 +1,28 @@
+{
+  "what": "taew2_1 vs stock Wan 2.1 decoder on identical DiT latents; delivered frames only",
+  "hardware": "fresh local GPU inference, NVIDIA GeForce RTX 4070 SUPER",
+  "per_fixture": {
+    "indian150-a": {
+      "frames": 250,
+      "psnr_full_db": 39.30636215209961,
+      "psnr_mouth_db": 34.465030670166016,
+      "still_frames": [
+        47,
+        50,
+        125,
+        200
+      ]
+    },
+    "tts-plosives": {
+      "frames": 250,
+      "psnr_full_db": 39.62473678588867,
+      "psnr_mouth_db": 35.30760955810547,
+      "still_frames": [
+        50,
+        125,
+        200,
+        211
+      ]
+    }
+  }
+}

@@ -1,0 +1,1135 @@
+{
+ "header": {
+  "hardware": "NVIDIA GeForce RTX 4070 SUPER, 12,282 MiB visible VRAM (nvidia-smi / run manifest), driver 595.84, torch 2.7.1+cu128, CUDA runtime 12.8; GPU UUID GPU-69894a01-4488-37ac-5fd8-878224044365",
+  "label": "fresh local GPU inference on RTX 4070 SUPER, 2026-09-26; single tenant during every measured run (lease held)",
+  "profile": "576x320, 250 frames, 2 steps distilled_aligned, seed 50, static INT8 ffn.2 scales, DiT CUDA graph, fused INT8 FFN, lean delivery",
+  "attention": "flash2 in EVERY arm: the SageAttention-2 SM89 build the shipping policy needs is missing and could not be rebuilt; the shipping 2026-09-22 figure (30.22 FPS, sage2) is reused, not re-run",
+  "tensorrt": "Wan span engines: TensorRT 10.9.0.34 runtime restored to .restored-deps-20260926; tiny-VAE engines: TensorRT 10.3.0 borrowed read-only via decoder_bakeoff/_trt10_path",
+  "gate_reference": "benchmarks/pro_30fps_20260921/s30-reuse (19.62 FPS, indian150-a seed 50); accepted band corr 0.94-0.97, edge ratio 0.95-1.07, mouth distance <= 3.4 px",
+  "colour_drift": "per-run max |mean-RGB drift vs its own window 0| over 9 windows (/255); s30-reuse/raw.npy is deleted, so the reference's 1.48 is the historical figure"
+ },
+ "rows": [
+  {
+   "run": "tae-ctl-r01",
+   "arm": "control: shipping VAE (pruned+distilled Wan decoder, FP16 TRT spans, overlap-skip; compiled Wan encoder)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 26.808,
+   "steady_fps_windows_1_8": 27.239,
+   "generation_s": 9.3254,
+   "window_p50_s": 1.0285,
+   "window0_s": 1.1015,
+   "stage_seconds": {
+    "audio": 0.0704,
+    "dit": 4.1107,
+    "motion_encode": 1.0479,
+    "vae_decode": 3.891
+   },
+   "stage_ms_per_window": {
+    "audio": 7.8,
+    "dit": 456.7,
+    "motion_encode": 116.4,
+    "vae_decode": 432.3
+   },
+   "nvidia_smi_peak_mib": 9019.0,
+   "torch_peak_allocated_mib": 7157,
+   "torch_peak_reserved_mib": 8540,
+   "warmup_s": 80.35,
+   "raw_rgb_sha256": "9b6559112978e31c429b766040296704ad797f37a7c6d0fe980152fe8e210aad",
+   "tiny_vae": null,
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9393,
+    "oral_edge_ratio": 0.9068,
+    "mouth_center_distance_px": 2.6,
+    "both_open_pairs": 194
+   },
+   "paired_vs_same_session_control": null,
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.264,
+    "candidate_slope_rgb_per_window": [
+     0.1011,
+     -0.0033,
+     0.0062
+    ]
+   },
+   "fps_vs_same_session_control": 1.0
+  },
+  {
+   "run": "tae-dec-r01",
+   "arm": "T1: taew2_1 decoder (stream, torch.compile) + compiled Wan motion encoder",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 42.798,
+   "steady_fps_windows_1_8": 43.224,
+   "generation_s": 5.8414,
+   "window_p50_s": 0.648,
+   "window0_s": 0.6584,
+   "stage_seconds": {
+    "audio": 0.0698,
+    "dit": 4.0949,
+    "motion_encode": 1.0475,
+    "vae_decode": 0.4228
+   },
+   "stage_ms_per_window": {
+    "audio": 7.8,
+    "dit": 455.0,
+    "motion_encode": 116.4,
+    "vae_decode": 47.0
+   },
+   "nvidia_smi_peak_mib": 6767.0,
+   "torch_peak_allocated_mib": 4408,
+   "torch_peak_reserved_mib": 6486,
+   "warmup_s": 18.5,
+   "raw_rgb_sha256": "08d61d9c33c8230210032ed717e6ff8e5803da00cb58543450aa8ddc22c2002d",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "compile",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9392,
+    "oral_edge_ratio": 1.2628,
+    "mouth_center_distance_px": 3.02,
+    "both_open_pairs": 196
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9497,
+    "oral_edge_ratio": 1.4065,
+    "mouth_center_distance_px": 3.71,
+    "both_open_pairs": 195
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.709,
+    "candidate_slope_rgb_per_window": [
+     0.1151,
+     -0.0137,
+     0.0009
+    ]
+   },
+   "fps_vs_same_session_control": 1.596
+  },
+  {
+   "run": "tae-decenc-r01",
+   "arm": "T2: taew2_1 decoder + taew2_1 motion encoder (torch.compile)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 51.541,
+   "steady_fps_windows_1_8": 52.082,
+   "generation_s": 4.8505,
+   "window_p50_s": 0.5377,
+   "window0_s": 0.5491,
+   "stage_seconds": {
+    "audio": 0.0701,
+    "dit": 4.097,
+    "motion_encode": 0.0576,
+    "vae_decode": 0.4212
+   },
+   "stage_ms_per_window": {
+    "audio": 7.8,
+    "dit": 455.2,
+    "motion_encode": 6.4,
+    "vae_decode": 46.8
+   },
+   "nvidia_smi_peak_mib": 6609.0,
+   "torch_peak_allocated_mib": 4405,
+   "torch_peak_reserved_mib": 6330,
+   "warmup_s": 16.66,
+   "raw_rgb_sha256": "9ce1cb8e93dbf62a4fdc879fb27350bdda61c62df1aa1a26ec082a6c63b87c87",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "compile",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "compile"
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9452,
+    "oral_edge_ratio": 1.1797,
+    "mouth_center_distance_px": 3.16,
+    "both_open_pairs": 196
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9468,
+    "oral_edge_ratio": 1.3247,
+    "mouth_center_distance_px": 3.85,
+    "both_open_pairs": 193
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.633,
+    "candidate_slope_rgb_per_window": [
+     0.1041,
+     -0.005,
+     -0.0034
+    ]
+   },
+   "fps_vs_same_session_control": 1.923
+  },
+  {
+   "run": "tae-decenc-trt-r01",
+   "arm": "T3: taew2_1 decoder + encoder, TensorRT FP16",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 52.903,
+   "steady_fps_windows_1_8": 53.442,
+   "generation_s": 4.7257,
+   "window_p50_s": 0.5239,
+   "window0_s": 0.5338,
+   "stage_seconds": {
+    "audio": 0.0731,
+    "dit": 4.1027,
+    "motion_encode": 0.0576,
+    "vae_decode": 0.3336
+   },
+   "stage_ms_per_window": {
+    "audio": 8.1,
+    "dit": 455.9,
+    "motion_encode": 6.4,
+    "vae_decode": 37.1
+   },
+   "nvidia_smi_peak_mib": 6105.0,
+   "torch_peak_allocated_mib": 4859,
+   "torch_peak_reserved_mib": 5778,
+   "warmup_s": 15.0,
+   "raw_rgb_sha256": "e5d7c6e7174918cfa663ff831482d16da642c2147d46aac92a855cfc3a31ea44",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt"
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9203,
+    "oral_edge_ratio": 1.1924,
+    "mouth_center_distance_px": 3.14,
+    "both_open_pairs": 193
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9234,
+    "oral_edge_ratio": 1.408,
+    "mouth_center_distance_px": 4.2,
+    "both_open_pairs": 191
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.591,
+    "candidate_slope_rgb_per_window": [
+     0.1133,
+     -0.0038,
+     -0.003
+    ]
+   },
+   "fps_vs_same_session_control": 1.973
+  },
+  {
+   "run": "tae-light-decenc-r01",
+   "arm": "T4: lighttaew2_1 decoder + encoder (torch.compile)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 51.567,
+   "steady_fps_windows_1_8": 52.115,
+   "generation_s": 4.8481,
+   "window_p50_s": 0.5376,
+   "window0_s": 0.5494,
+   "stage_seconds": {
+    "audio": 0.0707,
+    "dit": 4.0991,
+    "motion_encode": 0.0577,
+    "vae_decode": 0.4198
+   },
+   "stage_ms_per_window": {
+    "audio": 7.9,
+    "dit": 455.5,
+    "motion_encode": 6.4,
+    "vae_decode": 46.6
+   },
+   "nvidia_smi_peak_mib": 6609.0,
+   "torch_peak_allocated_mib": 4405,
+   "torch_peak_reserved_mib": 6330,
+   "warmup_s": 17.22,
+   "raw_rgb_sha256": "74d76450bc7f1e0cd924225f5a0a8a52da45f7f13ff50f6626421e0db45ae7ad",
+   "tiny_vae": {
+    "decoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "decoder_latent_convention": "wan_raw",
+     "backend": "compile",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "encoder_latent_convention": "wan_raw",
+     "backend": "compile"
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9519,
+    "oral_edge_ratio": 1.0119,
+    "mouth_center_distance_px": 4.36,
+    "both_open_pairs": 197
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.943,
+    "oral_edge_ratio": 1.1324,
+    "mouth_center_distance_px": 5.15,
+    "both_open_pairs": 195
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.507,
+    "candidate_slope_rgb_per_window": [
+     0.069,
+     -0.0104,
+     -0.0062
+    ]
+   },
+   "fps_vs_same_session_control": 1.924
+  },
+  {
+   "run": "tae-enc-r01",
+   "arm": "T5: shipping decoder + taew2_1 motion encoder (torch.compile)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 30.024,
+   "steady_fps_windows_1_8": 30.535,
+   "generation_s": 8.3265,
+   "window_p50_s": 0.9182,
+   "window0_s": 0.9901,
+   "stage_seconds": {
+    "audio": 0.0711,
+    "dit": 4.1009,
+    "motion_encode": 0.0588,
+    "vae_decode": 3.8879
+   },
+   "stage_ms_per_window": {
+    "audio": 7.9,
+    "dit": 455.7,
+    "motion_encode": 6.5,
+    "vae_decode": 432.0
+   },
+   "nvidia_smi_peak_mib": 8501.0,
+   "torch_peak_allocated_mib": 6476,
+   "torch_peak_reserved_mib": 8016,
+   "warmup_s": 17.75,
+   "raw_rgb_sha256": "1135f057d129231bb662a831a063dd77a1e71b3fa98fe64389109eb270e82d8a",
+   "tiny_vae": {
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "compile"
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9369,
+    "oral_edge_ratio": 0.8642,
+    "mouth_center_distance_px": 3.21,
+    "both_open_pairs": 196
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9587,
+    "oral_edge_ratio": 0.9352,
+    "mouth_center_distance_px": 2.56,
+    "both_open_pairs": 194
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.61,
+    "candidate_slope_rgb_per_window": [
+     0.1218,
+     -0.0141,
+     -0.0039
+    ]
+   },
+   "fps_vs_same_session_control": 1.12
+  },
+  {
+   "run": "tae-decenc-trt-window-r01",
+   "arm": "T6: as T3 but window-mode decode (all 9 latents from zero state each window)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 51.951,
+   "steady_fps_windows_1_8": 52.363,
+   "generation_s": 4.8122,
+   "window_p50_s": 0.5344,
+   "window0_s": 0.5339,
+   "stage_seconds": {
+    "audio": 0.073,
+    "dit": 4.1074,
+    "motion_encode": 0.0576,
+    "vae_decode": 0.4154
+   },
+   "stage_ms_per_window": {
+    "audio": 8.1,
+    "dit": 456.4,
+    "motion_encode": 6.4,
+    "vae_decode": 46.2
+   },
+   "nvidia_smi_peak_mib": 6043.0,
+   "torch_peak_allocated_mib": 4756,
+   "torch_peak_reserved_mib": 5738,
+   "warmup_s": 14.96,
+   "raw_rgb_sha256": "7b871941e4d61707b18bfb0a51803edb82517c45a8ea6afba3e8438f66ee3475",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt",
+     "decode_mode": "window",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       9,
+       9,
+       9,
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      "latents_skipped": 0,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt"
+    }
+   },
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9354,
+    "oral_edge_ratio": 1.2523,
+    "mouth_center_distance_px": 3.48,
+    "both_open_pairs": 195
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9367,
+    "oral_edge_ratio": 1.3969,
+    "mouth_center_distance_px": 4.03,
+    "both_open_pairs": 193
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.61,
+    "candidate_slope_rgb_per_window": [
+     0.1091,
+     -0.0017,
+     -0.0024
+    ]
+   },
+   "fps_vs_same_session_control": 1.938
+  },
+  {
+   "run": "tae-ctl-r02",
+   "arm": "control repeat on the EDITED run.py (default-path check; warm caches)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 26.931,
+   "steady_fps_windows_1_8": 27.369,
+   "generation_s": 9.2829,
+   "window_p50_s": 1.023,
+   "window0_s": 1.0978,
+   "stage_seconds": {
+    "audio": 0.0699,
+    "dit": 4.1104,
+    "motion_encode": 1.0493,
+    "vae_decode": 3.8976
+   },
+   "stage_ms_per_window": {
+    "audio": 7.8,
+    "dit": 456.7,
+    "motion_encode": 116.6,
+    "vae_decode": 433.1
+   },
+   "nvidia_smi_peak_mib": 8949.0,
+   "torch_peak_allocated_mib": 7159,
+   "torch_peak_reserved_mib": 8470,
+   "warmup_s": 19.5,
+   "raw_rgb_sha256": "e93fb5ab8bac85a8425f7b63336ebd4e8f740f01342f23b1fc193038b162cc82",
+   "tiny_vae": null,
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": null,
+   "colour_drift": null,
+   "fps_vs_same_session_control": 1.005
+  },
+  {
+   "run": "tae-ctl-r03-origrunpy",
+   "arm": "control repeat on the ORIGINAL run.py (warm caches; noise floor)",
+   "fixture": "indian150-a",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 26.89,
+   "steady_fps_windows_1_8": 27.33,
+   "generation_s": 9.2972,
+   "window_p50_s": 1.0251,
+   "window0_s": 1.1005,
+   "stage_seconds": {
+    "audio": 0.0711,
+    "dit": 4.1145,
+    "motion_encode": 1.0505,
+    "vae_decode": 3.9039
+   },
+   "stage_ms_per_window": {
+    "audio": 7.9,
+    "dit": 457.2,
+    "motion_encode": 116.7,
+    "vae_decode": 433.8
+   },
+   "nvidia_smi_peak_mib": 8949.0,
+   "torch_peak_allocated_mib": 7159,
+   "torch_peak_reserved_mib": 8470,
+   "warmup_s": 19.53,
+   "raw_rgb_sha256": "e93fb5ab8bac85a8425f7b63336ebd4e8f740f01342f23b1fc193038b162cc82",
+   "tiny_vae": null,
+   "gate_vs_reference_s30_reuse": {
+    "opening_correlation": 0.9531,
+    "oral_edge_ratio": 0.7711,
+    "mouth_center_distance_px": 2.69,
+    "both_open_pairs": 198
+   },
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9841,
+    "oral_edge_ratio": 0.857,
+    "mouth_center_distance_px": 1.34,
+    "both_open_pairs": 197
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.264,
+    "candidate_max_drift_255": 1.247,
+    "candidate_slope_rgb_per_window": [
+     0.1077,
+     -0.0195,
+     0.0011
+    ]
+   },
+   "fps_vs_same_session_control": 1.003
+  },
+  {
+   "run": "tae-ctl-tts-plosives-r01",
+   "arm": "control (tts-plosives)",
+   "fixture": "tts-plosives",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 26.822,
+   "steady_fps_windows_1_8": 27.255,
+   "generation_s": 9.3208,
+   "window_p50_s": 1.0273,
+   "window0_s": 1.1016,
+   "stage_seconds": {
+    "audio": 0.0698,
+    "dit": 4.1081,
+    "motion_encode": 1.0501,
+    "vae_decode": 3.8915
+   },
+   "stage_ms_per_window": {
+    "audio": 7.8,
+    "dit": 456.5,
+    "motion_encode": 116.7,
+    "vae_decode": 432.4
+   },
+   "nvidia_smi_peak_mib": 8949.0,
+   "torch_peak_allocated_mib": 7159,
+   "torch_peak_reserved_mib": 8470,
+   "warmup_s": 19.0,
+   "raw_rgb_sha256": "a4402c0d9acc0e4fbfd15a30ee9c6cafabb9b351e3378af60be04965c94da12a",
+   "tiny_vae": null,
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": null,
+   "colour_drift": null,
+   "fps_vs_same_session_control": 1.0
+  },
+  {
+   "run": "tae-decenc-trt-tts-plosives-r01",
+   "arm": "T3 taew2_1 TRT dec+enc (tts-plosives)",
+   "fixture": "tts-plosives",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 52.868,
+   "steady_fps_windows_1_8": 53.404,
+   "generation_s": 4.7288,
+   "window_p50_s": 0.5243,
+   "window0_s": 0.5338,
+   "stage_seconds": {
+    "audio": 0.0724,
+    "dit": 4.1084,
+    "motion_encode": 0.0576,
+    "vae_decode": 0.3342
+   },
+   "stage_ms_per_window": {
+    "audio": 8.0,
+    "dit": 456.5,
+    "motion_encode": 6.4,
+    "vae_decode": 37.1
+   },
+   "nvidia_smi_peak_mib": 6105.0,
+   "torch_peak_allocated_mib": 4859,
+   "torch_peak_reserved_mib": 5778,
+   "warmup_s": 14.81,
+   "raw_rgb_sha256": "2d013e44538b216ef3736b660fc7d12b727e4f0b75d8289b40993d55a434e3f3",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt"
+    }
+   },
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9487,
+    "oral_edge_ratio": 1.8304,
+    "mouth_center_distance_px": 3.42,
+    "both_open_pairs": 114
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.209,
+    "candidate_max_drift_255": 1.544,
+    "candidate_slope_rgb_per_window": [
+     0.1475,
+     -0.0246,
+     0.0094
+    ]
+   },
+   "fps_vs_same_session_control": 1.971
+  },
+  {
+   "run": "tae-light-decenc-tts-plosives-r01",
+   "arm": "T4 lighttaew2_1 dec+enc (tts-plosives)",
+   "fixture": "tts-plosives",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 51.992,
+   "steady_fps_windows_1_8": 52.545,
+   "generation_s": 4.8084,
+   "window_p50_s": 0.533,
+   "window0_s": 0.5449,
+   "stage_seconds": {
+    "audio": 0.0707,
+    "dit": 4.1031,
+    "motion_encode": 0.0579,
+    "vae_decode": 0.4201
+   },
+   "stage_ms_per_window": {
+    "audio": 7.9,
+    "dit": 455.9,
+    "motion_encode": 6.4,
+    "vae_decode": 46.7
+   },
+   "nvidia_smi_peak_mib": 6609.0,
+   "torch_peak_allocated_mib": 4405,
+   "torch_peak_reserved_mib": 6330,
+   "warmup_s": 17.7,
+   "raw_rgb_sha256": "6780243607bc189f400957a29126ae94db16a88fad9f486de641f456b7581db9",
+   "tiny_vae": {
+    "decoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "decoder_latent_convention": "wan_raw",
+     "backend": "compile",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "encoder_latent_convention": "wan_raw",
+     "backend": "compile"
+    }
+   },
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9656,
+    "oral_edge_ratio": 1.5097,
+    "mouth_center_distance_px": 2.48,
+    "both_open_pairs": 116
+   },
+   "colour_drift": {
+    "control_max_drift_255": 1.209,
+    "candidate_max_drift_255": 1.642,
+    "candidate_slope_rgb_per_window": [
+     0.1192,
+     -0.0467,
+     0.0066
+    ]
+   },
+   "fps_vs_same_session_control": 1.938
+  },
+  {
+   "run": "tae-ctl-tts-open-vowels-r01",
+   "arm": "control (tts-open-vowels)",
+   "fixture": "tts-open-vowels",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/ctl_final_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 26.915,
+   "steady_fps_windows_1_8": 27.356,
+   "generation_s": 9.2883,
+   "window_p50_s": 1.024,
+   "window0_s": 1.0995,
+   "stage_seconds": {
+    "audio": 0.0737,
+    "dit": 4.1113,
+    "motion_encode": 1.0485,
+    "vae_decode": 3.8978
+   },
+   "stage_ms_per_window": {
+    "audio": 8.2,
+    "dit": 456.8,
+    "motion_encode": 116.5,
+    "vae_decode": 433.1
+   },
+   "nvidia_smi_peak_mib": 8949.0,
+   "torch_peak_allocated_mib": 7159,
+   "torch_peak_reserved_mib": 8470,
+   "warmup_s": 19.41,
+   "raw_rgb_sha256": "0f7f6ea97acaf2854f3fe0e54410575239ae936411339ad5af6cdcb2013fcd4c",
+   "tiny_vae": null,
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": null,
+   "colour_drift": null,
+   "fps_vs_same_session_control": 1.0
+  },
+  {
+   "run": "tae-decenc-trt-tts-open-vowels-r01",
+   "arm": "T3 taew2_1 TRT dec+enc (tts-open-vowels)",
+   "fixture": "tts-open-vowels",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 52.812,
+   "steady_fps_windows_1_8": 53.34,
+   "generation_s": 4.7338,
+   "window_p50_s": 0.5246,
+   "window0_s": 0.5338,
+   "stage_seconds": {
+    "audio": 0.072,
+    "dit": 4.1127,
+    "motion_encode": 0.0576,
+    "vae_decode": 0.3345
+   },
+   "stage_ms_per_window": {
+    "audio": 8.0,
+    "dit": 457.0,
+    "motion_encode": 6.4,
+    "vae_decode": 37.2
+   },
+   "nvidia_smi_peak_mib": 6105.0,
+   "torch_peak_allocated_mib": 4859,
+   "torch_peak_reserved_mib": 5778,
+   "warmup_s": 15.07,
+   "raw_rgb_sha256": "8a0226b279b4dd214066a1b310ec6617788e59f423b5f5ef489a736e755225a2",
+   "tiny_vae": {
+    "decoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "decoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "taew2_1",
+     "sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+     "encoder_latent_convention": "dit_normalised",
+     "backend": "tensorrt"
+    }
+   },
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9418,
+    "oral_edge_ratio": 1.7502,
+    "mouth_center_distance_px": 3.69,
+    "both_open_pairs": 171
+   },
+   "colour_drift": {
+    "control_max_drift_255": 0.766,
+    "candidate_max_drift_255": 1.09,
+    "candidate_slope_rgb_per_window": [
+     0.0779,
+     -0.0073,
+     0.0091
+    ]
+   },
+   "fps_vs_same_session_control": 1.962
+  },
+  {
+   "run": "tae-light-decenc-tts-open-vowels-r01",
+   "arm": "T4 lighttaew2_1 dec+enc (tts-open-vowels)",
+   "fixture": "tts-open-vowels",
+   "seed": 50,
+   "status": "complete",
+   "execution": "fresh local GPU inference",
+   "label": "fresh local GPU inference on RTX 4070 SUPER",
+   "policy": "benchmarks/tiny_vae_20260926/policies/tiny_v4_flash2.json",
+   "attention": "flash2",
+   "useful_fps": 51.401,
+   "steady_fps_windows_1_8": 51.941,
+   "generation_s": 4.8638,
+   "window_p50_s": 0.539,
+   "window0_s": 0.5507,
+   "stage_seconds": {
+    "audio": 0.0715,
+    "dit": 4.1065,
+    "motion_encode": 0.0577,
+    "vae_decode": 0.4231
+   },
+   "stage_ms_per_window": {
+    "audio": 7.9,
+    "dit": 456.3,
+    "motion_encode": 6.4,
+    "vae_decode": 47.0
+   },
+   "nvidia_smi_peak_mib": 6609.0,
+   "torch_peak_allocated_mib": 4405,
+   "torch_peak_reserved_mib": 6330,
+   "warmup_s": 16.83,
+   "raw_rgb_sha256": "a2299f14f079b9cd5b4f247a1226cc01b6dd92bd89dea0c2e3bc6cfe3306e579",
+   "tiny_vae": {
+    "decoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "decoder_latent_convention": "wan_raw",
+     "backend": "compile",
+     "decode_mode": "stream",
+     "state": {
+      "frames_per_window": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "latents_decoded_per_window": [
+       9,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "latents_skipped": 16,
+      "windows": 9
+     }
+    },
+    "encoder": {
+     "name": "lighttaew2_1",
+     "sha256": "8666e769f449f2d955651564bcadb0c5e12461b50480e67b7241f32c15f11a19",
+     "encoder_latent_convention": "wan_raw",
+     "backend": "compile"
+    }
+   },
+   "gate_vs_reference_s30_reuse": null,
+   "paired_vs_same_session_control": {
+    "opening_correlation": 0.9003,
+    "oral_edge_ratio": 1.2836,
+    "mouth_center_distance_px": 3.7,
+    "both_open_pairs": 170
+   },
+   "colour_drift": {
+    "control_max_drift_255": 0.766,
+    "candidate_max_drift_255": 0.905,
+    "candidate_slope_rgb_per_window": [
+     0.0214,
+     -0.0199,
+     0.0008
+    ]
+   },
+   "fps_vs_same_session_control": 1.91
+  }
+ ]
+}

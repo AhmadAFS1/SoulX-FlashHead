@@ -1,0 +1,473 @@
+{
+ "execution": "fresh local GPU inference on RTX 4070 SUPER",
+ "date_utc": "2026-09-26T20:51:47Z",
+ "torch": "2.7.1+cu128",
+ "cudnn_benchmark": true,
+ "gpu_at_start": {
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1 MiB, 12282 MiB, 0 %, 595.84",
+  "compute_apps": []
+ },
+ "cases": {
+  "taehv fp16 eager nchw cold9": {
+   "median_ms": 90.02816009521484,
+   "min_ms": 89.79647827148438,
+   "max_ms": 90.32048034667969,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 4269.18115234375,
+   "peak_over_resident_mib": 3789.79931640625,
+   "frames_out": 33,
+   "gpu_after": [
+    "2681775, 5902 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 eager nchw warm7": {
+   "median_ms": 70.6242904663086,
+   "min_ms": 70.47245025634766,
+   "max_ms": 70.84441375732422,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3403.66162109375,
+   "peak_over_resident_mib": 2924.27978515625,
+   "frames_out": 28,
+   "gpu_after": [
+    "2681775, 4750 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 torch.compile nchw cold9": {
+   "median_ms": 58.48086357116699,
+   "min_ms": 58.17744064331055,
+   "max_ms": 58.92915344238281,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2372.70849609375,
+   "peak_over_resident_mib": 1823.71630859375,
+   "frames_out": 33,
+   "first_call_s": 6.1178669929504395,
+   "maxabs_vs_eager": 0.0078125,
+   "gpu_after": [
+    "2681775, 3728 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 torch.compile nchw warm7": {
+   "median_ms": 45.29240036010742,
+   "min_ms": 45.15020751953125,
+   "max_ms": 45.70521545410156,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1947.40771484375,
+   "peak_over_resident_mib": 1398.41552734375,
+   "frames_out": 28,
+   "first_call_s": 5.20232081413269,
+   "gpu_after": [
+    "2681775, 3078 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 eager channels_last cold9": {
+   "median_ms": 85.3015365600586,
+   "min_ms": 85.02662658691406,
+   "max_ms": 85.66476440429688,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3531.6962890625,
+   "peak_over_resident_mib": 2980.978515625,
+   "frames_out": 33,
+   "gpu_after": [
+    "2681775, 4764 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 eager channels_last warm7": {
+   "median_ms": 65.62900924682617,
+   "min_ms": 65.51615905761719,
+   "max_ms": 65.7817611694336,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2844.9267578125,
+   "peak_over_resident_mib": 2294.208984375,
+   "frames_out": 28,
+   "gpu_after": [
+    "2681775, 3916 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 torch.compile channels_last cold9": {
+   "median_ms": 58.13772773742676,
+   "min_ms": 58.0239372253418,
+   "max_ms": 58.380287170410156,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2650.89453125,
+   "peak_over_resident_mib": 2068.853515625,
+   "frames_out": 33,
+   "first_call_s": 3.106029748916626,
+   "maxabs_vs_eager": 0.0078125,
+   "gpu_after": [
+    "2681775, 3908 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 torch.compile channels_last warm7": {
+   "median_ms": 44.89727973937988,
+   "min_ms": 44.681217193603516,
+   "max_ms": 44.960575103759766,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2136.177734375,
+   "peak_over_resident_mib": 1585.458984375,
+   "frames_out": 28,
+   "first_call_s": 3.1273844242095947,
+   "gpu_after": [
+    "2681775, 3364 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 eager nchw cold9": {
+   "median_ms": 89.39971160888672,
+   "min_ms": 89.28828430175781,
+   "max_ms": 89.58013153076172,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 4339.98583984375,
+   "peak_over_resident_mib": 3789.74462890625,
+   "frames_out": 33,
+   "gpu_after": [
+    "2681775, 5748 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 eager nchw warm7": {
+   "median_ms": 69.51356506347656,
+   "min_ms": 69.4217300415039,
+   "max_ms": 69.66886138916016,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3474.52099609375,
+   "peak_over_resident_mib": 2924.27978515625,
+   "frames_out": 28,
+   "gpu_after": [
+    "2681775, 4826 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 torch.compile nchw cold9": {
+   "median_ms": 57.73465538024902,
+   "min_ms": 57.59571075439453,
+   "max_ms": 58.07900619506836,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2407.23974609375,
+   "peak_over_resident_mib": 1822.19287109375,
+   "frames_out": 33,
+   "first_call_s": 5.1870739459991455,
+   "maxabs_vs_eager": 0.046875,
+   "gpu_after": [
+    "2681775, 4030 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 torch.compile nchw warm7": {
+   "median_ms": 44.96724891662598,
+   "min_ms": 44.73241424560547,
+   "max_ms": 45.3746223449707,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1982.49365234375,
+   "peak_over_resident_mib": 1397.44677734375,
+   "frames_out": 28,
+   "first_call_s": 5.145970106124878,
+   "gpu_after": [
+    "2681775, 3490 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 eager channels_last cold9": {
+   "median_ms": 84.87680053710938,
+   "min_ms": 84.53945922851562,
+   "max_ms": 85.00736236572266,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3564.1884765625,
+   "peak_over_resident_mib": 2980.228515625,
+   "frames_out": 33,
+   "gpu_after": [
+    "2681775, 4782 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 eager channels_last warm7": {
+   "median_ms": 65.36127853393555,
+   "min_ms": 65.20832061767578,
+   "max_ms": 65.4366683959961,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2878.1689453125,
+   "peak_over_resident_mib": 2294.208984375,
+   "frames_out": 28,
+   "gpu_after": [
+    "2681775, 4038 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 torch.compile channels_last cold9": {
+   "median_ms": 57.56620788574219,
+   "min_ms": 56.96473693847656,
+   "max_ms": 57.73484802246094,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2652.939453125,
+   "peak_over_resident_mib": 2068.978515625,
+   "frames_out": 33,
+   "first_call_s": 2.99051570892334,
+   "maxabs_vs_eager": 0.046875,
+   "gpu_after": [
+    "2681775, 3950 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv bf16 torch.compile channels_last warm7": {
+   "median_ms": 44.66694259643555,
+   "min_ms": 44.49382400512695,
+   "max_ms": 44.800926208496094,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2169.919921875,
+   "peak_over_resident_mib": 1585.958984375,
+   "frames_out": 28,
+   "first_call_s": 2.870713233947754,
+   "gpu_after": [
+    "2681775, 3408 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 TensorRT cold9": {
+   "median_ms": 46.292991638183594,
+   "min_ms": 46.11686325073242,
+   "max_ms": 46.43964767456055,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2443.3828125,
+   "peak_over_resident_mib": 69.609375,
+   "frames_out": 33,
+   "trt_workspace_mib": 1721.25,
+   "gpu_after": [
+    "2681775, 3136 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 TensorRT warm7": {
+   "median_ms": 36.11275100708008,
+   "min_ms": 36.00678253173828,
+   "max_ms": 36.199424743652344,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2065.0546875,
+   "peak_over_resident_mib": 59.0625,
+   "frames_out": 28,
+   "trt_workspace_mib": 1338.75,
+   "gpu_after": [
+    "2681775, 3440 MiB, .venv/bin/python"
+   ]
+  },
+  "lightvaew2_1 bf16 eager cold9": {
+   "median_ms": 263.56585693359375,
+   "min_ms": 263.2957763671875,
+   "max_ms": 263.96636962890625,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1082.01025390625,
+   "peak_over_resident_mib": 290.52880859375,
+   "frames_out": 33,
+   "first_call_s": 0.5252804756164551,
+   "gpu_after": [
+    "2681775, 1716 MiB, .venv/bin/python"
+   ]
+  },
+  "lightvaew2_1 bf16 eager warm7": {
+   "median_ms": 225.56835174560547,
+   "min_ms": 224.96153259277344,
+   "max_ms": 225.93728637695312,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1076.16650390625,
+   "peak_over_resident_mib": 284.77880859375,
+   "frames_out": 28,
+   "first_call_s": 0.2888820171356201,
+   "gpu_after": [
+    "2681775, 1710 MiB, .venv/bin/python"
+   ]
+  },
+  "lightvaew2_1 bf16 torch.compile cold9": {
+   "median_ms": 207.9997787475586,
+   "min_ms": 207.2033233642578,
+   "max_ms": 208.13414001464844,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1658.6875,
+   "peak_over_resident_mib": 866.70849609375,
+   "frames_out": 33,
+   "first_call_s": 44.63364219665527,
+   "gpu_after": [
+    "2681775, 2080 MiB, .venv/bin/python"
+   ]
+  },
+  "lightvaew2_1 bf16 torch.compile warm7": {
+   "median_ms": 175.38365173339844,
+   "min_ms": 175.10707092285156,
+   "max_ms": 175.6559295654297,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 1873.052734375,
+   "peak_over_resident_mib": 1079.3671875,
+   "frames_out": 28,
+   "first_call_s": 32.915217876434326,
+   "gpu_after": [
+    "2681775, 2244 MiB, .venv/bin/python"
+   ]
+  },
+  "shipping (pruned+ft4) bf16 eager cold9": {
+   "median_ms": 819.6431884765625,
+   "min_ms": 818.8180541992188,
+   "max_ms": 821.5531616210938,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2294.546875,
+   "peak_over_resident_mib": 1053.88671875,
+   "frames_out": 33,
+   "first_call_s": 2.025005578994751,
+   "gpu_after": [
+    "2681775, 3278 MiB, .venv/bin/python"
+   ]
+  },
+  "shipping (pruned+ft4) bf16 eager warm7": {
+   "median_ms": 693.2746276855469,
+   "min_ms": 692.0803833007812,
+   "max_ms": 694.635986328125,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 2287.94970703125,
+   "peak_over_resident_mib": 1047.53955078125,
+   "frames_out": 28,
+   "first_call_s": 0.9572937488555908,
+   "gpu_after": [
+    "2681775, 3368 MiB, .venv/bin/python"
+   ]
+  },
+  "shipping (pruned+ft4) bf16 torch.compile cold9": {
+   "median_ms": 770.9457397460938,
+   "min_ms": 768.8551635742188,
+   "max_ms": 772.73193359375,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3543.9892578125,
+   "peak_over_resident_mib": 2303.2099609375,
+   "frames_out": 33,
+   "first_call_s": 39.23307538032532,
+   "gpu_after": [
+    "2681775, 4424 MiB, .venv/bin/python"
+   ]
+  },
+  "shipping (pruned+ft4) bf16 torch.compile warm7": {
+   "median_ms": 645.3994750976562,
+   "min_ms": 643.70263671875,
+   "max_ms": 646.6625366210938,
+   "n": 12,
+   "warmup": 3,
+   "peak_alloc_mib": 3977.11474609375,
+   "peak_over_resident_mib": 2736.89990234375,
+   "frames_out": 28,
+   "first_call_s": 29.479039430618286,
+   "gpu_after": [
+    "2681775, 4960 MiB, .venv/bin/python"
+   ]
+  },
+  "stock Wan 2.1 bf16 eager cold9": {
+   "median_ms": 1628.7465209960938,
+   "min_ms": 1627.1492919921875,
+   "max_ms": 1630.754150390625,
+   "n": 10,
+   "warmup": 3,
+   "peak_alloc_mib": 2699.1015625,
+   "peak_over_resident_mib": 1053.88671875,
+   "frames_out": 33,
+   "first_call_s": 1.6250286102294922,
+   "gpu_after": [
+    "2681775, 3718 MiB, .venv/bin/python"
+   ]
+  },
+  "stock Wan 2.1 bf16 eager warm7": {
+   "median_ms": 1383.99072265625,
+   "min_ms": 1383.052978515625,
+   "max_ms": 1385.0631103515625,
+   "n": 10,
+   "warmup": 3,
+   "peak_alloc_mib": 2693.5966796875,
+   "peak_over_resident_mib": 1048.1865234375,
+   "frames_out": 28,
+   "first_call_s": 1.7746992111206055,
+   "gpu_after": [
+    "2681775, 3850 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 TensorRT cold9 (side stream)": {
+   "median_ms": 46.00729560852051,
+   "min_ms": 45.8834228515625,
+   "max_ms": 46.13119888305664,
+   "n": 20,
+   "warmup": 3,
+   "peak_alloc_mib": 2339.2421875,
+   "peak_over_resident_mib": 69.609375,
+   "frames_out": 33,
+   "trt_workspace_mib": 1721.25,
+   "stream": "non-default torch.cuda.Stream",
+   "gpu_after": [
+    "2695401, 2918 MiB, .venv/bin/python"
+   ]
+  },
+  "taehv fp16 TensorRT warm7 (side stream)": {
+   "median_ms": 35.87236785888672,
+   "min_ms": 35.771392822265625,
+   "max_ms": 35.99359893798828,
+   "n": 20,
+   "warmup": 3,
+   "peak_alloc_mib": 1936.3515625,
+   "peak_over_resident_mib": 59.0625,
+   "frames_out": 28,
+   "trt_workspace_mib": 1338.75,
+   "stream": "non-default torch.cuda.Stream",
+   "gpu_after": [
+    "2695401, 2918 MiB, .venv/bin/python"
+   ]
+  }
+ },
+ "notes": [
+  "TensorRT 10.3.0 python bindings were borrowed read-only via symlinks in decoder_bakeoff/_trt10_path/ -> /workspace/.venvs/musetalk_trt_stagewise (tensorrt, tensorrt_libs, tensorrt_bindings, onnx 1.17.0); the SoulX venv has no tensorrt/onnx and the TensorRT 10.9 deps directories used by the shipping build are gone. ONNX and engine files were deleted after timing (sha256 kept)."
+ ],
+ "latent_window": "indian150-a-s50-w4.pt",
+ "trt": {
+  "T9": {
+   "onnx": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T9.onnx",
+   "engine": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T9.engine",
+   "onnx_bytes": 19717477,
+   "engine_bytes": 21264692,
+   "export_s": 0.1857767105102539,
+   "build_s": 19.33615517616272,
+   "opset": 18,
+   "tensorrt": "10.3.0",
+   "maxabs_vs_eager_fp16": 0.0166015625,
+   "psnr_u8_vs_eager_fp16": 59.77082118377764,
+   "onnx_sha256": "ebcde8772440f745ac726f6935141deb733f12ec652ab029315aee49a8c46622",
+   "engine_sha256": "e7288f81e157ee6f2577357ef09cd0b372f5b10887249b490e4acb4e6fd69bc5",
+   "deleted_after_measurement": true
+  },
+  "T7": {
+   "onnx": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T7.onnx",
+   "engine": "benchmarks/tiny_vae_20260926/decoder_bakeoff/_trt/taehv_core_taew2_1_fp16_T7.engine",
+   "onnx_bytes": 19717477,
+   "engine_bytes": 21239732,
+   "export_s": 0.13965153694152832,
+   "build_s": 15.110573530197144,
+   "opset": 18,
+   "tensorrt": "10.3.0",
+   "maxabs_vs_eager_fp16": 0.01171875,
+   "psnr_u8_vs_eager_fp16": 59.85623236642016,
+   "onnx_sha256": "d2b3993a7229a498eb271be772ac988551ec0d02509a67766f82bc10e92a1dd6",
+   "engine_sha256": "45ca9e3f72208c7220a6a6dc1cc94b4515510bebd28f51b18925e3c5a40d59e3",
+   "deleted_after_measurement": true
+  }
+ },
+ "gpu_at_end": {
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER, 1705 MiB, 12282 MiB, 100 %, 595.84",
+  "compute_apps": [
+   "2681775, 1696 MiB, .venv/bin/python"
+  ]
+ },
+ "trt_stream_followup_utc": "2026-09-26T20:58:50Z"
+}
