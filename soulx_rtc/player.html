@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>FlashHead WebRTC player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .video-container {
+            width: 100%;
+            flex: 1 1 auto;
+            min-height: 0;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #000;
+        }
+
+        .status-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: calc(100% - 24px);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .status-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .status-overlay.button {
+            cursor: pointer;
+        }
+
+        .error {
+            color: #ff5555;
+        }
+
+        .debug-panel {
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2px 12px;
+            background: rgba(3,7,18,0.94);
+            border-top: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 11px;
+            line-height: 1.35;
+            padding: 6px 8px;
+            z-index: 20;
+        }
+
+        .debug-line {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .debug-line:first-child {
+            grid-column: 1 / -1;
+        }
+
+        body.debug-overlay-mode .debug-panel {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            max-width: calc(100% - 24px);
+            border: none;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.6);
+            z-index: 20;
+        }
+
+        body.debug-off .debug-panel {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="remoteVideo" playsinline webkit-playsinline autoplay></video>
+        <div class="status-overlay hidden" id="statusOverlay" role="status" aria-live="polite"></div>
+    </div>
+    <div class="debug-panel" id="debugOverlay"></div>
+
+    <script>
+        "use strict";
+        // One persistent FlashHead call per page. Unlike MuseTalk's trickle-ICE
+        // player, aiortc answers once, so the offer waits for gathering to finish.
+        const PATH_MATCH = window.location.pathname.match(/^\/webrtc\/player\/([^/]+)$/);
+        const SESSION_ID = PATH_MATCH ? decodeURIComponent(PATH_MATCH[1]) : '';
+        const API_ORIGIN = window.location.origin;
+        const DEBUG_MODES = ['docked', 'off', 'overlay'];
+        const EMBEDDED = window.parent !== window;
+        const ICE_GATHER_TIMEOUT_MS = 20000;
+
+        const remoteVideo = document.getElementById('remoteVideo');
+        const statusOverlay = document.getElementById('statusOverlay');
+        const debugOverlay = document.getElementById('debugOverlay');
+        const queryParams = new URLSearchParams(window.location.search);
+        let debugMode = queryParams.get('debug') || 'off';
+        if (!DEBUG_MODES.includes(debugMode)) {
+            debugMode = 'off';
+        }
+
+        let pc = null;
+        let started = false;
+        let ended = false;
+        let audioConnected = queryParams.get('muted') !== '1';
+        let remoteStream = null;
+        let callInfo = null;
+        let iceTransportPolicy = 'all';
+        let lastPlayError = null;
+        let lastError = null;
+        let overlayKind = null;
+        let token = null;
+        let tokenWaiter = null;
+        let needsToken = false;
+        const previousReports = new Map();
+
+        function updateStatus(message, isError = false, isButton = false, kind = 'info') {
+            overlayKind = kind;
+            statusOverlay.textContent = message;
+            statusOverlay.classList.remove('hidden');
+            statusOverlay.classList.toggle('error', isError);
+            statusOverlay.classList.toggle('button', isButton);
+        }
+
+        function hideStatus(kind = null) {
+            if (kind && overlayKind !== kind) return;
+            overlayKind = null;
+            statusOverlay.classList.add('hidden');
+        }
+
+        function applyDebugMode(mode) {
+            if (!DEBUG_MODES.includes(mode)) {
+                mode = 'off';
+            }
+            debugMode = mode;
+            document.body.classList.toggle('debug-off', mode === 'off');
+            document.body.classList.toggle('debug-overlay-mode', mode === 'overlay');
+        }
+
+        function setDebug(lines) {
+            debugOverlay.replaceChildren(...lines.map((line) => {
+                const item = document.createElement('div');
+                item.className = 'debug-line';
+                item.textContent = line;
+                return item;
+            }));
+        }
+
+        // The wall keeps the API token in memory only; ask it, never storage/URLs.
+        function requestToken() {
+            if (!EMBEDDED) return Promise.resolve(token || '');
+            return new Promise((resolve) => {
+                const timer = setTimeout(() => { tokenWaiter = null; resolve(token || ''); }, 1500);
+                tokenWaiter = (value) => { clearTimeout(timer); tokenWaiter = null; resolve(value); };
+                window.parent.postMessage({ type: 'webrtc-token-request', sessionId: SESSION_ID }, API_ORIGIN);
+            });
+        }
+
+        async function api(path, options = {}, retry = true) {
+            if (token === null) token = await requestToken();
+            const headers = { ...(options.headers || {}) };
+            if (token) headers.Authorization = 'Bearer ' + token;
+            const response = await fetch(API_ORIGIN + path, { ...options, headers, cache: 'no-store' });
+            if (response.status === 401 && retry && EMBEDDED) {
+                token = await requestToken();
+                if (token) return api(path, options, false);
+            }
+            if (!response.ok) {
+                const error = new Error(response.status + ' ' + (await response.text()).slice(0, 300));
+                error.status = response.status;
+                throw error;
+            }
+            return response.status === 204 ? null : response.json();
+        }
+
+        function waitForIceGathering(peer) {
+            return new Promise((resolve, reject) => {
+                if (peer.iceGatheringState === 'complete') { resolve(); return; }
+                const timer = setTimeout(() => {
+                    peer.removeEventListener('icegatheringstatechange', check);
+                    reject(new Error('ICE gathering timed out. Check the server ICE/TURN configuration.'));
+                }, ICE_GATHER_TIMEOUT_MS);
+                function check() {
+                    if (peer.iceGatheringState !== 'complete') return;
+                    clearTimeout(timer);
+                    peer.removeEventListener('icegatheringstatechange', check);
+                    resolve();
+                }
+                peer.addEventListener('icegatheringstatechange', check);
+            });
+        }
+
+        function applyAudioRoute() {
+            remoteVideo.autoplay = true;
+            remoteVideo.defaultMuted = !audioConnected;
+            remoteVideo.muted = !audioConnected;
+            remoteVideo.volume = audioConnected ? 1.0 : 0.0;
+        }
+
+        function setAudioMuted(muted) {
+            audioConnected = !Boolean(muted);
+            applyAudioRoute();
+        }
+
+        async function playRemoteMedia() {
+            applyAudioRoute();
+            if (!remoteStream || !remoteStream.getTracks().length) return;
+            try {
+                await remoteVideo.play();
+                lastPlayError = null;
+                hideStatus('play');
+            } catch (err) {
+                lastPlayError = err && err.name ? err.name : String(err);
+                applyAudioRoute();
+                if (err && err.name === 'NotAllowedError') {
+                    updateStatus(audioConnected ? 'Tap to enable audio' : 'Tap to play', false, true, 'play');
+                }
+            }
+        }
+
+        async function enableAudio() {
+            setAudioMuted(false);
+            await playRemoteMedia();
+        }
+
+        function markEnded(message) {
+            ended = true;
+            started = false;
+            updateStatus(message, true, false, 'ended');
+        }
+
+        async function start() {
+            if (started || ended || !SESSION_ID) return;
+            started = true;
+            lastError = null;
+            hideStatus();
+            setDebug(['debug: connecting']);
+            let peer = null;
+            try {
+                callInfo = await api('/calls/' + encodeURIComponent(SESSION_ID));
+                const config = await api('/config');
+                iceTransportPolicy = config.iceTransportPolicy || 'all';
+                peer = pc = new RTCPeerConnection({
+                    iceServers: config.iceServers || [],
+                    iceTransportPolicy: iceTransportPolicy
+                });
+                remoteStream = new MediaStream();
+                applyAudioRoute();
+                remoteVideo.srcObject = remoteStream;
+
+                peer.ontrack = (event) => {
+                    if (pc !== peer || !event.track) {
+                        return;
+                    }
+                    if (!remoteStream.getTracks().includes(event.track)) {
+                        remoteStream.addTrack(event.track);
+                    }
+                    remoteVideo.srcObject = remoteStream;
+                    playRemoteMedia();
+                };
+
+                peer.oniceconnectionstatechange = () => {
+                    if (pc !== peer) return;
+                    const state = peer.iceConnectionState;
+                    if (state === 'disconnected') {
+                        updateStatus('Connection interrupted…', true, false, 'network');
+                    } else if (state === 'connected' || state === 'completed') {
+                        hideStatus('network');
+                        playRemoteMedia();
+                    }
+                };
+
+                peer.onconnectionstatechange = () => {
+                    if (pc !== peer) return;
+                    if (peer.connectionState === 'connected') {
+                        hideStatus('network');
+                        playRemoteMedia();
+                    } else if (peer.connectionState === 'failed' || peer.connectionState === 'closed') {
+                        // The server releases a call when its peer fails or closes.
+                        markEnded('Connection lost — use Reconnect peers on the wall');
+                    }
+                };
+
+                peer.addTransceiver('video', { direction: 'recvonly' });
+                peer.addTransceiver('audio', { direction: 'recvonly' });
+
+                await peer.setLocalDescription(await peer.createOffer());
+                await waitForIceGathering(peer);
+                if (pc !== peer) return;
+
+                const answer = await api('/calls/' + encodeURIComponent(SESSION_ID) + '/offer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sdp: peer.localDescription.sdp,
+                        type: peer.localDescription.type
+                    })
+                });
+                if (pc !== peer) return;
+                await peer.setRemoteDescription(answer);
+                playRemoteMedia();
+            } catch (err) {
+                lastError = err && err.message ? err.message : String(err);
+                if (peer) peer.close();
+                if (pc === peer) pc = null;
+                started = false;
+                if (err && err.status === 404) {
+                    markEnded('Call ended — use Reconnect peers on the wall');
+                } else if (err && err.status === 409) {
+                    markEnded('This call already has a player connected');
+                } else if (err && err.status === 401) {
+                    needsToken = !EMBEDDED;
+                    updateStatus(EMBEDDED ? 'API token rejected — refresh the wall' : 'API token required — tap to enter', true, !EMBEDDED, 'token');
+                } else {
+                    updateStatus('Failed to connect — tap to retry', true, true, 'retry');
+                }
+            }
+        }
+
+        async function startFromWall(muted = false) {
+            setAudioMuted(muted);
+            if (!started) {
+                await start();
+                return;
+            }
+            await playRemoteMedia();
+        }
+        window.startWebrtcPlayer = startFromWall;
+
+        function rate(report, key, seconds) {
+            const previous = previousReports.get(report.id);
+            if (!previous || seconds <= 0 || typeof report[key] !== 'number') return null;
+            return (report[key] - previous[key]) / seconds;
+        }
+
+        // Interval jitter-buffer delay: current playout, not a whole-call average.
+        function jitterBufferMs(report) {
+            if (!report || !report.jitterBufferEmittedCount) return null;
+            const previous = previousReports.get(report.id);
+            if (previous && report.jitterBufferEmittedCount > previous.jitterBufferEmittedCount) {
+                return (report.jitterBufferDelay - previous.jitterBufferDelay) * 1000 /
+                    (report.jitterBufferEmittedCount - previous.jitterBufferEmittedCount);
+            }
+            return (Number(report.jitterBufferDelay || 0) * 1000) / Number(report.jitterBufferEmittedCount);
+        }
+
+        async function updateDebugStats() {
+            const lines = [];
+            const clientSample = {
+                pc: pc ? pc.connectionState : (ended ? 'ended' : 'idle'),
+                videoFps: null,
+                audioJitterMs: null,
+                videoJitterMs: null,
+                audioJitterBufferMs: null,
+                videoJitterBufferMs: null,
+                avJitterBufferDeltaMs: null,
+                droppedFrames: 0,
+                packetsLost: 0,
+                videoCodec: null,
+                audioCodec: null,
+                audioKbps: null,
+                rttMs: null,
+                candidates: null,
+                width: remoteVideo.videoWidth || null,
+                height: remoteVideo.videoHeight || null,
+                playing: !remoteVideo.paused,
+                error: lastError,
+            };
+            if (!pc) {
+                setDebug([ended ? 'debug: call ended' : (lastError ? 'error: ' + lastError : 'debug: idle')]);
+                postStats(clientSample);
+                return;
+            }
+            lines.push('pc: ' + pc.connectionState + ' / ice: ' + pc.iceConnectionState);
+            lines.push('ice policy: ' + iceTransportPolicy);
+            const vTracks = remoteStream ? remoteStream.getVideoTracks().length : 0;
+            const aTracks = remoteStream ? remoteStream.getAudioTracks().length : 0;
+            lines.push('tracks: video=' + vTracks + ' audio=' + aTracks);
+            lines.push('fps target: ' + (callInfo ? callInfo.fps : 'n/a') +
+                ' · ' + (callInfo ? callInfo.width + '×' + callInfo.height : ''));
+            lines.push('audioRoute: video element' + (remoteVideo.muted ? ' muted' : ' audible'));
+            lines.push('playback: ' + (remoteVideo.paused ? 'paused' : 'playing') + (lastPlayError ? ' lastError=' + lastPlayError : ''));
+
+            try {
+                const stats = await pc.getStats();
+                let audioReport = null;
+                let videoReport = null;
+                let transport = null;
+                stats.forEach((r) => {
+                    if (r.type === 'inbound-rtp' && !r.isRemote && (r.kind || r.mediaType) === 'audio') audioReport = r;
+                    if (r.type === 'inbound-rtp' && !r.isRemote && (r.kind || r.mediaType) === 'video') videoReport = r;
+                    if (r.type === 'transport' && r.selectedCandidatePairId) transport = r;
+                });
+                const now = videoReport ? videoReport.timestamp : (audioReport ? audioReport.timestamp : 0);
+                const seconds = (report) => {
+                    const previous = report && previousReports.get(report.id);
+                    return previous ? (report.timestamp - previous.timestamp) / 1000 : 0;
+                };
+                if (videoReport) {
+                    let fps = rate(videoReport, 'framesDecoded', seconds(videoReport));
+                    if (fps === null && typeof videoReport.framesPerSecond === 'number') fps = videoReport.framesPerSecond;
+                    clientSample.videoFps = fps;
+                    clientSample.videoCodec = stats.get(videoReport.codecId)?.mimeType?.split('/')[1] || null;
+                    if (typeof videoReport.jitter === 'number') clientSample.videoJitterMs = videoReport.jitter * 1000;
+                    clientSample.videoJitterBufferMs = jitterBufferMs(videoReport);
+                    clientSample.packetsLost += videoReport.packetsLost || 0;
+                    lines.push('video: ' + (clientSample.videoCodec || 'n/a') + ' ' + (remoteVideo.videoWidth || 0) + '×' + (remoteVideo.videoHeight || 0) +
+                        ' · fps ' + (fps !== null ? fps.toFixed(1) : 'n/a') + ' · lost ' + (videoReport.packetsLost ?? 0));
+                } else {
+                    lines.push('video fps: n/a');
+                }
+                if (audioReport) {
+                    const kbps = rate(audioReport, 'bytesReceived', seconds(audioReport));
+                    clientSample.audioKbps = kbps === null ? null : kbps * 8 / 1000;
+                    clientSample.audioCodec = stats.get(audioReport.codecId)?.mimeType?.split('/')[1] || null;
+                    if (typeof audioReport.jitter === 'number') clientSample.audioJitterMs = audioReport.jitter * 1000;
+                    clientSample.audioJitterBufferMs = jitterBufferMs(audioReport);
+                    clientSample.packetsLost += audioReport.packetsLost || 0;
+                    lines.push('audio: ' + (clientSample.audioCodec || 'n/a') + ' · pkts ' + (audioReport.packetsReceived || 0) +
+                        ' · kbps ' + (clientSample.audioKbps !== null ? clientSample.audioKbps.toFixed(1) : 'n/a') +
+                        ' · lost ' + (audioReport.packetsLost ?? 0));
+                } else {
+                    lines.push('audio inbound: none');
+                }
+                if (clientSample.audioJitterBufferMs !== null && clientSample.videoJitterBufferMs !== null) {
+                    clientSample.avJitterBufferDeltaMs = clientSample.audioJitterBufferMs - clientSample.videoJitterBufferMs;
+                }
+                lines.push('jitter A/V: ' + fmt(clientSample.audioJitterMs) + '/' + fmt(clientSample.videoJitterMs) + ' ms');
+                lines.push('buffer A/V: ' + fmt(clientSample.audioJitterBufferMs) + '/' + fmt(clientSample.videoJitterBufferMs) + ' ms');
+                const pair = transport ? stats.get(transport.selectedCandidatePairId) : null;
+                if (pair) {
+                    const local = stats.get(pair.localCandidateId)?.candidateType || '?';
+                    const remote = stats.get(pair.remoteCandidateId)?.candidateType || '?';
+                    clientSample.candidates = local + ' → ' + remote;
+                    if (typeof pair.currentRoundTripTime === 'number') clientSample.rttMs = pair.currentRoundTripTime * 1000;
+                    lines.push('route: ' + clientSample.candidates + ' · RTT ' + fmt(clientSample.rttMs) + ' ms');
+                }
+                if (typeof remoteVideo.getVideoPlaybackQuality === 'function') {
+                    const quality = remoteVideo.getVideoPlaybackQuality();
+                    clientSample.droppedFrames = quality.droppedVideoFrames || 0;
+                }
+                lines.push('dropped frames: ' + clientSample.droppedFrames);
+                for (const report of [audioReport, videoReport]) {
+                    if (report) previousReports.set(report.id, report);
+                }
+                if (!now) lines.push('stats: waiting for RTP');
+            } catch (err) {
+                lines.push('stats error: ' + err);
+            }
+
+            setDebug(lines);
+            postStats(clientSample);
+        }
+
+        function fmt(value) {
+            return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(1) : 'n/a';
+        }
+
+        function postStats(sample) {
+            if (EMBEDDED) {
+                window.parent.postMessage({
+                    type: 'webrtc-client-stats',
+                    sessionId: SESSION_ID,
+                    stats: sample,
+                }, API_ORIGIN);
+            }
+        }
+
+        let lastTapMs = 0;
+        function handleTap() {
+            const now = Date.now();
+            if (now - lastTapMs < 350) {
+                return;
+            }
+            lastTapMs = now;
+            if (needsToken) {
+                token = (window.prompt('API token for this FlashHead server') || '').trim();
+                needsToken = false;
+            }
+            setAudioMuted(false);
+            if (!started) {
+                start();
+                return;
+            }
+            enableAudio();
+        }
+
+        statusOverlay.addEventListener('pointerdown', handleTap);
+        statusOverlay.addEventListener('click', handleTap);
+        remoteVideo.addEventListener('click', () => { if (remoteVideo.paused) playRemoteMedia(); });
+
+        window.addEventListener('message', (event) => {
+            if (event.origin !== window.location.origin) {
+                return;
+            }
+            const data = event.data || {};
+            if (data.type === 'webrtc-token') {
+                token = typeof data.token === 'string' ? data.token : '';
+                if (tokenWaiter) tokenWaiter(token);
+            } else if (data.type === 'webrtc-debug-mode') {
+                applyDebugMode(data.mode);
+            } else if (data.type === 'webrtc-start') {
+                startFromWall(Boolean(data.muted));
+            } else if (data.type === 'webrtc-audio') {
+                setAudioMuted(Boolean(data.muted));
+                playRemoteMedia();
+            }
+        });
+
+        applyDebugMode(debugMode);
+        applyAudioRoute();
+        setDebug(['debug: idle']);
+        setInterval(updateDebugStats, 2000);
+        if (!SESSION_ID) {
+            markEnded('No call ID in this player URL');
+        } else {
+            start();
+        }
+
+        window.addEventListener('pagehide', () => {
+            if (pc) {
+                pc.close();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -35,13 +35,13 @@ From this repository, using the separately installed SoulX virtual environment:
 ./start_webrtc.sh --size 256 --steps 2 --fps 15 --batch 2
 ```
 
-Open http://127.0.0.1:8765. The server starts listening only after warmup. It
-warms every microbatch size that can occur, including partial batches. Model
-weights are loaded once, not once per connection. Do not run multiple server
-workers on the same GPU.
+Open http://127.0.0.1:8765 for the [multi-peer wall](WEBRTC_WALL.md). The server
+starts listening only after warmup. It warms every microbatch size that can occur,
+including partial batches. Model weights are loaded once, not once per connection.
+Do not run multiple server workers on the same GPU.
 
-The UI accepts an avatar and audio file, or uses the included examples. It
-supports 1–30 second clips. Uploads are bounded to 20 MiB. Image inputs are
+The finite-clip page at http://127.0.0.1:8765/clip accepts an avatar and audio
+file, or uses the included examples. It supports 1–30 second clips. Uploads are bounded to 20 MiB. Image inputs are
 bounded to 16 megapixels. A maximum of ten admitted sessions is a resource
 limit, **not** a guarantee of ten real-time speakers at every profile.
 

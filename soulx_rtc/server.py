@@ -7,6 +7,7 @@ import json
 import logging
 import math
 import os
+import re
 import secrets
 import tempfile
 import time
@@ -249,6 +250,8 @@ class Service:
             for p in sorted(Path("soulx_rtc").glob("*.py"))}
         from .calls import CallService
         self.calls = CallService(self)
+        from .groups import GroupService
+        self.groups = GroupService(self)
         from .tts import KokoroService
         self.tts = KokoroService()
 
@@ -557,29 +560,42 @@ class Service:
                                   "authRequired": bool(self.token)})
 
 
+# Static pages without secrets. Every API they call keeps the bearer-token check;
+# the wall hands its in-memory token to same-origin player frames by postMessage.
+PUBLIC_PAGES = frozenset(("/", "/clip", "/webrtc/wall", "/webrtc/lab", "/webrtc/wall.js"))
+PUBLIC_PAGE_PATTERN = re.compile(r"/webrtc/(?:groups/[A-Za-z0-9_-]{1,64}/wall|player/[A-Za-z0-9_-]{1,64})")
+
+
+def is_public_page(request):
+    return request.method in ("GET", "HEAD") and (
+        request.path in PUBLIC_PAGES or PUBLIC_PAGE_PATTERN.fullmatch(request.path) is not None)
+
+
 def make_app(service):
     @web.middleware
     async def auth(request, handler):
-        if request.path not in ("/", "/webrtc/wall", "/webrtc/wall.js") and service.token:
+        if service.token and not is_public_page(request):
             supplied = request.headers.get("Authorization", "")
             if not secrets.compare_digest(supplied, "Bearer " + service.token):
                 raise web.HTTPUnauthorized(text="Bearer token required")
         return await handler(request)
     app = web.Application(middlewares=[auth], client_max_size=20 * 1024**2)
-    async def index(request):
-        return web.FileResponse(Path(__file__).with_name("index.html"))
-    async def wall(request):
-        return web.FileResponse(Path(__file__).with_name("wall.html"),headers={
-            "Cache-Control":"no-store, max-age=0", "Pragma":"no-cache"})
-    async def wall_script(request):
-        return web.FileResponse(Path(__file__).with_name("wall.js"),headers={
-            "Cache-Control":"no-store, max-age=0", "Pragma":"no-cache"})
-    app.add_routes([web.get("/", index), web.get("/health", service.health),
-        web.get("/webrtc/wall", wall), web.get("/webrtc/wall.js", wall_script),
+    def page(name):
+        async def handler(request):
+            return web.FileResponse(Path(__file__).with_name(name), headers={
+                "Cache-Control": "no-store, max-age=0", "Pragma": "no-cache"})
+        return handler
+    wall = page("wall.html")
+    app.add_routes([web.get("/", wall), web.get("/clip", page("index.html")),
+        web.get("/health", service.health),
+        web.get("/webrtc/wall", wall), web.get("/webrtc/lab", wall),
+        web.get("/webrtc/groups/{gid}/wall", wall), web.get("/webrtc/wall.js", page("wall.js")),
+        web.get("/webrtc/player/{cid}", page("player.html")),
         web.get("/config", service.config), web.post("/sessions", service.create),
         web.get("/sessions/{sid}", service.stats), web.delete("/sessions/{sid}", service.delete),
         web.post("/sessions/{sid}/offer", service.offer)])
     app.add_routes(service.calls.routes())
+    app.add_routes(service.groups.routes())
     app.add_routes(service.tts.routes())
     app.on_startup.append(service.startup)
     app.on_cleanup.append(service.cleanup)

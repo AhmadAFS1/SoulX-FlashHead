@@ -1,0 +1,11 @@
+  1.23s status: No group created.
+  1.41s profile: 320 × 576 · 4 steps · 25 fps · batch 1 · memory compact · optimized, real-rope, int8-weights | Up to 1 rendering call / 10 connected peers · 0 calls open · idle source (idle_active_listening.mp4) · H264 veryfast | GPU ready · FPS, batch and resolution are server launch options; restart the server to change them.
+  1.70s status: Created 2 peers. Audio is enabled only on tile 1.
+  3.22s frames playing: [{"url": "/webrtc/player/QnOnITNJIC5DSPO9_50uPmMW", "w": 320, "h": 576, "t": 1.255, "muted": false, "paused": false, "overlay": ""}, {"url": "/webrtc/player/q3iWqs6PTV7LjrMiuLlHQLBD", "w": 320, "h": 576, "t": 1.254, "muted": true, "paused": false, "overlay": ""}]
+  7.02s status: Started 2; failed 0.
+ 18.49s frames after audio switch: [{"url": "/webrtc/player/QnOnITNJIC5DSPO9_50uPmMW", "w": 320, "h": 576, "t": 16.601, "muted": true, "paused": false, "overlay": ""}, {"url": "/webrtc/player/q3iWqs6PTV7LjrMiuLlHQLBD", "w": 320, "h": 576, "t": 16.602, "muted": false, "paused": false, "overlay": ""}]
+ 18.49s metrics: PEERS | 2 | 2 connected | SPEAKING | 1 | 0 queued turns | FIRST MEDIA | 8746ms | worst peer; submit → first sent frame | NEURAL RENDER | 68.9 fps | GPU while rendering · target 25/speaker | CLIENT BUFFER Δ | 2.1ms | audio vs video jitter buffer | UNDERRUNS | 0 | speech frames held · worst hold 0.00s | GPU | 100% | 4.3GB VRAM | KOKORO | 2057ms | 6.83s audio · RTF 0.30
+ 18.50s tile stats: ["turn complete\nqueue 0 turns \u00b7 0 chunks\nfirst media 0.55s\naudio hold 0.00s\nneural 192 \u00b7 idle 211\nheld 0 \u00b7 underrun 0\nclient JB \u0394 2.1ms\nfps 25.0 \u00b7 drops 5\njitter A/V 1.0ms/0.0ms\nH264/opus \u00b7 RTT 0.0ms", "turn speaking\nqueue 0 turns \u00b7 2 chunks\nfirst media 8.75s\naudio hold 0.00s\nneural 120 \u00b7 idle 346\nheld 0 \u00b7 underrun 0\nclient JB \u0394 0.4ms\nfps 25.0 \u00b7 drops 3\njitter A/V 1.0ms/0.0ms\nH264/opus \u00b7 RTT 0.0ms"]
+ 19.30s mobile no h-scroll: True
+ 27.55s status: Deleted 2 sessions.
+ 27.55s errors: []

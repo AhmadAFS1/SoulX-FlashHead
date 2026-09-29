@@ -1,0 +1,74 @@
+[
+  {
+    "trial": 0,
+    "ui": "old",
+    "peers": [
+      {
+        "audio": {
+          "buffer_ms_median": 33.5,
+          "buffer_ms_max": 34.9
+        },
+        "video": {
+          "buffer_ms_median": 8.8,
+          "buffer_ms_max": 16.4,
+          "fps_median": 24.93,
+          "drops": 0
+        }
+      }
+    ]
+  },
+  {
+    "trial": 0,
+    "ui": "new",
+    "peers": [
+      {
+        "audio": {
+          "buffer_ms_median": 76.2,
+          "buffer_ms_max": 80.0
+        },
+        "video": {
+          "buffer_ms_median": 9.5,
+          "buffer_ms_max": 38.2,
+          "fps_median": 24.93,
+          "drops": 0
+        }
+      }
+    ]
+  },
+  {
+    "trial": 1,
+    "ui": "new",
+    "peers": [
+      {
+        "audio": {
+          "buffer_ms_median": 29.9,
+          "buffer_ms_max": 30.0
+        },
+        "video": {
+          "buffer_ms_median": 11.1,
+          "buffer_ms_max": 16.3,
+          "fps_median": 24.93,
+          "drops": 0
+        }
+      }
+    ]
+  },
+  {
+    "trial": 1,
+    "ui": "old",
+    "peers": [
+      {
+        "audio": {
+          "buffer_ms_median": 29.1,
+          "buffer_ms_max": 29.8
+        },
+        "video": {
+          "buffer_ms_median": 8.5,
+          "buffer_ms_max": 12.8,
+          "fps_median": 24.93,
+          "drops": 0
+        }
+      }
+    ]
+  }
+]

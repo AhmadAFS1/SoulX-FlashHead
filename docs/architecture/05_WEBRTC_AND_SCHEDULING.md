@@ -2,7 +2,7 @@
 
 [Guide index](README.md) · [Previous](04_ENGINE_AND_MEMORY.md) · [Next: TensorRT and tests](06_TENSORRT_AND_TEST_TOOLING.md)
 
-Primary sources: [server.py](../../soulx_rtc/server.py), [calls.py](../../soulx_rtc/calls.py), [worker.py](../../soulx_rtc/worker.py), [codec.py](../../soulx_rtc/codec.py), [browser client](../../soulx_rtc/index.html). Exact request examples remain in [CONTINUOUS_WEBRTC.md](../../CONTINUOUS_WEBRTC.md).
+Primary sources: [server.py](../../soulx_rtc/server.py), [calls.py](../../soulx_rtc/calls.py), [worker.py](../../soulx_rtc/worker.py), [codec.py](../../soulx_rtc/codec.py), [wall](../../soulx_rtc/wall.js), [groups.py](../../soulx_rtc/groups.py), [player](../../soulx_rtc/player.html), [finite-clip client](../../soulx_rtc/index.html). Exact request examples remain in [CONTINUOUS_WEBRTC.md](../../CONTINUOUS_WEBRTC.md).
 
 ## Two service workflows
 

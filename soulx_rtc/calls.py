@@ -382,6 +382,16 @@ class CallService:
         return call
 
     async def create(self, request):
+        async def params():
+            body = await request.json() if request.can_read_body else {}
+            if not isinstance(body,dict):
+                raise ValueError("Expected a JSON object")
+            return body
+        call = await self.create_call(params)
+        return web.json_response(call.metrics(),status=201)
+
+    async def create_call(self, params):
+        """Admit, prepare and register one call. ``params`` is awaited after admission."""
         service = self.service
         if not service.ready:
             raise web.HTTPServiceUnavailable(text="GPU worker is not ready")
@@ -390,9 +400,7 @@ class CallService:
         service.pending += 1
         cached_clip = None
         try:
-            params = await request.json() if request.can_read_body else {}
-            if not isinstance(params,dict):
-                raise ValueError("Expected a JSON object")
+            params = await params() if callable(params) else params
             seed = int(params.get("seed",50))
             if not 0<=seed<2**63:
                 raise ValueError("Seed must be an integer from 0 through 2**63-1")
@@ -433,7 +441,7 @@ class CallService:
                         idle_policy=policy, avatar_id=avatar['id'], avatar_name=avatar['name'],media=service.media)
             self.items[call.id] = call
             cached_clip = None  # Lease now belongs to IdleVideo.close().
-            return web.json_response(call.metrics(),status=201)
+            return call
         except (ValueError, TypeError, OSError) as exc:
             raise web.HTTPBadRequest(text=str(exc)) from exc
         finally:
@@ -475,26 +483,40 @@ class CallService:
             await self.close(c)
             raise
 
+    @staticmethod
+    def check_turn_id(turn_id):
+        if not turn_id or len(turn_id)>128 or turn_id.startswith("_idle:"):
+            raise web.HTTPBadRequest(text="X-Turn-ID required (1–128 characters)")
+
     async def append(self, request):
-        from .server import decode_audio
         if not self.service.ready:
             raise web.HTTPServiceUnavailable(text="GPU worker is not ready")
         c = self.get(request)
         if c.closed or c.error:
             raise web.HTTPConflict(text="Call is not healthy")
         turn_id = request.headers.get("X-Turn-ID","")
-        if not turn_id or len(turn_id)>128 or turn_id.startswith("_idle:"):
-            raise web.HTTPBadRequest(text="X-Turn-ID required (1–128 characters)")
+        self.check_turn_id(turn_id)
         read_started = time.perf_counter()
         data = await request.read()
         upload_read_ms = (time.perf_counter()-read_started)*1000
+        summary, status = await self.append_turn(c, turn_id, data, upload_read_ms)
+        return web.json_response(summary, status=status)
+
+    async def append_turn(self, c, turn_id, data, upload_read_ms=0.):
+        """Idempotently queue one turn. Returns (summary, 202 new | 200 replay)."""
+        from .server import decode_audio
+        if not self.service.ready:
+            raise web.HTTPServiceUnavailable(text="GPU worker is not ready")
+        if c.closed or c.error:
+            raise web.HTTPConflict(text="Call is not healthy")
+        self.check_turn_id(turn_id)
         digest = hashlib.sha256(data).hexdigest()
         async with c.control_lock:
             if turn_id in c.turns:
                 existing = c.turns[turn_id]
                 if existing.digest != digest:
                     raise web.HTTPConflict(text="Turn ID already belongs to different audio")
-                return web.json_response(existing.summary())
+                return existing.summary(), 200
             if len(c.queue)>=4:
                 raise web.HTTPTooManyRequests(text="Turn queue full")
             if len(c.turns)>=2048:
@@ -523,7 +545,7 @@ class CallService:
                                  transport_resample=transport_resample_ms,media_wait=media_wait_ms)
             c.turns[turn_id] = turn
             c.queue.append(turn)
-            return web.json_response(turn.summary(),status=202)
+            return turn.summary(), 202
 
     async def schedule_once(self):
         service = self.service
@@ -645,6 +667,10 @@ class CallService:
 
     async def interrupt(self, request):
         c = self.get(request)
+        await self.interrupt_call(c)
+        return web.json_response(c.metrics())
+
+    async def interrupt_call(self, c):
         async with c.control_lock:
             c.epoch += 1
             c.boundaries.cancel()
@@ -671,7 +697,6 @@ class CallService:
                 except RuntimeError as exc:
                     self.service.mark_unhealthy(exc)
                     raise web.HTTPServiceUnavailable(text="GPU reconditioning failed; worker restart required") from exc
-            return web.json_response(c.metrics())
 
     async def stats(self, request):
         return web.json_response(self.get(request).metrics())
