@@ -122,7 +122,7 @@ def block_statistics(fit_rows, w1, b1):
     return gram, torch.stack(means), counts
 
 
-def obs_order(gram, w2, remove, damp=0.01, batch=1):
+def obs_order(gram, w2, remove, damp=0.01, batch=1, dtype=torch.float64):
     """Greedy OBS removal of ``remove`` whole columns of w2 (D x n).
 
     ``batch`` columns are removed per update (the lowest current scores), with
@@ -131,11 +131,11 @@ def obs_order(gram, w2, remove, damp=0.01, batch=1):
     error (sum over calibration tokens, unweighted).
     """
     n = gram.shape[0]
-    h = gram.clone()
+    h = gram.to(dtype).clone()
     h.diagonal().add_(damp * h.diagonal().mean())
     hinv = torch.cholesky_inverse(torch.linalg.cholesky(h))
     del h
-    w = w2.double().clone()
+    w = w2.to(dtype).clone()
     alive = torch.ones(n, dtype=torch.bool)
     order, errors = [], []
     cumulative = 0.0
@@ -158,7 +158,7 @@ def obs_order(gram, w2, remove, damp=0.01, batch=1):
     return order, errors
 
 
-def refit(gram, means, w2, b2, kept, damp=0.01):
+def refit(gram, means, w2, b2, kept, damp=0.01, dtype=torch.float64):
     """Least-squares W2 on kept units plus one compensating bias per timestep.
 
     Solves the same damped objective that ``obs_order`` ranks with,
@@ -166,8 +166,8 @@ def refit(gram, means, w2, b2, kept, damp=0.01):
     so damping regularises toward the original weights (keeping every unit
     returns W2 exactly) rather than shrinking kept columns toward zero.
     """
-    g = gram.double()
-    w = w2.double()
+    g = gram.to(dtype)
+    w = w2.to(dtype)
     lam = damp * g.diagonal().mean()
     h = g[kept][:, kept].clone()
     h.diagonal().add_(lam)
@@ -175,6 +175,7 @@ def refit(gram, means, w2, b2, kept, damp=0.01):
     solution = torch.cholesky_solve(rhs, torch.linalg.cholesky(h))  # (k x D)
     w2_new = solution.T.contiguous()       # (D x k)
     # Exact mean restoration for each timestep: W2 mu_t - W2' mu_t,K.
+    means = means.to(dtype)
     step_bias = means @ w.T - means[:, kept] @ solution
     return w2_new.float(), b2.float(), step_bias.float()
 
@@ -230,7 +231,8 @@ def fit(args):
     report_path = out / 'fit.json'
     header = {'capture': json.loads((capture_dir / 'capture.json').read_text()), 'damp': args.damp,
               'obs_batch': args.batch, 'ratios': ratios, 'holdout': 'every tenth captured token per timestep',
-              'refit': 'damped toward original W2 (same objective as the OBS order)'}
+              'refit': 'damped toward original W2 (same objective as the OBS order)',
+              'solve_precision': args.solve_precision}
     if report_path.exists() and (args.resume or args.blocks):
         report = json.loads(report_path.read_text())
         for key, value in header.items():
@@ -255,7 +257,8 @@ def fit(args):
             timings['gram'] = time.perf_counter() - mark
             energy = float(torch.einsum('dn,nm,dm->', w2.double(), gram, w2.double()))
             mark = time.perf_counter()
-            order, _ = obs_order(gram, w2, remove, args.damp, args.batch)
+            dtype = torch.float32 if args.solve_precision == 'float32' else torch.float64
+            order, _ = obs_order(gram, w2, remove, args.damp, args.batch, dtype)
             timings['obs'] = time.perf_counter() - mark
             mark = time.perf_counter()
             entry = {'fit_tokens': counts, 'holdout_tokens': [int(f.shape[0]) for f in held_rows],
@@ -264,7 +267,7 @@ def fit(args):
             for ratio in ratios:
                 removed = set(order[:int(round(ratio * cfg.ffn_dim))])
                 kept = torch.tensor([j for j in range(cfg.ffn_dim) if j not in removed])
-                w2_new, _, step_bias = refit(gram, means, w2, b2, kept, args.damp)
+                w2_new, _, step_bias = refit(gram, means, w2, b2, kept, args.damp, dtype)
                 if args.predicted_error:
                     entry['predicted_relative_error'][str(ratio)] = predicted_error(gram, w2, kept, w2_new) / energy
                 fitted[str(ratio)] = {'kept': kept.to(torch.int32), 'w2': w2_new, 'step_bias': step_bias}
@@ -385,6 +388,8 @@ def main():
     f.add_argument('--damp', type=float, default=0.01)
     f.add_argument('--batch', type=int, default=64, help='OBS columns removed per downdate')
     f.add_argument('--predicted-error', action='store_true', help='Also report in-sample error (slow)')
+    f.add_argument('--solve-precision', choices=['float32', 'float64'], default='float32',
+                   help='OBS/refit linear algebra; the Gram is accumulated in float64 either way')
     f.add_argument('--blocks', help='Comma-separated layer ids (default: all)')
     f.add_argument('--resume', action='store_true')
     f.add_argument('--threads', type=int, default=4)
