@@ -8,6 +8,8 @@ public struct SoulXChunk: @unchecked Sendable {
     public let startFrame: Int
     public let inferenceSeconds: Double
     public let fps: Double
+    public let windowProfile: SoulXWindowProfile?
+    public let audioEncoderStatus: SoulXAudioEncoderStatus
     public var generationFPS: Double { Double(frames.count) / max(inferenceSeconds, 0.000001) }
 }
 
@@ -17,6 +19,10 @@ public struct SoulXChunk: @unchecked Sendable {
 public actor SoulXEngine {
     public let modelsDirectory: URL
     private let computeUnits: MLComputeUnits
+    private let audioComputeUnits: MLComputeUnits?
+    private let prefetchAudio: Bool
+    private let prefetchBlocks: Bool
+    private let collectModelTimings: Bool
     private var store: SoulXModelStore?
     private var reference: MLMultiArray?
     private var referenceColors: SoulXColorStatistics?
@@ -28,9 +34,15 @@ public actor SoulXEngine {
     private var generationID = UUID()
     private var generating = false
 
-    public init(modelsDirectory: URL, computeUnits: MLComputeUnits = .all) {
+    public init(modelsDirectory: URL, computeUnits: MLComputeUnits = .all,
+                audioComputeUnits: MLComputeUnits? = nil,
+                collectModelTimings: Bool = false, prefetchAudio: Bool = false, prefetchBlocks: Bool = false) {
         self.modelsDirectory = modelsDirectory
         self.computeUnits = computeUnits
+        self.audioComputeUnits = audioComputeUnits
+        self.prefetchAudio = prefetchAudio
+        self.prefetchBlocks = prefetchBlocks || ProcessInfo.processInfo.arguments.contains("--prefetch-blocks")
+        self.collectModelTimings = collectModelTimings || ProcessInfo.processInfo.arguments.contains("--model-timings")
     }
 
     public nonisolated static func modelStatus(at directory: URL) -> SoulXModelStatus {
@@ -61,7 +73,9 @@ public actor SoulXEngine {
         guard !generating else { throw SoulXError.invalidTensor("Finish or cancel the current stream before changing portraits") }
         reset()
         onProgress("Checking model files")
-        let loaded = try SoulXModelStore(directory: modelsDirectory, computeUnits: computeUnits)
+        let loaded = try SoulXModelStore(directory: modelsDirectory, computeUnits: computeUnits,
+                                         audioComputeUnits: audioComputeUnits,
+                                         collectTimings: collectModelTimings)
         let configuration = loaded.manifest
         onProgress("Preparing portrait")
         let (input, colors) = try SoulXImage.prepare(image, height: configuration.height, width: configuration.width)
@@ -117,100 +131,237 @@ public actor SoulXEngine {
         let totalFrames = Int(ceil(Double(audio.count) * Double(configuration.fps) / Double(configuration.sampleRate)))
         let samplesPerFrame = configuration.sampleRate / configuration.fps
         let samplesPerChunk = configuration.usefulFrames * samplesPerFrame
-        var emitted = 0
-        var emittedChunks = 0
-        while emitted < totalFrames {
-            try check(token)
-            let started = Date.timeIntervalSinceReferenceDate
-            let firstSample = emitted * samplesPerFrame
-            var chunkAudio = [Float](repeating: 0, count: samplesPerChunk)
-            let available = min(samplesPerChunk, audio.count - firstSample)
-            if available > 0 { chunkAudio.replaceSubrange(0..<available, with: audio[firstSample..<(firstSample + available)]) }
-            audioHistory.removeFirst(samplesPerChunk)
-            audioHistory.append(contentsOf: chunkAudio)
-            onProgress("Encoding audio · window \(emitted / configuration.usefulFrames + 1)")
-            // Normalization is inside the exported audio model.
-            let waveform = try SoulXTensor.make([1, 128000], values: audioHistory, type: .float32)
-            let features = try store.predict("audio", inputs: ["waveform": waveform], output: "features")
-            let context = try store.predict("conditioning", inputs: ["audio": SoulXAudio.windows(features)], output: "context")
-            store.unload("audio")
-            store.unload("conditioning")
-            try check(token)
-            let plane = configuration.latentHeight * configuration.latentWidth
-            var latentValues = noise.normals(count: 16 * 9 * plane)
-            for step in 0..<2 {
+        let supportsOverlap = configuration.height == 320 && configuration.width == 176
+        let worker = prefetchAudio && supportsOverlap ? try SoulXAudioLookahead(modelsDirectory: modelsDirectory,
+                                                             computeUnits: computeUnits, audioComputeUnits: audioComputeUnits,
+                                                             collectModelTimings: collectModelTimings) : nil
+        try await withThrowingTaskGroup(of: SoulXPrefetchedAudio.self) { group in
+            var pendingAudioFrame: Int?
+            var completedAudio: SoulXPrefetchedAudio?
+            var prefetchAllowed = worker != nil
+            var blockPreloadAllowed = prefetchBlocks && supportsOverlap
+            var emitted = 0
+            var emittedChunks = 0
+            while emitted < totalFrames {
                 try check(token)
-                restoreMotion(into: &latentValues, plane: plane)
-                let latent = try SoulXTensor.make(configuration.latentShape, values: latentValues)
-                let timestep = try SoulXTensor.make([1], values: [configuration.samplingSteps[step]], type: .float32)
-                var hidden = try store.predict("patch", inputs: ["latent": latent, "reference": reference], output: "hidden")
-                for index in 0..<configuration.blockCount {
+                store.beginWindow()
+                let started = Date.timeIntervalSinceReferenceDate
+                let firstSample = emitted * samplesPerFrame
+                let chunkAudio = Self.audioSlice(audio, start: firstSample, length: samplesPerChunk)
+                Self.append(chunkAudio, to: &audioHistory)
+                onProgress("Encoding audio · window \(emitted / configuration.usefulFrames + 1)")
+                let context: MLMultiArray
+                if let prefetchedFrame = pendingAudioFrame {
+                    guard prefetchedFrame == emitted else { throw SoulXError.invalidTensor("Audio lookahead frame mismatch") }
+                    let waitStart = ProcessInfo.processInfo.systemUptime
+                    let outcome: Result<SoulXPrefetchedAudio, Error>
+                    if let completedAudio {
+                        outcome = .success(completedAudio)
+                    } else if let next = await group.nextResult() {
+                        outcome = next
+                    } else {
+                        throw SoulXError.invalidTensor("Missing prefetched audio context")
+                    }
+                    let waited = ProcessInfo.processInfo.systemUptime - waitStart
                     try check(token)
-                    let name = String(format: "blocks_%02d", index)
-                    onProgress("Generating · step \(step + 1)/2 · part \(index + 1)/\(configuration.blockCount)")
-                    let stage = Date.timeIntervalSinceReferenceDate
-                    hidden = try store.predict(name, inputs: ["hidden": hidden, "context": context, "timestep": timestep], output: "hidden_out")
-                    print("SOULX_EVENT partition name=\(name) step=\(step) seconds=\(Date.timeIntervalSinceReferenceDate - stage)")
+                    switch outcome {
+                    case .success(let result):
+                        context = try result.makeContext()
+                        store.adoptPrefetchedAudioStatus(result.audioEncoderStatus)
+                        store.recordPrefetchedAudio(models: result.modelTimings, packing: result.packingSeconds,
+                                                    worker: result.preparationSeconds, wait: waited)
+                    case .failure(let error):
+                        prefetchAllowed = false
+                        store.recordAudioPrefetchFallback(error, waited: waited)
+                        context = try serialAudioContext(store: store)
+                    }
+                    pendingAudioFrame = nil
+                    completedAudio = nil
+                } else {
+                    context = try serialAudioContext(store: store)
                 }
-                let prediction = try store.predict("head", inputs: ["hidden": hidden, "timestep": timestep], output: "flow")
-                _ = try SoulXTensor.checked(prediction, shape: configuration.latentShape, name: "flow")
-                let flow = SoulXTensor.values(prediction)
-                let time = configuration.samplingSteps[step] / 1000
-                let next = configuration.samplingSteps[step + 1] / 1000
-                for i in latentValues.indices {
-                    let initial = latentValues[i] - time * flow[i]
-                    // Preserve a draw at the final zero-noise step so repeatable
-                    // Swift sessions consume the same stream across windows.
-                    latentValues[i] = (1 - next) * initial + next * noise.normal()
-                }
-                guard latentValues.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Denoising produced non-finite values") }
-            }
-            store.unloadLastBlock()
-            restoreMotion(into: &latentValues, plane: plane)
-            try check(token)
-            onProgress("Decoding generated video")
-            let denoised = try SoulXTensor.make(configuration.latentShape, values: latentValues)
-            let decodeInput = try SoulXTensor.temporalFirst(denoised, height: configuration.latentHeight, width: configuration.latentWidth)
-            let decoded = try store.predict("decoder", inputs: ["latent": decodeInput], output: "frames")
-            let visibleCount = min(configuration.usefulFrames, totalFrames - emitted)
-            var images: [CGImage] = []
-            images.reserveCapacity(visibleCount)
-            var feedback = [Float]()
-            feedback.reserveCapacity(5 * 3 * configuration.height * configuration.width)
-            // History positions 0...4 are never displayed or fed back. Decode
-            // still computes them because window-mode causal context needs them.
-            for frame in configuration.historyFrames..<configuration.framesPerWindow {
                 try check(token)
-                let rgb = try SoulXImage.correctedFrame(decoded, index: frame, height: configuration.height, width: configuration.width,
-                                                        reference: colors, strength: configuration.colorCorrectionStrength)
-                if frame >= configuration.framesPerWindow - configuration.historyFrames { feedback.append(contentsOf: rgb) }
-                if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
+                let visibleCount = min(configuration.usefulFrames, totalFrames - emitted)
+                let nextFrame = emitted + visibleCount
+                let hasNextChunk = nextFrame < totalFrames && emittedChunks + 1 < (maximumChunks ?? Int.max)
+                if prefetchAllowed, let worker, hasNextChunk {
+                    if store.canOverlapAudio(starting: true) {
+                        var history = audioHistory
+                        Self.append(Self.audioSlice(audio, start: nextFrame * samplesPerFrame, length: samplesPerChunk), to: &history)
+                        let snapshot = history
+                        let fallback = store.audioEncoderStatus.fallbackActive
+                        guard group.addTaskUnlessCancelled(priority: .utility, operation: {
+                            try await worker.context(for: snapshot, inheritCPUFallback: fallback)
+                        }) else { throw CancellationError() }
+                        pendingAudioFrame = nextFrame
+                        store.nextAudioPrefetch("scheduled", active: true)
+                    } else {
+                        store.nextAudioPrefetch("serial: insufficient headroom or unsupported profile", active: false)
+                    }
+                }
+                let plane = configuration.latentHeight * configuration.latentWidth
+                var latentValues = noise.normals(count: 16 * 9 * plane)
+                for step in 0..<2 {
+                    try check(token)
+                    restoreMotion(into: &latentValues, plane: plane)
+                    let latent = try SoulXTensor.make(configuration.latentShape, values: latentValues)
+                    let timestep = try SoulXTensor.make([1], values: [configuration.samplingSteps[step]], type: .float32)
+                    let patch = try store.predict("patch", inputs: ["latent": latent, "reference": reference], output: "hidden")
+                    let pass = try await runBlocks(patch, context: context, timestep: timestep, step: step, store: store,
+                                                   token: token, preload: blockPreloadAllowed, onProgress: onProgress) {
+                        if pendingAudioFrame != nil, completedAudio == nil, !store.canOverlapAudio(starting: false) {
+                            group.cancelAll()
+                            if case .success(let result) = await group.nextResult() {
+                                completedAudio = result
+                            } else {
+                                pendingAudioFrame = nil
+                            }
+                            prefetchAllowed = false
+                            store.nextAudioPrefetch("drained: low headroom", active: false)
+                        }
+                    }
+                    blockPreloadAllowed = pass.preload
+                    let prediction = try store.predict("head", inputs: ["hidden": pass.hidden, "timestep": timestep], output: "flow")
+                    _ = try SoulXTensor.checked(prediction, shape: configuration.latentShape, name: "flow")
+                    let flow = SoulXTensor.values(prediction)
+                    let time = configuration.samplingSteps[step] / 1000
+                    let next = configuration.samplingSteps[step + 1] / 1000
+                    for i in latentValues.indices {
+                        let initial = latentValues[i] - time * flow[i]
+                        // Preserve a draw at the final zero-noise step so repeatable
+                        // Swift sessions consume the same stream across windows.
+                        latentValues[i] = (1 - next) * initial + next * noise.normal()
+                    }
+                    guard latentValues.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Denoising produced non-finite values") }
+                }
+                restoreMotion(into: &latentValues, plane: plane)
+                try check(token)
+                onProgress("Decoding generated video")
+                let denoised = try SoulXTensor.make(configuration.latentShape, values: latentValues)
+                let decodeInput = try SoulXTensor.temporalFirst(denoised, height: configuration.latentHeight, width: configuration.latentWidth)
+                let decoded = try store.predict("decoder", inputs: ["latent": decodeInput], output: "frames")
+                var images: [CGImage] = []
+                images.reserveCapacity(visibleCount)
+                var feedback = [Float]()
+                feedback.reserveCapacity(5 * 3 * configuration.height * configuration.width)
+                // History positions 0...4 are never displayed or fed back. Decode
+                // still computes them because window-mode causal context needs them.
+                for frame in configuration.historyFrames..<configuration.framesPerWindow {
+                    try check(token)
+                    let rgb = try SoulXImage.correctedFrame(decoded, index: frame, height: configuration.height, width: configuration.width,
+                                                            reference: colors, strength: configuration.colorCorrectionStrength)
+                    if frame >= configuration.framesPerWindow - configuration.historyFrames { feedback.append(contentsOf: rgb) }
+                    if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
+                }
+                store.unload("decoder")
+                onProgress("Updating motion history")
+                let feedbackInput = try SoulXTensor.make([1, 5, 3, configuration.height, configuration.width], values: feedback)
+                let encoded = try store.predict("encoder", inputs: ["frames": feedbackInput], output: "motion")
+                _ = try SoulXTensor.checked(encoded, shape: [1, 16, 2, configuration.latentHeight, configuration.latentWidth], name: "motion")
+                let nextMotion = SoulXTensor.values(encoded)
+                store.unload("encoder")
+                guard nextMotion.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Motion encoder produced non-finite values") }
+                try check(token)
+                motion = nextMotion
+                motionTimes = 2
+                let duration = Date.timeIntervalSinceReferenceDate - started
+                let chunk = SoulXChunk(frames: images, samples: Array(chunkAudio.prefix(visibleCount * samplesPerFrame)),
+                                       startFrame: outputFrame, inferenceSeconds: duration, fps: Double(configuration.fps),
+                                       windowProfile: store.windowProfile, audioEncoderStatus: store.audioEncoderStatus)
+                print("SOULX_EVENT window_ready frames=\(visibleCount) seconds=\(duration) generated_fps=\(chunk.generationFPS)")
+                outputFrame += visibleCount
+                emitted += visibleCount
+                emittedChunks += 1
+                onProgress("Streaming generated frames")
+                try await onChunk(chunk)
+                if let maximumChunks, emittedChunks >= maximumChunks { break }
             }
-            store.unload("decoder")
-            onProgress("Updating motion history")
-            let feedbackInput = try SoulXTensor.make([1, 5, 3, configuration.height, configuration.width], values: feedback)
-            let encoded = try store.predict("encoder", inputs: ["frames": feedbackInput], output: "motion")
-            _ = try SoulXTensor.checked(encoded, shape: [1, 16, 2, configuration.latentHeight, configuration.latentWidth], name: "motion")
-            let nextMotion = SoulXTensor.values(encoded)
-            store.unload("encoder")
-            guard nextMotion.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Motion encoder produced non-finite values") }
-            try check(token)
-            motion = nextMotion
-            motionTimes = 2
-            let duration = Date.timeIntervalSinceReferenceDate - started
-            let chunk = SoulXChunk(frames: images, samples: Array(chunkAudio.prefix(visibleCount * samplesPerFrame)),
-                                   startFrame: outputFrame, inferenceSeconds: duration, fps: Double(configuration.fps))
-            print("SOULX_EVENT window_ready frames=\(visibleCount) seconds=\(duration) generated_fps=\(chunk.generationFPS)")
-            outputFrame += visibleCount
-            emitted += visibleCount
-            emittedChunks += 1
-            onProgress("Streaming generated frames")
-            try await onChunk(chunk)
-            if let maximumChunks, emittedChunks >= maximumChunks { break }
         }
         try check(token)
         completed = true
         onProgress("Generation complete")
+    }
+
+    /// A failed speculative load disables further speculation for this stream.
+    /// The normal loader still runs when the partition itself is needed.
+    private func runBlocks(_ patch: MLMultiArray, context: MLMultiArray, timestep: MLMultiArray, step: Int,
+                           store: SoulXModelStore, token: UUID, preload: Bool,
+                           onProgress: @Sendable (String) -> Void, beforeBlock: () async throws -> Void)
+        async throws -> (hidden: MLMultiArray, preload: Bool) {
+        var hidden = patch
+        let blockCount = store.manifest.blockCount
+        func predict(index: Int, name: String, started: Double) throws {
+            try check(token)
+            onProgress("Generating · step \(step + 1)/2 · part \(index + 1)/\(blockCount)")
+            hidden = try store.predict(name, inputs: ["hidden": hidden, "context": context, "timestep": timestep], output: "hidden_out")
+            store.unload(name)
+            print("SOULX_EVENT partition name=\(name) step=\(step) seconds=\(ProcessInfo.processInfo.systemUptime - started)")
+        }
+
+        guard preload else {
+            for index in 0..<blockCount {
+                try await beforeBlock()
+                try predict(index: index, name: String(format: "blocks_%02d", index), started: ProcessInfo.processInfo.systemUptime)
+            }
+            return (hidden, false)
+        }
+
+        var allowed = true
+        try await withThrowingTaskGroup(of: SoulXLoadedBlock.self) { blocks in
+            var pendingIndex: Int?
+            for index in 0..<blockCount {
+                try await beforeBlock()
+                try check(token)
+                let name = String(format: "blocks_%02d", index)
+                let started = ProcessInfo.processInfo.systemUptime
+                if let pending = pendingIndex {
+                    guard pending == index else { throw SoulXError.invalidTensor("Partition lookahead index mismatch") }
+                    guard let next = await blocks.nextResult() else { throw SoulXError.invalidTensor("Missing partition lookahead") }
+                    try check(token)
+                    switch next {
+                    case .success(let block):
+                        try store.installPrefetchedBlock(block, expected: name, waitSeconds: ProcessInfo.processInfo.systemUptime - started)
+                    case .failure(let error):
+                        allowed = false
+                        store.recordBlockPrefetchFallback(error)
+                    }
+                    pendingIndex = nil
+                }
+                let nextIndex = index + 1
+                if allowed, nextIndex < blockCount {
+                    try store.prepareCurrentBlock(name)
+                    let nextName = String(format: "blocks_%02d", nextIndex)
+                    if let request = store.blockLoadRequest(nextName) {
+                        guard blocks.addTaskUnlessCancelled(priority: .userInitiated, operation: {
+                            try request.load()
+                        }) else { throw CancellationError() }
+                        pendingIndex = nextIndex
+                    }
+                }
+                try predict(index: index, name: name, started: started)
+            }
+        }
+        return (hidden, allowed)
+    }
+
+    private static func audioSlice(_ audio: [Float], start: Int, length: Int) -> [Float] {
+        var result = [Float](repeating: 0, count: length)
+        let available = min(length, audio.count - start)
+        if available > 0 { result.replaceSubrange(0..<available, with: audio[start..<(start + available)]) }
+        return result
+    }
+
+    private static func append(_ samples: [Float], to history: inout [Float]) {
+        history.removeFirst(samples.count)
+        history.append(contentsOf: samples)
+    }
+
+    private func serialAudioContext(store: SoulXModelStore) throws -> MLMultiArray {
+        let waveform = try SoulXTensor.make([1, 128000], values: audioHistory, type: .float32)
+        let packed = try store.packedAudio(waveform: waveform)
+        let context = try store.predict("conditioning", inputs: ["audio": packed], output: "context")
+        store.unload("conditioning")
+        return context
     }
 
     private func check(_ token: UUID) throws {

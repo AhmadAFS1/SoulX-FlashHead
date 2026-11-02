@@ -1,0 +1,874 @@
+{
+  "date_utc": "2026-11-02T21:48:10.375814+00:00",
+  "hardware": {
+    "co_resident_load": "Unknown; conversion and device tests may be co-resident",
+    "driver_runtime": "Core ML / Metal supplied by Version 27.0.1 (Build 26A434)",
+    "evidence": "MTLCreateSystemDefaultDevice and ProcessInfo APIs on this Mac",
+    "gpu_model": "Apple M5 Pro",
+    "metal_recommended_working_set_bytes": 19069665280,
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Unified system memory; no dedicated VRAM",
+    "thermal_state_at_start": 0,
+    "visible_vram": "Metal recommendedMaxWorkingSetSize is a budget, not physical VRAM"
+  },
+  "execution_environment": "Native Mac Core ML via the frozen Swift runner; requested cpuAndGPU. Physical device placement has not been measured.",
+  "co_resident_load": "Project GPU benchmarks serialized by coordination. Other agents performed CPU-only work, OS and application load unmeasured.",
+  "workload": "PRO320: 320 high by 176 wide, full 30 layers, schedule [1000,625,0], measured four 28-frame windows with the same cached girl portrait and active speech. Six independent processes per comparison in A B B A A B order. First generated window excluded from pooled warm FPS.",
+  "cli_sha256": "e48ece5179ec0c8a52ba69de947269d25f8a76814fdba2152a36c2b2ef12f0e7",
+  "coreml_runtime": "Core ML / Metal supplied by Version 27.0.1 (Build 26A434)",
+  "protocol": {
+    "fps": "Sum of generated frames divided by sum of window inference_seconds across windows 2\u20134 of each run. Timings include inference and image preparation; PNG writes follow window timing.",
+    "denoise_stage_interval": "First partition callback in step one to decoder callback. Includes both denoising steps and inter-step scheduler work.",
+    "quality": "Compare undecorated decoded 8-bit RGB pixels across all 112 temporally matching frames per run. PSNR null when exactly equal.",
+    "mouth_roi": "Fixed x:[62,132), y:[186,236) rectangle selected from the first baseline 176\u00d7320 portrait frame. This tests output preservation, not independent lip-sync correctness.",
+    "model_bytes": "Bytes on disk, not peak resident memory."
+  },
+  "exports": {
+    "pro320": {
+      "profile": "pro320",
+      "source_checkpoint_sha256": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+      "blocks_per_chunk": 3,
+      "fuse_qkv": false,
+      "precision": "mixed",
+      "compression": "int8",
+      "partition_calls_per_two_step_window": 20,
+      "largest_partition_bytes_on_disk": 140298026,
+      "total_partition_bytes_on_disk": 1402980260,
+      "partitions": {
+        "blocks_00": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "f3cb7c425102c444be771e64f7d28bd5833002db4a7f222cf9a1475cc6689660"
+          }
+        },
+        "blocks_01": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "48ff08b357e3a0c53505c20c5ef3e81c38437b643fd925989adf0099e141f842"
+          }
+        },
+        "blocks_02": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "6f7b7019006dcff994fc59c923c9665ddfeb9cc785baa53c9400bed7220adc44"
+          }
+        },
+        "blocks_03": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "7ac6d48a77d66babfe2fab49c2d1a9ab2475cb28c8a91c39429dc1db90f62b47"
+          }
+        },
+        "blocks_04": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "bb2eb0583b27652fc3d00c256d34d10ede75a8a57fc52fb1beb87de1e13ab2fd"
+          }
+        },
+        "blocks_05": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "f9d330200f5cd0498f2a3ef0a19a8b67e052f25c551484cda61a1c6221a6b9dc"
+          }
+        },
+        "blocks_06": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "f9ccffa54deaad82fbc2e1b54e09ee4e40d4d170b4fec252f12e70cec7b552ed"
+          }
+        },
+        "blocks_07": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "e6a4c9a15809bb84106eab815fa03c534c8554354909230ff09659c62b341bdd"
+          }
+        },
+        "blocks_08": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "38f0938b80f63e47711608154ae99d85cd8f2d98afb8a9e7bf704f2a48482a0b"
+          }
+        },
+        "blocks_09": {
+          "bytes": 140298026,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "b83c2eb1b8f7a9340f5375134fbc9842fc42f28d0f6712a3deb3923125d0dde1",
+            "Data/com.apple.CoreML/weights/weight.bin": "e03f695bd46c580a307b3d426d4579a45ea8ad190e3cf264b40054580becfffb"
+          }
+        }
+      },
+      "cpu_only_component_gate": {
+        "source": "artifacts/coreml/pro320/dit_validation.json",
+        "environment": {
+          "date_utc": "2026-11-02T05:06:52.473360+00:00",
+          "execution": "CPU-only Core ML prediction and PyTorch reference; no GPU inference",
+          "gpu_model": "none used",
+          "physical_or_visible_vram": "not applicable to CPU-only validation",
+          "hardware_evidence": "Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl",
+          "cpu": "Apple M5 Pro",
+          "physical_memory_bytes": 25769803776,
+          "os": "macOS-27.0.1-arm64-arm-64bit",
+          "driver": "not applicable (CPU only)",
+          "runtime": {
+            "torch": "2.7.0",
+            "coremltools": "9.0"
+          },
+          "co_resident_load": "Other conversion jobs may be running; timings are not benchmarked"
+        },
+        "cases": 24,
+        "passed": true,
+        "maximum_normalized_rmse": 0.046821789537467615,
+        "failed_cases": []
+      }
+    },
+    "pro320-fused": {
+      "profile": "pro320-fused",
+      "source_checkpoint_sha256": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+      "blocks_per_chunk": 3,
+      "fuse_qkv": true,
+      "precision": "mixed",
+      "compression": "int8",
+      "partition_calls_per_two_step_window": 20,
+      "largest_partition_bytes_on_disk": 140292512,
+      "total_partition_bytes_on_disk": 1402925120,
+      "partitions": {
+        "blocks_00": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "e0f038f42615bd6bfeed817097bf7ed1e7e1884f0fd6d03e11a606c05094eda6"
+          }
+        },
+        "blocks_01": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "13bdde3fe806f4a98cfee3cff94c50adae988fddd05d9d4181b8ad1c37729327"
+          }
+        },
+        "blocks_02": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "07ee57dc2f57ef7a10620c94556eedeb6c74025e763f2b2663a15a2893477594"
+          }
+        },
+        "blocks_03": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "9bf91cb2995c04dc833076921322eb59f8721300e31e3d15bae040adc6180324"
+          }
+        },
+        "blocks_04": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "709a4d36d6388a943f8ef27ff6bbd7ffa8f321a367f50de6109f496a473f6fb0"
+          }
+        },
+        "blocks_05": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "072ef76acdaf1f5e0223adc0a90e6719c6bfc8abd31bed2aef49fbd29cfbd31f"
+          }
+        },
+        "blocks_06": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "aaa2796f7bf14f51124eb6bcbe537a19a5e9151ae9dce2d3e3c70ce4efe0161c"
+          }
+        },
+        "blocks_07": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "7f5dfaf315efb3f0cac15a5ee6f4557a0cd1d2dff510dfb84ada20c2dfef7dd4"
+          }
+        },
+        "blocks_08": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "286f4f5b533435c2acdcc38bb2fb1dd3ae26ebd9ae0b9aac2a787fa26dfe3fed"
+          }
+        },
+        "blocks_09": {
+          "bytes": 140292512,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "1a9be5fae090db386bd3bb2d253c078b86e379067f34a6c0716ef6fdee248d08",
+            "Data/com.apple.CoreML/weights/weight.bin": "aaf72cffb897a50cb887737197541a9b2120f699019aa10d154b328f2bd3de5b"
+          }
+        }
+      },
+      "cpu_only_component_gate": {
+        "source": "artifacts/coreml/pro320-fused/dit_validation.json",
+        "environment": {
+          "date_utc": "2026-11-02T21:40:58.980018+00:00",
+          "execution": "CPU-only Core ML prediction and PyTorch reference; no GPU inference",
+          "gpu_model": "none used",
+          "physical_or_visible_vram": "not applicable to CPU-only validation",
+          "hardware_evidence": "Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl",
+          "cpu": "Apple M5 Pro",
+          "physical_memory_bytes": 25769803776,
+          "os": "macOS-27.0.1-arm64-arm-64bit",
+          "driver": "not applicable (CPU only)",
+          "runtime": {
+            "torch": "2.7.0",
+            "coremltools": "9.0"
+          },
+          "co_resident_load": "Other conversion jobs may be running; timings are not benchmarked"
+        },
+        "cases": 24,
+        "passed": true,
+        "maximum_normalized_rmse": 0.046821789537467615,
+        "failed_cases": []
+      }
+    },
+    "pro320-fused6": {
+      "profile": "pro320-fused6",
+      "source_checkpoint_sha256": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+      "blocks_per_chunk": 6,
+      "fuse_qkv": true,
+      "precision": "mixed",
+      "compression": "int8",
+      "partition_calls_per_two_step_window": 10,
+      "largest_partition_bytes_on_disk": 280038896,
+      "total_partition_bytes_on_disk": 1400194480,
+      "partitions": {
+        "blocks_00": {
+          "bytes": 280038896,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "d9afa3ad7d6ea1cf665c9b6bda64e4fc6b27a7cca02866db6097f9ab4cc13331",
+            "Data/com.apple.CoreML/weights/weight.bin": "c5170721aaf9612d183145e88fd7b54b29297b6ac6078140ba2e1432b5a84ba0"
+          }
+        },
+        "blocks_01": {
+          "bytes": 280038896,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "d9afa3ad7d6ea1cf665c9b6bda64e4fc6b27a7cca02866db6097f9ab4cc13331",
+            "Data/com.apple.CoreML/weights/weight.bin": "64c5532e7685ab05e6f6edf0a2029652f999fcc6d8ad7d8803cd63b16d4f0291"
+          }
+        },
+        "blocks_02": {
+          "bytes": 280038896,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "d9afa3ad7d6ea1cf665c9b6bda64e4fc6b27a7cca02866db6097f9ab4cc13331",
+            "Data/com.apple.CoreML/weights/weight.bin": "a5aeb73c7d0e39c68cbfde989c2ab33b71ce3a9c6e3c60199902f807cd55c797"
+          }
+        },
+        "blocks_03": {
+          "bytes": 280038896,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "d9afa3ad7d6ea1cf665c9b6bda64e4fc6b27a7cca02866db6097f9ab4cc13331",
+            "Data/com.apple.CoreML/weights/weight.bin": "81a21cdd6cb63d90bf049d680ea0469f82f9db52960302439bd8a5da64e08acf"
+          }
+        },
+        "blocks_04": {
+          "bytes": 280038896,
+          "inference_payload_sha256": {
+            "Data/com.apple.CoreML/model.mlmodel": "d9afa3ad7d6ea1cf665c9b6bda64e4fc6b27a7cca02866db6097f9ab4cc13331",
+            "Data/com.apple.CoreML/weights/weight.bin": "6f4196e2619f41ffd1cd3a2dde116d37d5f4d0fe52e8f7812eb65c9c565d3994"
+          }
+        }
+      },
+      "cpu_only_component_gate": {
+        "source": "artifacts/coreml/pro320-fused6/dit_validation.json",
+        "environment": {
+          "date_utc": "2026-11-02T21:44:36.166832+00:00",
+          "execution": "CPU-only Core ML prediction and PyTorch reference; no GPU inference",
+          "gpu_model": "none used",
+          "physical_or_visible_vram": "not applicable to CPU-only validation",
+          "hardware_evidence": "Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl",
+          "cpu": "Apple M5 Pro",
+          "physical_memory_bytes": 25769803776,
+          "os": "macOS-27.0.1-arm64-arm-64bit",
+          "driver": "not applicable (CPU only)",
+          "runtime": {
+            "torch": "2.7.0",
+            "coremltools": "9.0"
+          },
+          "co_resident_load": "Other conversion jobs may be running; timings are not benchmarked"
+        },
+        "cases": 14,
+        "passed": false,
+        "maximum_normalized_rmse": 0.06607911898914955,
+        "failed_cases": [
+          {
+            "name": "blocks_02",
+            "timestep": 1000.0,
+            "normalized_rmse": 0.05296687652790908
+          },
+          {
+            "name": "blocks_02",
+            "timestep": 625.0,
+            "normalized_rmse": 0.057365499720267575
+          },
+          {
+            "name": "blocks_03",
+            "timestep": 625.0,
+            "normalized_rmse": 0.06607911898914955
+          }
+        ]
+      },
+      "comparison_to_3plus3_cpu_only": {
+        "cases": 10,
+        "total_elements": 30412800,
+        "identical_elements": 30412800,
+        "max_abs_difference": 0.0,
+        "source": "artifacts/coreml/pro320-fused6/paired_three_block_validation.json"
+      },
+      "same_input_absolute_gate_comparison": [
+        {
+          "partition": "blocks_00",
+          "timestep": 1000.0,
+          "normalized_rmse_against_pytorch": 0.007782818776627543,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_00",
+          "timestep": 625.0,
+          "normalized_rmse_against_pytorch": 0.010248956749676835,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_01",
+          "timestep": 1000.0,
+          "normalized_rmse_against_pytorch": 0.020545604877242822,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_01",
+          "timestep": 625.0,
+          "normalized_rmse_against_pytorch": 0.019794816551947546,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_02",
+          "timestep": 1000.0,
+          "normalized_rmse_against_pytorch": 0.05296687652790908,
+          "absolute_gate_passed": false,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_02",
+          "timestep": 625.0,
+          "normalized_rmse_against_pytorch": 0.057365499720267575,
+          "absolute_gate_passed": false,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_03",
+          "timestep": 1000.0,
+          "normalized_rmse_against_pytorch": 0.025682561486583967,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_03",
+          "timestep": 625.0,
+          "normalized_rmse_against_pytorch": 0.06607911898914955,
+          "absolute_gate_passed": false,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_04",
+          "timestep": 1000.0,
+          "normalized_rmse_against_pytorch": 0.020121851356561134,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        },
+        {
+          "partition": "blocks_04",
+          "timestep": 625.0,
+          "normalized_rmse_against_pytorch": 0.022369858797974956,
+          "absolute_gate_passed": true,
+          "normalized_rmse_against_paired_baseline": 0.0,
+          "identical_elements": 3041280,
+          "elements": 3041280
+        }
+      ],
+      "same_input_comparison_reproduction": "PYTHONPATH=apple .venv-coreml/bin/python -m flashhead_coreml.validate_dit --checkpoint models/SoulX-FlashHead-1_3B/Model_Pro --models artifacts/coreml/pro320-fused6 --height 320 --width 176 --blocks-per-chunk 6 --compare-blocks artifacts/coreml/pro320"
+    }
+  },
+  "comparisons": {
+    "fused_three": {
+      "baseline": [
+        {
+          "report": "artifacts/coreml/fps-work/dit-baseline-r1/timings.json",
+          "date_utc": "2026-11-02T21:41:36Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            4.772146940231323,
+            2.621711015701294,
+            2.6251540184020996,
+            2.631814956665039
+          ],
+          "denoise_stage_intervals_seconds": [
+            3.383769989013672,
+            2.018114924430847,
+            2.0294480323791504,
+            2.0568779706954956
+          ],
+          "reference_initialization_seconds": 0.018983006477355957,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-baseline-r2/timings.json",
+          "date_utc": "2026-11-02T21:42:13Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            4.308292984962463,
+            2.57177996635437,
+            2.5487459897994995,
+            2.560849905014038
+          ],
+          "denoise_stage_intervals_seconds": [
+            3.213809013366699,
+            1.9939439296722412,
+            1.984866976737976,
+            1.9990609884262085
+          ],
+          "reference_initialization_seconds": 0.015284061431884766,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-baseline-r3/timings.json",
+          "date_utc": "2026-11-02T21:42:25Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            2.593340039253235,
+            2.5533660650253296,
+            2.54385507106781,
+            2.5560688972473145
+          ],
+          "denoise_stage_intervals_seconds": [
+            1.9899920225143433,
+            1.996379017829895,
+            1.9885410070419312,
+            1.9997540712356567
+          ],
+          "reference_initialization_seconds": 0.015545964241027832,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        }
+      ],
+      "candidate": [
+        {
+          "report": "artifacts/coreml/fps-work/dit-fused-r1/timings.json",
+          "date_utc": "2026-11-02T21:41:49Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            5.344714045524597,
+            2.5800729990005493,
+            2.5747029781341553,
+            2.5467699766159058
+          ],
+          "denoise_stage_intervals_seconds": [
+            4.12241792678833,
+            1.979830026626587,
+            1.9962549209594727,
+            1.9803690910339355
+          ],
+          "reference_initialization_seconds": 0.015195012092590332,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d437c84f7bcf93f8866b198da466cbec9c2cacf2e84fe1aa4e5b98e0b4a09834"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-fused-r2/timings.json",
+          "date_utc": "2026-11-02T21:42:03Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            2.6378679275512695,
+            2.510077953338623,
+            2.529270887374878,
+            2.537356972694397
+          ],
+          "denoise_stage_intervals_seconds": [
+            2.012488007545471,
+            1.959494948387146,
+            1.969565987586975,
+            1.9692479372024536
+          ],
+          "reference_initialization_seconds": 0.015833020210266113,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d437c84f7bcf93f8866b198da466cbec9c2cacf2e84fe1aa4e5b98e0b4a09834"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-fused-r3/timings.json",
+          "date_utc": "2026-11-02T21:42:36Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            3.4038370847702026,
+            2.7634119987487793,
+            2.65629506111145,
+            2.537016987800598
+          ],
+          "denoise_stage_intervals_seconds": [
+            2.2992749214172363,
+            2.0643728971481323,
+            2.075417995452881,
+            1.9642009735107422
+          ],
+          "reference_initialization_seconds": 0.015382051467895508,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d437c84f7bcf93f8866b198da466cbec9c2cacf2e84fe1aa4e5b98e0b4a09834"
+        }
+      ],
+      "baseline_warm_summary": {
+        "warm_windows": 9,
+        "warm_frames": 252,
+        "pooled_warm_generation_fps": 10.855824112793345,
+        "warm_window_median_seconds": 2.560849905014038,
+        "warm_denoising_median_seconds": 1.9990609884262085,
+        "warm_window_min_seconds": 2.54385507106781,
+        "warm_window_max_seconds": 2.631814956665039
+      },
+      "candidate_warm_summary": {
+        "warm_windows": 9,
+        "warm_frames": 252,
+        "pooled_warm_generation_fps": 10.845718196929376,
+        "warm_window_median_seconds": 2.5467699766159058,
+        "warm_denoising_median_seconds": 1.979830026626587,
+        "warm_window_min_seconds": 2.510077953338623,
+        "warm_window_max_seconds": 2.7634119987487793
+      },
+      "pooled_warm_fps_change_percent": -0.09309211128484263,
+      "paired_frames": [
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        },
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        },
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        }
+      ]
+    },
+    "fused_six": {
+      "baseline": [
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-baseline-r1/timings.json",
+          "date_utc": "2026-11-02T21:46:33Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            5.260385990142822,
+            2.630466938018799,
+            2.593000054359436,
+            2.5718799829483032
+          ],
+          "denoise_stage_intervals_seconds": [
+            3.643454074859619,
+            2.055292010307312,
+            2.017356038093567,
+            2.0043970346450806
+          ],
+          "reference_initialization_seconds": 0.016647934913635254,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-baseline-r2/timings.json",
+          "date_utc": "2026-11-02T21:47:10Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            4.61696994304657,
+            2.728335976600647,
+            2.5971360206604004,
+            2.5953290462493896
+          ],
+          "denoise_stage_intervals_seconds": [
+            3.4303269386291504,
+            2.153602957725525,
+            2.034404993057251,
+            2.03302800655365
+          ],
+          "reference_initialization_seconds": 0.01526498794555664,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-baseline-r3/timings.json",
+          "date_utc": "2026-11-02T21:47:23Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            2.647256016731262,
+            2.5923370122909546,
+            2.5953450202941895,
+            2.6062169075012207
+          ],
+          "denoise_stage_intervals_seconds": [
+            2.044058084487915,
+            2.0288790464401245,
+            2.040475010871887,
+            2.0445470809936523
+          ],
+          "reference_initialization_seconds": 0.015130043029785156,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6"
+        }
+      ],
+      "candidate": [
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-fused-r1/timings.json",
+          "date_utc": "2026-11-02T21:46:46Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            5.2552809715271,
+            2.5685960054397583,
+            2.638713002204895,
+            2.5772159099578857
+          ],
+          "denoise_stage_intervals_seconds": [
+            4.046763062477112,
+            1.9583179950714111,
+            2.0527089834213257,
+            2.006461024284363
+          ],
+          "reference_initialization_seconds": 0.015095949172973633,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "de5df6820e6afd5c42301eb754c4d04fd500bcaaff5c90809b8546aa9ff450f3"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-fused-r2/timings.json",
+          "date_utc": "2026-11-02T21:47:00Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            2.5752439498901367,
+            2.526121973991394,
+            2.52134907245636,
+            2.528104066848755
+          ],
+          "denoise_stage_intervals_seconds": [
+            1.9690489768981934,
+            1.9669710397720337,
+            1.9584629535675049,
+            1.9593390226364136
+          ],
+          "reference_initialization_seconds": 0.01626908779144287,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "de5df6820e6afd5c42301eb754c4d04fd500bcaaff5c90809b8546aa9ff450f3"
+        },
+        {
+          "report": "artifacts/coreml/fps-work/dit-six-fused-r3/timings.json",
+          "date_utc": "2026-11-02T21:47:34Z",
+          "gpu_model": "Apple M5 Pro",
+          "requested_compute_units": "cpu-gpu",
+          "compute_evidence": "Core ML requested CPU/GPU; measured processor placement unavailable",
+          "thermal_state_at_start": 0,
+          "windows_seconds": [
+            3.8677690029144287,
+            2.5625879764556885,
+            2.6150779724121094,
+            2.589969038963318
+          ],
+          "denoise_stage_intervals_seconds": [
+            2.8402169942855835,
+            1.9901119470596313,
+            2.0256099700927734,
+            2.019344925880432
+          ],
+          "reference_initialization_seconds": 0.015099048614501953,
+          "audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+          "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+          "manifest_sha256": "de5df6820e6afd5c42301eb754c4d04fd500bcaaff5c90809b8546aa9ff450f3"
+        }
+      ],
+      "baseline_warm_summary": {
+        "warm_windows": 9,
+        "warm_frames": 252,
+        "pooled_warm_generation_fps": 10.718821635715717,
+        "warm_window_median_seconds": 2.5953450202941895,
+        "warm_denoising_median_seconds": 2.034404993057251,
+        "warm_window_min_seconds": 2.5718799829483032,
+        "warm_window_max_seconds": 2.728335976600647
+      },
+      "candidate_warm_summary": {
+        "warm_windows": 9,
+        "warm_frames": 252,
+        "pooled_warm_generation_fps": 10.896008614588327,
+        "warm_window_median_seconds": 2.5685960054397583,
+        "warm_denoising_median_seconds": 1.9901119470596313,
+        "warm_window_min_seconds": 2.52134907245636,
+        "warm_window_max_seconds": 2.638713002204895
+      },
+      "pooled_warm_fps_change_percent": 1.653045315001922,
+      "paired_frames": [
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        },
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        },
+        {
+          "paired_frames": 112,
+          "identical_rgb_frames": 112,
+          "max_abs_channel_error_8bit": 0,
+          "frame": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "mouth": {
+            "rmse_rgb_8bit": 0.0,
+            "psnr_db": null,
+            "exact_pixels": true
+          },
+          "baseline_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc",
+          "candidate_ordered_rgb_stream_sha256": "770000ba429fd8bab82e01626de088f959c0cc170123b430974dd9b0da47d9dc"
+        }
+      ]
+    }
+  },
+  "decision": "Keep three blocks per partition as the default. Fused projections alone showed no pooled warm speed improvement. Fused six-block partitions reduced model calls and produced identical checked frames, with a modest Mac timing difference and about twice the per-partition on-disk size. iPhone memory and performance remain unmeasured for both candidates."
+}

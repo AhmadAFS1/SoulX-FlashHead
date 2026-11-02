@@ -19,12 +19,14 @@
 		8552A6F771A8EA7EC0559420 /* StudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7457AA81681AE3093B01479 /* StudioModel.swift */; };
 		8D1B9892EAD36FE25C8D6AC9 /* SoulXAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */; };
 		95DB217FFF2651C5850BDF1F /* ModelSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C3F4E759B3B59421A44A62 /* ModelSettingsView.swift */; };
+		B32BD28AD260D2BCE4D9D073 /* SoulXAudioLookahead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2102EBFCF5D5DE266AFBB6 /* SoulXAudioLookahead.swift */; };
 		BB62DBA0D312CFD26918313C /* SoulXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396AE4FE2E75EC625E3F4022 /* SoulXEngine.swift */; };
 		C7F6D5F8CC825B29B11A5447 /* ChunkPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FC97EEF73CCB25F712954F /* ChunkPlayer.swift */; };
 		D3F1D354A8D648A4A3F1072C /* SoulXComponentProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC76120AD1A154022EC297 /* SoulXComponentProbe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A2102EBFCF5D5DE266AFBB6 /* SoulXAudioLookahead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXAudioLookahead.swift; sourceTree = "<group>"; };
 		16EA72F7846AA355B5D99E72 /* SoulXTensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXTensor.swift; sourceTree = "<group>"; };
 		178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXAudio.swift; sourceTree = "<group>"; };
 		22B7645F566F92BC689F9645 /* SoulXSmoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXSmoke.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */,
+				0A2102EBFCF5D5DE266AFBB6 /* SoulXAudioLookahead.swift */,
 				396AE4FE2E75EC625E3F4022 /* SoulXEngine.swift */,
 				82BC9219757899F4055D92A6 /* SoulXImage.swift */,
 				72FE14AC054EE3B78DC44AC3 /* SoulXModels.swift */,
@@ -196,6 +199,7 @@
 				C7F6D5F8CC825B29B11A5447 /* ChunkPlayer.swift in Sources */,
 				95DB217FFF2651C5850BDF1F /* ModelSettingsView.swift in Sources */,
 				8D1B9892EAD36FE25C8D6AC9 /* SoulXAudio.swift in Sources */,
+				B32BD28AD260D2BCE4D9D073 /* SoulXAudioLookahead.swift in Sources */,
 				D3F1D354A8D648A4A3F1072C /* SoulXComponentProbe.swift in Sources */,
 				BB62DBA0D312CFD26918313C /* SoulXEngine.swift in Sources */,
 				78D5A742F0145ABD8E3C2289 /* SoulXImage.swift in Sources */,

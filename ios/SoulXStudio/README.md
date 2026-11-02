@@ -110,6 +110,16 @@ The bundled caches currently target `pro320` (320 pixels high × 176 wide).
 Using another spatial profile requires corresponding caches in the app build;
 the runtime rejects a profile mismatch.
 
+## Generation scheduling
+
+**Overlap generation work** in Models & settings is enabled by default. On the
+PRO320 profile the app can prepare one future speech window and load the next
+compiled transformer partition during prediction. It checks available memory
+before starting additional work. Turn the setting off for sequential execution.
+The speech encoder validates its output before projection and retries on CPU if
+Core ML returns non-finite features. Timings and paired quality checks are in
+[the performance report](../../apple/PERFORMANCE.md).
+
 ## Code map
 
 - `Sources/UI`: portrait stage, input controls, model installation, measurements.
@@ -128,7 +138,7 @@ Xcode scheme argument `--smoke`. Optional compute arguments are `--cpu-only`,
 `--cpu-gpu`, or `--cpu-ane`; otherwise the runtime requests all compute units.
 The normal controls are disabled during this diagnostic run.
 
-Add `--smoke-chunks 2` for two windows, and `--smoke-save-frames` to save every generated PNG. Use an audio file long enough for the requested windows.
+Use `--prefetch-blocks --prefetch-audio` to exercise overlapping work, and `--model-timings` for stage timings. Add `--smoke-chunks 2` for two windows, and `--smoke-save-frames` to save every generated PNG. Use an audio file long enough for the requested windows.
 
 The app writes `Documents/SmokeResult/report.json` before expensive operations
 and updates it after each stage. Successful inference also writes `first.png`

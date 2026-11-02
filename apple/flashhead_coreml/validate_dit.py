@@ -60,6 +60,18 @@ def validate(args):
     models.mkdir(parents=True, exist_ok=True)
     manifest_path = models / 'dit_manifest.json'
     export_manifest = {} if synthetic else json.loads(manifest_path.read_text())
+    baseline_directory = Path(args.compare_blocks) if getattr(args, 'compare_blocks', None) else None
+    baseline_chunk = None
+    if baseline_directory is not None:
+        if synthetic:
+            raise ValueError('--compare-blocks requires the production checkpoint')
+        baseline_manifest = json.loads((baseline_directory / 'dit_manifest.json').read_text())
+        for key in ('height', 'width', 'source_checkpoint_sha256', 'schedule'):
+            if baseline_manifest[key] != export_manifest[key]:
+                raise ValueError(f'Comparison baseline mismatch: {key}')
+        baseline_chunk = baseline_manifest['blocks_per_chunk']
+        if baseline_chunk < 1 or args.blocks_per_chunk % baseline_chunk:
+            raise ValueError('Candidate partition boundaries must align with baseline partitions')
     if not synthetic:
         for key in ('height', 'width', 'blocks_per_chunk', 'query_chunk'):
             if export_manifest[key] != getattr(args, key):
@@ -88,6 +100,8 @@ def validate(args):
               'compression': export_manifest.get('compression', 'none'),
               'precision': export_manifest.get('precision', 'mixed'),
               'precision_policy': export_manifest.get('precision_policy'),
+              'fuse_qkv': export_manifest.get('fuse_qkv', False),
+              'comparison_baseline': str(baseline_directory.resolve()) if baseline_directory else None,
               'models_directory': str(models.resolve()),
               'selected_components': sorted(selected),
               'input_distribution': 'Deterministic independent standard normal inputs, rounded to FP16; not real image/audio activations',
@@ -106,6 +120,13 @@ def validate(args):
             raise FileNotFoundError(destination)
         print(f'Validating {name} with CPU_ONLY', flush=True)
         mlmodel = ct.models.MLModel(str(destination), compute_units=ct.ComputeUnit.CPU_ONLY)
+        baseline_models = []
+        if baseline_directory is not None and name.startswith('blocks_'):
+            start = int(name.split('_')[1]) * args.blocks_per_chunk
+            end = min(start + args.blocks_per_chunk, cfg.num_layers)
+            for layer in range(start, end, baseline_chunk):
+                path = baseline_directory / f'blocks_{layer // baseline_chunk:02d}.mlpackage'
+                baseline_models.append(ct.models.MLModel(str(path), compute_units=ct.ComputeUnit.CPU_ONLY))
         cases = []
         for step in ([1000., 625.] if 'timestep' in inputs else [None]):
             if step is not None:
@@ -116,6 +137,15 @@ def validate(args):
                 expected = module(*(torch.from_numpy(arrays[key]).float() for key in inputs)).numpy()
             predicted = np.asarray(mlmodel.predict(arrays)[output])
             result = errors(predicted, expected)
+            if baseline_models:
+                baseline_hidden = arrays['hidden']
+                for baseline_model in baseline_models:
+                    baseline_hidden = baseline_model.predict(dict(arrays, hidden=baseline_hidden))[output]
+                delta = errors(predicted, baseline_hidden)
+                delta['identical_elements'] = int(np.count_nonzero(predicted == baseline_hidden))
+                delta['elements'] = int(predicted.size)
+                result['baseline_blocks_delta'] = delta
+                del baseline_model, baseline_hidden
             result['timestep'] = step
             result['passed'] = result['finite'] and result['normalized_rmse'] <= limit
             cases.append(result)
@@ -123,7 +153,7 @@ def validate(args):
         report['models'][name] = {'cases': cases, 'normalized_rmse_limit': limit}
         report['passed'] = all(case['passed'] for model in report['models'].values() for case in model['cases'])
         report_path.write_text(json.dumps(report, indent=2) + '\n')
-        del module, inputs, mlmodel, expected, predicted
+        del module, inputs, mlmodel, baseline_models, expected, predicted
         gc.collect()
     if not report['passed']:
         raise RuntimeError(f'Numerical validation failed; inspect {report_path}')
@@ -138,6 +168,7 @@ def main():
     parser.add_argument('--width', type=int, default=320)
     parser.add_argument('--blocks-per-chunk', type=int, default=3)
     parser.add_argument('--query-chunk', type=int, default=0)
+    parser.add_argument('--compare-blocks', help='Also compare each candidate block partition to aligned partitions in this baseline export directory, using the same inputs as the FP32 gate')
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--only')
     args = parser.parse_args()

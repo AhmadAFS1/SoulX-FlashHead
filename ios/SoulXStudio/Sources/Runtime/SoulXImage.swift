@@ -59,9 +59,15 @@ enum SoulXImage {
     }
 
     static func statistics(_ planar: [Float], pixels: Int) -> SoulXColorStatistics {
+        statistics(pixels: pixels) { p in
+            lab(SIMD3(planar[p], planar[pixels + p], planar[2 * pixels + p]))
+        }
+    }
+
+    private static func statistics(pixels: Int, labAt: (Int) -> SIMD3<Float>) -> SoulXColorStatistics {
         var sum = SIMD3<Double>(repeating: 0), squared = sum
         for p in 0..<pixels {
-            let v = lab(SIMD3(planar[p], planar[pixels + p], planar[2 * pixels + p]))
+            let v = labAt(p)
             let d = SIMD3<Double>(Double(v.x), Double(v.y), Double(v.z))
             sum += d; squared += d * d
         }
@@ -74,21 +80,43 @@ enum SoulXImage {
                                reference: SoulXColorStatistics, strength: Float) throws -> [Float] {
         let plane = height * width
         guard frames.shape.map(\.intValue) == [1, 33, 3, height, width] else { throw SoulXError.invalidTensor("decoder frames must be NTCHW [1,33,3,H,W]") }
-        let strides = frames.strides.map(\.intValue)
+        guard (0..<33).contains(index) else { throw SoulXError.invalidTensor("Frame index out of range") }
         var result = [Float](repeating: 0, count: plane * 3)
-        for c in 0..<3 { for y in 0..<height { for x in 0..<width {
-            let v = SoulXTensor.read(frames, at: index * strides[1] + c * strides[2] + y * strides[3] + x * strides[4])
-            guard v.isFinite else { throw SoulXError.invalidTensor("Non-finite pixel in decoder output") }
-            result[c * plane + y * width + x] = min(1, max(0, v))
-        } } }
+        try frames.withUnsafeBytes { bytes in
+            let strides = frames.strides.map(\.intValue)
+            func unpack<T: BinaryFloatingPoint>(_ type: T.Type) throws {
+                let pointer = bytes.baseAddress!.assumingMemoryBound(to: type)
+                for c in 0..<3 {
+                    let channel = index * strides[1] + c * strides[2]
+                    for y in 0..<height {
+                        let row = channel + y * strides[3]
+                        let destination = c * plane + y * width
+                        for x in 0..<width {
+                            let value = Float(pointer[row + x * strides[4]])
+                            guard value.isFinite else { throw SoulXError.invalidTensor("Non-finite pixel in decoder output") }
+                            result[destination + x] = min(1, max(0, value))
+                        }
+                    }
+                }
+            }
+            switch frames.dataType {
+            case .float16: try unpack(Float16.self)
+            case .float32: try unpack(Float.self)
+            case .double: try unpack(Double.self)
+            default: throw SoulXError.invalidTensor("Decoder output must contain floating-point pixels")
+            }
+        }
         if strength <= 0 { return result }
-        let source = statistics(result, pixels: plane)
+        // Reuse each pixel's Lab value for the transform after computing the
+        // frame statistics. The reduction and RGB blending order stay the same.
+        let labPixels = (0..<plane).map { lab(SIMD3(result[$0], result[plane + $0], result[2 * plane + $0])) }
+        let source = statistics(pixels: plane) { labPixels[$0] }
         let scale = SIMD3(reference.std.x / (source.std.x < 1e-8 ? 1 : source.std.x),
                           reference.std.y / (source.std.y < 1e-8 ? 1 : source.std.y),
                           reference.std.z / (source.std.z < 1e-8 ? 1 : source.std.z))
         for p in 0..<plane {
             let original = SIMD3(result[p], result[plane + p], result[2 * plane + p])
-            let transferred = rgb((lab(original) - source.mean) * scale + reference.mean)
+            let transferred = rgb((labPixels[p] - source.mean) * scale + reference.mean)
             let blended = original * (1 - strength) + transferred * strength
             result[p] = blended.x; result[plane + p] = blended.y; result[2 * plane + p] = blended.z
         }

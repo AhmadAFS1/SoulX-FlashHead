@@ -47,7 +47,12 @@ public enum SoulXSmoke {
             let imageURL = documents.appendingPathComponent("Smoke/portrait.png")
             guard let source = CGImageSourceCreateWithURL(imageURL as CFURL, nil),
                   let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else { throw SoulXError.invalidImage }
-            let engine = SoulXEngine(modelsDirectory: models, computeUnits: units)
+            let overlapAudio = arguments.contains("--prefetch-audio")
+            let overlapBlocks = arguments.contains("--prefetch-blocks")
+            recorder.set("overlap", ["audio": overlapAudio, "partitions": overlapBlocks])
+            let engine = SoulXEngine(modelsDirectory: models, computeUnits: units,
+                                     collectModelTimings: arguments.contains("--model-timings"),
+                                     prefetchAudio: overlapAudio, prefetchBlocks: overlapBlocks)
             let initialization = Date.timeIntervalSinceReferenceDate
             recorder.set("inference_started", true)
             let cacheCandidate = documents.appendingPathComponent("Smoke/reference-cache/metadata.json")
@@ -73,9 +78,13 @@ public enum SoulXSmoke {
                 }
                 try writePNG(first, to: resultDirectory.appendingPathComponent("window-\(chunk.startFrame)-first.png"))
                 try writePNG(last, to: resultDirectory.appendingPathComponent("last.png"))
-                let metrics: [String: Any] = ["frames": chunk.frames.count, "inference_seconds": chunk.inferenceSeconds,
+                var metrics: [String: Any] = ["frames": chunk.frames.count, "inference_seconds": chunk.inferenceSeconds,
                                         "generation_fps": chunk.generationFPS, "playback_fps": chunk.fps,
                                         "audio_samples": chunk.samples.count, "start_frame": chunk.startFrame]
+                metrics["audio_encoder"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(chunk.audioEncoderStatus))
+                if let profile = chunk.windowProfile {
+                    metrics["model_timings"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(profile))
+                }
                 recorder.set("window", metrics)
                 recorder.set("window_\(chunk.startFrame)", metrics)
             })

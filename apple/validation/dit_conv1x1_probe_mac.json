@@ -1,0 +1,262 @@
+{
+  "date_utc": "2026-11-02T21:50:40.848873+00:00",
+  "hardware": {
+    "co_resident_load": "Unknown; conversion and device tests may be co-resident",
+    "driver_runtime": "Core ML / Metal supplied by Version 27.0.1 (Build 26A434)",
+    "evidence": "system_profiler SPDisplaysDataType and sysctl hw.memsize on the same host as the paired native Core ML benchmark. Metal working-set estimate from the paired benchmark.",
+    "gpu_model": "Apple M5 Pro",
+    "metal_recommended_working_set_bytes": 19069665280,
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Unified system memory; no dedicated VRAM",
+    "visible_vram": "Metal recommendedMaxWorkingSetSize is a budget, not physical VRAM",
+    "thermal_state_at_start": "Unverified for this isolated partition probe",
+    "hardware_verified_utc": "2026-11-02T21:51:29.566384+00:00"
+  },
+  "execution": "Mac Core ML with .all requested. MLComputePlan is the planned preferred device, not execution counters or physical iPhone placement.",
+  "co_resident_load": "No concurrent project GPU benchmark by coordination, other OS and application load unmeasured.",
+  "workload": "PRO320 original layers 0..2, hidden [1,1980,1536], INT8 weights, unchanged FP32 SDPA and norms, single loaded model repeated predictions, timing excludes loading/compilation",
+  "plans": {
+    "linear": {
+      "preferred_devices_by_operation": {
+        "ios16.reduce_mean: MLGPUComputeDevice": 12,
+        "ios18.add: MLGPUComputeDevice": 42,
+        "ios18.cast: MLGPUComputeDevice": 66,
+        "ios18.constexpr_blockwise_shift_scale: unavailable": 30,
+        "ios18.gelu: MLGPUComputeDevice": 3,
+        "ios18.greater: MLGPUComputeDevice": 1,
+        "ios18.layer_norm: MLGPUComputeDevice": 9,
+        "ios18.linear: MLGPUComputeDevice": 30,
+        "ios18.mul: MLGPUComputeDevice": 72,
+        "ios18.reshape: MLGPUComputeDevice": 38,
+        "ios18.rsqrt: MLGPUComputeDevice": 12,
+        "ios18.scaled_dot_product_attention: MLGPUComputeDevice": 6,
+        "ios18.slice_by_index: MLGPUComputeDevice": 12,
+        "ios18.sub: MLGPUComputeDevice": 6,
+        "ios18.transpose: MLGPUComputeDevice": 24,
+        "select: MLGPUComputeDevice": 1,
+        "split: MLGPUComputeDevice": 3,
+        "stack: MLGPUComputeDevice": 6,
+        "tile: MLGPUComputeDevice": 1
+      },
+      "estimated_cost_weight_by_preferred_device": {
+        "MLGPUComputeDevice": 0.9999999999999987
+      }
+    },
+    "conv1x1": {
+      "preferred_devices_by_operation": {
+        "ios16.reduce_mean: MLGPUComputeDevice": 12,
+        "ios18.add: MLGPUComputeDevice": 42,
+        "ios18.cast: MLGPUComputeDevice": 66,
+        "ios18.constexpr_blockwise_shift_scale: unavailable": 30,
+        "ios18.conv: MLGPUComputeDevice": 30,
+        "ios18.gelu: MLGPUComputeDevice": 3,
+        "ios18.greater: MLGPUComputeDevice": 1,
+        "ios18.layer_norm: MLGPUComputeDevice": 9,
+        "ios18.mul: MLGPUComputeDevice": 72,
+        "ios18.reshape: MLGPUComputeDevice": 38,
+        "ios18.rsqrt: MLGPUComputeDevice": 12,
+        "ios18.scaled_dot_product_attention: MLGPUComputeDevice": 6,
+        "ios18.slice_by_index: MLGPUComputeDevice": 12,
+        "ios18.sub: MLGPUComputeDevice": 6,
+        "ios18.transpose: MLGPUComputeDevice": 67,
+        "select: MLGPUComputeDevice": 1,
+        "split: MLGPUComputeDevice": 3,
+        "stack: MLGPUComputeDevice": 6,
+        "tile: MLGPUComputeDevice": 1
+      },
+      "estimated_cost_weight_by_preferred_device": {
+        "MLGPUComputeDevice": 0.9999999999999982
+      }
+    }
+  },
+  "trials": [
+    {
+      "model": "linear",
+      "compute_units": "all",
+      "seconds": [
+        0.04719379101879895,
+        0.04768812493421137,
+        0.04742945800535381,
+        0.04646987491287291,
+        0.04828112502582371,
+        0.04576570889912546,
+        0.04600924998521805,
+        0.04781329212710261
+      ],
+      "median_seconds": 0.04731162451207638,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 10.109375,
+          "rmse": 0.25944791437300685,
+          "normalized_rmse": 0.0043375719727646546
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.26007560085124154,
+          "normalized_rmse": 0.005542039125827737
+        }
+      }
+    },
+    {
+      "model": "conv1x1",
+      "compute_units": "all",
+      "seconds": [
+        0.05778075009584427,
+        0.057618916034698486,
+        0.05581704108044505,
+        0.05618770816363394,
+        0.05593037512153387,
+        0.05487529095262289,
+        0.056362375151365995,
+        0.05583004211075604
+      ],
+      "median_seconds": 0.05605904164258391,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 8.091796875,
+          "rmse": 0.2591618354407508,
+          "normalized_rmse": 0.004332789170938896
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.2599139808792387,
+          "normalized_rmse": 0.005538595111066555
+        }
+      }
+    },
+    {
+      "model": "conv1x1",
+      "compute_units": "all",
+      "seconds": [
+        0.05590941710397601,
+        0.05655762506648898,
+        0.05621275003068149,
+        0.055494166910648346,
+        0.056014582980424166,
+        0.05657433299347758,
+        0.055917958030477166,
+        0.05598720884881914
+      ],
+      "median_seconds": 0.05600089591462165,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 8.091796875,
+          "rmse": 0.2591618354407508,
+          "normalized_rmse": 0.004332789170938896
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.2599139808792387,
+          "normalized_rmse": 0.005538595111066555
+        }
+      }
+    },
+    {
+      "model": "linear",
+      "compute_units": "all",
+      "seconds": [
+        0.047762874979525805,
+        0.046027040807530284,
+        0.04676245804876089,
+        0.04744366696104407,
+        0.04692295799031854,
+        0.045669292099773884,
+        0.04691595816984773,
+        0.04692999995313585
+      ],
+      "median_seconds": 0.04691945808008313,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 10.109375,
+          "rmse": 0.25944791437300685,
+          "normalized_rmse": 0.0043375719727646546
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.26007560085124154,
+          "normalized_rmse": 0.005542039125827737
+        }
+      }
+    },
+    {
+      "model": "linear",
+      "compute_units": "all",
+      "seconds": [
+        0.04766670777462423,
+        0.04605470807291567,
+        0.04687366588041186,
+        0.047540875151753426,
+        0.04846850014291704,
+        0.04742800001986325,
+        0.04563424992375076,
+        0.04734258400276303
+      ],
+      "median_seconds": 0.04738529201131314,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 10.109375,
+          "rmse": 0.25944791437300685,
+          "normalized_rmse": 0.0043375719727646546
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.26007560085124154,
+          "normalized_rmse": 0.005542039125827737
+        }
+      }
+    },
+    {
+      "model": "conv1x1",
+      "compute_units": "all",
+      "seconds": [
+        0.05634466698393226,
+        0.056565584149211645,
+        0.054947375087067485,
+        0.056232000002637506,
+        0.05637033306993544,
+        0.055409582797437906,
+        0.05627054185606539,
+        0.056203750194981694
+      ],
+      "median_seconds": 0.05625127092935145,
+      "against_pytorch": {
+        "1000": {
+          "finite": true,
+          "max_abs_error": 8.091796875,
+          "rmse": 0.2591618354407508,
+          "normalized_rmse": 0.004332789170938896
+        },
+        "625": {
+          "finite": true,
+          "max_abs_error": 9.72607421875,
+          "rmse": 0.2599139808792387,
+          "normalized_rmse": 0.005538595111066555
+        }
+      }
+    }
+  ],
+  "primary_layout_reference": "https://machinelearning.apple.com/research/neural-engine-transformers",
+  "summary": {
+    "linear": {
+      "measured_predictions": 24,
+      "pooled_median_seconds": 0.0470618954859674,
+      "max_normalized_rmse_against_pytorch_on_all": 0.005542039125827737
+    },
+    "conv1x1": {
+      "measured_predictions": 24,
+      "pooled_median_seconds": 0.05619572917930782,
+      "max_normalized_rmse_against_pytorch_on_all": 0.005538595111066555
+    }
+  },
+  "decision": "Keep original linear layers. Both compute plans preferred the GPU on this Mac; convolution had higher measured latency. This single-partition experiment used no iPhone."
+}

@@ -1,0 +1,1631 @@
+{
+  "environment": {
+    "run_date_utc": "2026-11-02T22:00:34.179197+00:00",
+    "gpu_model": "Apple M5 Pro",
+    "physical_memory_bytes": 25769803776,
+    "physical_vram": "24 GiB unified system memory, shared between CPU and GPU",
+    "visible_vram": "No dedicated VRAM. The recorded Metal recommended working set is a budget.",
+    "metal_recommended_working_set_bytes": 19069665280,
+    "evidence": "MTLCreateSystemDefaultDevice, ProcessInfo.physicalMemory, system_profiler SPDisplaysDataType",
+    "runtime": "Core ML / Metal supplied by Version 27.0.1 (Build 26A434)",
+    "swift_compiler": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "co_resident_load": "GPU benchmark processes were serialized. Background system load and CPU development jobs were not isolated.",
+    "execution": "Native macOS Core ML. Compute policies CPU + GPU and all, with a verified CPU Wav2Vec fallback. Actual per-operation placement unverified."
+  },
+  "workload": {
+    "height": 320,
+    "width": 176,
+    "architecture": "Full 30-layer PRO, ten three-layer partitions, two denoising steps, 33-frame window with 28 useful output frames",
+    "seed": 42,
+    "model_manifest_sha256": "d6bd13f17badf722dfe07dadce7fb07f943d76c216627427120d8cbce7cbb9b6",
+    "audio": "Local MuseTalk data/audio/eng.wav at 3.00s, mono16kHz",
+    "short_audio_sha256": "f9e441776c00f12e93a9c51b40d3b3d301284304c6d803ec751fdad188f03158",
+    "long_audio_sha256": "4bb6dbb20fcb7c930a04d0cc9acc82ad2c02c77bf2422f62e98d3ff433b98960",
+    "sixteen_khz_speech_seconds": [
+      4.48,
+      9.48
+    ],
+    "baseline": "fec3bf7 runtime. Set only the audio encoder to cpuOnly to repair the invalid Mac GPU features. Use same selected units for conditioning and DiT.",
+    "optimized": "Current runtime with feature validation/automatic CPU retry, tensor and color optimizations, bounded next-audio and next-partition preloading.",
+    "quality_metric": "Decoded RGB bytes in all corresponding frames, same model bundle, avatar, seed and audio."
+  },
+  "measurement": "Warm FPS = total frames in windows after the first / sum of their inference seconds. Window times include audio preparation/any waits, both denoising passes, decoding, correction and motion update. Total elapsed also includes initialization and PNG/report writes.",
+  "groups": [
+    {
+      "avatar": "indian",
+      "compute_policy": "cpu-gpu",
+      "paired_trials": 2,
+      "warm_window_count_per_variant": 6,
+      "baseline_warm_seconds": 2.560073514779409,
+      "optimized_warm_seconds": 1.8659553130467732,
+      "baseline_warm_fps": 10.937185919995992,
+      "optimized_warm_fps": 15.00571841363177,
+      "fps_gain_percent": 37.199079574915636,
+      "exact_frame_pairs_including_repeats": 224
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "cpu-gpu",
+      "paired_trials": 3,
+      "warm_window_count_per_variant": 9,
+      "baseline_warm_seconds": 2.6013384527630277,
+      "optimized_warm_seconds": 1.8291923469967313,
+      "baseline_warm_fps": 10.763689734513257,
+      "optimized_warm_fps": 15.307302179550414,
+      "fps_gain_percent": 42.21240631331356,
+      "exact_frame_pairs_including_repeats": 336
+    },
+    {
+      "avatar": "indian",
+      "compute_policy": "all",
+      "paired_trials": 2,
+      "warm_window_count_per_variant": 6,
+      "baseline_warm_seconds": 3.0885788400967917,
+      "optimized_warm_seconds": 1.8376149932543437,
+      "baseline_warm_fps": 9.065658171485278,
+      "optimized_warm_fps": 15.237141677002267,
+      "fps_gain_percent": 68.0754048826648,
+      "exact_frame_pairs_including_repeats": 224
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "all",
+      "paired_trials": 2,
+      "warm_window_count_per_variant": 6,
+      "baseline_warm_seconds": 3.1169371803601584,
+      "optimized_warm_seconds": 1.833513855934143,
+      "baseline_warm_fps": 8.983177516835497,
+      "optimized_warm_fps": 15.271223563093551,
+      "fps_gain_percent": 69.99801611928007,
+      "exact_frame_pairs_including_repeats": 224
+    }
+  ],
+  "trials": [
+    {
+      "avatar": "indian",
+      "compute_policy": "cpu-gpu",
+      "baseline": {
+        "run": "ref-indian-r1",
+        "raw_report_sha256": "36e29d2fa9d4081b2d2611848b5c5ae970c6be33a97a2b0e9d5d38a4adba3695",
+        "date_utc": "2026-11-02T21:54:52Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 10.460620999336243,
+        "initialization_seconds": 0.01468503475189209,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.5675320625305176,
+            "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 2.524680018424988,
+            "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 2.5701650381088257,
+            "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 2.5244410037994385,
+            "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "fast-indian-r1",
+        "raw_report_sha256": "b3484e3ae2ce5140a0f0b9b4e673bb8bb22b25b57a28be2fb47c07fd76515adb",
+        "date_utc": "2026-11-02T21:55:29Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.065917015075684,
+        "initialization_seconds": 0.007619023323059082,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.1404430866241455,
+            "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1578992744,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.842492938041687,
+            "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1582859368,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8552340269088745,
+            "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1585103976,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.951066017150879,
+            "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1567458408,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "8cab788f15d3640087e4aec3fd48431fc4bf802a1f0d174d482453aa07db1d1b",
+        "candidate_rgb_sha256": "8cab788f15d3640087e4aec3fd48431fc4bf802a1f0d174d482453aa07db1d1b"
+      }
+    },
+    {
+      "avatar": "indian",
+      "compute_policy": "cpu-gpu",
+      "baseline": {
+        "run": "ref-indian-r2",
+        "raw_report_sha256": "e8cd6e32f1e417a254fd569beea31eb6067184f2f8df75b96fc0e7e02113a578",
+        "date_utc": "2026-11-02T21:55:46Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 10.674023985862732,
+        "initialization_seconds": 0.01471710205078125,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.658352017402649,
+            "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 2.592594027519226,
+            "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 2.5712690353393555,
+            "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 2.577291965484619,
+            "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "fast-indian-r2",
+        "raw_report_sha256": "806f43150a58eefbf743a80e5d8a18a42c4b209c66c41d61414babfa9332d08d",
+        "date_utc": "2026-11-02T21:55:37Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.690329909324646,
+        "initialization_seconds": 0.008122086524963379,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.8496010303497314,
+            "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1578566808,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8540149927139282,
+            "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1592640664,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8417019844055176,
+            "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1535804568,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8512219190597534,
+            "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1537000600,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "8cab788f15d3640087e4aec3fd48431fc4bf802a1f0d174d482453aa07db1d1b",
+        "candidate_rgb_sha256": "8cab788f15d3640087e4aec3fd48431fc4bf802a1f0d174d482453aa07db1d1b"
+      }
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "cpu-gpu",
+      "baseline": {
+        "run": "ref-girl-r1",
+        "raw_report_sha256": "b01d28c4f006ed02cfd2baf5a2606b7da77532fd0c511f146ba2bed1a81ce82b",
+        "date_utc": "2026-11-02T21:54:40Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 12.032608032226562,
+        "initialization_seconds": 0.016607046127319336,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 3.9753559827804565,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 2.5852140188217163,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 2.598562002182007,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 2.5629830360412598,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "fast-girl-r1",
+        "raw_report_sha256": "d84c735db7a57bdcb21601973f92ad966858d0a7e35c79dcbb37cff85a6ee636",
+        "date_utc": "2026-11-02T21:55:21Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "9f7bbe71108c342fc6e6c119511c89f82e8874020a37b974feb6360929ba687d",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.13175892829895,
+        "initialization_seconds": 0.009608983993530273,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.351729989051819,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1575289912,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.850108027458191,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1582941264,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8211339712142944,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1585644624,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8179600238800049,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1585906768,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3",
+        "candidate_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3"
+      }
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "cpu-gpu",
+      "baseline": {
+        "run": "ref-girl-r2",
+        "raw_report_sha256": "837ee061d8607a655c4949f36cab928efefc7b54b520016bdea49df1933faa91",
+        "date_utc": "2026-11-02T21:56:05Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 10.755747079849243,
+        "initialization_seconds": 0.015084028244018555,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.584383964538574,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 2.537973999977112,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 2.6039940118789673,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 2.7351139783859253,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "fast-girl-r2",
+        "raw_report_sha256": "6d0140933cd5f1d19eb015de8d06b52c6c655c68ca401bf42868d49ae81d2c48",
+        "date_utc": "2026-11-02T21:55:57Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.087569952011108,
+        "initialization_seconds": 0.008501052856445312,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.342965006828308,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1578828928,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8290330171585083,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1584677968,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8032759428024292,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1585923152,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8174530267715454,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1586152528,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3",
+        "candidate_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3"
+      }
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "cpu-gpu",
+      "baseline": {
+        "run": "ref-girl-r3",
+        "raw_report_sha256": "cfd51e89ad8703690d7233efc1d99e7ee01dea2284c5a5b32c65bb0786aca9bf",
+        "date_utc": "2026-11-02T21:56:16Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 10.698204040527344,
+        "initialization_seconds": 0.015405058860778809,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.6176350116729736,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 2.6085140705108643,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 2.609866976737976,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 2.569823980331421,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "fast-girl-r3",
+        "raw_report_sha256": "72d88238b9b7c5cab2d30b33fa27a2dfe34b7a9fe8517915f6b84e8957e8e0f1",
+        "date_utc": "2026-11-02T21:56:27Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.14036500453949,
+        "initialization_seconds": 0.008391976356506348,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.3200559616088867,
+            "rgba_sha256": "3127e665bb0160f488e5f10b680ab645d0bb457389c4cabd8fa57d6499fa49d2",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1581024408,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8349679708480835,
+            "rgba_sha256": "a1b310f1d90c75954a4ba19afb4a85ebbe27a164cbb5cc3e809bf6f3d10aec2c",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1586758760,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8353440761566162,
+            "rgba_sha256": "fb10c609c1eb0c83eccc673c5cb111be1fa47919d1926256054bc9f1031452bc",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1587938408,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8534550666809082,
+            "rgba_sha256": "7e067543d419113d9eb024cbc39254a8a2a93721d6f08c14f594124dbe585d27",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "cpuAndGPU",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1588151400,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3",
+        "candidate_rgb_sha256": "ab54451689ee0234dd36e7a4a145a18e5a1833e4f4aa102165c0b4729f72d3a3"
+      }
+    },
+    {
+      "avatar": "indian",
+      "compute_policy": "all",
+      "baseline": {
+        "run": "all-ref-indian-r1",
+        "raw_report_sha256": "07962c2150c71499e36e5854c0b53927691e984c730809082750df23fae118af",
+        "date_utc": "2026-11-02T21:58:11Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 12.723784923553467,
+        "initialization_seconds": 0.015192985534667969,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 3.167159080505371,
+            "rgba_sha256": "224952e674d7a955254e00cfaf91ed6a37f0706a29c80ae78002e6cddcd8925c"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 3.0960580110549927,
+            "rgba_sha256": "28d6d69c74c2fd3eebb39f0fba41f641530e637244d99544016e7873a14950c1"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 3.098473072052002,
+            "rgba_sha256": "3d3e68f69d4386c8a6a11d4d416f9bfcee087da2af053c7c893cf572abe16117"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 3.0812920331954956,
+            "rgba_sha256": "5a9b3890c4eea1b5553cec578f5b9a3d5644b900e64ad9d6c7ba322782b1affd"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "all-fast-indian-r1",
+        "raw_report_sha256": "7716486a63d1fedb4e7857ba89485cf19e83dc1cb8f320370f2070f98c781ead",
+        "date_utc": "2026-11-02T21:58:24Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.307502031326294,
+        "initialization_seconds": 0.007790923118591309,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.514302968978882,
+            "rgba_sha256": "224952e674d7a955254e00cfaf91ed6a37f0706a29c80ae78002e6cddcd8925c",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1466876936,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8518290519714355,
+            "rgba_sha256": "28d6d69c74c2fd3eebb39f0fba41f641530e637244d99544016e7873a14950c1",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1480049672,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8419849872589111,
+            "rgba_sha256": "3d3e68f69d4386c8a6a11d4d416f9bfcee087da2af053c7c893cf572abe16117",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1481147400,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8290280103683472,
+            "rgba_sha256": "5a9b3890c4eea1b5553cec578f5b9a3d5644b900e64ad9d6c7ba322782b1affd",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1481393160,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "3f51b3c5f67e0f41de7493789b762e05b76ff14c0693f88c6537fe40a2a3d8c1",
+        "candidate_rgb_sha256": "3f51b3c5f67e0f41de7493789b762e05b76ff14c0693f88c6537fe40a2a3d8c1"
+      }
+    },
+    {
+      "avatar": "indian",
+      "compute_policy": "all",
+      "baseline": {
+        "run": "all-ref-indian-r2",
+        "raw_report_sha256": "3b72c8cd8bb5b4691fb39981d0c4cb9af8b33d8f6dfaab363bfc16bd14d98f41",
+        "date_utc": "2026-11-02T21:58:41Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 12.695304989814758,
+        "initialization_seconds": 0.01443493366241455,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 3.1624380350112915,
+            "rgba_sha256": "224952e674d7a955254e00cfaf91ed6a37f0706a29c80ae78002e6cddcd8925c"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 3.075003981590271,
+            "rgba_sha256": "28d6d69c74c2fd3eebb39f0fba41f641530e637244d99544016e7873a14950c1"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 3.101348042488098,
+            "rgba_sha256": "3d3e68f69d4386c8a6a11d4d416f9bfcee087da2af053c7c893cf572abe16117"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 3.07929790019989,
+            "rgba_sha256": "5a9b3890c4eea1b5553cec578f5b9a3d5644b900e64ad9d6c7ba322782b1affd"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "all-fast-indian-r2",
+        "raw_report_sha256": "b2d55e790c00771856cbe5866b3fb5fb21d0e88d07b486299de4f83b79abf81b",
+        "date_utc": "2026-11-02T21:58:32Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 7.981139063835144,
+        "initialization_seconds": 0.0073089599609375,
+        "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.2082830667495728,
+            "rgba_sha256": "224952e674d7a955254e00cfaf91ed6a37f0706a29c80ae78002e6cddcd8925c",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1466582072,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8328770399093628,
+            "rgba_sha256": "28d6d69c74c2fd3eebb39f0fba41f641530e637244d99544016e7873a14950c1",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1480082488,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8342949151992798,
+            "rgba_sha256": "3d3e68f69d4386c8a6a11d4d416f9bfcee087da2af053c7c893cf572abe16117",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1481245752,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8356759548187256,
+            "rgba_sha256": "5a9b3890c4eea1b5553cec578f5b9a3d5644b900e64ad9d6c7ba322782b1affd",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1481573432,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "3f51b3c5f67e0f41de7493789b762e05b76ff14c0693f88c6537fe40a2a3d8c1",
+        "candidate_rgb_sha256": "3f51b3c5f67e0f41de7493789b762e05b76ff14c0693f88c6537fe40a2a3d8c1"
+      }
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "all",
+      "baseline": {
+        "run": "all-ref-girl",
+        "raw_report_sha256": "e8dc60c0e936ac1a862be0dfeace0054fecb4e387ef29ae8cfd221530b807739",
+        "date_utc": "2026-11-02T21:56:56Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 16.14033305644989,
+        "initialization_seconds": 0.015864014625549316,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 6.445177912712097,
+            "rgba_sha256": "b116cdd1335d7f12850632320962fb735879a31978be25fd9e9d2b4579cbf970"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 3.1682270765304565,
+            "rgba_sha256": "7902b9f2d45e47c7d24e4eebfbd84030ddad605d2b68398802914fca5c22f34d"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 3.166964054107666,
+            "rgba_sha256": "0b5b97080276f1c39e3e2a9b992a94f96e7c5f938abd4e21ecdb484d9946fce8"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 3.0680350065231323,
+            "rgba_sha256": "57b5ce25fb25f51a6b549745ffe750657e5146fe52897220bea8a080d1a3424a"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "all-fast-girl",
+        "raw_report_sha256": "0443a586df63fceb0e78951a270b35c6a130b5a53b114cc730ac6788dadbb09b",
+        "date_utc": "2026-11-02T21:57:12Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.412407994270325,
+        "initialization_seconds": 0.008923053741455078,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.6155999898910522,
+            "rgba_sha256": "b116cdd1335d7f12850632320962fb735879a31978be25fd9e9d2b4579cbf970",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1499513888,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8250700235366821,
+            "rgba_sha256": "7902b9f2d45e47c7d24e4eebfbd84030ddad605d2b68398802914fca5c22f34d",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1513980960,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.838226079940796,
+            "rgba_sha256": "0b5b97080276f1c39e3e2a9b992a94f96e7c5f938abd4e21ecdb484d9946fce8",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1514931232,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8439140319824219,
+            "rgba_sha256": "57b5ce25fb25f51a6b549745ffe750657e5146fe52897220bea8a080d1a3424a",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1515127840,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d",
+        "candidate_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d"
+      }
+    },
+    {
+      "avatar": "girl",
+      "compute_policy": "all",
+      "baseline": {
+        "run": "all-ref-girl-r2",
+        "raw_report_sha256": "09e1bc4ee82befd14c7a048654396147c7146d5fbec403fc5d13a5ba5716eacb",
+        "date_utc": "2026-11-02T21:57:58Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+          "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+          "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+          "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+        },
+        "total_seconds_including_pngs": 12.733679056167603,
+        "initialization_seconds": 0.015168070793151855,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 3.1421319246292114,
+            "rgba_sha256": "b116cdd1335d7f12850632320962fb735879a31978be25fd9e9d2b4579cbf970"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 3.050934910774231,
+            "rgba_sha256": "7902b9f2d45e47c7d24e4eebfbd84030ddad605d2b68398802914fca5c22f34d"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 3.1529910564422607,
+            "rgba_sha256": "0b5b97080276f1c39e3e2a9b992a94f96e7c5f938abd4e21ecdb484d9946fce8"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 3.094470977783203,
+            "rgba_sha256": "57b5ce25fb25f51a6b549745ffe750657e5146fe52897220bea8a080d1a3424a"
+          }
+        ]
+      },
+      "optimized": {
+        "run": "all-fast-girl-r2",
+        "raw_report_sha256": "5598f5c471bff7c135199003854b38281a5337be05a6db48da89ca8add465299",
+        "date_utc": "2026-11-02T21:57:50Z",
+        "source_sha256": {
+          "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+          "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+          "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+          "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+          "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+          "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+          "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+        },
+        "total_seconds_including_pngs": 8.003458023071289,
+        "initialization_seconds": 0.007992029190063477,
+        "portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+        "windows": [
+          {
+            "frames": 28,
+            "start_frame": 0,
+            "inference_seconds": 2.2289559841156006,
+            "rgba_sha256": "b116cdd1335d7f12850632320962fb735879a31978be25fd9e9d2b4579cbf970",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": true
+            },
+            "peak_observed_footprint_bytes": 1466926088,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "serial"
+          },
+          {
+            "frames": 28,
+            "start_frame": 28,
+            "inference_seconds": 1.8324300050735474,
+            "rgba_sha256": "7902b9f2d45e47c7d24e4eebfbd84030ddad605d2b68398802914fca5c22f34d",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1481737224,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 56,
+            "inference_seconds": 1.8389949798583984,
+            "rgba_sha256": "0b5b97080276f1c39e3e2a9b992a94f96e7c5f938abd4e21ecdb484d9946fce8",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1482802184,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          },
+          {
+            "frames": 28,
+            "start_frame": 84,
+            "inference_seconds": 1.8224480152130127,
+            "rgba_sha256": "57b5ce25fb25f51a6b549745ffe750657e5146fe52897220bea8a080d1a3424a",
+            "audio_encoder": {
+              "effectiveComputeUnits": "cpuOnly",
+              "fallbackActive": true,
+              "requestedComputeUnits": "all",
+              "retriedThisWindow": false
+            },
+            "peak_observed_footprint_bytes": 1483031560,
+            "prefetched_partition_loads": 18,
+            "audio_preparation": "lookahead"
+          }
+        ]
+      },
+      "pixel_comparison": {
+        "frames": 112,
+        "exact_frames": 112,
+        "max_channel_error_u8": 0.0,
+        "worst_frame_rmse_u8": 0.0,
+        "worst_frame_psnr_db": null,
+        "roi_xyxy": null,
+        "worst_roi_rmse_u8": null,
+        "worst_temporal_delta_rmse_u8": 0.0,
+        "baseline_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d",
+        "candidate_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d"
+      }
+    }
+  ],
+  "history_rollover_and_partial_tail": {
+    "duration_seconds": 9.48,
+    "baseline": {
+      "run": "long-ref",
+      "raw_report_sha256": "b336d868f031d456f2995e6dde8a5a3763e248edcf6452e20e6c4c748c88ec9e",
+      "date_utc": "2026-11-02T21:58:53Z",
+      "source_sha256": {
+        "SoulXAudio.swift": "cdcc646a8a1b6aed3592f7ac6537eb890f6f8e1c1700813708df32de5b60fc43",
+        "SoulXEngine.swift": "a51b36905881fba4a1239680eecba1625c77014be1e5d447f81f36edff630f01",
+        "SoulXImage.swift": "6dc142138c334adabc8e6207b57359c718e9406804df216b501e514251856fc7",
+        "SoulXModels.swift": "dd40404dbc4aa0d476007f850ca1568740266b1c00505927078fc6a4ac08c862",
+        "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+        "SoulXTensor.swift": "36c2ffbe89ada19e48645369503d798335746962eb91c8fdccc08bec61efe5a6"
+      },
+      "total_seconds_including_pngs": 24.81714904308319,
+      "initialization_seconds": 0.014372944831848145,
+      "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+      "windows": [
+        {
+          "frames": 28,
+          "start_frame": 0,
+          "inference_seconds": 3.5040520429611206,
+          "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50"
+        },
+        {
+          "frames": 28,
+          "start_frame": 28,
+          "inference_seconds": 2.657662034034729,
+          "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e"
+        },
+        {
+          "frames": 28,
+          "start_frame": 56,
+          "inference_seconds": 2.5866819620132446,
+          "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59"
+        },
+        {
+          "frames": 28,
+          "start_frame": 84,
+          "inference_seconds": 2.5551199913024902,
+          "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9"
+        },
+        {
+          "frames": 28,
+          "start_frame": 112,
+          "inference_seconds": 2.588253974914551,
+          "rgba_sha256": "9f379a003f7f33d361abdd4fc15eef59a40fa0f6949cdd559618a620cb9c317b"
+        },
+        {
+          "frames": 28,
+          "start_frame": 140,
+          "inference_seconds": 2.57702100276947,
+          "rgba_sha256": "f0f35d89921782610a0011a44b99d7f6ef6ba3aaeb98ebe90dcbe31902375edc"
+        },
+        {
+          "frames": 28,
+          "start_frame": 168,
+          "inference_seconds": 2.5929880142211914,
+          "rgba_sha256": "cd5cb8657d332e0872800503c7cfacb215750fb291ced3d9f11dd7e3c59340b5"
+        },
+        {
+          "frames": 28,
+          "start_frame": 196,
+          "inference_seconds": 2.5995359420776367,
+          "rgba_sha256": "c9110ab3979db872283d793edd2cd22bb18693185a4351cffe05371dd8df0ebc"
+        },
+        {
+          "frames": 13,
+          "start_frame": 224,
+          "inference_seconds": 2.6017019748687744,
+          "rgba_sha256": "1c9a8684c11412a7011ec7bfacc43cf7c21c4c2939e057f73be4bea616ba5af0"
+        }
+      ]
+    },
+    "optimized": {
+      "run": "long-fast",
+      "raw_report_sha256": "5bddc70666d361e6c3e1c17aa58c4df63e3878417573408c2f9028272eb73dfd",
+      "date_utc": "2026-11-02T21:59:18Z",
+      "source_sha256": {
+        "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+        "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+        "SoulXEngine.swift": "4cbd5efdac4574fe150f92cc9dedbd70e8926bc9382fe3a4e671d479dacc4c40",
+        "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+        "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+        "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+        "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+      },
+      "total_seconds_including_pngs": 17.655712962150574,
+      "initialization_seconds": 0.007699012756347656,
+      "portrait_sha256": "cb7f390757c2d1a5e782a5fe0a0660d5d0fc848d54fc1f6eed72e4a3757feac9",
+      "windows": [
+        {
+          "frames": 28,
+          "start_frame": 0,
+          "inference_seconds": 2.294661045074463,
+          "rgba_sha256": "a109c2dbd946150722b23bd132fa57c4cfd3db4506c20eb61e332f19e38b9f50",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": true
+          },
+          "peak_observed_footprint_bytes": 1577288784,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "serial"
+        },
+        {
+          "frames": 28,
+          "start_frame": 28,
+          "inference_seconds": 1.8208249807357788,
+          "rgba_sha256": "993630b4340476042743c7a5e6783e2d9f22f04742a1c0a94bf79bddbf1dda4e",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1583023208,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 56,
+          "inference_seconds": 1.8361419439315796,
+          "rgba_sha256": "b36899e1a8814e701bb85ed6e9c4d11090012ca028af54bcdb643ee1a6225b59",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1584415848,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 84,
+          "inference_seconds": 1.8480589389801025,
+          "rgba_sha256": "13c998fabdc5bda7fb495f3f38fa683b6c3a79703b790268bca5d35df51df2a9",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1584940136,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 112,
+          "inference_seconds": 1.866934061050415,
+          "rgba_sha256": "9f379a003f7f33d361abdd4fc15eef59a40fa0f6949cdd559618a620cb9c317b",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1585759336,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 140,
+          "inference_seconds": 1.8704849481582642,
+          "rgba_sha256": "f0f35d89921782610a0011a44b99d7f6ef6ba3aaeb98ebe90dcbe31902375edc",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1587102824,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 168,
+          "inference_seconds": 1.8462389707565308,
+          "rgba_sha256": "cd5cb8657d332e0872800503c7cfacb215750fb291ced3d9f11dd7e3c59340b5",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1539409000,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 28,
+          "start_frame": 196,
+          "inference_seconds": 1.870171070098877,
+          "rgba_sha256": "c9110ab3979db872283d793edd2cd22bb18693185a4351cffe05371dd8df0ebc",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1542702184,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        },
+        {
+          "frames": 13,
+          "start_frame": 224,
+          "inference_seconds": 1.8323379755020142,
+          "rgba_sha256": "1c9a8684c11412a7011ec7bfacc43cf7c21c4c2939e057f73be4bea616ba5af0",
+          "audio_encoder": {
+            "effectiveComputeUnits": "cpuOnly",
+            "fallbackActive": true,
+            "requestedComputeUnits": "cpuAndGPU",
+            "retriedThisWindow": false
+          },
+          "peak_observed_footprint_bytes": 1544668264,
+          "prefetched_partition_loads": 18,
+          "audio_preparation": "lookahead"
+        }
+      ]
+    },
+    "pixel_comparison": {
+      "frames": 237,
+      "exact_frames": 237,
+      "max_channel_error_u8": 0.0,
+      "worst_frame_rmse_u8": 0.0,
+      "worst_frame_psnr_db": null,
+      "roi_xyxy": null,
+      "worst_roi_rmse_u8": null,
+      "worst_temporal_delta_rmse_u8": 0.0,
+      "baseline_rgb_sha256": "b65b84a3ebf8c596f01f20f9fb1318425d6e29b74e2691412099e293f068ffaf",
+      "candidate_rgb_sha256": "b65b84a3ebf8c596f01f20f9fb1318425d6e29b74e2691412099e293f068ffaf"
+    }
+  },
+  "cpu_color_microbenchmark": {
+    "execution": "CPU-only helper, Apple M5 Pro, synthetic finite pro320 NTCHW decoder values, 28 frames, five repetitions. No GPU inference in this check.",
+    "baseline": {
+      "seconds_28_frames": [
+        0.1966084169689566,
+        0.19500095886178315,
+        0.19106691679917276,
+        0.19582316651940346,
+        0.19293937436304986
+      ],
+      "corrected_rgb_f32_sha256": [
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092"
+      ]
+    },
+    "optimized": {
+      "corrected_rgb_f32_sha256": [
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092",
+        "8bad74dc5669d82f03447df086d2fd549fa0cd4da644dd1c99279b513633a092"
+      ],
+      "seconds_28_frames": [
+        0.07717074966058135,
+        0.07616708287969232,
+        0.07588704186491668,
+        0.07578833354637027,
+        0.07597858365625143
+      ]
+    }
+  },
+  "final_source_verification": {
+    "gpu_model": "Apple M5 Pro",
+    "compute_policy": "all",
+    "date_utc": "2026-11-02T22:02:30Z",
+    "runtime_source_sha256": {
+      "SoulXAudio.swift": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+      "SoulXAudioLookahead.swift": "68bb3159e1490c10d76d21e095fd5cd1a2a73324b69dba3bba5de03dbe6cdab4",
+      "SoulXEngine.swift": "4e1bc35b71a58efb43c9bd5f04494c5a09a3f3fa5cd065ff08e55a9763feae17",
+      "SoulXImage.swift": "f9db041f0b4944234c47e632e6ca2be59dee7a670d302cd4fcb5ed4dc39332b3",
+      "SoulXModels.swift": "260bbbe3b0d77afd042d5384ae52c6ef4c02ed7ea5255a8d6180594699307700",
+      "SoulXReferenceCache.swift": "486280eed6c6d4be09a8df1a96cda97723a7782d63bd75aaa59fa6ff0388dd4a",
+      "SoulXTensor.swift": "ac0f2393c34e78d5b90a845ada8c26d6155863ad9e50958fc75ebe12e78e7725"
+    },
+    "frame_comparison": {
+      "frames": 112,
+      "exact_frames": 112,
+      "max_channel_error_u8": 0.0,
+      "worst_frame_rmse_u8": 0.0,
+      "worst_frame_psnr_db": null,
+      "roi_xyxy": [
+        48,
+        173,
+        136,
+        247
+      ],
+      "worst_roi_rmse_u8": 0.0,
+      "worst_temporal_delta_rmse_u8": 0.0,
+      "baseline_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d",
+      "candidate_rgb_sha256": "91bd53e62d554002716952465f3918d06f1deacff63f9697106e7bdf418e4f0d"
+    },
+    "inference_seconds": [
+      4.008744955062866,
+      1.8654429912567139,
+      1.8422819375991821,
+      1.8577899932861328
+    ]
+  }
+}

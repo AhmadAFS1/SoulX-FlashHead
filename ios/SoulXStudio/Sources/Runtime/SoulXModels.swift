@@ -1,5 +1,9 @@
 import Foundation
 import CoreML
+import Darwin
+#if os(iOS)
+import os
+#endif
 
 public enum SoulXError: LocalizedError {
     case invalidManifest(String)
@@ -75,20 +79,95 @@ public struct SoulXModelStatus: Sendable {
     public let profileDescription: String
 }
 
-/// Actor-confined loader. Only one DiT partition is retained at a time; this
-/// bounds resident weights on A14. Compilation is persisted separately from
-/// the portable .mlpackages and subsequent predictions reuse those binaries.
+public struct SoulXModelTiming: Encodable, Sendable {
+    public fileprivate(set) var requestedComputeUnits = ""
+    public fileprivate(set) var calls = 0
+    public fileprivate(set) var loads = 0
+    public fileprivate(set) var loadSeconds = 0.0
+    public fileprivate(set) var inputPreparationSeconds = 0.0
+    public fileprivate(set) var predictionSeconds = 0.0
+    public fileprivate(set) var prefetchedLoads = 0
+    public fileprivate(set) var waitForPrefetchSeconds = 0.0
+}
+
+/// Effective compute-unit requests describe Core ML policy, not hardware
+/// placement within a mixed policy.
+public struct SoulXAudioEncoderStatus: Encodable, Sendable {
+    public let requestedComputeUnits: String
+    public let effectiveComputeUnits: String
+    public let fallbackActive: Bool
+    public let retriedThisWindow: Bool
+}
+
+/// Optional per-window diagnostics. Memory is sampled at model boundaries.
+public struct SoulXWindowProfile: Encodable, Sendable {
+    public fileprivate(set) var models = [String: SoulXModelTiming]()
+    public fileprivate(set) var audioPackingSeconds = 0.0
+    public fileprivate(set) var audioPreparation = "serial"
+    public fileprivate(set) var audioEncoderStatus: SoulXAudioEncoderStatus?
+    public fileprivate(set) var workerAudioSeconds = 0.0
+    public fileprivate(set) var waitForAudioSeconds = 0.0
+    public fileprivate(set) var nextAudioPrefetch = "off"
+    public fileprivate(set) var audioPrefetchFallback: String?
+    public fileprivate(set) var largestPartitionWeightBytes: Int?
+    public fileprivate(set) var blockPrefetchFallback: String?
+    public fileprivate(set) var peakSampledFootprintBytes: UInt64?
+    public fileprivate(set) var minimumSampledHeadroomBytes: Int?
+}
+
+/// The loader transfers the new model to one consumer. Only the inference
+/// actor subsequently owns the handle, mutates the store or calls prediction.
+struct SoulXLoadedBlock: @unchecked Sendable {
+    let name: String
+    let model: MLModel
+    let loadSeconds: Double
+}
+
+struct SoulXBlockLoadRequest: Sendable {
+    let name: String
+    let url: URL
+    let computeUnits: MLComputeUnits
+
+    func load() throws -> SoulXLoadedBlock {
+        try Task.checkCancellation()
+        return try autoreleasepool {
+            let configuration = MLModelConfiguration()
+            configuration.computeUnits = computeUnits
+            let start = ProcessInfo.processInfo.systemUptime
+            let model = try MLModel(contentsOf: url, configuration: configuration)
+            try Task.checkCancellation()
+            return SoulXLoadedBlock(name: name, model: model, loadSeconds: ProcessInfo.processInfo.systemUptime - start)
+        }
+    }
+}
+
+/// Owns loaded Core ML models on a single inference actor.
 final class SoulXModelStore {
     let directory: URL
     let manifest: SoulXManifest
     let computeUnits: MLComputeUnits
+    private let audioComputeUnits: MLComputeUnits?
     private var models: [String: MLModel] = [:]
-    private var blockName: String?
+    private let largestPartitionBytes: Int?
+    private let collectTimings: Bool
+    private var fallbackActive = false
+    private var retryingAudioOnCPU = false
+    private var retriedAudioThisWindow = false
+    private var audioOverlapsDiT = false
+    private(set) var windowProfile: SoulXWindowProfile?
 
-    init(directory: URL, computeUnits: MLComputeUnits) throws {
+    init(directory: URL, computeUnits: MLComputeUnits, audioComputeUnits: MLComputeUnits? = nil,
+         collectTimings: Bool = false) throws {
         self.directory = directory
         self.computeUnits = computeUnits
+        self.audioComputeUnits = audioComputeUnits
         self.manifest = try SoulXManifest.load(from: directory)
+        let count = manifest.blockCount
+        let partitionSizes = (0..<count).compactMap {
+            Self.partitionSize(String(format: "blocks_%02d", $0), directory: directory)
+        }
+        self.largestPartitionBytes = partitionSizes.count == count ? partitionSizes.max() : nil
+        self.collectTimings = collectTimings
         let missing = manifest.modelNames.filter { Self.sourceURL($0, directory: directory) == nil }
         guard missing.isEmpty else { throw SoulXError.missingModels(missing) }
     }
@@ -101,16 +180,232 @@ final class SoulXModelStore {
         return nil
     }
 
-    func unload(_ name: String) { models.removeValue(forKey: name) }
-    func unloadLastBlock() {
-        if let blockName { unload(blockName) }
-        blockName = nil
+    private static func partitionSize(_ name: String, directory: URL) -> Int? {
+        guard let source = sourceURL(name, directory: directory) else { return nil }
+        let path = source.pathExtension == "mlmodelc" ? "weights/weight.bin" : "Data/com.apple.CoreML/weights/weight.bin"
+        let attributes = try? FileManager.default.attributesOfItem(atPath: source.appendingPathComponent(path).path)
+        guard let size = (attributes?[.size] as? NSNumber)?.intValue, size > 0 else { return nil }
+        return size
     }
-    func unloadAll() { models.removeAll(); blockName = nil }
+
+    func unload(_ name: String) { models.removeValue(forKey: name) }
+    func beginWindow() {
+        retriedAudioThisWindow = false
+        audioOverlapsDiT = false
+        windowProfile = collectTimings ? SoulXWindowProfile(largestPartitionWeightBytes: largestPartitionBytes) : nil
+        windowProfile?.audioEncoderStatus = audioEncoderStatus
+    }
+
+    func recordAudioPacking(_ seconds: Double) {
+        windowProfile?.audioPackingSeconds += seconds
+    }
+
+    var audioEncoderStatus: SoulXAudioEncoderStatus {
+        SoulXAudioEncoderStatus(requestedComputeUnits: Self.label(requestedAudioUnits),
+                                effectiveComputeUnits: Self.label(effectiveAudioUnits),
+                                fallbackActive: fallbackActive, retriedThisWindow: retriedAudioThisWindow)
+    }
+
+    func inheritAudioCPUFallback() {
+        if !fallbackActive { unload("audio") }
+        fallbackActive = true
+    }
+
+    func adoptPrefetchedAudioStatus(_ status: SoulXAudioEncoderStatus) {
+        if status.fallbackActive { inheritAudioCPUFallback() }
+        retriedAudioThisWindow = status.retriedThisWindow
+        windowProfile?.audioEncoderStatus = audioEncoderStatus
+    }
+
+    /// The projection can return finite context from invalid Wav2Vec features.
+    /// Validate at the encoder boundary, then retry only that specific failure.
+    func packedAudio(waveform: MLMultiArray) throws -> MLMultiArray {
+        defer { windowProfile?.audioEncoderStatus = audioEncoderStatus }
+        func encodeAndValidate() throws -> MLMultiArray {
+            try autoreleasepool {
+                defer { unload("audio") }
+                let features = try predict("audio", inputs: ["waveform": waveform], output: "features")
+                try Task.checkCancellation()
+                let start = collectTimings ? ProcessInfo.processInfo.systemUptime : 0
+                defer {
+                    if collectTimings { recordAudioPacking(ProcessInfo.processInfo.systemUptime - start) }
+                }
+                return try SoulXAudio.windows(features)
+            }
+        }
+
+        do {
+            return try encodeAndValidate()
+        } catch SoulXAudioFeatureError.nonFiniteFeatures where effectiveAudioUnits != .cpuOnly {
+            try Task.checkCancellation()
+            retriedAudioThisWindow = true
+            retryingAudioOnCPU = true
+            defer { retryingAudioOnCPU = false }
+            print("SOULX_EVENT audio_encoder_retry reason=nonfinite_features requested=\(Self.label(requestedAudioUnits)) retry=cpuOnly")
+            // Failed CPU validation and unrelated model errors propagate.
+            let packed = try encodeAndValidate()
+            fallbackActive = true
+            print("SOULX_EVENT audio_encoder_fallback reason=nonfinite_features requested=\(Self.label(requestedAudioUnits)) effective=cpuOnly")
+            return packed
+        }
+    }
+
+    func recordPrefetchedAudio(models: [String: SoulXModelTiming], packing: Double, worker: Double, wait: Double) {
+        windowProfile?.audioPreparation = "lookahead"
+        windowProfile?.audioPackingSeconds = packing
+        windowProfile?.workerAudioSeconds = worker
+        windowProfile?.waitForAudioSeconds = wait
+        for (name, timing) in models { windowProfile?.models[name] = timing }
+    }
+
+    func nextAudioPrefetch(_ status: String, active: Bool) {
+        audioOverlapsDiT = active
+        windowProfile?.nextAudioPrefetch = status
+    }
+
+    func recordAudioPrefetchFallback(_ error: Error, waited: Double) {
+        windowProfile?.audioPreparation = "serial fallback"
+        windowProfile?.audioPrefetchFallback = error.localizedDescription
+        windowProfile?.waitForAudioSeconds = waited
+    }
+
+    func canOverlapAudio(starting: Bool) -> Bool {
+        guard manifest.height == 320, manifest.width == 176 else { return false }
+        #if os(iOS)
+        guard let bytes = largestPartitionBytes, bytes <= 300 * 1_024 * 1_024 else { return false }
+        let minimumHeadroom = (starting ? 2_048 : 1_536) * 1_024 * 1_024 + extraPartitionReserve(bytes)
+        let maximumFootprint = UInt64(starting ? 1_280 : 2_048) * 1_024 * 1_024
+        guard os_proc_available_memory() >= minimumHeadroom,
+              let footprint = Self.footprint() else { return false }
+        return footprint < maximumFootprint
+        #else
+        return true
+        #endif
+    }
+
+    /// Load the current partition before scheduling its successor so the
+    /// device headroom check includes the current model's live weights.
+    func prepareCurrentBlock(_ name: String) throws {
+        guard models[name] == nil else { return }
+        try Task.checkCancellation()
+        let start = collectTimings ? ProcessInfo.processInfo.systemUptime : 0
+        try autoreleasepool { _ = try model(name) }
+        if windowProfile != nil {
+            var timing = windowProfile?.models[name] ?? SoulXModelTiming()
+            timing.loads += 1
+            timing.loadSeconds += ProcessInfo.processInfo.systemUptime - start
+            windowProfile?.models[name] = timing
+            sampleMemory()
+        }
+    }
+
+    func blockLoadRequest(_ name: String) -> SoulXBlockLoadRequest? {
+        guard models[name] == nil, enoughMemoryForPreload() else { return nil }
+        let url = directory.appendingPathComponent(name).appendingPathExtension("mlmodelc")
+        // Speculation is limited to complete compiled PRO ML Program bundles.
+        // Source packages follow normal compilation on the inference actor.
+        let manager = FileManager.default
+        #if os(iOS)
+        // Avoid overlapping audio with two double-size six-layer partitions.
+        if audioOverlapsDiT, (largestPartitionBytes ?? Int.max) > 180 * 1_024 * 1_024 { return nil }
+        #endif
+        for path in ["coremldata.bin", "model.mil", "weights/weight.bin"] {
+            let attrs = try? manager.attributesOfItem(atPath: url.appendingPathComponent(path).path)
+            guard ((attrs?[.size] as? NSNumber)?.intValue ?? 0) > 0 else { return nil }
+        }
+        return SoulXBlockLoadRequest(name: name, url: url, computeUnits: units(for: name))
+    }
+
+    func installPrefetchedBlock(_ block: SoulXLoadedBlock, expected: String, waitSeconds: Double) throws {
+        guard block.name == expected && models[expected] == nil else {
+            throw SoulXError.invalidTensor("Unexpected prefetched partition")
+        }
+        models[expected] = block.model
+        if windowProfile != nil {
+            var timing = windowProfile?.models[expected] ?? SoulXModelTiming()
+            timing.loads += 1
+            timing.prefetchedLoads += 1
+            timing.loadSeconds += block.loadSeconds
+            timing.waitForPrefetchSeconds += waitSeconds
+            windowProfile?.models[expected] = timing
+            sampleMemory()
+        }
+    }
+
+    func recordBlockPrefetchFallback(_ error: Error) {
+        windowProfile?.blockPrefetchFallback = error.localizedDescription
+    }
+
+    private func extraPartitionReserve(_ weightBytes: Int) -> Int {
+        // INT8 storage may expand to wider on-device weights during a load.
+        2 * max(0, weightBytes - 140 * 1_024 * 1_024)
+    }
+
+    private func enoughMemoryForPreload() -> Bool {
+        #if os(iOS)
+        // On the A14 a separate reference run disappeared at a last observed
+        // 3.2 GB footprint. Leave room for a whole additional partition's
+        // loading/prediction scratch and enforce a lower process footprint.
+        guard let bytes = largestPartitionBytes, bytes <= 300 * 1_024 * 1_024 else { return false }
+        let minimumHeadroom = (audioOverlapsDiT ? 2_304 : 1_536) * 1_024 * 1_024 + extraPartitionReserve(bytes)
+        guard os_proc_available_memory() >= minimumHeadroom,
+              let footprint = Self.footprint() else { return false }
+        return footprint < 2 * 1_024 * 1_024 * 1_024
+        #else
+        return true
+        #endif
+    }
+
+    func unloadAll() {
+        models.removeAll()
+        windowProfile = nil
+    }
+
+    private static func footprint() -> UInt64? {
+        var info = task_vm_info_data_t()
+        var count = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<natural_t>.size)
+        let result = withUnsafeMutablePointer(to: &info) { pointer in
+            pointer.withMemoryRebound(to: integer_t.self, capacity: Int(count)) {
+                task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count)
+            }
+        }
+        return result == KERN_SUCCESS ? info.phys_footprint : nil
+    }
+
+    private func sampleMemory() {
+        guard windowProfile != nil else { return }
+        if let footprint = Self.footprint() {
+            let old = windowProfile?.peakSampledFootprintBytes ?? 0
+            windowProfile?.peakSampledFootprintBytes = max(old, footprint)
+        }
+        #if os(iOS)
+        let headroom = os_proc_available_memory()
+        let old = windowProfile?.minimumSampledHeadroomBytes ?? Int.max
+        windowProfile?.minimumSampledHeadroomBytes = min(old, headroom)
+        #endif
+    }
+
+    private var requestedAudioUnits: MLComputeUnits { audioComputeUnits ?? computeUnits }
+    private var effectiveAudioUnits: MLComputeUnits {
+        (fallbackActive || retryingAudioOnCPU) ? .cpuOnly : requestedAudioUnits
+    }
+
+    private func units(for name: String) -> MLComputeUnits {
+        name == "audio" ? effectiveAudioUnits : computeUnits
+    }
+
+    private static func label(_ units: MLComputeUnits) -> String {
+        switch units {
+        case .cpuOnly: return "cpuOnly"
+        case .cpuAndGPU: return "cpuAndGPU"
+        case .cpuAndNeuralEngine: return "cpuAndNeuralEngine"
+        case .all: return "all"
+        @unknown default: return "unknown"
+        }
+    }
 
     private func model(_ name: String) throws -> MLModel {
         if let cached = models[name] { return cached }
-        if name.hasPrefix("blocks_"), let old = blockName, old != name { unload(old) }
         guard let source = Self.sourceURL(name, directory: directory) else { throw SoulXError.missingModels([name]) }
         let url: URL
         if source.pathExtension == "mlmodelc" {
@@ -130,10 +425,9 @@ final class SoulXModelStore {
             url = destination
         }
         let configuration = MLModelConfiguration()
-        configuration.computeUnits = computeUnits
+        configuration.computeUnits = units(for: name)
         let loaded = try MLModel(contentsOf: url, configuration: configuration)
         models[name] = loaded
-        if name.hasPrefix("blocks_") { blockName = name }
         return loaded
     }
 
@@ -142,7 +436,12 @@ final class SoulXModelStore {
         // a whole two-step window can load twenty large block partitions.
         return try autoreleasepool {
             try Task.checkCancellation()
+            let wasLoaded = models[name] != nil
+            let start = collectTimings ? ProcessInfo.processInfo.systemUptime : 0
             let model = try model(name)
+            let prepared = collectTimings ? ProcessInfo.processInfo.systemUptime : 0
+            if !wasLoaded { sampleMemory() }
+            try Task.checkCancellation()
             var values: [String: MLFeatureValue] = [:]
             for (key, tensor) in inputs {
                 guard let constraint = model.modelDescription.inputDescriptionsByName[key]?.multiArrayConstraint else {
@@ -153,7 +452,22 @@ final class SoulXModelStore {
                 guard actual == expected else { throw SoulXError.invalidTensor("\(name).\(key): \(actual), expected \(expected)") }
                 values[key] = MLFeatureValue(multiArray: try SoulXTensor.cast(tensor, to: constraint.dataType))
             }
-            let result = try model.prediction(from: MLDictionaryFeatureProvider(dictionary: values))
+            let provider = try MLDictionaryFeatureProvider(dictionary: values)
+            let predictStart = collectTimings ? ProcessInfo.processInfo.systemUptime : 0
+            let result = try model.prediction(from: provider)
+            if windowProfile != nil {
+                var timing = windowProfile?.models[name] ?? SoulXModelTiming()
+                timing.requestedComputeUnits = Self.label(units(for: name))
+                timing.calls += 1
+                if !wasLoaded {
+                    timing.loads += 1
+                    timing.loadSeconds += prepared - start
+                }
+                timing.inputPreparationSeconds += predictStart - prepared
+                timing.predictionSeconds += ProcessInfo.processInfo.systemUptime - predictStart
+                windowProfile?.models[name] = timing
+                sampleMemory()
+            }
             guard let array = result.featureValue(for: output)?.multiArrayValue else { throw SoulXError.modelOutput("\(name).\(output)") }
             return array
         }

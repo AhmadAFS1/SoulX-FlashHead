@@ -9,8 +9,11 @@ frames, 28 new frames, and two denoising evaluations at timesteps 1000 and 625.
 Output has a 25 fps timebase. Actual generation throughput must be measured; this
 profile is not a promise of real-time operation on A14.
 
-Measured on the iPhone 12 Pro (A14, iOS 26.2): consecutive real windows complete at
-about **0.81–0.90 generated FPS after initial model loading**, with 176×320 output.
+The earlier iPhone 12 Pro build on A14 / iOS 26.2 measured **0.81–0.90 generated FPS** after
+initial model loading at 176×320. The optimized runtime has been measured on the
+Apple M5 Pro Mac. With automatic Core ML selection, warm throughput improved
+from about 9 FPS to 15 FPS with pixel-identical output on both avatars.
+[Runtime benchmarks and speech validation](PERFORMANCE.md)
 This is a functioning local prototype, not real-time. Both requested avatars are
 installed; fixed-avatar initialization uses verified cached Wan features. See
 [the validation record](VALIDATION.md) for the measurements and limitations.

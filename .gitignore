@@ -52,3 +52,8 @@ xcuserdata/
 # These two approved source portraits are app resources, not generated captures.
 !ios/SoulXStudio/Resources/Avatars/*/portrait.png
 .venv-coreml/
+
+# Source for regenerating the fixed-avatar reference caches.
+!apple/tools/
+apple/tools/*
+!apple/tools/reference_cache/

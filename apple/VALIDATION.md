@@ -34,6 +34,13 @@ convolution weights remain compressed to INT8. Audio and reference experiments
 with lower precision exceeded their error gates and were rejected. Failed
 experiment records are retained under `validation/` to explain these choices.
 
+## Updated runtime measurements
+
+The optimized runtime and speech encoder guard have a separate matched Mac
+benchmark. Earlier Mac smoke runs below did not validate the speech features at
+the encoder boundary. See [the performance report](PERFORMANCE.md) for the
+corrected reference, full-frame comparisons, and measured throughput.
+
 ## Native Mac end-to-end run
 
 The command-line runner compiles the same five Swift inference files used by the

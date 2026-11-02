@@ -2,6 +2,12 @@ import Foundation
 import AVFoundation
 import CoreML
 
+enum SoulXAudioFeatureError: LocalizedError {
+    case nonFiniteFeatures
+
+    var errorDescription: String? { "The audio encoder produced non-finite conditioning features." }
+}
+
 enum SoulXAudio {
     static func readMono16k(_ url: URL) throws -> [Float] {
         let accessed = url.startAccessingSecurityScopedResource()
@@ -52,14 +58,58 @@ enum SoulXAudio {
     /// the new 28-frame slice, take centers 167...199, clamp +/-2 in 0...199.
     static func windows(_ features: MLMultiArray) throws -> MLMultiArray {
         _ = try SoulXTensor.checked(features, shape: [1, 200, 12, 768], name: "audio.features")
-        let values = SoulXTensor.values(features)
-        let stride = 12 * 768
-        var packed = [Float](repeating: 0, count: 33 * 5 * stride)
-        for frame in 0..<33 { for slot in 0..<5 {
-            let center = min(199, max(0, 167 + frame + slot - 2))
-            let destination = (frame * 5 + slot) * stride
-            packed.replaceSubrange(destination..<(destination + stride), with: values[(center * stride)..<((center + 1) * stride)])
-        } }
-        return try SoulXTensor.make([1, 33, 5, 12, 768], values: packed)
+        let layers = 12, channels = 768
+        let source = try SoulXTensor.cast(features, to: .float16)
+        let output = try MLMultiArray(shape: [1, 33, 5, 12, 768], dataType: .float16)
+
+        // Production features already contain Float16. Copy each selected time
+        // slice once per slot without materializing the other 165 time slices
+        // or converting the entire eight-second history through Float.
+        try source.withUnsafeBytes { bytes in
+            let input = bytes.bindMemory(to: Float16.self)
+            let strides = source.strides.map(\.intValue)
+            // A backend can emit NaNs which the next layer maps to a finite,
+            // identical context for every speech input. Check each used slice
+            // before projection so the caller can retry the encoder on CPU.
+            for center in 165..<200 {
+                let start = center * strides[1]
+                if strides[2] == channels && strides[3] == 1 {
+                    guard input[start..<(start + layers * channels)].allSatisfy(\.isFinite) else {
+                        throw SoulXAudioFeatureError.nonFiniteFeatures
+                    }
+                } else {
+                    for layer in 0..<layers { for channel in 0..<channels {
+                        guard input[start + layer * strides[2] + channel * strides[3]].isFinite else {
+                            throw SoulXAudioFeatureError.nonFiniteFeatures
+                        }
+                    } }
+                }
+            }
+            output.withUnsafeMutableBytes { outputBytes, outputStrides in
+                let target = outputBytes.bindMemory(to: Float16.self)
+                let contiguousSlice = strides[2] == channels && strides[3] == 1 &&
+                    outputStrides[3] == channels && outputStrides[4] == 1
+                for frame in 0..<33 {
+                    for slot in 0..<5 {
+                        let center = min(199, 167 + frame + slot - 2)
+                        let readOffset = center * strides[1]
+                        let writeOffset = frame * outputStrides[1] + slot * outputStrides[2]
+                        if contiguousSlice {
+                            memcpy(target.baseAddress! + writeOffset, input.baseAddress! + readOffset,
+                                   layers * channels * MemoryLayout<Float16>.stride)
+                        } else {
+                            for layer in 0..<layers {
+                                let from = readOffset + layer * strides[2]
+                                let to = writeOffset + layer * outputStrides[3]
+                                for channel in 0..<channels {
+                                    target[to + channel * outputStrides[4]] = input[from + channel * strides[3]]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return output
     }
 }

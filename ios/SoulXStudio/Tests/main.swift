@@ -37,6 +37,46 @@ for frame in 0..<33 { for slot in 0..<5 {
 } }
 print("PASS all 165 audio-window center/slot endpoints including final clamp")
 
+// A Core ML output may pad or transpose inner axes. Exercise the noncontiguous
+// path using values that distinguish every layer/channel within a feature row.
+let channelStride = 2
+let layerStride = 768 * channelStride + 3
+let timeStride = 12 * layerStride + 5
+let featureStorage = UnsafeMutablePointer<Float16>.allocate(capacity: 200 * timeStride)
+featureStorage.initialize(repeating: 0, count: 200 * timeStride)
+let paddedFeatures = try MLMultiArray(dataPointer: featureStorage, shape: [1,200,12,768], dataType: .float16,
+                                      strides: [200 * timeStride, timeStride, layerStride, channelStride].map(NSNumber.init),
+                                      deallocator: { $0.assumingMemoryBound(to: Float16.self).deallocate() })
+func featureValue(_ frame: Int, _ layer: Int, _ channel: Int) -> Float16 {
+    Float16(bitPattern: 0x3c00 | UInt16((frame * 71 + layer * 13 + channel) % 1024))
+}
+for frame in 165..<200 { for layer in 0..<12 { for channel in 0..<768 {
+    featureStorage[frame * timeStride + layer * layerStride + channel * channelStride] = featureValue(frame, layer, channel)
+} } }
+let stridedWindows = try SoulXAudio.windows(paddedFeatures)
+try stridedWindows.withUnsafeBytes { storage in
+    let packed = storage.bindMemory(to: Float16.self)
+    let strides = stridedWindows.strides.map(\.intValue)
+    for frame in 0..<33 { for slot in 0..<5 {
+        let center = min(199, 167 + frame + slot - 2)
+        for layer in 0..<12 { for channel in 0..<768 {
+            let index = frame * strides[1] + slot * strides[2] + layer * strides[3] + channel * strides[4]
+            try check(packed[index].bitPattern == featureValue(center, layer, channel).bitPattern, "Strided audio context payload")
+        } }
+    } }
+}
+print("PASS bit-exact audio packing with noncontiguous source channels and padded layer/time strides")
+
+for invalid in [Float16.nan, Float16.infinity] {
+    let offset = 199 * timeStride + 4 * layerStride + 731 * channelStride
+    featureStorage[offset] = invalid
+    do {
+        _ = try SoulXAudio.windows(paddedFeatures)
+        try check(false, "Non-finite audio encoder output should be rejected before projection")
+    } catch SoulXAudioFeatureError.nonFiniteFeatures { }
+}
+print("PASS NaN and infinity in a selected feature slice fail before conditioning projection")
+
 let colors: [SIMD3<Float>] = [SIMD3(0,0,0), SIMD3(1,1,1), SIMD3(1,0,0), SIMD3(0,1,0), SIMD3(0,0,1), SIMD3(0.2,0.5,0.8)]
 var maxError: Float = 0
 for color in colors {
@@ -50,6 +90,26 @@ let (prepared, _) = try SoulXImage.prepare(image, height: 2, width: 2)
 let normalized = SoulXTensor.values(prepared)
 for i in planar.indices { try check(abs(normalized[i] - (planar[i] * 2 - 1)) < 0.001, "Image row/orientation or channel order mismatch \(i)") }
 print("PASS Lab roundtrip maxerror=\(maxError), RGB image preparation orientation/channel order")
+
+// A Core ML decoder need not expose contiguous RGB planes. Padding has
+// deliberately invalid values so any incorrect row/time offset is detected.
+let storageCount = 33 * 3 * 8
+let paddedPixels = UnsafeMutablePointer<Float16>.allocate(capacity: storageCount)
+paddedPixels.initialize(repeating: .nan, count: storageCount)
+let paddedFrames = try MLMultiArray(dataPointer: paddedPixels, shape: [1,33,3,2,2],
+                                    dataType: .float16, strides: [792,24,8,4,2],
+                                    deallocator: { $0.assumingMemoryBound(to: Float16.self).deallocate() })
+var frameExpected = [Float]()
+for c in 0..<3 { for y in 0..<2 { for x in 0..<2 {
+    let value = Float16(Float(c * 4 + y * 2 + x - 1) / 8)
+    paddedPixels[17 * 24 + c * 8 + y * 4 + x * 2] = value
+    frameExpected.append(min(1, max(0, Float(value))))
+} } }
+let identityColors = SoulXImage.statistics(frameExpected, pixels: 4)
+let unpackedFrame = try SoulXImage.correctedFrame(paddedFrames, index: 17, height: 2, width: 2,
+                                                  reference: identityColors, strength: 0)
+try check(unpackedFrame == frameExpected, "strided decoder frame read")
+print("PASS strided decoder planes with non-finite padding")
 
 let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 2, interleaved: false)!
 let wavURL = FileManager.default.temporaryDirectory.appendingPathComponent("soulx-audio-\(UUID().uuidString).wav")

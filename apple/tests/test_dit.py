@@ -63,7 +63,11 @@ class PortableDiTTests(unittest.TestCase):
         with torch.no_grad():
             expected = original(x, audio, modulation, freq, self.profile.grid, rotary=rotary)
             actual = portable(x, audio, modulation, cos, sin)
+            portable.self_attn.fuse_projections()
+            portable.cross_attn.fuse_projections()
+            fused = portable(x, audio, modulation, cos, sin)
         torch.testing.assert_close(actual, expected, atol=2e-6, rtol=2e-5)
+        torch.testing.assert_close(fused, expected, atol=2e-6, rtol=2e-5)
 
     def test_query_tiling_preserves_all_keys(self):
         torch.manual_seed(18)

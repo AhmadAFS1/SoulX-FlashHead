@@ -119,6 +119,17 @@ def attention(q, k, v, heads, query_chunk=0):
     return out.transpose(1, 2).reshape(b, n, d)
 
 
+def combine_projections(*layers):
+    """One dense transform of a shared input, preserving checkpoint output rows."""
+    first = layers[0]
+    combined = nn.Linear(first.in_features, sum(layer.out_features for layer in layers),
+                         bias=first.bias is not None, device='meta')
+    combined.weight = nn.Parameter(torch.cat([layer.weight for layer in layers]), requires_grad=False)
+    if first.bias is not None:
+        combined.bias = nn.Parameter(torch.cat([layer.bias for layer in layers]), requires_grad=False)
+    return combined
+
+
 class SelfAttention(nn.Module):
     def __init__(self, cfg, query_chunk=0):
         super().__init__()
@@ -128,14 +139,28 @@ class SelfAttention(nn.Module):
         self.v = nn.Linear(cfg.dim, cfg.dim)
         self.o = nn.Linear(cfg.dim, cfg.dim)
         self.norm_q, self.norm_k = RMSNorm(cfg.dim, cfg.eps), RMSNorm(cfg.dim, cfg.eps)
+        self.qkv = None
+
+    def fuse_projections(self):
+        if self.qkv is None:
+            self.qkv = combine_projections(self.q, self.k, self.v)
+            del self.q, self.k, self.v
 
     def forward(self, x, cos, sin):
         b, n, dim = (int(v) for v in x.shape)
-        q = self.norm_q(self.q(x)).reshape(b, n, self.heads, dim // self.heads)
-        k = self.norm_k(self.k(x)).reshape(b, n, self.heads, dim // self.heads)
+        if self.qkv is None:
+            q, k = self.norm_q(self.q(x)), self.norm_k(self.k(x))
+            v = None
+        else:
+            q, k, v = self.qkv(x).chunk(3, dim=-1)
+            q, k = self.norm_q(q), self.norm_k(k)
+        q = q.reshape(b, n, self.heads, dim // self.heads)
+        k = k.reshape(b, n, self.heads, dim // self.heads)
         q = apply_rotary(q, cos, sin).flatten(2)
         k = apply_rotary(k, cos, sin).flatten(2)
-        return self.o(attention(q, k, self.v(x), self.heads, self.query_chunk))
+        if v is None:
+            v = self.v(x)
+        return self.o(attention(q, k, v, self.heads, self.query_chunk))
 
 
 class CrossAttention(nn.Module):
@@ -147,9 +172,18 @@ class CrossAttention(nn.Module):
         self.v = nn.Linear(cfg.dim, cfg.dim)
         self.o = nn.Linear(cfg.dim, cfg.dim)
         self.norm_q, self.norm_k = RMSNorm(cfg.dim, cfg.eps), RMSNorm(cfg.dim, cfg.eps)
+        self.kv = None
+
+    def fuse_projections(self):
+        if self.kv is None:
+            self.kv = combine_projections(self.k, self.v)
+            del self.k, self.v
 
     def forward(self, x, context):
-        return self.o(attention(self.norm_q(self.q(x)), self.norm_k(self.k(context)), self.v(context), self.heads))
+        if self.kv is None:
+            return self.o(attention(self.norm_q(self.q(x)), self.norm_k(self.k(context)), self.v(context), self.heads))
+        k, v = self.kv(context).chunk(2, dim=-1)
+        return self.o(attention(self.norm_q(self.q(x)), self.norm_k(k), v, self.heads))
 
 
 class DiTBlock(nn.Module):
@@ -246,6 +280,12 @@ class Blocks(nn.Module):
         self.register_buffer('rotary_sin', sin, persistent=False)
         self.register_buffer('time_high', time_modulations[0:1].detach(), persistent=False)
         self.register_buffer('time_low', time_modulations[1:2].detach(), persistent=False)
+
+    def fuse_projections(self):
+        """Call after strict checkpoint loading, before tracing and compression."""
+        for block in self.blocks:
+            block.self_attn.fuse_projections()
+            block.cross_attn.fuse_projections()
 
     def forward(self, hidden, context, timestep):
         modulation = torch.where(timestep.reshape(1, 1, 1) > 800, self.time_high, self.time_low)

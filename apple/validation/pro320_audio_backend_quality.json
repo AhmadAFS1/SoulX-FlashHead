@@ -1,0 +1,1087 @@
+{
+  "environment": {
+    "date_utc": "2026-11-02T21:51:40.830740+00:00",
+    "gpu_model_present": [
+      "Apple M5 Pro"
+    ],
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Apple unified memory shared between CPU and GPU",
+    "visible_vram": "No dedicated VRAM. Visible GPU memory budget was not queried",
+    "evidence": "system_profiler SPDisplaysDataType and sysctl hw.memsize",
+    "driver_runtime": "macOS-27.0.1-arm64-arm-64bit",
+    "torch": "2.7.0",
+    "coremltools": "9.0",
+    "co_resident_load": "Development jobs may be present. This is a correctness diagnostic."
+  },
+  "workload": "Original PRO Wav2Vec2 encoder plus original PRO audio projection, eight-second histories, 33 overlapping audio windows each.",
+  "source_wav": "/Users/ahmadsmacair/code/musetalk-ios-bench/data/audio/eng.wav",
+  "source_wav_sha256": "654dcbce843d70451d1123f7649a58bee11bb9dec9a7e835c05b1e367efb2078",
+  "source_weights": {
+    "wav2vec_file_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+    "dit_file_sha256": "e47e61b9023ea1aac60c0c0fff077289bc6cca443c71907e5a76a411480af250",
+    "compiled_audio_tree_sha256": "9c4ce1593c74f95e40bc7bfac5d9d284a5a8e8a19dc7a855366ca10af3aea23f",
+    "compiled_conditioning_tree_sha256": "d06ebc5e14233e4893073d0b7a664a2115526c8bac851118a568ac74db1606df"
+  },
+  "inputs": {
+    "silence": {
+      "source_interval_start_seconds": 0,
+      "source_interval_duration_seconds": 0,
+      "sha256": "2d4da04b861bb9dbe77c871415931785a18138d6db035f1bbcd0cf8277c6fc23",
+      "dtype": "float32",
+      "shape": [
+        1,
+        128000
+      ],
+      "finite": true,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "rms": 0.0
+    },
+    "active_window_1": {
+      "source_interval_start_seconds": 3,
+      "source_interval_duration_seconds": 1.12,
+      "sha256": "4281400187870fa32011092db2e043c1550895cacbc81f65c80a01e4af569c80",
+      "dtype": "float32",
+      "shape": [
+        1,
+        128000
+      ],
+      "finite": true,
+      "nonfinite_count": 0,
+      "min": -0.350982666015625,
+      "max": 0.58966064453125,
+      "rms": 0.04006896505479431
+    },
+    "active_window_2": {
+      "source_interval_start_seconds": 3,
+      "source_interval_duration_seconds": 2.24,
+      "sha256": "76b5fa4a2a9341af3dded4a41cbe56cdbbcf447011a06f98772a709cd2500a01",
+      "dtype": "float32",
+      "shape": [
+        1,
+        128000
+      ],
+      "finite": true,
+      "nonfinite_count": 0,
+      "min": -0.392303466796875,
+      "max": 0.58966064453125,
+      "rms": 0.059078325689935096
+    },
+    "held_out_speech": {
+      "source_interval_start_seconds": 11.36,
+      "source_interval_duration_seconds": 2.24,
+      "sha256": "b304871191fb9b85cf82e9a306b82f9723829ec3d36addf965ae494035ca223b",
+      "dtype": "float32",
+      "shape": [
+        1,
+        128000
+      ],
+      "finite": true,
+      "nonfinite_count": 0,
+      "min": -0.632659912109375,
+      "max": 0.820159912109375,
+      "rms": 0.06375349428549594
+    },
+    "full_history": {
+      "source_interval_start_seconds": 7.68,
+      "source_interval_duration_seconds": 8,
+      "sha256": "d893d4b7013c66eefdc1cc4918936e3c27e058888c7f4ef1a9162fda7186efe0",
+      "dtype": "float32",
+      "shape": [
+        1,
+        128000
+      ],
+      "finite": true,
+      "nonfinite_count": 0,
+      "min": -0.687591552734375,
+      "max": 0.880096435546875,
+      "rms": 0.13185701052723503
+    }
+  },
+  "torch_cpu_reference": {
+    "silence": {
+      "features": {
+        "sha256": "303dd2bea4fd0c13194455197b017915d9c0a93aec988f3189c7c897fb7ac9c6",
+        "dtype": "float32",
+        "shape": [
+          1,
+          200,
+          12,
+          768
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -2.5163633823394775,
+        "max": 2.0933279991149902,
+        "rms": 0.17241471835968492
+      },
+      "context": {
+        "sha256": "5d6886ded0b436a4a67bdd2508bb457d48d27c89915f9d2e024d1d07928b91b7",
+        "dtype": "float32",
+        "shape": [
+          1,
+          9,
+          32,
+          1536
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -4.654768466949463,
+        "max": 5.194454193115234,
+        "rms": 0.9775242007418278
+      }
+    },
+    "active_window_1": {
+      "features": {
+        "sha256": "b6808c1fe853f5b9e207574b4015bf176b812042ca8a83f1557dfe2cf0107d44",
+        "dtype": "float32",
+        "shape": [
+          1,
+          200,
+          12,
+          768
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -11.972057342529297,
+        "max": 14.325014114379883,
+        "rms": 0.4476715148022149
+      },
+      "context": {
+        "sha256": "cdba13390a522aec832806147b6759aecdaacf7424c0d2c2149b395f457c1160",
+        "dtype": "float32",
+        "shape": [
+          1,
+          9,
+          32,
+          1536
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -4.845836639404297,
+        "max": 5.312977313995361,
+        "rms": 0.9775364563257463
+      }
+    },
+    "active_window_2": {
+      "features": {
+        "sha256": "c7b399f06cae7e6b0d458e598c4be8f17f2373d8502cdfbf0bc1860652b3d11b",
+        "dtype": "float32",
+        "shape": [
+          1,
+          200,
+          12,
+          768
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -12.72376537322998,
+        "max": 14.33234977722168,
+        "rms": 0.4451062159432282
+      },
+      "context": {
+        "sha256": "9754d4267c829f97a05e6dbedf889080876722bcb0a259bbb2ce23a36f049da2",
+        "dtype": "float32",
+        "shape": [
+          1,
+          9,
+          32,
+          1536
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -4.845438480377197,
+        "max": 5.060889720916748,
+        "rms": 0.9775363717396465
+      }
+    },
+    "held_out_speech": {
+      "features": {
+        "sha256": "47afeaed8a31f48215083903ea34165f330c90bcbe74dc0eb07e42111def3d08",
+        "dtype": "float32",
+        "shape": [
+          1,
+          200,
+          12,
+          768
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -12.428592681884766,
+        "max": 14.387151718139648,
+        "rms": 0.46138923674016263
+      },
+      "context": {
+        "sha256": "6d363f26f35c8f33d5388e8fe014886686cc19ac4dc0523186dc23e328203fcf",
+        "dtype": "float32",
+        "shape": [
+          1,
+          9,
+          32,
+          1536
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -4.80179500579834,
+        "max": 5.175079345703125,
+        "rms": 0.9775527220838238
+      }
+    },
+    "full_history": {
+      "features": {
+        "sha256": "460e13951d1f9925bb821eec0866320212f1e4a92747d8ec2700c7bd5c879ba9",
+        "dtype": "float32",
+        "shape": [
+          1,
+          200,
+          12,
+          768
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -12.640026092529297,
+        "max": 14.646141052246094,
+        "rms": 0.4399886779628962
+      },
+      "context": {
+        "sha256": "2425323f331a39810274a3df969979edc7b26fee5c0fcdf5de918e4190b85595",
+        "dtype": "float32",
+        "shape": [
+          1,
+          9,
+          32,
+          1536
+        ],
+        "finite": true,
+        "nonfinite_count": 0,
+        "min": -4.8735737800598145,
+        "max": 5.117629051208496,
+        "rms": 0.9775459597691221
+      }
+    }
+  },
+  "coreml_runs": {
+    "cpu": {
+      "requested_compute_units": "CPU_ONLY",
+      "actual_operation_placement": "unverified",
+      "cases": {
+        "silence": {
+          "features": {
+            "sha256": "ddb764f07754148cd0dfc004cd572f7b3980bb7fba819a4b2670fd23f9b5ed2b",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -2.515625,
+            "max": 2.09375,
+            "rms": 0.1724128023679997,
+            "normalized_rmse_to_torch": 0.00021782345031665684,
+            "max_abs_error_to_torch": 0.0009772777557373047
+          },
+          "end_to_end_context": {
+            "sha256": "ce3575596e10339e5395c20c3d9d98244262b80f039f0448674b2c7b36d996c8",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.66015625,
+            "max": 5.19921875,
+            "rms": 0.9775243555140046,
+            "normalized_rmse_to_torch": 0.0035621337166791096,
+            "max_abs_error_to_torch": 0.038043320178985596
+          },
+          "context_from_reference_features": {
+            "sha256": "15f18742f63927e526a1a4a892ca73f7c140a8cb68f7d7af3e58b533fc5b592f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.6640625,
+            "max": 5.1953125,
+            "rms": 0.9775243642405745,
+            "normalized_rmse_to_torch": 0.003562688222418859,
+            "max_abs_error_to_torch": 0.037066757678985596
+          }
+        },
+        "active_window_1": {
+          "features": {
+            "sha256": "0d83e3eebf86056317308c6ea2dc520c6634d665c4d2f0864634aedef080c054",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -11.96875,
+            "max": 14.328125,
+            "rms": 0.44767090948329047,
+            "normalized_rmse_to_torch": 0.00020477357704098466,
+            "max_abs_error_to_torch": 0.0038900375366210938
+          },
+          "end_to_end_context": {
+            "sha256": "14eebdd46378a34acfae671f8e54c2fe95d3b11172b4ed406bdf112ffadb4b23",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.30859375,
+            "rms": 0.9775360219565385,
+            "normalized_rmse_to_torch": 0.0035534739715173524,
+            "max_abs_error_to_torch": 0.040663644671440125
+          },
+          "context_from_reference_features": {
+            "sha256": "918fa677093796cc5f548b6582dab140770bff5aef6d514064926409d71d102a",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.30859375,
+            "rms": 0.9775355567099121,
+            "normalized_rmse_to_torch": 0.0035586832244184,
+            "max_abs_error_to_torch": 0.040541574358940125
+          }
+        },
+        "active_window_2": {
+          "features": {
+            "sha256": "0be878fbc6d674198c38e338b2c96a223223087093c0a420fd104284a3da118f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -12.7265625,
+            "max": 14.3359375,
+            "rms": 0.4451064923319012,
+            "normalized_rmse_to_torch": 0.00020531174076416663,
+            "max_abs_error_to_torch": 0.003914833068847656
+          },
+          "end_to_end_context": {
+            "sha256": "28debcbb6fa1539869166fd4b48f198d36249bc683a06baa6d89653089b04340",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84765625,
+            "max": 5.0625,
+            "rms": 0.9775354571945305,
+            "normalized_rmse_to_torch": 0.003532337338867948,
+            "max_abs_error_to_torch": 0.03856253623962402
+          },
+          "context_from_reference_features": {
+            "sha256": "eb6555d0290a45f6c597c81922ed3a9e7895667b9179a7d45be0a2f4c6f181ae",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84765625,
+            "max": 5.05859375,
+            "rms": 0.9775355754446856,
+            "normalized_rmse_to_torch": 0.003529186734989243,
+            "max_abs_error_to_torch": 0.03660941123962402
+          }
+        },
+        "held_out_speech": {
+          "features": {
+            "sha256": "89537eddd417e6f31354f66d012772942341444428a03a07fba8e61e82c95dec",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -12.4296875,
+            "max": 14.390625,
+            "rms": 0.4613908730601151,
+            "normalized_rmse_to_torch": 0.00020855209153903048,
+            "max_abs_error_to_torch": 0.003911018371582031
+          },
+          "end_to_end_context": {
+            "sha256": "c4e65506789859f59962c0c34f5419f5600619afcc099205ed0cc1627b76e0dd",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.7890625,
+            "max": 5.1640625,
+            "rms": 0.9775525293566628,
+            "normalized_rmse_to_torch": 0.0035570585533561344,
+            "max_abs_error_to_torch": 0.03439152240753174
+          },
+          "context_from_reference_features": {
+            "sha256": "fed4ff36c5b4c675492b11899ae67fe56af9098c9d03065a07d0c46393ac50a8",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.7890625,
+            "max": 5.16796875,
+            "rms": 0.9775509160614001,
+            "normalized_rmse_to_torch": 0.0035598600490624206,
+            "max_abs_error_to_torch": 0.03536808490753174
+          }
+        },
+        "full_history": {
+          "features": {
+            "sha256": "426150e915be6c1bc224c969d84f8c674fb5fcf8cf0e4f9267f8bd06a623508f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -12.640625,
+            "max": 14.6484375,
+            "rms": 0.4399884642284536,
+            "normalized_rmse_to_torch": 0.00020893661491189043,
+            "max_abs_error_to_torch": 0.0039052963256835938
+          },
+          "end_to_end_context": {
+            "sha256": "d011b015bdd69eb110b84102c47c3e54dd407af3bd0d8c8c0b42798cbabd013c",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.86328125,
+            "max": 5.12890625,
+            "rms": 0.977545594212897,
+            "normalized_rmse_to_torch": 0.003555439936082588,
+            "max_abs_error_to_torch": 0.03828136622905731
+          },
+          "context_from_reference_features": {
+            "sha256": "96589fb71c7310d5b32fafba564530fb252cb191fdc1d5f88e487a28b2094122",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.8671875,
+            "max": 5.12890625,
+            "rms": 0.9775460451835097,
+            "normalized_rmse_to_torch": 0.0035543190153453186,
+            "max_abs_error_to_torch": 0.03852550685405731
+          }
+        }
+      },
+      "encoder_gate_passed_all_cases": true,
+      "projection_gate_passed_with_source_features": true,
+      "end_to_end_context_gate_passed_all_cases": true,
+      "distinct_feature_outputs": 5,
+      "distinct_projected_contexts": 5
+    },
+    "cpu_gpu": {
+      "requested_compute_units": "CPU_AND_GPU",
+      "actual_operation_placement": "unverified",
+      "cases": {
+        "silence": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.8966102751708331,
+            "max_abs_error_to_torch": 4.143373966217041
+          },
+          "context_from_reference_features": {
+            "sha256": "8d39ddab9a56c692457b1bb255a0fe2d668b1c068fb4724668dec40e0a8bd2f4",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.65625,
+            "max": 5.1875,
+            "rms": 0.9775231320870875,
+            "normalized_rmse_to_torch": 0.0030881669898293,
+            "max_abs_error_to_torch": 0.036578476428985596
+          }
+        },
+        "active_window_1": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9000726029978314,
+            "max_abs_error_to_torch": 4.484251022338867
+          },
+          "context_from_reference_features": {
+            "sha256": "8e3f60e1cba539fe19b255b6b533d9f2bf613dda0e52ba80618bee5a2923aea0",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.30859375,
+            "rms": 0.9775358746728151,
+            "normalized_rmse_to_torch": 0.0030911084307927972,
+            "max_abs_error_to_torch": 0.03763425350189209
+          }
+        },
+        "active_window_2": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.8997697206605403,
+            "max_abs_error_to_torch": 4.281577110290527
+          },
+          "context_from_reference_features": {
+            "sha256": "65a4192074f56c257fb9fd451bcaa8839c9dcaf4d01f4c52b910519546743d67",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.05859375,
+            "rms": 0.9775353859204101,
+            "normalized_rmse_to_torch": 0.0030797969987911684,
+            "max_abs_error_to_torch": 0.03953909873962402
+          }
+        },
+        "held_out_speech": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9038463940259395,
+            "max_abs_error_to_torch": 4.244391918182373
+          },
+          "context_from_reference_features": {
+            "sha256": "b6747a71bd55c6d555dadf6e70aa329be11050c34cc252dfe205967c29076818",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.80078125,
+            "max": 5.17578125,
+            "rms": 0.9775528564122089,
+            "normalized_rmse_to_torch": 0.0030834155555046787,
+            "max_abs_error_to_torch": 0.03439152240753174
+          }
+        },
+        "full_history": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9011874660029385,
+            "max_abs_error_to_torch": 4.892788410186768
+          },
+          "context_from_reference_features": {
+            "sha256": "15053f510b04c40f705b020739b7bf6e5de98e45bfe47ebcea8af583d40c5437",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.87109375,
+            "max": 5.11328125,
+            "rms": 0.9775450384586327,
+            "normalized_rmse_to_torch": 0.003087466944099872,
+            "max_abs_error_to_torch": 0.03370022773742676
+          }
+        }
+      },
+      "encoder_gate_passed_all_cases": false,
+      "projection_gate_passed_with_source_features": true,
+      "end_to_end_context_gate_passed_all_cases": false,
+      "distinct_feature_outputs": 1,
+      "distinct_projected_contexts": 1
+    },
+    "all": {
+      "requested_compute_units": "ALL",
+      "actual_operation_placement": "unverified",
+      "cases": {
+        "silence": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.8966102751708331,
+            "max_abs_error_to_torch": 4.143373966217041
+          },
+          "context_from_reference_features": {
+            "sha256": "8d39ddab9a56c692457b1bb255a0fe2d668b1c068fb4724668dec40e0a8bd2f4",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.65625,
+            "max": 5.1875,
+            "rms": 0.9775231320870875,
+            "normalized_rmse_to_torch": 0.0030881669898293,
+            "max_abs_error_to_torch": 0.036578476428985596
+          }
+        },
+        "active_window_1": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9000726029978314,
+            "max_abs_error_to_torch": 4.484251022338867
+          },
+          "context_from_reference_features": {
+            "sha256": "8e3f60e1cba539fe19b255b6b533d9f2bf613dda0e52ba80618bee5a2923aea0",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.30859375,
+            "rms": 0.9775358746728151,
+            "normalized_rmse_to_torch": 0.0030911084307927972,
+            "max_abs_error_to_torch": 0.03763425350189209
+          }
+        },
+        "active_window_2": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.8997697206605403,
+            "max_abs_error_to_torch": 4.281577110290527
+          },
+          "context_from_reference_features": {
+            "sha256": "65a4192074f56c257fb9fd451bcaa8839c9dcaf4d01f4c52b910519546743d67",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.84375,
+            "max": 5.05859375,
+            "rms": 0.9775353859204101,
+            "normalized_rmse_to_torch": 0.0030797969987911684,
+            "max_abs_error_to_torch": 0.03953909873962402
+          }
+        },
+        "held_out_speech": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9038463940259395,
+            "max_abs_error_to_torch": 4.244391918182373
+          },
+          "context_from_reference_features": {
+            "sha256": "b6747a71bd55c6d555dadf6e70aa329be11050c34cc252dfe205967c29076818",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.80078125,
+            "max": 5.17578125,
+            "rms": 0.9775528564122089,
+            "normalized_rmse_to_torch": 0.0030834155555046787,
+            "max_abs_error_to_torch": 0.03439152240753174
+          }
+        },
+        "full_history": {
+          "features": {
+            "sha256": "159d8721129dbaaa88258750b4e2b8654c26f65a9664b21945dc6fddc5550841",
+            "dtype": "float32",
+            "shape": [
+              1,
+              200,
+              12,
+              768
+            ],
+            "finite": false,
+            "nonfinite_count": 1843200,
+            "min": null,
+            "max": null,
+            "rms": null
+          },
+          "end_to_end_context": {
+            "sha256": "d1731c72b8c6a5b5fb4b182e98289c9c44d1aeae8b6fce4807a99c15e596c29f",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.30859375,
+            "max": 4.0078125,
+            "rms": 0.9736867653867557,
+            "normalized_rmse_to_torch": 0.9011874660029385,
+            "max_abs_error_to_torch": 4.892788410186768
+          },
+          "context_from_reference_features": {
+            "sha256": "15053f510b04c40f705b020739b7bf6e5de98e45bfe47ebcea8af583d40c5437",
+            "dtype": "float32",
+            "shape": [
+              1,
+              9,
+              32,
+              1536
+            ],
+            "finite": true,
+            "nonfinite_count": 0,
+            "min": -4.87109375,
+            "max": 5.11328125,
+            "rms": 0.9775450384586327,
+            "normalized_rmse_to_torch": 0.003087466944099872,
+            "max_abs_error_to_torch": 0.03370022773742676
+          }
+        }
+      },
+      "encoder_gate_passed_all_cases": false,
+      "projection_gate_passed_with_source_features": true,
+      "end_to_end_context_gate_passed_all_cases": false,
+      "distinct_feature_outputs": 1,
+      "distinct_projected_contexts": 1
+    }
+  },
+  "component_gates": {
+    "normalized_rmse_max": 0.01,
+    "max_abs_error_max": 0.05,
+    "require_finite": true
+  },
+  "scope": "Mac component diagnostic. Torch runs on CPU. Actual operation placement inside each requested Core ML policy is unverified. iPhone behavior requires a device test.",
+  "independent_swift_probe": {
+    "mode": "Requested cpuAndGPU, macOS Core ML, actual placement unverified",
+    "input": "Same active-speech windows1 and2 passed through Swift AVAudioFile/AVAudioConverter, SoulXTensor, SoulXAudio.windows and MLModel.prediction.",
+    "original_unguarded_context_fp16_sha256_both_windows": "7e4215b2ac08587448f775affd7308d9c8e9d4c0749340226e991eecbe1ec52e",
+    "serial_worker_exact_match": true,
+    "note": "The Swift hash covers raw FP16 bytes. coremltools returns expanded float32 NumPy outputs. Compare hashes within the corresponding API."
+  }
+}

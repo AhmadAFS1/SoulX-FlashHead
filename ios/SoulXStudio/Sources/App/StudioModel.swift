@@ -25,6 +25,9 @@ final class StudioModel: ObservableObject {
     @Published var generationFPS = 0.0
     @Published var audioDuration = 0.0
     @Published var computeMode = ComputeMode.automatic
+    @Published var overlapInference = UserDefaults.standard.object(forKey: "SoulXOverlapInference") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(overlapInference, forKey: "SoulXOverlapInference") }
+    }
     @Published var memoryMB = 0
     @Published var thermal = "Nominal"
     private var audioURL: URL?
@@ -118,7 +121,8 @@ final class StudioModel: ObservableObject {
         generatedFrames = 0
         generationFPS = 0
         inferenceTotal = 0
-        let localEngine = SoulXEngine(modelsDirectory: modelsDirectory, computeUnits: computeMode.units)
+        let localEngine = SoulXEngine(modelsDirectory: modelsDirectory, computeUnits: computeMode.units,
+                                     prefetchAudio: overlapInference, prefetchBlocks: overlapInference)
         engine = localEngine
         work = Task {
             do {
@@ -189,11 +193,11 @@ final class StudioModel: ObservableObject {
         message = "Stopping after the current model prediction…"
     }
 
-    func changeComputeMode() {
+    func changeExecutionSettings() {
         guard !isBusy else { return }
         isInitialized = false
         engine = nil
-        message = "Compute setting changed. Initialize the portrait again."
+        message = "Initialize the portrait again to apply your execution settings."
     }
 
     func importModels(_ source: URL) {

@@ -98,6 +98,7 @@ def export(args):
     if not 1 <= args.blocks_per_chunk <= 30 or args.query_chunk < 0:
         raise ValueError('Invalid partition or query chunk size')
     torch.set_num_threads(args.threads)
+    fuse_qkv = getattr(args, 'fuse_qkv', False)
     checkpoint_dir = Path(args.checkpoint)
     checkpoint = checkpoint_dir / 'diffusion_pytorch_model.safetensors'
     cfg = ProConfig.from_json(checkpoint_dir / 'config.json')
@@ -124,6 +125,7 @@ def export(args):
                                      'float16': 'float16 throughout (diagnostic; failed the full-profile numerical gate)',
                                      'float32': 'float32 throughout with float16 I/O'}[args.precision],
                 'blocks_per_chunk': args.blocks_per_chunk, 'query_chunk': args.query_chunk,
+                'fuse_qkv': fuse_qkv,
                 'compression_scope': 'learned linear and convolution weights only',
                 'quantization_note': 'Apple weight compression of original PRO weights; CUDA activation quantization is not reproduced',
                 'models': {}, 'execution': 'CPU tracing and Core ML conversion on Mac, no iPhone benchmark'}
@@ -133,6 +135,8 @@ def export(args):
                     'blocks_per_chunk', 'query_chunk', 'compression_scope', 'precision_policy'):
             if previous.get(key) != manifest[key]:
                 raise ValueError(f'Resume manifest mismatch: {key}')
+        if previous.get('fuse_qkv', False) != fuse_qkv:
+            raise ValueError('Resume manifest mismatch: fuse_qkv')
         manifest['models'] = previous['models']
     latent = lambda: torch.zeros(profile.latent_shape)
     hidden = lambda: torch.zeros(1, profile.tokens, cfg.dim)
@@ -164,6 +168,8 @@ def export(args):
         started = time.monotonic()
         print(f'Exporting {name}', flush=True)
         module, inputs = factory(), inputs_factory()
+        if fuse_qkv and isinstance(module, Blocks):
+            module.fuse_projections()
         entry = convert_component(module, inputs, output_name, destination, args.compression, args.precision)
         entry['export_seconds'] = time.monotonic() - started
         manifest['models'][name] = entry
@@ -185,6 +191,7 @@ def main():
     parser.add_argument('--width', type=int, default=320)
     parser.add_argument('--blocks-per-chunk', type=int, default=3)
     parser.add_argument('--query-chunk', type=int, default=0, help='Exact query tiling; 0 uses fused SDPA')
+    parser.add_argument('--fuse-qkv', action='store_true', help='Combine self-attention Q/K/V and cross-attention K/V projections after loading checkpoint rows')
     parser.add_argument('--compression', choices=['none', 'int8', 'lut6', 'lut4'], default='int8')
     parser.add_argument('--precision', choices=['mixed', 'float16', 'float32'], default='mixed', help='mixed retains FP32 normalization and attention; I/O stays FP16')
     parser.add_argument('--threads', type=int, default=6)

@@ -1,0 +1,187 @@
+{
+  "environment": {
+    "utc_run_date": "2026-11-02T21:45:10.355249+00:00",
+    "gpu_model_present": "Apple M5 Pro",
+    "execution": "All measurements below used CPU only. Swift compiled with optimizations and Core ML used MLComputeUnits.cpuOnly.",
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Unified system memory shared by the Apple GPU",
+    "visible_vram": "No separate VRAM was allocated or queried. GPU and Neural Engine were unused.",
+    "evidence": "system_profiler SPDisplaysDataType, sysctl hw.memsize and explicit MLModelConfiguration.computeUnits",
+    "driver_runtime": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "co_resident_load": "Other development, conversion and validation jobs may have run. System load and thermal state were not isolated."
+  },
+  "workload": "Swift audio window packing of 1\u00d7200\u00d712\u00d7768 FP16 features and full PRO320 Wav2Vec2 plus conditioning projection with the production compiled models.",
+  "baseline_git_revision": "fec3bf7",
+  "optimized_audio_source_sha256": "87d8c02ef7acf50de36c5856c0a1a058a3d62da7e765f4fb701e3ecac0645f32",
+  "synthetic_input": "Contiguous Float16. At flat offset i the value is ((i % 31) - 15) / 8.",
+  "real_input": "The first 35,840 samples of artifacts/coreml/Smoke/active_speech.wav left-padded with zeros to 128,000 samples (the second window). Exact PCM bytes are identical in both runs.",
+  "input_wav_sha256": "2c839ed993c19d91e8a256f1f8cd25efa90f48ecf3f6511d2ba9f7d1d0a6f926",
+  "method": "Each executable measured six synthetic packings, then three real predictions. Each real invocation loaded both production models, predicted the audio features, packed overlapping windows and projected conditioning. Iterations 1 and 2 are warm. Values are monotonic wall seconds. The baseline source came from fec3bf7. Model outputs were independently hashed in both executables.",
+  "evidence_scope": "This CPU-only standalone probe measures audio-side work on the M5 Pro. Target device FPS requires an end-to-end iPhone run.",
+  "original_pack": {
+    "synthetic_pack_seconds": [
+      0.06316879158839583,
+      0.06292445841245353,
+      0.061990374932065606,
+      0.062464124988764524,
+      0.0628939582966268,
+      0.0639877081848681
+    ],
+    "synthetic_pack_median_seconds": 0.06290920835454017,
+    "synthetic_output_sha256": [
+      "eb7e24c3c8eb5e41825095a93eb63eb88bb14b81f3e2479f32154fff20172d66"
+    ],
+    "real_iterations": [
+      {
+        "load": 0.7182305832393467,
+        "infer": 0.11057425010949373,
+        "pack": 0.06308183330111206,
+        "condload": 0.1060568334069103,
+        "cond": 0.011011416558176279,
+        "total": 1.008954916615039,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      },
+      {
+        "load": 0.0006020832806825638,
+        "infer": 0.09491458325646818,
+        "pack": 0.06064458331093192,
+        "condload": 0.0006441250443458557,
+        "cond": 0.010937958490103483,
+        "total": 0.167743333382532,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      },
+      {
+        "load": 0.0005435834173113108,
+        "infer": 0.10317200003191829,
+        "pack": 0.062063583405688405,
+        "condload": 0.0006112081464380026,
+        "cond": 0.011030666762962937,
+        "total": 0.17742104176431894,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      }
+    ],
+    "real_warm_median_seconds": 0.17258218757342547,
+    "peak_process_resident_bytes": 871972864
+  },
+  "bulk_copy_pack": {
+    "synthetic_pack_seconds": [
+      0.00028404174372553825,
+      0.0005610000807791948,
+      0.0005288750398904085,
+      0.0005418332293629646,
+      0.0005077081732451916,
+      0.00039570825174450874
+    ],
+    "synthetic_pack_median_seconds": 0.0005182916065678,
+    "synthetic_output_sha256": [
+      "eb7e24c3c8eb5e41825095a93eb63eb88bb14b81f3e2479f32154fff20172d66"
+    ],
+    "real_iterations": [
+      {
+        "load": 0.20982475019991398,
+        "infer": 0.1016426666174084,
+        "pack": 0.0006532915867865086,
+        "condload": 0.17839970835484564,
+        "cond": 0.012007833225652575,
+        "total": 0.5025282499846071,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      },
+      {
+        "load": 0.0006157082971185446,
+        "infer": 0.10036820848472416,
+        "pack": 0.000531916506588459,
+        "condload": 0.0005842500831931829,
+        "cond": 0.01127820834517479,
+        "total": 0.11337829171679914,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      },
+      {
+        "load": 0.0005560833960771561,
+        "infer": 0.11570379161275923,
+        "pack": 0.00031025009229779243,
+        "condload": 0.000568208284676075,
+        "cond": 0.015557999955490232,
+        "total": 0.1326963333413005,
+        "context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007"
+      }
+    ],
+    "real_warm_median_seconds": 0.12303731252904981,
+    "peak_process_resident_bytes": 802144256,
+    "validation": "Checks all 35 selected feature rows for NaN and infinity before packing. Final CPU-only timing includes this guard."
+  },
+  "worker_proof": {
+    "workload": "Same production FP32 audio model and INT8 conditioning projection requested on CPU only in both paths. Compared serial results with a separate actor returning immutable context values.",
+    "window_1_context_sha256": "50d37b9028438474260379bcccee158e0486433ceac7e1051eb4a7e60a53dbb2",
+    "window_2_context_sha256": "b08113bbe6d2ccbaf67e036f174f9e42eba90aa2adffd00bc8c6b93ef0787007",
+    "values_compared_per_window": 442368,
+    "bit_exact_both_windows": true,
+    "cancelled_task_returned_cancellation_error": true,
+    "selection": "The worker takes the same requested compute units as serial generation. This historical CPU-only probe explicitly requested CPU in both execution paths."
+  },
+  "experimental_weight_storage": {
+    "policy": "FP16 storage for weights and biases on the 73 linear and eight convolution operations. The graph retains FP32 activations. The shipping audio model keeps its FP32 weights.",
+    "original_weight_bytes": 377496704,
+    "candidate_weight_bytes": 188835968,
+    "candidate_accuracy": {
+      "passed": true,
+      "normalized_rmse": 0.00024739804862779907,
+      "max_abs_error": 0.0009856224060058594,
+      "cosine_similarity": 0.999999969400831,
+      "seed": 32531,
+      "output_shape": [
+        1,
+        200,
+        12,
+        768
+      ],
+      "package_tree_sha256": "6dc90a34d2a11e356da6314b2650796591c6f439de16f65c8dafa1f4a7139848"
+    },
+    "candidate_measurement": {
+      "synthetic_pack_seconds": [
+        0.00021558324806392193,
+        0.0007189998868852854,
+        0.0004716666880995035,
+        0.00047195819206535816,
+        0.0004332084208726883,
+        0.00047037494368851185
+      ],
+      "synthetic_pack_median_seconds": 0.0004710208158940077,
+      "synthetic_output_sha256": [
+        "eb7e24c3c8eb5e41825095a93eb63eb88bb14b81f3e2479f32154fff20172d66"
+      ],
+      "real_iterations": [
+        {
+          "load": 0.3040212499909103,
+          "infer": 0.18387920851819217,
+          "pack": 0.0006674581672996283,
+          "condload": 0.17091595847159624,
+          "cond": 0.014155041659250855,
+          "total": 0.6736389168072492,
+          "context_sha256": "c3fb97a94b32f0e0f044facb1be95de7dc723cb56a5f7223d463b63eff2d1305"
+        },
+        {
+          "load": 0.0007344165351241827,
+          "infer": 0.1706486667972058,
+          "pack": 0.0003386666066944599,
+          "condload": 0.0011812082957476377,
+          "cond": 0.013892624992877245,
+          "total": 0.18679558322764933,
+          "context_sha256": "c3fb97a94b32f0e0f044facb1be95de7dc723cb56a5f7223d463b63eff2d1305"
+        },
+        {
+          "load": 0.0005619998555630445,
+          "infer": 0.1846788334660232,
+          "pack": 0.00013562501408159733,
+          "condload": 0.0005881248507648706,
+          "cond": 0.014028708450496197,
+          "total": 0.19999329163692892,
+          "context_sha256": "c3fb97a94b32f0e0f044facb1be95de7dc723cb56a5f7223d463b63eff2d1305"
+        }
+      ],
+      "real_warm_median_seconds": 0.19339443743228912,
+      "peak_process_resident_bytes": 611827712
+    },
+    "decision": "The initial load was shorter and peak process memory was lower, while steady-state CPU audio predictions took longer. The storage experiment used the bulk-copy packer before finite validation in both weight configurations."
+  }
+}

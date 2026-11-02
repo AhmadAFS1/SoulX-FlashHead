@@ -11,18 +11,30 @@ import Darwin
 // unchanged. Only argument handling, artifact writing and reporting live here.
 private struct Arguments {
     let models: URL, portrait: URL, audio: URL, output: URL
+    let cache: URL?
+    let saveFrames: Bool
+    let timings: Bool
+    let audioCPU: Bool
+    let prefetchAudio: Bool
+    let prefetchBlocks: Bool
     let chunks: Int
     let compute: String
     var units: MLComputeUnits { compute == "cpu" ? .cpuOnly : compute == "all" ? .all : .cpuAndGPU }
     static func parse() throws -> Arguments {
         let arguments = Array(CommandLine.arguments.dropFirst())
-        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--chunks 1] [--compute cpu-gpu|all|cpu]"
+        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--chunks 1] [--compute cpu-gpu|all|cpu]"
         if arguments.contains("--help") { print(help); exit(0) }
-        let supported = Set(["--models", "--portrait", "--audio", "--output", "--chunks", "--compute"])
+        let supported = Set(["--reference-cache", "--models", "--portrait", "--audio", "--output", "--chunks", "--compute"])
         var values: [String: String] = [:]
+        var flags = Set<String>()
         var index = 0
         while index < arguments.count {
             let key = arguments[index]
+            if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks"].contains(key) {
+                guard flags.insert(key).inserted else { throw SoulXError.invalidManifest(help) }
+                index += 1
+                continue
+            }
             guard supported.contains(key), index + 1 < arguments.count, values[key] == nil else {
                 throw SoulXError.invalidManifest(help)
             }
@@ -35,9 +47,17 @@ private struct Arguments {
               ["cpu-gpu", "all", "cpu"].contains(values["--compute"] ?? "cpu-gpu") else {
             throw SoulXError.invalidManifest(help)
         }
+        #if SOULX_BENCH_BASELINE
+        guard flags.subtracting(["--save-frames"]).isEmpty else {
+            throw SoulXError.invalidManifest("The historical benchmark uses sequential inference with the CPU speech encoder.")
+        }
+        #endif
         return Arguments(models: URL(fileURLWithPath: models), portrait: URL(fileURLWithPath: portrait),
                          audio: URL(fileURLWithPath: audio), output: URL(fileURLWithPath: output),
-                         chunks: chunks, compute: values["--compute"] ?? "cpu-gpu")
+                         cache: values["--reference-cache"].map { URL(fileURLWithPath: $0) },
+                         saveFrames: flags.contains("--save-frames"), timings: flags.contains("--model-timings"),
+                         audioCPU: flags.contains("--audio-cpu"),
+                         prefetchAudio: flags.contains("--prefetch-audio"), prefetchBlocks: flags.contains("--prefetch-blocks"), chunks: chunks, compute: values["--compute"] ?? "cpu-gpu")
     }
 }
 
@@ -52,6 +72,7 @@ private func sha256(_ url: URL) throws -> String {
 private final class Recorder: @unchecked Sendable {
     private let lock = NSLock()
     private let directory: URL
+    private let saveFrames: Bool
     private let started = Date.timeIntervalSinceReferenceDate
     private var stages: [[String: Any]] = []
     private var windows: [[String: Any]] = []
@@ -59,6 +80,7 @@ private final class Recorder: @unchecked Sendable {
 
     init(_ args: Arguments) throws {
         directory = args.output
+        saveFrames = args.saveFrames
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let gpu = MTLCreateSystemDefaultDevice()
         report = [
@@ -75,6 +97,10 @@ private final class Recorder: @unchecked Sendable {
             "execution_environment": "Native macOS executable; shared iOS inference runtime sources",
             "execution_classification": args.compute == "cpu" ? "Requested CPU-only Core ML inference on Mac" : "Requested Mac Core ML inference; actual CPU/GPU/ANE placement unverified",
             "scope": "Mac functional smoke and Mac timings only. No iPhone FPS, ANE placement, CUDA parity, lip-sync or perceptual quality claim.",
+            "audio_lookahead": args.prefetchAudio, "partition_preload": args.prefetchBlocks,
+            "audio_compute": args.audioCPU ? "cpu" : "inherit",
+            "model_timings": args.timings,
+            "reference_initialization": args.cache == nil ? "on-device encoder" : "verified portrait cache",
             "requested_compute_units": args.compute, "requested_chunks": args.chunks,
             "workload": "Original full PRO architecture, two denoising steps per 33-frame window; 28 visible frames; first-use model loading included",
             "models_directory": args.models.path, "portrait": args.portrait.path, "audio": args.audio.path,
@@ -86,8 +112,9 @@ private final class Recorder: @unchecked Sendable {
         ]
         if let root = ProcessInfo.processInfo.environment["SOULX_RUNTIME_ROOT"] {
             var hashes: [String: String] = [:]
-            for file in ["SoulXEngine.swift", "SoulXModels.swift", "SoulXTensor.swift", "SoulXImage.swift", "SoulXAudio.swift"] {
-                hashes[file] = try sha256(URL(fileURLWithPath: root).appendingPathComponent(file))
+            for file in ["SoulXEngine.swift", "SoulXModels.swift", "SoulXTensor.swift", "SoulXImage.swift", "SoulXAudio.swift", "SoulXReferenceCache.swift", "SoulXAudioLookahead.swift"] {
+                let url = URL(fileURLWithPath: root).appendingPathComponent(file)
+                if FileManager.default.fileExists(atPath: url.path) { hashes[file] = try sha256(url) }
             }
             report["runtime_source_sha256"] = hashes
         }
@@ -119,9 +146,25 @@ private final class Recorder: @unchecked Sendable {
         try Self.writePNG(last, to: directory.appendingPathComponent(String(format: "window_%02d_last.png", index)))
         if index == 0 { try Self.writePNG(first, to: directory.appendingPathComponent("first.png")) }
         try Self.writePNG(last, to: directory.appendingPathComponent("last.png"))
-        windows.append(["index": index, "start_frame": chunk.startFrame, "frames": chunk.frames.count,
+        var pixels = SHA256()
+        for (offset, frame) in chunk.frames.enumerated() {
+            guard let bytes = frame.dataProvider?.data else { throw SoulXError.invalidImage }
+            pixels.update(data: bytes as Data)
+            if saveFrames {
+                try Self.writePNG(frame, to: directory.appendingPathComponent(String(format: "frame-%06d.png", chunk.startFrame + offset)))
+            }
+        }
+        let pixelHash = pixels.finalize().map { String(format: "%02x", $0) }.joined()
+        var window: [String: Any] = ["rgba_sha256": pixelHash, "index": index, "start_frame": chunk.startFrame, "frames": chunk.frames.count,
                         "inference_seconds": chunk.inferenceSeconds, "mac_generation_fps": chunk.generationFPS,
-                        "playback_fps": chunk.fps, "audio_samples": chunk.samples.count])
+                        "playback_fps": chunk.fps, "audio_samples": chunk.samples.count]
+        #if !SOULX_BENCH_BASELINE
+        window["audio_encoder"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(chunk.audioEncoderStatus))
+        if let profile = chunk.windowProfile {
+            window["model_timings"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(profile))
+        }
+        #endif
+        windows.append(window)
         report["windows"] = windows
         report["generated_frames"] = windows.reduce(0) { $0 + ($1["frames"] as? Int ?? 0) }
         persist()
@@ -156,10 +199,18 @@ private final class Recorder: @unchecked Sendable {
                                 "decoder_mode": manifest.decoderMode])
             guard let source = CGImageSourceCreateWithURL(args.portrait as CFURL, nil),
                   let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else { throw SoulXError.invalidImage }
+            #if SOULX_BENCH_BASELINE
             let engine = SoulXEngine(modelsDirectory: args.models, computeUnits: args.units)
+            log.set("audio_compute", "cpu")
+            log.set("benchmark_reference", "Historical runtime with CPU Wav2Vec encoder and original conditioning/DiT compute selection")
+            #else
+            let engine = SoulXEngine(modelsDirectory: args.models, computeUnits: args.units,
+                                    audioComputeUnits: args.audioCPU ? .cpuOnly : nil,
+                                    collectModelTimings: args.timings, prefetchAudio: args.prefetchAudio, prefetchBlocks: args.prefetchBlocks)
+            #endif
             log.set("inference_started", true)
             let initialization = Date.timeIntervalSinceReferenceDate
-            try await engine.initialize(image: image, onProgress: { log.stage($0) })
+            try await engine.initialize(image: image, referenceCacheURL: args.cache, sourceImageURL: args.portrait, onProgress: { log.stage($0) })
             log.set("initialization_seconds", Date.timeIntervalSinceReferenceDate - initialization)
             try await engine.generate(audioURL: args.audio, maximumChunks: args.chunks,
                                       onProgress: { log.stage($0) }, onChunk: { try log.chunk($0) })

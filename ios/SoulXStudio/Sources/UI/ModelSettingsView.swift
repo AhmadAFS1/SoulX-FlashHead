@@ -32,9 +32,12 @@ struct ModelSettingsView: View {
                         ForEach(StudioModel.ComputeMode.allCases) { mode in Text(mode.rawValue).tag(mode) }
                     }
                     .disabled(studio.isBusy)
-                    .onChange(of: studio.computeMode) { _, _ in studio.changeComputeMode() }
+                    .onChange(of: studio.computeMode) { _, _ in studio.changeExecutionSettings() }
+                    Toggle("Overlap generation work", isOn: $studio.overlapInference)
+                        .disabled(studio.isBusy)
+                        .onChange(of: studio.overlapInference) { _, _ in studio.changeExecutionSettings() }
                 } header: { Text("Device execution") } footer: {
-                    Text("Automatic lets Core ML choose the available processors. Selecting Neural Engine does not guarantee every operation runs there. Changing this setting requires portrait initialization again.")
+                    Text("When memory permits, SoulX prepares the next audio window and loads the next part of the model while generating. Turn overlap off to use less memory. Initialize the portrait again after changing these settings.")
                 }
                 Section("About this build") {
                     LabeledContent("Inference", value: "On device")

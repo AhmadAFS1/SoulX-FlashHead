@@ -82,11 +82,9 @@ enum SoulXComponentProbe {
             let expected = [1, 16, 9, 72, 40]
             try recorder.update(["output_shape": shape, "output_data_type": String(describing: reference.dataType)])
             guard shape == expected else { throw probeError("Reference output shape \(shape) does not match \(expected)") }
-            let contiguous = SoulXTensor.isContiguous(reference)
             var minimum = Float.infinity, maximum = -Float.infinity
             var total = 0.0, nonfinite = 0
-            for index in 0..<reference.count {
-                let value = SoulXTensor.read(reference, at: contiguous ? index : SoulXTensor.offset(index, in: reference))
+            for value in SoulXTensor.values(reference) {
                 if value.isFinite {
                     minimum = min(minimum, value)
                     maximum = max(maximum, value)

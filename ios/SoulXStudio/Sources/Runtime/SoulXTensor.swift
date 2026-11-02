@@ -17,21 +17,20 @@ enum SoulXTensor {
         switch type { case .float16: return 2; case .float32, .int32: return 4; default: return 8 }
     }
 
-    static func isContiguous(_ array: MLMultiArray) -> Bool {
+    private static func isContiguous(shape: [Int], strides: [Int]) -> Bool {
         var stride = 1
-        for i in array.shape.indices.reversed() {
-            if array.shape[i].intValue > 1 && array.strides[i].intValue != stride { return false }
-            stride *= array.shape[i].intValue
+        for i in shape.indices.reversed() {
+            if shape[i] > 1 && strides[i] != stride { return false }
+            stride *= shape[i]
         }
         return true
     }
 
-    static func offset(_ logical: Int, in array: MLMultiArray) -> Int {
+    private static func offset(_ logical: Int, shape: [Int], strides: [Int]) -> Int {
         var remainder = logical, result = 0
-        for i in array.shape.indices.reversed() {
-            let size = array.shape[i].intValue
-            result += (remainder % size) * array.strides[i].intValue
-            remainder /= size
+        for i in shape.indices.reversed() {
+            result += (remainder % shape[i]) * strides[i]
+            remainder /= shape[i]
         }
         return result
     }
@@ -55,13 +54,46 @@ enum SoulXTensor {
     }
 
     static func values(_ array: MLMultiArray) -> [Float] {
-        let contiguous = isContiguous(array)
-        return (0..<array.count).map { read(array, at: contiguous ? $0 : offset($0, in: array)) }
+        let shape = array.shape.map(\.intValue)
+        let count = array.count
+        return array.withUnsafeBytes { bytes in
+            let strides = array.strides.map(\.intValue)
+            let packed = isContiguous(shape: shape, strides: strides)
+            func unpack<T>(_ type: T.Type, _ convert: (T) -> Float) -> [Float] {
+                let pointer = bytes.baseAddress!.assumingMemoryBound(to: type)
+                if packed { return UnsafeBufferPointer(start: pointer, count: count).map(convert) }
+                return (0..<count).map { convert(pointer[offset($0, shape: shape, strides: strides)]) }
+            }
+            switch array.dataType {
+            case .float16: return unpack(Float16.self, Float.init)
+            case .float32: return unpack(Float.self) { $0 }
+            case .double: return unpack(Double.self, Float.init)
+            default: return unpack(Int32.self, Float.init)
+            }
+        }
     }
 
     static func write(_ values: [Float], into array: MLMultiArray) {
-        let contiguous = isContiguous(array)
-        for i in values.indices { write(values[i], into: array, at: contiguous ? i : offset(i, in: array)) }
+        let shape = array.shape.map(\.intValue)
+        array.withUnsafeMutableBytes { bytes, strides in
+            let packed = isContiguous(shape: shape, strides: strides)
+            func pack<T>(_ type: T.Type, _ convert: (Float) -> T) {
+                let pointer = bytes.baseAddress!.assumingMemoryBound(to: type)
+                if packed {
+                    for i in values.indices { pointer[i] = convert(values[i]) }
+                } else {
+                    for i in values.indices {
+                        pointer[offset(i, shape: shape, strides: strides)] = convert(values[i])
+                    }
+                }
+            }
+            switch array.dataType {
+            case .float16: pack(Float16.self, Float16.init)
+            case .float32: pack(Float.self) { $0 }
+            case .double: pack(Double.self, Double.init)
+            default: pack(Int32.self, Int32.init)
+            }
+        }
     }
 
     static func cast(_ array: MLMultiArray, to type: MLMultiArrayDataType) throws -> MLMultiArray {
