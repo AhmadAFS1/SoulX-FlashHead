@@ -101,6 +101,7 @@ def validate(args):
               'precision': export_manifest.get('precision', 'mixed'),
               'precision_policy': export_manifest.get('precision_policy'),
               'fuse_qkv': export_manifest.get('fuse_qkv', False),
+              'variant': export_manifest.get('variant', 'baseline'),
               'comparison_baseline': str(baseline_directory.resolve()) if baseline_directory else None,
               'models_directory': str(models.resolve()),
               'selected_components': sorted(selected),
@@ -113,6 +114,13 @@ def validate(args):
             continue
         torch.manual_seed(41 + sum(name.encode('utf-8')))
         module, inputs = factory(), inputs_factory()
+        if not synthetic and isinstance(module, Blocks) and export_manifest.get('variant', 'baseline') != 'baseline':
+            # Score the conversion of the exported variant against the same
+            # variant in FP32 PyTorch, not against the dense baseline blocks.
+            from .export_dit import apply_variant
+            from .variants import build_transforms
+            for transform in build_transforms(export_manifest['variant'])[0]:
+                apply_variant(transform, module)
         destination = models / (name + '.mlpackage')
         if synthetic:
             convert_component(module, inputs, output, destination, 'none')

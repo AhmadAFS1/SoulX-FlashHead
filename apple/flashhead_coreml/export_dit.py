@@ -115,6 +115,20 @@ class _PartitionView:
         self.blocks.fold_cross_output()
 
 
+def fits_unchanged(manifest, name):
+    """A reused partition must have been built from the same FFN fit files."""
+    from .ffn_pruning import _file_sha256
+    for record in manifest.get('variant_transforms', {}).get(name, []):
+        if record.get('transform') != 'calibrated_ffn_reduction':
+            continue
+        for layer, expected in zip(range(*record['layers']), record['fit_sha256']):
+            path = Path(record['fit_dir']) / f'block_{layer:02d}.pt'
+            if not path.exists() or _file_sha256(path) != expected:
+                print(f'FFN fit for {name} changed; exporting it again', flush=True)
+                return False
+    return True
+
+
 def apply_variant(transform, blocks):
     from .ffn_pruning import reduce_partition
     reduce = getattr(transform, 'ffn_ratio', None)
@@ -159,7 +173,8 @@ def export(args):
                 'blocks_per_chunk': args.blocks_per_chunk, 'query_chunk': args.query_chunk,
                 'fuse_qkv': fuse_qkv,
                 'variant': variant, 'variant_description': variant_description, 'variant_transforms': {},
-                'compression_scope': 'learned linear and convolution weights, plus folded cross-attention output operands',
+                'compression_scope': ('learned linear and convolution weights only' if 'fold' not in variant.split('+') else
+                                      'learned linear and convolution weights, plus folded cross-attention output operands'),
                 'quantization_note': 'Apple weight compression of original PRO weights; CUDA activation quantization is not reproduced',
                 'models': {}, 'execution': 'CPU tracing and Core ML conversion on Mac, no iPhone benchmark'}
     if args.resume and manifest_path.exists():
@@ -198,7 +213,7 @@ def export(args):
         if selected is not None and name not in selected:
             continue
         destination = out / (name + '.mlpackage')
-        if args.resume and name in manifest['models'] and destination.exists():
+        if args.resume and name in manifest['models'] and destination.exists() and fits_unchanged(manifest, name):
             print(f'Reusing {name}', flush=True)
             continue
         started = time.monotonic()

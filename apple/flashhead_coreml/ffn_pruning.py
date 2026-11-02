@@ -284,11 +284,22 @@ def reduce_block(block, fitted):
 
 
 def parse_variant(name: str):
-    """'ffn25' -> 0.25 of hidden units removed in every block."""
-    digits = name[3:]
-    if not digits.isdigit():
-        raise ValueError(f'Unknown FFN variant {name}')
-    return int(digits) / 100.0
+    """'ffn25' -> 0.25 and 'ffn12.5' -> 0.125 of hidden units removed per block."""
+    try:
+        percent = float(name[3:])
+    except ValueError:
+        raise ValueError(f'Unknown FFN variant {name}') from None
+    if not 0 < percent < 100:
+        raise ValueError(f'FFN reduction must be between 0 and 100 percent: {name}')
+    return percent / 100.0
+
+
+def fitted_ratio(fitted: dict, ratio: float, path):
+    """Select a fitted ratio by value, so '0.25' and 0.25 always agree."""
+    for key, value in fitted.items():
+        if abs(float(key) - ratio) < 1e-9:
+            return value
+    raise KeyError(f'{path} has no fit for removed fraction {ratio}; available: {sorted(fitted)}')
 
 
 def reduce_partition(blocks, ratio: float, fit_dir: Path = DEFAULT_FIT):
@@ -297,7 +308,7 @@ def reduce_partition(blocks, ratio: float, fit_dir: Path = DEFAULT_FIT):
     for offset, block in enumerate(blocks.blocks):
         layer = blocks.start + offset
         path = Path(fit_dir) / f'block_{layer:02d}.pt'
-        fitted = torch.load(path)[str(ratio)]
+        fitted = fitted_ratio(torch.load(path), ratio, path)
         widths.append(reduce_block(block, fitted))
         hashes.append(_file_sha256(path))
     return {'transform': 'calibrated_ffn_reduction', 'removed_fraction': ratio, 'layers': [blocks.start, blocks.end],

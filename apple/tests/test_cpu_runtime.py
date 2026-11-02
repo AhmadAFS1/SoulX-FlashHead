@@ -94,6 +94,17 @@ def test_blocks_partition_threads_timestep_to_step_bias():
         b.ffn_step_bias = torch.zeros(2, CFG.dim)
     for t in (1000., 625.):
         torch.testing.assert_close(blocks(hidden, context, torch.tensor([t])), reference[t])
+    # One block: the bias enters as bias[row] * e5, row 0 at t=1000 and row 1 at t=625.
+    single = Blocks(CFG, profile, 0, 1, tm).eval()
+    single.blocks[0].load_state_dict(blocks.blocks[0].state_dict(), strict=False)
+    single.blocks[0].ffn_step_bias = None
+    plain = {t: single(hidden, context, torch.tensor([t])) for t in (1000., 625.)}
+    bias = torch.randn(2, CFG.dim)
+    single.blocks[0].ffn_step_bias = bias
+    for row, (t, table) in enumerate(((1000., tm[0]), (625., tm[1]))):
+        e5 = (single.blocks[0].modulation + table)[0, 5]
+        torch.testing.assert_close(single(hidden, context, torch.tensor([t])) - plain[t],
+                                   (bias[row] * e5).expand_as(plain[t]), rtol=1e-4, atol=1e-5)
 
 
 def test_noise_matches_scalar_swift_transcription():
@@ -171,6 +182,14 @@ def test_obs_refit_recovers_least_squares_and_means():
     full, _, zero_bias = fp.refit(gram, means, w2, b2, torch.arange(n), damp=1e-10)
     torch.testing.assert_close(full, w2, rtol=1e-3, atol=1e-3)
     torch.testing.assert_close(zero_bias, torch.zeros_like(zero_bias), rtol=0, atol=1e-3)
+
+
+@torch.no_grad()
+def test_variant_names_select_fitted_ratios():
+    assert fp.parse_variant('ffn25') == 0.25 and fp.parse_variant('ffn12.5') == 0.125
+    assert fp.fitted_ratio({'0.125': 'a', '0.375': 'b'}, fp.parse_variant('ffn37.5'), 'fit') == 'b'
+    with pytest.raises(KeyError):
+        fp.fitted_ratio({'0.125': 'a'}, 0.25, 'fit')
 
 
 @torch.no_grad()
