@@ -109,6 +109,26 @@ def paired(baseline_rows, candidate_rows):
                                                               for l, r in opened])) if opened else None}
 
 
+def latent_errors(baseline_dir: Path, candidate_dir: Path):
+    """Per-window NRMSE of the denoised latents, generated slots only."""
+    a, b = np.load(baseline_dir / 'latents.npy'), np.load(candidate_dir / 'latents.npy')
+    rows = []
+    for w in range(min(len(a), len(b))):
+        m = 1 if w == 0 else 2
+        x, y = a[w, :, m:].astype(np.float64), b[w, :, m:].astype(np.float64)
+        rows.append(float(np.sqrt(np.mean((x - y) ** 2)) / max(np.sqrt(np.mean(x * x)), 1e-12)))
+    return rows
+
+
+def window_psnr(a, b, per=28):
+    out = []
+    for start in range(0, len(a), per):
+        values = [psnr(x, y) for x, y in zip(a[start:start + per], b[start:start + per])]
+        finite = [v for v in values if np.isfinite(v)]
+        out.append(float(np.median(finite)) if finite else float('inf'))
+    return out
+
+
 def compare(baseline_dir: Path, candidate_dir: Path, rows_cache: dict):
     a, b = np.load(baseline_dir / 'frames.npy'), np.load(candidate_dir / 'frames.npy')
     if a.shape != b.shape:
@@ -130,6 +150,8 @@ def compare(baseline_dir: Path, candidate_dir: Path, rows_cache: dict):
         'temporal_delta_rmse_u8': float(np.sqrt(np.mean((da - db) ** 2))) if len(a) > 1 else 0.0,
         'mean_colour_shift_u8': float(colour),
         'landmarks': paired(rows_a, rows_b),
+        'window_median_psnr_db': window_psnr(a, b),
+        'window_latent_nrmse': latent_errors(baseline_dir, candidate_dir),
     }
 
 

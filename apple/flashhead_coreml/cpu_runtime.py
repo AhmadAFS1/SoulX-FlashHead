@@ -472,7 +472,10 @@ class CpuRuntime:
 
     # -- clip -------------------------------------------------------------
     @torch.inference_mode()
-    def render(self, avatar: str, audio_path: Path, seed=42, max_chunks=None, on_window=None):
+    def render(self, avatar: str, audio_path: Path, seed=42, max_chunks=None, on_window=None, forced_motion=None):
+        """Render one clip. ``forced_motion`` (a previous run's ``latents.npy``)
+        teacher-forces each window's motion latents, isolating per-window
+        transformer differences from closed-loop trajectory divergence."""
         profile = self.profile
         avatar_dir = AVATARS / avatar
         meta = json.loads((avatar_dir / 'reference-cache/metadata.json').read_text())
@@ -506,6 +509,9 @@ class CpuRuntime:
                 raise RuntimeError('Non-finite audio features')
             context = self.context(audio_windows(features))
             record.seconds['audio_and_conditioning'] = time.perf_counter() - t0
+            if forced_motion is not None:
+                count = 1 if not records else 2
+                motion = torch.from_numpy(np.ascontiguousarray(forced_motion[len(records), :, :count]))[None]
             latent = torch.from_numpy(noise.normals(16 * t_lat * plane)).reshape(profile.latent_shape)
             for step in range(2):
                 latent[:, :, :motion.shape[2]] = motion
@@ -602,14 +608,17 @@ def main():
     parser.add_argument('--chunks', type=int)
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--force-motion', type=Path, help="Teacher-force motion latents from a previous run's directory")
     args = parser.parse_args()
     from .variants import build_transforms
     transforms, description = build_transforms(args.variant)
     runtime = CpuRuntime(args.mode, threads=args.threads, transforms=transforms)
     started = time.perf_counter()
+    forced = np.load(args.force_motion / 'latents.npy') if args.force_motion else None
     result = runtime.render(args.avatar, args.audio, args.seed, args.chunks,
                             on_window=lambda r: print(f'window {r.index} frames={r.visible} ' +
-                                                      ' '.join(f'{k}={v:.2f}s' for k, v in r.seconds.items()), flush=True))
+                                                      ' '.join(f'{k}={v:.2f}s' for k, v in r.seconds.items()), flush=True),
+                            forced_motion=forced)
     args.output.mkdir(parents=True, exist_ok=True)
     np.save(args.output / 'frames.npy', result['frames'])
     np.save(args.output / 'latents.npy', result['latents'])
@@ -619,6 +628,7 @@ def main():
               'audio_sha256': hashlib.sha256(args.audio.read_bytes()).hexdigest(), 'mode': args.mode,
               'variant': args.variant, 'variant_description': description, 'transforms': runtime.transform_log,
               'seed': args.seed, 'profile': {'height': runtime.profile.height, 'width': runtime.profile.width},
+              'forced_motion_from': str(args.force_motion) if args.force_motion else None,
               'quantized_layers': runtime.quantized_layers, 'frames': int(len(result['frames'])),
               'frames_sha256': frames_hash, 'elapsed_seconds': time.perf_counter() - started,
               'windows': [{'index': r.index, 'visible_frames': r.visible, 'seconds': r.seconds} for r in result['windows']],
