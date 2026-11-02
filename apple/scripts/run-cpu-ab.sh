@@ -4,7 +4,8 @@
 # Each clip goes to OUTPUT_ROOT/<mode>-<variant>[-<tag>]/<avatar>-<audio stem>/ and is
 # skipped when its run.json already exists. CPU-only PyTorch; see cpu_runtime.py.
 # Optional environment: SEED (default 42); FORCE_FROM=<run root> teacher-forces
-# motion latents from the same clip under that root; TAG names the arm.
+# motion latents from the same clip under that root; TAG names the arm;
+# THREADS sets PyTorch threads (default 4).
 set -euo pipefail
 root=$1 mode=$2 variant=$3
 shift 3
@@ -14,7 +15,7 @@ for clip in "$@"; do
   audio=${clip#*:}
   stem=$(basename "${audio%.*}")
   out="$root/$mode-${variant//+/_}${TAG:+-$TAG}/$avatar-$stem"
-  extra=(--seed "${SEED:-42}")
+  extra=(--seed "${SEED:-42}" --threads "${THREADS:-4}")
   if [[ -n "${FORCE_FROM:-}" ]]; then extra+=(--force-motion "$FORCE_FROM/$avatar-$stem"); fi
   if [[ -f "$out/run.json" ]]; then
     "$python" - "$out/run.json" "${SEED:-42}" "${FORCE_FROM:+$FORCE_FROM/$avatar-$stem}" <<'PY'
