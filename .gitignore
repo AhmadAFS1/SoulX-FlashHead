@@ -57,3 +57,6 @@ xcuserdata/
 !apple/tools/
 apple/tools/*
 !apple/tools/reference_cache/
+
+# CPU A/B renders, calibration activations and fits (regenerated; summaries live in apple/validation/).
+artifacts/cpu-validation/

@@ -47,7 +47,10 @@ def convert_component(module, inputs, output_name, destination, compression='non
         # reciprocal square root, rather than allowing the converter to rewrite
         # explicit torch.float() islands to half precision.
         modules = op.scopes.get(ScopeSource.TORCHSCRIPT_MODULE_TYPE, [])
-        return op.op_type not in ('layer_norm', 'scaled_dot_product_attention') and not any(name in ('RMSNorm', 'LayerNorm') for name in modules)
+        # CrossAttentionWeights is the explicit FP32 softmax of the folded
+        # cross-attention (dit.CrossAttention.fold_output_projection).
+        return op.op_type not in ('layer_norm', 'scaled_dot_product_attention') and not any(
+            name in ('RMSNorm', 'LayerNorm', 'CrossAttentionWeights') for name in modules)
     model = ct.convert(
         traced, convert_to='mlprogram',
         inputs=[ct.TensorType(name=n, shape=tuple(x.shape), dtype=np.float16) for n, x in inputs.items()],
@@ -69,11 +72,20 @@ def convert_component(module, inputs, output_name, destination, compression='non
         # Compress learned matrix/convolution weights only; preserve all other
         # constants, normalization parameters and biases in FP16.
         config = cto.OptimizationConfig()
+        # A folded cross-attention output is a const [heads, 128, dim] matmul
+        # operand. One INT8 scale per output channel (axis 2) over all heads
+        # reproduces the original W_o row quantization exactly.
+        folded_config = (cto.OpLinearQuantizerConfig(mode='linear_symmetric', dtype='int8', granularity='per_block',
+                                                     block_size=[0, 0, 1], weight_threshold=1024)
+                         if compression == 'int8' else weight_config)
         def select_weights(block):
             for op in block.operations:
                 weight = op.inputs.get('weight') if op.op_type in ('linear', 'conv') else None
                 if weight is not None and weight.op.op_type == 'const' and weight.rank >= 2:
                     config.set_op_name(weight.op.name, weight_config)
+                operand = op.inputs.get('y') if op.op_type == 'matmul' else None
+                if operand is not None and operand.op.op_type == 'const' and operand.rank == 3:
+                    config.set_op_name(operand.op.name, folded_config)
                 for child in op.blocks:
                     select_weights(child)
         for function in model._mil_program.functions.values():
@@ -94,11 +106,31 @@ def convert_component(module, inputs, output_name, destination, compression='non
             'outputs': {f.name: {'shape': shape(f), 'dtype': 'float16'} for f in spec.description.output}}
 
 
+class _PartitionView:
+    """Expose one partition to runtime-style variant transforms."""
+    def __init__(self, blocks):
+        self.blocks = blocks
+
+    def fold_cross_output(self):
+        self.blocks.fold_cross_output()
+
+
+def apply_variant(transform, blocks):
+    from .ffn_pruning import reduce_partition
+    reduce = getattr(transform, 'ffn_ratio', None)
+    if reduce is not None:
+        return reduce_partition(blocks, transform.ffn_ratio, transform.fit_dir)
+    return transform(_PartitionView(blocks))
+
+
 def export(args):
     if not 1 <= args.blocks_per_chunk <= 30 or args.query_chunk < 0:
         raise ValueError('Invalid partition or query chunk size')
     torch.set_num_threads(args.threads)
     fuse_qkv = getattr(args, 'fuse_qkv', False)
+    variant = getattr(args, 'variant', 'baseline') or 'baseline'
+    from .variants import build_transforms
+    transforms, variant_description = build_transforms(variant)
     checkpoint_dir = Path(args.checkpoint)
     checkpoint = checkpoint_dir / 'diffusion_pytorch_model.safetensors'
     cfg = ProConfig.from_json(checkpoint_dir / 'config.json')
@@ -126,7 +158,8 @@ def export(args):
                                      'float32': 'float32 throughout with float16 I/O'}[args.precision],
                 'blocks_per_chunk': args.blocks_per_chunk, 'query_chunk': args.query_chunk,
                 'fuse_qkv': fuse_qkv,
-                'compression_scope': 'learned linear and convolution weights only',
+                'variant': variant, 'variant_description': variant_description, 'variant_transforms': {},
+                'compression_scope': 'learned linear and convolution weights, plus folded cross-attention output operands',
                 'quantization_note': 'Apple weight compression of original PRO weights; CUDA activation quantization is not reproduced',
                 'models': {}, 'execution': 'CPU tracing and Core ML conversion on Mac, no iPhone benchmark'}
     if args.resume and manifest_path.exists():
@@ -137,6 +170,9 @@ def export(args):
                 raise ValueError(f'Resume manifest mismatch: {key}')
         if previous.get('fuse_qkv', False) != fuse_qkv:
             raise ValueError('Resume manifest mismatch: fuse_qkv')
+        if previous.get('variant', 'baseline') != variant:
+            raise ValueError('Resume manifest mismatch: variant')
+        manifest['variant_transforms'] = previous.get('variant_transforms', {})
         manifest['models'] = previous['models']
     latent = lambda: torch.zeros(profile.latent_shape)
     hidden = lambda: torch.zeros(1, profile.tokens, cfg.dim)
@@ -168,6 +204,12 @@ def export(args):
         started = time.monotonic()
         print(f'Exporting {name}', flush=True)
         module, inputs = factory(), inputs_factory()
+        if isinstance(module, Blocks):
+            # Variant transforms act on whole blocks after strict loading and
+            # before compression; FFN reduction keeps the partition interface.
+            applied = [apply_variant(transform, module) for transform in transforms]
+            if applied:
+                manifest['variant_transforms'][name] = applied
         if fuse_qkv and isinstance(module, Blocks):
             module.fuse_projections()
         entry = convert_component(module, inputs, output_name, destination, args.compression, args.precision)
@@ -192,6 +234,7 @@ def main():
     parser.add_argument('--blocks-per-chunk', type=int, default=3)
     parser.add_argument('--query-chunk', type=int, default=0, help='Exact query tiling; 0 uses fused SDPA')
     parser.add_argument('--fuse-qkv', action='store_true', help='Combine self-attention Q/K/V and cross-attention K/V projections after loading checkpoint rows')
+    parser.add_argument('--variant', default='baseline', help="Transformer variant, e.g. 'fold', 'ffn25+fold' (see flashhead_coreml.variants)")
     parser.add_argument('--compression', choices=['none', 'int8', 'lut6', 'lut4'], default='int8')
     parser.add_argument('--precision', choices=['mixed', 'float16', 'float32'], default='mixed', help='mixed retains FP32 normalization and attention; I/O stays FP16')
     parser.add_argument('--threads', type=int, default=6)

@@ -1,0 +1,200 @@
+{
+  "environment": {
+    "date_utc": "2026-11-02T23:02:25.803786+00:00",
+    "execution": "CPU-only PyTorch inference",
+    "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+    "physical_or_visible_vram": "not applicable (no GPU used)",
+    "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "logical_cpus": 4,
+    "torch_threads": 4,
+    "system_memory_bytes": 16872808448,
+    "os": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+    "torch": "2.7.0+cpu",
+    "co_resident_load": "unisolated container; other CPU jobs may share cores"
+  },
+  "recorded_environment": {
+    "date_utc": "2026-11-02T05:06:52.473360+00:00",
+    "execution": "CPU-only Core ML prediction and PyTorch reference; no GPU inference",
+    "gpu_model": "none used",
+    "physical_or_visible_vram": "not applicable to CPU-only validation",
+    "hardware_evidence": "Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl",
+    "cpu": "Apple M5 Pro",
+    "physical_memory_bytes": 25769803776,
+    "os": "macOS-27.0.1-arm64-arm-64bit",
+    "driver": "not applicable (CPU only)",
+    "runtime": {
+      "torch": "2.7.0",
+      "coremltools": "9.0"
+    },
+    "co_resident_load": "Other conversion jobs may be running; timings are not benchmarked"
+  },
+  "scope": "Emulation fidelity check on validate_dit seeded random inputs; not real activations",
+  "rows": [
+    {
+      "component": "blocks_00",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.004381216177462071,
+      "recorded_coreml_cpu_normalized_rmse": 0.007501522789900169,
+      "emulation_max_abs_error": 8.202392578125,
+      "recorded_coreml_cpu_max_abs_error": 33.599609375
+    },
+    {
+      "component": "blocks_00",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.005570423520757791,
+      "recorded_coreml_cpu_normalized_rmse": 0.01592634015574748,
+      "emulation_max_abs_error": 9.570068359375,
+      "recorded_coreml_cpu_max_abs_error": 51.0196533203125
+    },
+    {
+      "component": "blocks_01",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.011079369161162127,
+      "recorded_coreml_cpu_normalized_rmse": 0.013051715881970762,
+      "emulation_max_abs_error": 32.382568359375,
+      "recorded_coreml_cpu_max_abs_error": 45.714111328125
+    },
+    {
+      "component": "blocks_01",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.013095984293234423,
+      "recorded_coreml_cpu_normalized_rmse": 0.015381896260572861,
+      "emulation_max_abs_error": 29.07110595703125,
+      "recorded_coreml_cpu_max_abs_error": 41.247802734375
+    },
+    {
+      "component": "blocks_02",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.014494000013501205,
+      "recorded_coreml_cpu_normalized_rmse": 0.01672904006939834,
+      "emulation_max_abs_error": 23.2049560546875,
+      "recorded_coreml_cpu_max_abs_error": 32.2723388671875
+    },
+    {
+      "component": "blocks_02",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.016003834178568897,
+      "recorded_coreml_cpu_normalized_rmse": 0.018372581454815,
+      "emulation_max_abs_error": 19.984130859375,
+      "recorded_coreml_cpu_max_abs_error": 24.5107421875
+    },
+    {
+      "component": "blocks_03",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.0178959676799485,
+      "recorded_coreml_cpu_normalized_rmse": 0.02027047405741761,
+      "emulation_max_abs_error": 48.57080078125,
+      "recorded_coreml_cpu_max_abs_error": 35.0576171875
+    },
+    {
+      "component": "blocks_03",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.018599021901923207,
+      "recorded_coreml_cpu_normalized_rmse": 0.02196341397882673,
+      "emulation_max_abs_error": 28.2945556640625,
+      "recorded_coreml_cpu_max_abs_error": 31.872314453125
+    },
+    {
+      "component": "blocks_04",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.019366329358109318,
+      "recorded_coreml_cpu_normalized_rmse": 0.021890383307124398,
+      "emulation_max_abs_error": 41.91900634765625,
+      "recorded_coreml_cpu_max_abs_error": 44.4364013671875
+    },
+    {
+      "component": "blocks_04",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.021148225047733067,
+      "recorded_coreml_cpu_normalized_rmse": 0.023925612396921998,
+      "emulation_max_abs_error": 80.1976318359375,
+      "recorded_coreml_cpu_max_abs_error": 94.2271728515625
+    },
+    {
+      "component": "blocks_05",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.025703481253066485,
+      "recorded_coreml_cpu_normalized_rmse": 0.029445194690469068,
+      "emulation_max_abs_error": 58.01078796386719,
+      "recorded_coreml_cpu_max_abs_error": 68.032958984375
+    },
+    {
+      "component": "blocks_05",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.03097488836839483,
+      "recorded_coreml_cpu_normalized_rmse": 0.035959355733167185,
+      "emulation_max_abs_error": 55.680908203125,
+      "recorded_coreml_cpu_max_abs_error": 68.17803955078125
+    },
+    {
+      "component": "blocks_06",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.03655911524669033,
+      "recorded_coreml_cpu_normalized_rmse": 0.046821789537467615,
+      "emulation_max_abs_error": 44.4893798828125,
+      "recorded_coreml_cpu_max_abs_error": 53.82037353515625
+    },
+    {
+      "component": "blocks_06",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.016999085738845326,
+      "recorded_coreml_cpu_normalized_rmse": 0.025711149701175287,
+      "emulation_max_abs_error": 36.033935546875,
+      "recorded_coreml_cpu_max_abs_error": 55.791748046875
+    },
+    {
+      "component": "blocks_07",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.01388565459895896,
+      "recorded_coreml_cpu_normalized_rmse": 0.01590723512750139,
+      "emulation_max_abs_error": 43.89862060546875,
+      "recorded_coreml_cpu_max_abs_error": 50.6258544921875
+    },
+    {
+      "component": "blocks_07",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.015525502665345959,
+      "recorded_coreml_cpu_normalized_rmse": 0.01755717716952462,
+      "emulation_max_abs_error": 39.66217041015625,
+      "recorded_coreml_cpu_max_abs_error": 47.3914794921875
+    },
+    {
+      "component": "blocks_08",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.024412890289777757,
+      "recorded_coreml_cpu_normalized_rmse": 0.028149063507747183,
+      "emulation_max_abs_error": 40.2431640625,
+      "recorded_coreml_cpu_max_abs_error": 50.3729248046875
+    },
+    {
+      "component": "blocks_08",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.024856638970981428,
+      "recorded_coreml_cpu_normalized_rmse": 0.028622825491129003,
+      "emulation_max_abs_error": 34.17584228515625,
+      "recorded_coreml_cpu_max_abs_error": 49.32958984375
+    },
+    {
+      "component": "blocks_09",
+      "timestep": 1000.0,
+      "emulation_normalized_rmse": 0.012202342251320688,
+      "recorded_coreml_cpu_normalized_rmse": 0.015157120486583667,
+      "emulation_max_abs_error": 48.966796875,
+      "recorded_coreml_cpu_max_abs_error": 56.97412109375
+    },
+    {
+      "component": "blocks_09",
+      "timestep": 625.0,
+      "emulation_normalized_rmse": 0.01365979394654825,
+      "recorded_coreml_cpu_normalized_rmse": 0.016867780438128616,
+      "emulation_max_abs_error": 51.048583984375,
+      "recorded_coreml_cpu_max_abs_error": 59.0615234375
+    }
+  ],
+  "ratio_emulation_to_recorded": {
+    "min": 0.3497616819861493,
+    "median": 0.8638918339564017,
+    "max": 0.8846957628104389
+  }
+}

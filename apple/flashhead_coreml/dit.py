@@ -163,6 +163,17 @@ class SelfAttention(nn.Module):
         return self.o(attention(q, k, v, self.heads, self.query_chunk))
 
 
+class CrossAttentionWeights(nn.Module):
+    """FP32 island for explicit cross-attention probabilities.
+
+    The exporter keeps every operation in this module scope at FP32, matching
+    the fused scaled-dot-product attention it replaces in the folded form.
+    """
+    def forward(self, q, k):
+        scale = float(int(q.shape[-1])) ** -0.5
+        return torch.softmax(torch.matmul(q.float(), k.float().transpose(-1, -2)) * scale, dim=-1)
+
+
 class CrossAttention(nn.Module):
     def __init__(self, cfg):
         super().__init__()
@@ -173,17 +184,47 @@ class CrossAttention(nn.Module):
         self.o = nn.Linear(cfg.dim, cfg.dim)
         self.norm_q, self.norm_k = RMSNorm(cfg.dim, cfg.eps), RMSNorm(cfg.dim, cfg.eps)
         self.kv = None
+        self.o_heads = None
 
     def fuse_projections(self):
         if self.kv is None:
             self.kv = combine_projections(self.k, self.v)
             del self.k, self.v
 
+    def fold_output_projection(self):
+        """Exact reassociation of the output projection into the 32 audio keys.
+
+        ``o(concat_h P_h v_h) = sum_h P_h (v_h W_o[:, h]^T) + b_o``. Each latent
+        frame has only 32 audio tokens, so projecting values per head costs
+        far less than projecting all 220 query rows per frame. The checkpoint's
+        ``W_o`` rows are kept as the output axis of ``o_heads`` [heads, 128, dim].
+        Call after strict loading and before Apple weight compression.
+        """
+        if self.o_heads is None:
+            dim = self.o.out_features
+            self.o_heads = nn.Parameter(self.o.weight.detach().reshape(dim, self.heads, dim // self.heads)
+                                        .permute(1, 2, 0).contiguous(), requires_grad=False)
+            self.o_bias = nn.Parameter(self.o.bias.detach().clone(), requires_grad=False)
+            self.weights = CrossAttentionWeights()
+            del self.o
+
     def forward(self, x, context):
         if self.kv is None:
-            return self.o(attention(self.norm_q(self.q(x)), self.norm_k(self.k(context)), self.v(context), self.heads))
-        k, v = self.kv(context).chunk(2, dim=-1)
-        return self.o(attention(self.norm_q(self.q(x)), self.norm_k(k), v, self.heads))
+            q, k, v = self.norm_q(self.q(x)), self.norm_k(self.k(context)), self.v(context)
+        else:
+            k, v = self.kv(context).chunk(2, dim=-1)
+            q, k = self.norm_q(self.q(x)), self.norm_k(k)
+        if self.o_heads is None:
+            return self.o(attention(q, k, v, self.heads))
+        b, n, dim = (int(t) for t in q.shape)
+        s, h = int(k.shape[1]), self.heads
+        q = q.reshape(b, n, h, dim // h).transpose(1, 2)
+        k = k.reshape(b, s, h, dim // h).transpose(1, 2)
+        v = v.reshape(b, s, h, dim // h).transpose(1, 2)
+        p = self.weights(q, k).to(v.dtype)                     # [b, h, n, s]
+        values = torch.matmul(v, self.o_heads)                 # [b, h, s, dim]
+        out = torch.matmul(p.transpose(1, 2).reshape(b, n, h * s), values.reshape(b, h * s, dim))
+        return out + self.o_bias
 
 
 class DiTBlock(nn.Module):
@@ -197,8 +238,11 @@ class DiTBlock(nn.Module):
         self.norm3 = nn.LayerNorm(cfg.dim, eps=cfg.eps)
         self.ffn = nn.Sequential(nn.Linear(cfg.dim, cfg.ffn_dim), nn.GELU(approximate='tanh'), nn.Linear(cfg.ffn_dim, cfg.dim))
         self.modulation = nn.Parameter(torch.zeros(1, 6, cfg.dim))
+        # Optional [2, dim] FFN output correction for a calibrated reduced FFN;
+        # row 0 is used at t=1000 and row 1 at t=625 (see ffn_pruning.py).
+        self.register_buffer('ffn_step_bias', None)
 
-    def forward(self, x, context, modulation, cos, sin):
+    def forward(self, x, context, modulation, cos, sin, step_high=None):
         e = (self.modulation + modulation).chunk(6, dim=1)
         x = x + self.self_attn(self.norm1(x) * (1 + e[1]) + e[0], cos, sin) * e[2]
         b, n, dim = (int(v) for v in x.shape)
@@ -206,7 +250,12 @@ class DiTBlock(nn.Module):
         q = self.norm3(x).reshape(b * times, n // times, dim)
         c = context.reshape(b * times, int(context.shape[2]), dim)
         x = x + self.cross_attn(q, c).reshape(b, n, dim)
-        return x + self.ffn(self.norm2(x) * (1 + e[4]) + e[3]) * e[5]
+        y = self.ffn(self.norm2(x) * (1 + e[4]) + e[3])
+        if self.ffn_step_bias is not None:
+            if step_high is None:
+                raise ValueError('A reduced FFN needs the timestep selector')
+            y = y + torch.where(step_high, self.ffn_step_bias[0], self.ffn_step_bias[1])
+        return x + y * e[5]
 
 
 class Patch(nn.Module):
@@ -287,11 +336,17 @@ class Blocks(nn.Module):
             block.self_attn.fuse_projections()
             block.cross_attn.fuse_projections()
 
+    def fold_cross_output(self):
+        """Exact cross-attention output reassociation (after loading)."""
+        for block in self.blocks:
+            block.cross_attn.fold_output_projection()
+
     def forward(self, hidden, context, timestep):
-        modulation = torch.where(timestep.reshape(1, 1, 1) > 800, self.time_high, self.time_low)
+        high = timestep.reshape(1, 1, 1) > 800
+        modulation = torch.where(high, self.time_high, self.time_low)
         x = hidden
         for block in self.blocks:
-            x = block(x, context, modulation, self.rotary_cos, self.rotary_sin)
+            x = block(x, context, modulation, self.rotary_cos, self.rotary_sin, high.reshape(1, 1))
         return x
 
 
