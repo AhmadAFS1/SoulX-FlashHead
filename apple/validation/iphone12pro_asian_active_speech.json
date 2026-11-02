@@ -1,0 +1,291 @@
+{
+  "date_utc" : "2026-11-02T05:35:52Z",
+  "execution_classification" : "Requested Core ML inference on Physical Apple device; actual CPU\/GPU\/ANE placement unverified; check inference_started\/completed",
+  "execution_environment" : "Physical Apple device",
+  "hardware" : {
+    "co_resident_load" : "Unknown; no other-app process inspection",
+    "driver_runtime" : "Core ML \/ Metal supplied by Version 26.2 (Build 23C55)",
+    "gpu_evidence" : "MTLCreateSystemDefaultDevice()?.name; machine from uname",
+    "gpu_model" : "Apple A14 GPU",
+    "machine" : "iPhone13,3",
+    "physical_system_memory_bytes" : 5994840064,
+    "physical_vram" : "Unified system memory; no dedicated VRAM",
+    "thermal_state_at_start" : 1,
+    "visible_vram" : "Not exposed by iOS; process memory limit unknown"
+  },
+  "inference_completed" : true,
+  "inference_started" : true,
+  "initialization_seconds" : 0.049078941345214844,
+  "last_stage" : "Real inference windows completed",
+  "parity" : "Visual and numerical CUDA parity not established by this smoke test",
+  "profile" : {
+    "block_count" : 10,
+    "decoder_mode" : "window",
+    "height" : 320,
+    "name" : "pro320",
+    "sampling_steps" : [
+      1000,
+      625,
+      0
+    ],
+    "width" : 176
+  },
+  "reference_initialization" : "Verified precomputed original Wan portrait features; no generated video cached",
+  "requested_compute_units" : "all",
+  "requested_windows" : 2,
+  "save_all_frames" : true,
+  "schema_version" : 1,
+  "stages" : [
+    {
+      "elapsed_seconds" : 0.017656087875366211,
+      "message" : "Starting real on-device inference"
+    },
+    {
+      "elapsed_seconds" : 0.024461984634399414,
+      "message" : "Checking model files"
+    },
+    {
+      "elapsed_seconds" : 0.027461051940917969,
+      "message" : "Preparing portrait"
+    },
+    {
+      "elapsed_seconds" : 0.054122090339660645,
+      "message" : "Verifying bundled portrait features"
+    },
+    {
+      "elapsed_seconds" : 0.070016980171203613,
+      "message" : "Portrait ready"
+    },
+    {
+      "elapsed_seconds" : 0.072521090507507324,
+      "message" : "Reading audio"
+    },
+    {
+      "elapsed_seconds" : 0.074388980865478516,
+      "message" : "Encoding audio · window 1"
+    },
+    {
+      "elapsed_seconds" : 7.8008869886398315,
+      "message" : "Generating · step 1\/2 · part 1\/10"
+    },
+    {
+      "elapsed_seconds" : 13.714395999908447,
+      "message" : "Generating · step 1\/2 · part 2\/10"
+    },
+    {
+      "elapsed_seconds" : 19.765465021133423,
+      "message" : "Generating · step 1\/2 · part 3\/10"
+    },
+    {
+      "elapsed_seconds" : 25.837670087814331,
+      "message" : "Generating · step 1\/2 · part 4\/10"
+    },
+    {
+      "elapsed_seconds" : 32.016292095184326,
+      "message" : "Generating · step 1\/2 · part 5\/10"
+    },
+    {
+      "elapsed_seconds" : 38.582666993141174,
+      "message" : "Generating · step 1\/2 · part 6\/10"
+    },
+    {
+      "elapsed_seconds" : 44.884400010108948,
+      "message" : "Generating · step 1\/2 · part 7\/10"
+    },
+    {
+      "elapsed_seconds" : 51.240557074546814,
+      "message" : "Generating · step 1\/2 · part 8\/10"
+    },
+    {
+      "elapsed_seconds" : 57.814228057861328,
+      "message" : "Generating · step 1\/2 · part 9\/10"
+    },
+    {
+      "elapsed_seconds" : 64.119018077850342,
+      "message" : "Generating · step 1\/2 · part 10\/10"
+    },
+    {
+      "elapsed_seconds" : 71.305111050605774,
+      "message" : "Generating · step 2\/2 · part 1\/10"
+    },
+    {
+      "elapsed_seconds" : 72.523791074752808,
+      "message" : "Generating · step 2\/2 · part 2\/10"
+    },
+    {
+      "elapsed_seconds" : 73.782896041870117,
+      "message" : "Generating · step 2\/2 · part 3\/10"
+    },
+    {
+      "elapsed_seconds" : 75.054282069206238,
+      "message" : "Generating · step 2\/2 · part 4\/10"
+    },
+    {
+      "elapsed_seconds" : 76.289522051811218,
+      "message" : "Generating · step 2\/2 · part 5\/10"
+    },
+    {
+      "elapsed_seconds" : 77.630128979682922,
+      "message" : "Generating · step 2\/2 · part 6\/10"
+    },
+    {
+      "elapsed_seconds" : 79.029720067977905,
+      "message" : "Generating · step 2\/2 · part 7\/10"
+    },
+    {
+      "elapsed_seconds" : 80.347828984260559,
+      "message" : "Generating · step 2\/2 · part 8\/10"
+    },
+    {
+      "elapsed_seconds" : 81.640407085418701,
+      "message" : "Generating · step 2\/2 · part 9\/10"
+    },
+    {
+      "elapsed_seconds" : 82.933459043502808,
+      "message" : "Generating · step 2\/2 · part 10\/10"
+    },
+    {
+      "elapsed_seconds" : 84.639425992965698,
+      "message" : "Decoding generated video"
+    },
+    {
+      "elapsed_seconds" : 86.388872981071472,
+      "message" : "Updating motion history"
+    },
+    {
+      "elapsed_seconds" : 87.117522001266479,
+      "message" : "Streaming generated frames"
+    },
+    {
+      "elapsed_seconds" : 87.259356021881104,
+      "message" : "Encoding audio · window 2"
+    },
+    {
+      "elapsed_seconds" : 94.029131054878235,
+      "message" : "Generating · step 1\/2 · part 1\/10"
+    },
+    {
+      "elapsed_seconds" : 95.219333052635193,
+      "message" : "Generating · step 1\/2 · part 2\/10"
+    },
+    {
+      "elapsed_seconds" : 96.501185059547424,
+      "message" : "Generating · step 1\/2 · part 3\/10"
+    },
+    {
+      "elapsed_seconds" : 97.809959053993225,
+      "message" : "Generating · step 1\/2 · part 4\/10"
+    },
+    {
+      "elapsed_seconds" : 99.144273996353149,
+      "message" : "Generating · step 1\/2 · part 5\/10"
+    },
+    {
+      "elapsed_seconds" : 100.50055909156799,
+      "message" : "Generating · step 1\/2 · part 6\/10"
+    },
+    {
+      "elapsed_seconds" : 101.85007107257843,
+      "message" : "Generating · step 1\/2 · part 7\/10"
+    },
+    {
+      "elapsed_seconds" : 103.19861006736755,
+      "message" : "Generating · step 1\/2 · part 8\/10"
+    },
+    {
+      "elapsed_seconds" : 104.52331507205963,
+      "message" : "Generating · step 1\/2 · part 9\/10"
+    },
+    {
+      "elapsed_seconds" : 105.83111608028412,
+      "message" : "Generating · step 1\/2 · part 10\/10"
+    },
+    {
+      "elapsed_seconds" : 107.60825109481812,
+      "message" : "Generating · step 2\/2 · part 1\/10"
+    },
+    {
+      "elapsed_seconds" : 108.84634304046631,
+      "message" : "Generating · step 2\/2 · part 2\/10"
+    },
+    {
+      "elapsed_seconds" : 110.11828005313873,
+      "message" : "Generating · step 2\/2 · part 3\/10"
+    },
+    {
+      "elapsed_seconds" : 111.34705901145935,
+      "message" : "Generating · step 2\/2 · part 4\/10"
+    },
+    {
+      "elapsed_seconds" : 112.61948609352112,
+      "message" : "Generating · step 2\/2 · part 5\/10"
+    },
+    {
+      "elapsed_seconds" : 113.89534902572632,
+      "message" : "Generating · step 2\/2 · part 6\/10"
+    },
+    {
+      "elapsed_seconds" : 115.17805004119873,
+      "message" : "Generating · step 2\/2 · part 7\/10"
+    },
+    {
+      "elapsed_seconds" : 116.43554902076721,
+      "message" : "Generating · step 2\/2 · part 8\/10"
+    },
+    {
+      "elapsed_seconds" : 117.71287703514099,
+      "message" : "Generating · step 2\/2 · part 9\/10"
+    },
+    {
+      "elapsed_seconds" : 118.98356699943542,
+      "message" : "Generating · step 2\/2 · part 10\/10"
+    },
+    {
+      "elapsed_seconds" : 120.69211900234222,
+      "message" : "Decoding generated video"
+    },
+    {
+      "elapsed_seconds" : 121.47978603839874,
+      "message" : "Updating motion history"
+    },
+    {
+      "elapsed_seconds" : 121.67563998699188,
+      "message" : "Streaming generated frames"
+    },
+    {
+      "elapsed_seconds" : 121.82606399059296,
+      "message" : "Generation complete"
+    },
+    {
+      "elapsed_seconds" : 121.83145701885223,
+      "message" : "Real inference windows completed"
+    }
+  ],
+  "status" : "passed",
+  "total_seconds" : 121.81610500812531,
+  "window" : {
+    "audio_samples" : 17920,
+    "frames" : 28,
+    "generation_fps" : 0.81356593389558296,
+    "inference_seconds" : 34.416386961936951,
+    "playback_fps" : 25,
+    "start_frame" : 28
+  },
+  "window_0" : {
+    "audio_samples" : 17920,
+    "frames" : 28,
+    "generation_fps" : 0.32167959006639951,
+    "inference_seconds" : 87.043135046958923,
+    "playback_fps" : 25,
+    "start_frame" : 0
+  },
+  "window_28" : {
+    "audio_samples" : 17920,
+    "frames" : 28,
+    "generation_fps" : 0.81356593389558296,
+    "inference_seconds" : 34.416386961936951,
+    "playback_fps" : 25,
+    "start_frame" : 28
+  },
+  "workload" : "Requested PRO, up to 2 generated windows; first-use model loading may be included"
+}

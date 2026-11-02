@@ -1,0 +1,79 @@
+{
+  "component" : "reference",
+  "date_utc" : "2026-11-02T05:03:19Z",
+  "execution_classification" : "Requested Core ML component prediction on Physical Apple device; actual CPU\/GPU\/ANE placement unverified; inspect inference_started\/completed",
+  "execution_environment" : "Physical Apple device",
+  "hardware" : {
+    "co_resident_load" : "Unknown; no other-app process inspection",
+    "driver_runtime" : "Core ML \/ Metal supplied by Version 26.2 (Build 23C55)",
+    "gpu_evidence" : "MTLCreateSystemDefaultDevice()?.name; machine from uname",
+    "gpu_model" : "Apple A14 GPU",
+    "machine" : "iPhone13,3",
+    "physical_system_memory_bytes" : 5994840064,
+    "physical_vram" : "Unified system memory; no dedicated VRAM",
+    "visible_vram" : "Not exposed by iOS; process memory limit unknown"
+  },
+  "inference_completed" : false,
+  "inference_started" : true,
+  "input" : {
+    "data_type" : "MLMultiArrayDataType(rawValue: 65568)",
+    "shape" : [
+      1,
+      3,
+      1,
+      576,
+      320
+    ]
+  },
+  "last_saved_utc" : "2026-11-02T05:03:28Z",
+  "last_stage" : "Predicting reference from real portrait",
+  "load_seconds" : 4.5285758972167969,
+  "memory_evidence" : "task_info TASK_VM_INFO phys_footprint, sampled at stages and every second; not guaranteed instantaneous peak",
+  "model_loaded" : true,
+  "model_path" : "Documents\/Probe\/reference.mlmodelc",
+  "parity" : "Finite and shape checks do not establish CUDA parity, generated video quality, or end-to-end FPS",
+  "peak_observed_footprint_bytes" : 3209285632,
+  "preparation_seconds" : 0.061297059059143066,
+  "process_footprint_bytes" : 3209285632,
+  "requested_compute_units" : "cpuAndGPU",
+  "schema_version" : 1,
+  "source_image" : {
+    "height" : 1672,
+    "width" : 941
+  },
+  "stages" : [
+    {
+      "elapsed_seconds" : 0.027866005897521973,
+      "message" : "Checking component inputs",
+      "process_footprint_bytes" : 19138496,
+      "thermal_state" : 0
+    },
+    {
+      "elapsed_seconds" : 0.035905003547668457,
+      "message" : "Preparing real portrait input",
+      "process_footprint_bytes" : 19253184,
+      "thermal_state" : 0
+    },
+    {
+      "elapsed_seconds" : 0.10002195835113525,
+      "message" : "Loading compiled reference model",
+      "process_footprint_bytes" : 27264960,
+      "thermal_state" : 0
+    },
+    {
+      "elapsed_seconds" : 4.6314259767532349,
+      "message" : "Compiled reference model loaded",
+      "process_footprint_bytes" : 1015173120,
+      "thermal_state" : 0
+    },
+    {
+      "elapsed_seconds" : 4.6359180212020874,
+      "message" : "Predicting reference from real portrait",
+      "process_footprint_bytes" : 1015173120,
+      "thermal_state" : 0
+    }
+  ],
+  "status" : "running",
+  "thermal_state" : 0,
+  "workload" : "Requested PRO reference encoder, one real portrait, H576 W320; component-only validation"
+}

@@ -1,0 +1,72 @@
+{
+  "environment": {
+    "date_utc": "2026-11-02T05:09:28.752968+00:00",
+    "execution": "CPU-only Core ML prediction and CPU PyTorch reference; no GPU or ANE inference",
+    "gpu_model_present": [
+      "Apple M5 Pro"
+    ],
+    "gpu_used": false,
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Apple unified memory shared with system RAM; no dedicated VRAM",
+    "visible_vram": "Not allocated or queried; CPU-only validation",
+    "hardware_evidence": "system_profiler SPDisplaysDataType; sysctl hw.memsize; Core ML ComputeUnit.CPU_ONLY; all torch tensors on CPU",
+    "os": "macOS-27.0.1-arm64-arm-64bit",
+    "driver_runtime": "macOS-provided Core ML runtime; GPU driver not used",
+    "runtime": {
+      "torch": "2.7.0",
+      "coremltools": "9.0",
+      "numpy": "2.2.6",
+      "python": "3.12.12"
+    },
+    "co_resident_load": "Other Core ML export/validation jobs may be running; timings are not performance benchmarks"
+  },
+  "workload": "Original real checkpoint weights; fixed full-shape random inputs; one case per component",
+  "height": 320,
+  "width": 176,
+  "scope": "Conversion versus FP32 export wrapper, identical rounded inputs; does not establish end-to-end CUDA or visual parity",
+  "gates": {
+    "normalized_rmse_max": 0.01,
+    "cosine_similarity_min": 0.999,
+    "max_abs_error_max": 0.05
+  },
+  "models": {
+    "reference": {
+      "finite": true,
+      "normalized_rmse": 0.00020629603947762174,
+      "rmse": 0.00019679771804155378,
+      "expected_rms": 0.9539578100475443,
+      "cosine_similarity": 0.9999999787219362,
+      "max_abs_error": 0.0009768009185791016,
+      "p99_abs_error": 0.0006028699874877919,
+      "output_shape": [
+        1,
+        16,
+        9,
+        40,
+        22
+      ],
+      "passed": true,
+      "seed": 32944,
+      "input_shape": [
+        1,
+        3,
+        1,
+        320,
+        176
+      ],
+      "input_dtype": "float32",
+      "torch_cpu_seconds": 12.638138165930286,
+      "coreml_load_seconds": 0.7757111659739166,
+      "coreml_cpu_prediction_seconds": 13.742952957982197,
+      "timing_scope": "One correctness run under unisolated co-resident load; not benchmark throughput",
+      "checkpoint": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/models/SoulX-FlashHead-1_3B/VAE_Wan/Wan2.1_VAE.pth",
+      "checkpoint_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "checkpoint_digest_kind": "file SHA-256",
+      "package": "artifacts/coreml/pro320/reference.mlpackage",
+      "package_tree_sha256": "cdf40cd2524bb91a9affaf2feafd16f50760b6381c91cade803275a7febcd11b",
+      "validated_package_original_path": "/tmp/soulx-reference320-fp32/reference.mlpackage",
+      "promotion_evidence": "Copied package tree SHA-256 exactly matches validated package; no new inference was required"
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,134 @@
+{
+  "environment": {
+    "date_utc": "2026-11-02T04:58:32.471183+00:00",
+    "execution": "CPU-only Core ML prediction and CPU PyTorch reference; no GPU or ANE inference",
+    "gpu_model_present": "Apple M5 Pro",
+    "gpu_used": false,
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Apple unified memory shared with system RAM; no dedicated VRAM",
+    "visible_vram": "Not allocated or queried; CPU-only validation",
+    "hardware_evidence": "sysctl machdep.cpu.brand_string/hw.memsize; Core ML ComputeUnit.CPU_ONLY; all torch tensors on CPU",
+    "os": "macOS-27.0.1-arm64-arm-64bit",
+    "driver_runtime": "macOS-provided Core ML runtime; GPU driver not used",
+    "runtime": {
+      "torch": "2.7.0",
+      "coremltools": "9.0",
+      "numpy": "2.2.6",
+      "python": "3.12.12"
+    },
+    "co_resident_load": "Other Core ML export/validation jobs may be running; timings are not performance benchmarks"
+  },
+  "workload": "Original real checkpoint weights; fixed full-shape random inputs; one case per component",
+  "height": 576,
+  "width": 320,
+  "scope": "Conversion versus FP32 export wrapper, identical rounded inputs; does not establish end-to-end CUDA or visual parity",
+  "gates": {
+    "normalized_rmse_max": 0.01,
+    "cosine_similarity_min": 0.999,
+    "max_abs_error_max": 0.05
+  },
+  "models": {
+    "audio": {
+      "finite": true,
+      "normalized_rmse": 0.03168479085786819,
+      "rmse": 0.00573947639608217,
+      "expected_rms": 0.18114294715809692,
+      "cosine_similarity": 0.9995007298812459,
+      "max_abs_error": 0.45959924161434174,
+      "p99_abs_error": 0.015842363983392716,
+      "output_shape": [
+        1,
+        200,
+        12,
+        768
+      ],
+      "passed": false,
+      "seed": 32531,
+      "input_shape": [
+        1,
+        128000
+      ],
+      "input_dtype": "float32",
+      "torch_cpu_seconds": 0.7135540409944952,
+      "coreml_load_seconds": 0.2631150831002742,
+      "coreml_cpu_prediction_seconds": 0.07948870793916285,
+      "timing_scope": "One correctness run under unisolated co-resident load; not benchmark throughput",
+      "checkpoint": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/models/wav2vec2-base-960h",
+      "checkpoint_sha256": "2ee2e1374202d4b4d11e5c5c5d5ce85ce97a05901bdb888f964acda829af7025",
+      "package": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/artifacts/coreml/pro576/audio.mlpackage",
+      "package_tree_sha256": "38c65323476d86bf6cff9dda092c9fe8cf1aaaf1733962b89db1ab8920749e67",
+      "checkpoint_digest_kind": "path-and-content tree SHA-256"
+    },
+    "encoder": {
+      "finite": true,
+      "normalized_rmse": 0.00403219416725336,
+      "rmse": 0.0033964375946754794,
+      "expected_rms": 0.8423298714776567,
+      "cosine_similarity": 0.9999918963419367,
+      "max_abs_error": 0.023633480072021484,
+      "p99_abs_error": 0.01042317867279055,
+      "output_shape": [
+        1,
+        16,
+        2,
+        72,
+        40
+      ],
+      "passed": true,
+      "seed": 32737,
+      "input_shape": [
+        1,
+        5,
+        3,
+        576,
+        320
+      ],
+      "input_dtype": "float16",
+      "torch_cpu_seconds": 0.40183699992485344,
+      "coreml_load_seconds": 0.07129791704937816,
+      "coreml_cpu_prediction_seconds": 0.14046579087153077,
+      "timing_scope": "One correctness run under unisolated co-resident load; not benchmark throughput",
+      "checkpoint": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/models/tiny_vae/taehv/taew2_1.pth",
+      "checkpoint_sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+      "package": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/artifacts/coreml/pro576/encoder.mlpackage",
+      "package_tree_sha256": "3c5069c170cb4f8b84809b034a56e3409e1a867248fba368f089ca1d8b869c28",
+      "checkpoint_digest_kind": "file SHA-256"
+    },
+    "decoder": {
+      "finite": true,
+      "normalized_rmse": 0.00323310978466866,
+      "rmse": 0.0013663523083094213,
+      "expected_rms": 0.4226124070356769,
+      "cosine_similarity": 0.9999947753648953,
+      "max_abs_error": 0.030591368675231934,
+      "p99_abs_error": 0.004188716411590576,
+      "output_shape": [
+        1,
+        33,
+        3,
+        576,
+        320
+      ],
+      "passed": true,
+      "seed": 32727,
+      "input_shape": [
+        1,
+        9,
+        16,
+        72,
+        40
+      ],
+      "input_dtype": "float16",
+      "torch_cpu_seconds": 5.727690540952608,
+      "coreml_load_seconds": 0.11391175002790987,
+      "coreml_cpu_prediction_seconds": 1.305498959030956,
+      "timing_scope": "One correctness run under unisolated co-resident load; not benchmark throughput",
+      "checkpoint": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/models/tiny_vae/taehv/taew2_1.pth",
+      "checkpoint_sha256": "d26151e76cdc2c9424bef988de874b33d9a53f30ef3060cd556c429c469c797e",
+      "package": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/artifacts/coreml/pro576/decoder.mlpackage",
+      "package_tree_sha256": "09f9b515217e30a4b1e21cd65d5193f513a10bad53f2efba8be92de9d8bd3a4d",
+      "checkpoint_digest_kind": "file SHA-256"
+    }
+  },
+  "passed": false
+}

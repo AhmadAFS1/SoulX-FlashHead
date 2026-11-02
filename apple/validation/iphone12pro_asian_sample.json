@@ -1,0 +1,36 @@
+{
+  "source_report": "iphone12pro_asian_active_speech.json",
+  "classification": "Actual iPhone12Pro A14 Core ML inference, requested compute units all; actual operation placement unverified",
+  "date_utc": "2026-11-02T05:35:52Z",
+  "avatar": "User-selected repository examples/girl.png (Asian)",
+  "source_portrait_sha256": "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+  "input_audio_sha256": "2c839ed993c19d91e8a256f1f8cd25efa90f48ecf3f6511d2ba9f7d1d0a6f926",
+  "audio_source": "Local MuseTalk data/audio/eng.wav, 3.00\u20135.24 seconds, PCM mono16kHz",
+  "rendered_frames": 56,
+  "native_frame_size": [
+    176,
+    320
+  ],
+  "video_playback_fps": 25,
+  "native_output": "artifacts/coreml/iphone-asian-active-speech/generated.mp4",
+  "packaging": "CPU ffmpeg packaging of saved iPhone-generated frames and exact input audio; playback cadence is not generation throughput",
+  "limits": "Two-window functional check; no lip-sync score, sustained thermal benchmark, or CUDA-quality parity certification",
+  "windows": {
+    "window_0": {
+      "audio_samples": 17920,
+      "frames": 28,
+      "generation_fps": 0.3216795900663995,
+      "inference_seconds": 87.04313504695892,
+      "playback_fps": 25,
+      "start_frame": 0
+    },
+    "window_28": {
+      "audio_samples": 17920,
+      "frames": 28,
+      "generation_fps": 0.813565933895583,
+      "inference_seconds": 34.41638696193695,
+      "playback_fps": 25,
+      "start_frame": 28
+    }
+  }
+}

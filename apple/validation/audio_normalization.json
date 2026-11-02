@@ -1,0 +1,66 @@
+{
+  "environment": {
+    "date_utc": "2026-11-02T05:01:54.002782+00:00",
+    "execution": "CPU-only Core ML prediction and CPU PyTorch reference; no GPU or ANE inference",
+    "gpu_model_present": [
+      "Apple M5 Pro"
+    ],
+    "gpu_used": false,
+    "physical_system_memory_bytes": 25769803776,
+    "physical_vram": "Apple unified memory shared with system RAM; no dedicated VRAM",
+    "visible_vram": "Not allocated or queried; CPU-only validation",
+    "hardware_evidence": "system_profiler SPDisplaysDataType; sysctl hw.memsize; Core ML ComputeUnit.CPU_ONLY; all torch tensors on CPU",
+    "os": "macOS-27.0.1-arm64-arm-64bit",
+    "driver_runtime": "macOS-provided Core ML runtime; GPU driver not used",
+    "runtime": {
+      "torch": "2.7.0",
+      "coremltools": "9.0",
+      "numpy": "2.2.6",
+      "python": "3.12.12"
+    },
+    "co_resident_load": "Other Core ML export/validation jobs may be running; timings are not performance benchmarks"
+  },
+  "workload": "Original real checkpoint weights; fixed full-shape random inputs; one case per component",
+  "height": 576,
+  "width": 320,
+  "scope": "Conversion versus FP32 export wrapper, identical rounded inputs; does not establish end-to-end CUDA or visual parity",
+  "gates": {
+    "normalized_rmse_max": 0.01,
+    "cosine_similarity_min": 0.999,
+    "max_abs_error_max": 0.05
+  },
+  "models": {
+    "audio": {
+      "finite": true,
+      "normalized_rmse": 0.022945245659182267,
+      "rmse": 0.004156369421970806,
+      "expected_rms": 0.18114294715809692,
+      "cosine_similarity": 0.99973763796522,
+      "max_abs_error": 0.05428704619407654,
+      "p99_abs_error": 0.014038049653172494,
+      "output_shape": [
+        1,
+        200,
+        12,
+        768
+      ],
+      "passed": false,
+      "seed": 32531,
+      "input_shape": [
+        1,
+        128000
+      ],
+      "input_dtype": "float32",
+      "torch_cpu_seconds": 1.239647749811411,
+      "coreml_load_seconds": 1.2402108330279589,
+      "coreml_cpu_prediction_seconds": 0.14955383306369185,
+      "timing_scope": "One correctness run under unisolated co-resident load; not benchmark throughput",
+      "checkpoint": "/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/models/wav2vec2-base-960h",
+      "checkpoint_sha256": "2ee2e1374202d4b4d11e5c5c5d5ce85ce97a05901bdb888f964acda829af7025",
+      "checkpoint_digest_kind": "path-and-content tree SHA-256",
+      "package": "/tmp/soulx-audio-normalization/audio.mlpackage",
+      "package_tree_sha256": "e2b3be4683bcfd6b0e1ad1a1f8df00cbca8d2c57792456890b9ee7b1e630af7e"
+    }
+  },
+  "passed": false
+}

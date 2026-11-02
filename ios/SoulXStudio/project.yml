@@ -1,0 +1,40 @@
+name: SoulXStudio
+options:
+  bundleIdPrefix: com.lingua
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  xcodeVersion: "16.0"
+settings:
+  base:
+    DEVELOPMENT_TEAM: 563AETFKT9
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+targets:
+  SoulXStudio:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: Sources
+      - path: Resources/Avatars
+        type: folder
+        buildPhase: resources
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: SoulX Studio
+        UILaunchScreen: {}
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lingua.soulxstudio
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        ENABLE_PREVIEWS: YES
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"

@@ -1,0 +1,54 @@
+{
+  "date_utc" : "2026-11-02T05:18:47Z",
+  "execution_classification" : "Requested Core ML inference on Physical Apple device; actual CPU\/GPU\/ANE placement unverified; check inference_started\/completed",
+  "execution_environment" : "Physical Apple device",
+  "hardware" : {
+    "co_resident_load" : "Unknown; no other-app process inspection",
+    "driver_runtime" : "Core ML \/ Metal supplied by Version 26.2 (Build 23C55)",
+    "gpu_evidence" : "MTLCreateSystemDefaultDevice()?.name; machine from uname",
+    "gpu_model" : "Apple A14 GPU",
+    "machine" : "iPhone13,3",
+    "physical_system_memory_bytes" : 5994840064,
+    "physical_vram" : "Unified system memory; no dedicated VRAM",
+    "thermal_state_at_start" : 0,
+    "visible_vram" : "Not exposed by iOS; process memory limit unknown"
+  },
+  "inference_completed" : false,
+  "inference_started" : true,
+  "last_stage" : "Encoding portrait on device",
+  "parity" : "Visual and numerical CUDA parity not established by this smoke test",
+  "profile" : {
+    "block_count" : 10,
+    "decoder_mode" : "window",
+    "height" : 320,
+    "name" : "pro320",
+    "sampling_steps" : [
+      1000,
+      625,
+      0
+    ],
+    "width" : 176
+  },
+  "requested_compute_units" : "all",
+  "schema_version" : 1,
+  "stages" : [
+    {
+      "elapsed_seconds" : 0.0097939968109130859,
+      "message" : "Starting real on-device inference"
+    },
+    {
+      "elapsed_seconds" : 0.019176006317138672,
+      "message" : "Checking model files"
+    },
+    {
+      "elapsed_seconds" : 0.021659970283508301,
+      "message" : "Preparing portrait"
+    },
+    {
+      "elapsed_seconds" : 0.064854025840759277,
+      "message" : "Encoding portrait on device"
+    }
+  ],
+  "status" : "running",
+  "workload" : "Requested PRO, one generated window, cold first-use compilation\/loading may be included"
+}

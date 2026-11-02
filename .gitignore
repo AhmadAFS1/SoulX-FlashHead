@@ -39,3 +39,16 @@ tools/
 
 # Locally restored third-party runtime dependencies.
 .restored-deps*/
+
+# Apple model exports and Xcode products (regenerated from pinned source weights).
+artifacts/coreml/
+ios/SoulXStudio/build/
+ios/SoulXStudio/DerivedData/
+*.mlpackage/
+*.mlmodelc/
+*.xcuserstate
+xcuserdata/
+
+# These two approved source portraits are app resources, not generated captures.
+!ios/SoulXStudio/Resources/Avatars/*/portrait.png
+.venv-coreml/

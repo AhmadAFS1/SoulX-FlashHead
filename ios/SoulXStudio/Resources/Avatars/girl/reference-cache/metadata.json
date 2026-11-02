@@ -1,0 +1,37 @@
+{
+  "created_utc" : "2026-11-02T05:28:13Z",
+  "dtype" : "float32-le",
+  "height" : 320,
+  "prepared_image_sha256" : "4b57944baf74d58b2486bd1fde4b0b50d86fde4c0eafc1c8af4483302659808c",
+  "profile" : "pro320",
+  "provenance" : {
+    "co_resident_load" : "Unknown; correctness export, not a throughput benchmark",
+    "content" : "Reference conditioning only. No generated video or DiT output.",
+    "driver_runtime" : "Core ML supplied by Version 27.0.1 (Build 26A434)",
+    "execution" : "Mac CPU-only Core ML prediction; no GPU\/ANE inference",
+    "gpu_model_present" : "Apple M5 Pro",
+    "hardware_evidence" : "MTLDevice.name and ProcessInfo.physicalMemory",
+    "inference_seconds" : "16.07570420834236",
+    "physical_system_memory_bytes" : "25769803776",
+    "physical_vram" : "Apple unified memory; no dedicated VRAM",
+    "requested_compute_units" : "cpuOnly",
+    "source_image_file_sha256" : "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+    "source_model" : "reference.mlmodelc",
+    "visible_vram" : "Not measured; CPU-only default",
+    "workload" : "One original Wan portrait encoding, 320x176, 33 repeated still frames ->9 latent frames"
+  },
+  "schema_version" : 1,
+  "shape" : [
+    1,
+    16,
+    9,
+    40,
+    22
+  ],
+  "source_image_sha256" : "384abd202f7dae45fdbbab3b6a7777cd7c8a64625fb19217a45d056f2162c624",
+  "source_model_sha256" : "5ff8d2f2b591fde75fb7bd5879bed0ee0ff5e9f4317d23af703a6d1f8d1ca808",
+  "source_wan_sha256" : "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+  "tensor_file" : "reference.f32le",
+  "tensor_sha256" : "60fa76c2c314446e1d0523a6a4903fe2cb6c7c05213a079ee0e5af8360d78099",
+  "width" : 176
+}

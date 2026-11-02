@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20DFF7917572207F3C7132E9 /* SoulXStudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B733AB62EE919619B6778964 /* SoulXStudioApp.swift */; };
+		21D47C8D2D21F5C5232AC6FB /* SoulXTensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EA72F7846AA355B5D99E72 /* SoulXTensor.swift */; };
+		2A95B6AD14A14EAFA0ABFFCB /* SoulXModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE14AC054EE3B78DC44AC3 /* SoulXModels.swift */; };
+		44EFED084EEB402FE0D84DE4 /* Avatars in Resources */ = {isa = PBXBuildFile; fileRef = BC1C69DD8595FF4BE9B556E7 /* Avatars */; };
+		5399EC5FB5134990E53A43E6 /* StudioAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153C02FB02DBC9C40733C19 /* StudioAvatar.swift */; };
+		579A9A00A58B8BA6698ECD60 /* SoulXReferenceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9E72CEB7A76714BAFC36F3 /* SoulXReferenceCache.swift */; };
+		5AC7DD8C31C3E852E6FCD0A0 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95AECEBAEED4889D923058D /* StudioView.swift */; };
+		713AC12363DAC622F7F75D8F /* SoulXSmoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7645F566F92BC689F9645 /* SoulXSmoke.swift */; };
+		78D5A742F0145ABD8E3C2289 /* SoulXImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BC9219757899F4055D92A6 /* SoulXImage.swift */; };
+		8552A6F771A8EA7EC0559420 /* StudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7457AA81681AE3093B01479 /* StudioModel.swift */; };
+		8D1B9892EAD36FE25C8D6AC9 /* SoulXAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */; };
+		95DB217FFF2651C5850BDF1F /* ModelSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C3F4E759B3B59421A44A62 /* ModelSettingsView.swift */; };
+		BB62DBA0D312CFD26918313C /* SoulXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396AE4FE2E75EC625E3F4022 /* SoulXEngine.swift */; };
+		C7F6D5F8CC825B29B11A5447 /* ChunkPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FC97EEF73CCB25F712954F /* ChunkPlayer.swift */; };
+		D3F1D354A8D648A4A3F1072C /* SoulXComponentProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC76120AD1A154022EC297 /* SoulXComponentProbe.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		16EA72F7846AA355B5D99E72 /* SoulXTensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXTensor.swift; sourceTree = "<group>"; };
+		178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXAudio.swift; sourceTree = "<group>"; };
+		22B7645F566F92BC689F9645 /* SoulXSmoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXSmoke.swift; sourceTree = "<group>"; };
+		38FC97EEF73CCB25F712954F /* ChunkPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChunkPlayer.swift; sourceTree = "<group>"; };
+		396AE4FE2E75EC625E3F4022 /* SoulXEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXEngine.swift; sourceTree = "<group>"; };
+		53CC76120AD1A154022EC297 /* SoulXComponentProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXComponentProbe.swift; sourceTree = "<group>"; };
+		5EAC4A7A1D6CE0227C0896BC /* SoulXStudio.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SoulXStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		72FE14AC054EE3B78DC44AC3 /* SoulXModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXModels.swift; sourceTree = "<group>"; };
+		82BC9219757899F4055D92A6 /* SoulXImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXImage.swift; sourceTree = "<group>"; };
+		B733AB62EE919619B6778964 /* SoulXStudioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXStudioApp.swift; sourceTree = "<group>"; };
+		B7457AA81681AE3093B01479 /* StudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioModel.swift; sourceTree = "<group>"; };
+		BC1C69DD8595FF4BE9B556E7 /* Avatars */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Avatars; path = Resources/Avatars; sourceTree = SOURCE_ROOT; };
+		C153C02FB02DBC9C40733C19 /* StudioAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioAvatar.swift; sourceTree = "<group>"; };
+		C8C3F4E759B3B59421A44A62 /* ModelSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingsView.swift; sourceTree = "<group>"; };
+		F95AECEBAEED4889D923058D /* StudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioView.swift; sourceTree = "<group>"; };
+		FF9E72CEB7A76714BAFC36F3 /* SoulXReferenceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulXReferenceCache.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		00515CB89D15BD266CCC956C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5EAC4A7A1D6CE0227C0896BC /* SoulXStudio.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		044572022E74452DAA3CBCEB = {
+			isa = PBXGroup;
+			children = (
+				8FD79AB58C4944C078C56449 /* Resources */,
+				62FF30E4AF322F3DD1303093 /* Sources */,
+				00515CB89D15BD266CCC956C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		124B86125CF5EF7D3C1B23BD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				38FC97EEF73CCB25F712954F /* ChunkPlayer.swift */,
+				B733AB62EE919619B6778964 /* SoulXStudioApp.swift */,
+				C153C02FB02DBC9C40733C19 /* StudioAvatar.swift */,
+				B7457AA81681AE3093B01479 /* StudioModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		601896C9A5D1F9FC1B6EA632 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C8C3F4E759B3B59421A44A62 /* ModelSettingsView.swift */,
+				F95AECEBAEED4889D923058D /* StudioView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		62FF30E4AF322F3DD1303093 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				124B86125CF5EF7D3C1B23BD /* App */,
+				AF0CFAED41EC2CA3DF698CEB /* Diagnostics */,
+				D185A8447CA0794E7EF9221A /* Runtime */,
+				601896C9A5D1F9FC1B6EA632 /* UI */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8FD79AB58C4944C078C56449 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BC1C69DD8595FF4BE9B556E7 /* Avatars */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AF0CFAED41EC2CA3DF698CEB /* Diagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				53CC76120AD1A154022EC297 /* SoulXComponentProbe.swift */,
+			);
+			path = Diagnostics;
+			sourceTree = "<group>";
+		};
+		D185A8447CA0794E7EF9221A /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				178A1AAA9C5F5E1C489DA6FF /* SoulXAudio.swift */,
+				396AE4FE2E75EC625E3F4022 /* SoulXEngine.swift */,
+				82BC9219757899F4055D92A6 /* SoulXImage.swift */,
+				72FE14AC054EE3B78DC44AC3 /* SoulXModels.swift */,
+				FF9E72CEB7A76714BAFC36F3 /* SoulXReferenceCache.swift */,
+				22B7645F566F92BC689F9645 /* SoulXSmoke.swift */,
+				16EA72F7846AA355B5D99E72 /* SoulXTensor.swift */,
+			);
+			path = Runtime;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E6DA0759F24233605E095C7 /* SoulXStudio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CD061E12C868FDB6233485E /* Build configuration list for PBXNativeTarget "SoulXStudio" */;
+			buildPhases = (
+				E17399090345F684A5F08159 /* Sources */,
+				54E5307E8448CD59E60D9E76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoulXStudio;
+			packageProductDependencies = (
+			);
+			productName = SoulXStudio;
+			productReference = 5EAC4A7A1D6CE0227C0896BC /* SoulXStudio.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		479B018EF2CC2B9B8E248910 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					7E6DA0759F24233605E095C7 = {
+						DevelopmentTeam = 563AETFKT9;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = CBC1208E038F787ADF6B92A9 /* Build configuration list for PBXProject "SoulXStudio" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 044572022E74452DAA3CBCEB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 00515CB89D15BD266CCC956C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E6DA0759F24233605E095C7 /* SoulXStudio */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		54E5307E8448CD59E60D9E76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44EFED084EEB402FE0D84DE4 /* Avatars in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E17399090345F684A5F08159 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7F6D5F8CC825B29B11A5447 /* ChunkPlayer.swift in Sources */,
+				95DB217FFF2651C5850BDF1F /* ModelSettingsView.swift in Sources */,
+				8D1B9892EAD36FE25C8D6AC9 /* SoulXAudio.swift in Sources */,
+				D3F1D354A8D648A4A3F1072C /* SoulXComponentProbe.swift in Sources */,
+				BB62DBA0D312CFD26918313C /* SoulXEngine.swift in Sources */,
+				78D5A742F0145ABD8E3C2289 /* SoulXImage.swift in Sources */,
+				2A95B6AD14A14EAFA0ABFFCB /* SoulXModels.swift in Sources */,
+				579A9A00A58B8BA6698ECD60 /* SoulXReferenceCache.swift in Sources */,
+				713AC12363DAC622F7F75D8F /* SoulXSmoke.swift in Sources */,
+				20DFF7917572207F3C7132E9 /* SoulXStudioApp.swift in Sources */,
+				21D47C8D2D21F5C5232AC6FB /* SoulXTensor.swift in Sources */,
+				5399EC5FB5134990E53A43E6 /* StudioAvatar.swift in Sources */,
+				8552A6F771A8EA7EC0559420 /* StudioModel.swift in Sources */,
+				5AC7DD8C31C3E852E6FCD0A0 /* StudioView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6DD364BD48A79ADB4D495E49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingua.soulxstudio;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		8679E6B7734FFFBEC5BCCC34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 563AETFKT9;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		98C508E14A9EB17FBFFF9635 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingua.soulxstudio;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F5C385D16A4218D6F327639E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 563AETFKT9;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CD061E12C868FDB6233485E /* Build configuration list for PBXNativeTarget "SoulXStudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98C508E14A9EB17FBFFF9635 /* Debug */,
+				6DD364BD48A79ADB4D495E49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CBC1208E038F787ADF6B92A9 /* Build configuration list for PBXProject "SoulXStudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5C385D16A4218D6F327639E /* Debug */,
+				8679E6B7734FFFBEC5BCCC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 479B018EF2CC2B9B8E248910 /* Project object */;
+}
