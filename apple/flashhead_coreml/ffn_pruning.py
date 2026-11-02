@@ -265,7 +265,8 @@ def fit(args):
                 removed = set(order[:int(round(ratio * cfg.ffn_dim))])
                 kept = torch.tensor([j for j in range(cfg.ffn_dim) if j not in removed])
                 w2_new, _, step_bias = refit(gram, means, w2, b2, kept, args.damp)
-                entry['predicted_relative_error'][str(ratio)] = predicted_error(gram, w2, kept, w2_new) / energy
+                if args.predicted_error:
+                    entry['predicted_relative_error'][str(ratio)] = predicted_error(gram, w2, kept, w2_new) / energy
                 fitted[str(ratio)] = {'kept': kept.to(torch.int32), 'w2': w2_new, 'step_bias': step_bias}
                 variants[f'prune_{ratio}'] = (kept, w2_new, step_bias, False)
                 variants[f'prune_{ratio}_int8'] = (kept, w2_new, step_bias, True)
@@ -380,9 +381,10 @@ def main():
     f = sub.add_parser('fit')
     f.add_argument('--capture', default=str(ROOT / 'artifacts/cpu-validation/ffn-capture'))
     f.add_argument('--output', default=str(DEFAULT_FIT))
-    f.add_argument('--ratios', default='0.125,0.25,0.375')
+    f.add_argument('--ratios', default='0.25,0.375,0.5')
     f.add_argument('--damp', type=float, default=0.01)
-    f.add_argument('--batch', type=int, default=32, help='OBS columns removed per downdate')
+    f.add_argument('--batch', type=int, default=64, help='OBS columns removed per downdate')
+    f.add_argument('--predicted-error', action='store_true', help='Also report in-sample error (slow)')
     f.add_argument('--blocks', help='Comma-separated layer ids (default: all)')
     f.add_argument('--resume', action='store_true')
     f.add_argument('--threads', type=int, default=4)

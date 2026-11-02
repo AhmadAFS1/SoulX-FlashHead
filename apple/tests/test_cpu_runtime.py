@@ -152,6 +152,15 @@ def test_int8_emulation_matches_coremltools_quantizer():
     np.testing.assert_array_equal(cr.coreml_int8_dequantized(model[0].weight.data).numpy(), restored)
 
 
+def test_fast_int8_port_is_bit_identical_to_coremltools():
+    pytest.importorskip('coremltools')
+    torch.manual_seed(11)
+    for weight in (torch.randn(257, 1536) * 0.02, torch.randn(64, 32, 2, 2), torch.randn(48, 40) * 3):
+        weight[0] = 0  # all-zero channel
+        weight[1, 0] = 7.3  # outlier channel
+        assert torch.equal(cr.coreml_int8_dequantized(weight), cr.coreml_int8_dequantized_reference(weight))
+
+
 def test_obs_refit_recovers_least_squares_and_means():
     torch.manual_seed(0)
     n, d, tokens = 12, 5, 400

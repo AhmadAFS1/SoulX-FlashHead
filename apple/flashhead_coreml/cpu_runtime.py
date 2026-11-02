@@ -234,8 +234,10 @@ def identity(x: torch.Tensor) -> torch.Tensor:
     return x
 
 
-def coreml_int8_dequantized(weight: torch.Tensor) -> torch.Tensor:
-    """Core ML Tools linear_symmetric/int8/per_channel on the FP16 const weight."""
+def coreml_int8_dequantized_reference(weight: torch.Tensor) -> torch.Tensor:
+    """Core ML Tools linear_symmetric/int8/per_channel on the FP16 const weight.
+
+    Calls coremltools' own quantizer (slow: NumPy float16 arithmetic)."""
     from coremltools.converters.mil.mil import types
     from coremltools.optimize._utils import compute_qparams_by_dtype
     w16 = weight.detach().to(torch.float16).numpy()
@@ -244,6 +246,26 @@ def coreml_int8_dequantized(weight: torch.Tensor) -> torch.Tensor:
     scale = scale.reshape([-1] + [1] * (w16.ndim - 1)).astype(np.float16)
     restored = (quantized.astype(np.float16) * scale).astype(np.float16)
     return torch.from_numpy(restored.astype(np.float32))
+
+
+def _half_op(value: torch.Tensor) -> torch.Tensor:
+    """NumPy float16 ufuncs compute in float32 and round the result to float16."""
+    return value.to(torch.float16).to(torch.float32)
+
+
+def coreml_int8_dequantized(weight: torch.Tensor) -> torch.Tensor:
+    """Vectorised port of ``coreml_int8_dequantized_reference`` (tests assert equality).
+
+    Per output channel: scale = fp16((max|w| - (-max|w|)) / 254); q =
+    clip(round_half_even(fp16(w / scale)), -127, 127); w' = fp16(q * scale).
+    """
+    w = weight.detach().to(torch.float16).to(torch.float32)
+    rows = w.reshape(w.shape[0], -1)
+    peak = torch.maximum(rows.amin(1).abs(), rows.amax(1).abs())
+    scale = _half_op(_half_op(peak - (-peak)) / 254.0)
+    # An all-zero channel has scale 0; NumPy's 0/0 = NaN casts to int8 0.
+    quantized = torch.nan_to_num(torch.round(_half_op(rows / scale[:, None])), nan=0.0).clamp_(-127, 127)
+    return _half_op(quantized * scale[:, None]).reshape(weight.shape)
 
 
 def apply_int8_weights(module: torch.nn.Module, threshold: int = 1024) -> int:
