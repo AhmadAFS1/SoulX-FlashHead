@@ -9,6 +9,10 @@ correlation, and the oral-region Laplacian-variance ratio on frames where both
 mouths are open (teeth/edge sharpness). Lip-audio correlation is the best
 Pearson correlation, within +/-2 frames, between a run's mouth opening and the
 clip's per-frame speech RMS.
+
+Landmarks here run on the lossless rendered frames, not on H.264 files as the
+historical reviews did, so absolute edge energies are not comparable with those
+reviews; paired ratios within one report are.
 """
 from __future__ import annotations
 
@@ -129,6 +133,22 @@ def window_psnr(a, b, per=28):
     return out
 
 
+def cached_landmarks(run_dir: Path, frames, rows_cache: dict):
+    key = str(Path(run_dir).resolve())
+    if key not in rows_cache:
+        rows_cache[key] = landmarks(frames)
+    return rows_cache[key]
+
+
+def run_audio(meta):
+    import hashlib
+    from .cpu_runtime import read_audio
+    path = Path(meta['audio'])
+    if hashlib.sha256(path.read_bytes()).hexdigest() != meta['audio_sha256']:
+        raise ValueError(f'{path} changed since the run was rendered')
+    return read_audio(path)
+
+
 def compare(baseline_dir: Path, candidate_dir: Path, rows_cache: dict):
     a, b = np.load(baseline_dir / 'frames.npy'), np.load(candidate_dir / 'frames.npy')
     if a.shape != b.shape:
@@ -137,8 +157,8 @@ def compare(baseline_dir: Path, candidate_dir: Path, rows_cache: dict):
     per_frame_psnr = [psnr(x, y) for x, y in zip(a, b)]
     finite = [v for v in per_frame_psnr if np.isfinite(v)]
     da, db = np.diff(a.astype(np.float64), axis=0), np.diff(b.astype(np.float64), axis=0)
-    rows_a = rows_cache.setdefault(str(baseline_dir), landmarks(a))
-    rows_b = rows_cache.setdefault(str(candidate_dir), landmarks(b))
+    rows_a = cached_landmarks(baseline_dir, a, rows_cache)
+    rows_b = cached_landmarks(candidate_dir, b, rows_cache)
     colour = np.abs(a.reshape(len(a), -1, 3).mean(1) - b.reshape(len(b), -1, 3).mean(1)).mean()
     return {
         'frames': int(len(a)), 'identical_frames': int(sum(np.array_equal(x, y) for x, y in zip(a, b))),
@@ -156,11 +176,10 @@ def compare(baseline_dir: Path, candidate_dir: Path, rows_cache: dict):
 
 
 def run_summary(run_dir: Path, rows_cache: dict):
-    from .cpu_runtime import read_audio
     meta = json.loads((run_dir / 'run.json').read_text())
     frames = np.load(run_dir / 'frames.npy')
-    rows = rows_cache.setdefault(str(run_dir), landmarks(frames))
-    audio = read_audio(Path(meta['audio']))
+    rows = cached_landmarks(run_dir, frames, rows_cache)
+    audio = run_audio(meta)
     detected = [r for r in rows if r['detected']]
     opened = [r for r in detected if r['opening_px'] >= 4]
     dit = [w['seconds']['dit_step0'] + w['seconds']['dit_step1'] for w in meta['windows']]
@@ -170,7 +189,10 @@ def run_summary(run_dir: Path, rows_cache: dict):
             'median_open_oral_edge_energy': float(np.median([r['oral_edge_energy'] for r in opened])) if opened else None,
             'lip_audio': lip_audio_correlation(rows, speech_rms(audio, len(frames))),
             'cpu_dit_seconds_per_window_median': float(np.median(dit[1:] if len(dit) > 1 else dit)),
-            'cpu_window_seconds_median': float(np.median([w['seconds']['window'] for w in meta['windows']][1:] or [0]))}
+            'cpu_window_seconds_median': float(np.median([w['seconds']['window'] for w in meta['windows']][1:]
+                                                         or [meta['windows'][0]['seconds']['window']])),
+            'timing_environment': meta['environment'],
+            'timing_note': 'CPU-only wall time on a shared host; compare only runs rendered under the same load'}
 
 
 # --------------------------------------------------------------------------
@@ -187,7 +209,7 @@ def _font(size):
 
 def comparison_video(output: Path, runs: list[tuple[str, Path]], diff_pair=(0, 1), gain=8, scale=2, title=''):
     from PIL import Image, ImageDraw
-    from .cpu_runtime import read_audio, write_video
+    from .cpu_runtime import write_video
     frames = [np.load(path / 'frames.npy') for _, path in runs]
     count = min(len(f) for f in frames)
     a, b = frames[diff_pair[0]][:count], frames[diff_pair[1]][:count]
@@ -213,7 +235,7 @@ def comparison_video(output: Path, runs: list[tuple[str, Path]], diff_pair=(0, 1
         draw.text((len(panels) * w * scale - 70, header - 14), f'{i:04d}', fill=(150, 150, 150), font=small)
         out.append(np.asarray(canvas))
     meta = json.loads((runs[0][1] / 'run.json').read_text())
-    audio = read_audio(Path(meta['audio']))[:count * (SAMPLE_RATE // FPS)]
+    audio = run_audio(meta)[:count * (SAMPLE_RATE // FPS)]
     write_video(output, np.stack(out), audio, crf=14)
 
 

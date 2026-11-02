@@ -179,9 +179,11 @@ def test_obs_refit_recovers_least_squares_and_means():
     for s in (0, 1):
         torch.testing.assert_close(approx[steps == s].mean(0), target[steps == s].mean(0), rtol=1e-4, atol=1e-4)
     # Keeping every unit reproduces the original projection.
-    full, _, zero_bias = fp.refit(gram, means, w2, b2, torch.arange(n), damp=1e-10)
-    torch.testing.assert_close(full, w2, rtol=1e-3, atol=1e-3)
-    torch.testing.assert_close(zero_bias, torch.zeros_like(zero_bias), rtol=0, atol=1e-3)
+    # Keeping every unit reproduces the original projection, even with strong damping.
+    for damp in (1e-10, 0.01, 1.0):
+        full, _, zero_bias = fp.refit(gram, means, w2, b2, torch.arange(n), damp=damp)
+        torch.testing.assert_close(full, w2, rtol=1e-4, atol=1e-4)
+        torch.testing.assert_close(zero_bias, torch.zeros_like(zero_bias), rtol=0, atol=1e-4)
 
 
 @torch.no_grad()

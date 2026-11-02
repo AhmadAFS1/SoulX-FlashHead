@@ -117,10 +117,17 @@ def validate(args):
         if not synthetic and isinstance(module, Blocks) and export_manifest.get('variant', 'baseline') != 'baseline':
             # Score the conversion of the exported variant against the same
             # variant in FP32 PyTorch, not against the dense baseline blocks.
-            from .export_dit import apply_variant
-            from .variants import build_transforms
-            for transform in build_transforms(export_manifest['variant'])[0]:
-                apply_variant(transform, module)
+            from .ffn_pruning import reduce_partition
+            records = export_manifest.get('variant_transforms', {}).get(name, [])
+            if not records:
+                raise ValueError(f'{name}: variant export lacks variant_transforms records')
+            for record in records:
+                if record['transform'] == 'calibrated_ffn_reduction':
+                    reduce_partition(module, record['removed_fraction'], record['fit_dir'])
+                elif record['transform'] == 'fold_cross_attention_output':
+                    module.fold_cross_output()
+                else:
+                    raise ValueError(f'{name}: unknown variant transform {record["transform"]}')
         destination = models / (name + '.mlpackage')
         if synthetic:
             convert_component(module, inputs, output, destination, 'none')

@@ -41,8 +41,11 @@ DEFAULT_FIT = ROOT / 'artifacts/cpu-validation/ffn-fit'
 # --------------------------------------------------------------------------
 def capture(args):
     from .cpu_runtime import CpuRuntime
+    from .cpu_runtime import environment
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
+    if any(out.glob('ffn_in_*.npy')):
+        raise FileExistsError(f'{out} already holds captured activations; use an empty directory')
     runtime = CpuRuntime('fp32', threads=args.threads)
     generator = np.random.default_rng(args.seed)
     buffers = {}
@@ -55,8 +58,9 @@ def capture(args):
         buffers.setdefault((block, step), []).append(value[0, keep].to(torch.float16).numpy())
 
     runtime.observer = observer
-    manifest = {'clips': [], 'fraction': args.fraction, 'seed': args.seed, 'render_seed': args.render_seed,
-                'mode': 'fp32', 'tokens_per_block_step': 0}
+    manifest = {'environment': environment(args.threads), 'clips': [], 'fraction': args.fraction, 'seed': args.seed,
+                'render_seed': args.render_seed, 'mode': 'fp32', 'tokens_per_block_step': 0,
+                'timing_note': 'clip seconds are CPU-only wall time on a shared host'}
     for clip, spec in enumerate(args.clip):
         avatar, audio = spec.split(':', 1)
         started = time.perf_counter()
@@ -155,15 +159,23 @@ def obs_order(gram, w2, remove, damp=0.01, batch=1):
 
 
 def refit(gram, means, w2, b2, kept, damp=0.01):
-    """Least-squares W2 on kept units plus one compensating bias per timestep."""
+    """Least-squares W2 on kept units plus one compensating bias per timestep.
+
+    Solves the same damped objective that ``obs_order`` ranks with,
+    ``(W' - W2) (G + lam I) (W' - W2)^T`` over W' supported on the kept units,
+    so damping regularises toward the original weights (keeping every unit
+    returns W2 exactly) rather than shrinking kept columns toward zero.
+    """
     g = gram.double()
+    w = w2.double()
+    lam = damp * g.diagonal().mean()
     h = g[kept][:, kept].clone()
-    h.diagonal().add_(damp * g.diagonal().mean())
-    rhs = g[kept] @ w2.double().T           # (k x D) = G_K: W2^T
+    h.diagonal().add_(lam)
+    rhs = g[kept] @ w.T + lam * w[:, kept].T   # rows K of (G + lam I) W2^T
     solution = torch.cholesky_solve(rhs, torch.linalg.cholesky(h))  # (k x D)
     w2_new = solution.T.contiguous()       # (D x k)
     # Exact mean restoration for each timestep: W2 mu_t - W2' mu_t,K.
-    step_bias = means @ w2.double().T - means[:, kept] @ solution
+    step_bias = means @ w.T - means[:, kept] @ solution
     return w2_new.float(), b2.float(), step_bias.float()
 
 
@@ -214,11 +226,19 @@ def fit(args):
     remove = int(round(max(ratios) * cfg.ffn_dim))
     with torch.inference_mode():
         _, tm = load_component(TimeEmbedding(cfg), checkpoint, 'time')(torch.tensor([1000., 625.]))
+    from .cpu_runtime import environment
     report_path = out / 'fit.json'
-    report = json.loads(report_path.read_text()) if args.resume and report_path.exists() else {
-        'capture': json.loads((capture_dir / 'capture.json').read_text()), 'damp': args.damp,
-        'obs_batch': args.batch, 'ratios': ratios, 'holdout': 'every tenth captured token per timestep',
-        'blocks': {}}
+    header = {'capture': json.loads((capture_dir / 'capture.json').read_text()), 'damp': args.damp,
+              'obs_batch': args.batch, 'ratios': ratios, 'holdout': 'every tenth captured token per timestep',
+              'refit': 'damped toward original W2 (same objective as the OBS order)'}
+    if report_path.exists() and (args.resume or args.blocks):
+        report = json.loads(report_path.read_text())
+        for key, value in header.items():
+            if report.get(key) != value:
+                raise ValueError(f'Existing {report_path} was fitted with a different {key}; use a new --output')
+    else:
+        report = {**header, 'blocks': {}}
+    report.setdefault('environments', []).append(environment(args.threads))
     layers = range(cfg.num_layers) if args.blocks is None else [int(b) for b in args.blocks.split(',')]
     for block in layers:
         if args.resume and str(block) in report['blocks'] and (out / f'block_{block:02d}.pt').exists():
@@ -228,10 +248,16 @@ def fit(args):
         ffn = module.blocks[0].ffn
         w1, b1, w2, b2 = ffn[0].weight, ffn[0].bias, ffn[2].weight, ffn[2].bias
         with torch.inference_mode():
+            timings = {}
+            mark = time.perf_counter()
             fit_rows, held_rows = load_inputs(capture_dir, block)
             gram, means, counts = block_statistics(fit_rows, w1, b1)
+            timings['gram'] = time.perf_counter() - mark
             energy = float(torch.einsum('dn,nm,dm->', w2.double(), gram, w2.double()))
+            mark = time.perf_counter()
             order, _ = obs_order(gram, w2, remove, args.damp, args.batch)
+            timings['obs'] = time.perf_counter() - mark
+            mark = time.perf_counter()
             entry = {'fit_tokens': counts, 'holdout_tokens': [int(f.shape[0]) for f in held_rows],
                      'order': order, 'predicted_relative_error': {}}
             fitted, variants = {}, {}
@@ -243,12 +269,17 @@ def fit(args):
                 fitted[str(ratio)] = {'kept': kept.to(torch.int32), 'w2': w2_new, 'step_bias': step_bias}
                 variants[f'prune_{ratio}'] = (kept, w2_new, step_bias, False)
                 variants[f'prune_{ratio}_int8'] = (kept, w2_new, step_bias, True)
+            timings['refit'] = time.perf_counter() - mark
+            mark = time.perf_counter()
             entry['holdout_relative_error'] = holdout_errors(held_rows, means, w1, b1, w2, b2, variants)
+            timings['holdout'] = time.perf_counter() - mark
+            entry['cpu_seconds'] = timings
         torch.save(fitted, out / f'block_{block:02d}.pt')
         entry['seconds'] = time.perf_counter() - started
         report['blocks'][str(block)] = entry
         report_path.write_text(json.dumps(report) + '\n')
         print(json.dumps({'block': block, 'seconds': round(entry['seconds'], 1),
+                          'parts': {k: round(v, 1) for k, v in entry['cpu_seconds'].items()},
                           'holdout': {k: round(v, 5) for k, v in entry['holdout_relative_error'].items()}}),
               flush=True)
         del module, gram, fit_rows, held_rows

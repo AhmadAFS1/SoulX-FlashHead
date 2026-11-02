@@ -20,6 +20,12 @@ Two numerical modes are provided:
     policy. FP16 rounding is applied to operation outputs; accumulation stays
     FP32. It is an emulation, not Core ML execution: no GPU, Neural Engine or
     Apple kernel ran, and device-specific accumulation order is not reproduced.
+    On validate_dit's seeded cases it reaches about 0.86x (0.35-0.88x) of the
+    Core ML CPU error recorded on the M5 Pro, so it is a slight lower bound.
+    The tiny VAE decoder and motion encoder run in FP32 with FP16 inputs and
+    outputs; the bundle computes them in FP16 (about 0.33% / 0.40% NRMSE,
+    apple/validation/tiny_pro320.json). Compared arms share the same VAE, so
+    transformer A/B results are unaffected; FP32-vs-emulation gaps omit it.
 
 Neither mode measures Apple speed. Timings recorded here are CPU PyTorch wall
 times on the machine that ran them.
@@ -624,7 +630,7 @@ def main():
     np.save(args.output / 'latents.npy', result['latents'])
     write_video(args.output / 'video.mp4', result['frames'], result['audio'])
     frames_hash = hashlib.sha256(result['frames'].tobytes()).hexdigest()
-    report = {'environment': environment(args.threads), 'avatar': args.avatar, 'audio': str(args.audio),
+    report = {'environment': environment(args.threads), 'avatar': args.avatar, 'audio': str(args.audio.resolve()),
               'audio_sha256': hashlib.sha256(args.audio.read_bytes()).hexdigest(), 'mode': args.mode,
               'variant': args.variant, 'variant_description': description, 'transforms': runtime.transform_log,
               'seed': args.seed, 'profile': {'height': runtime.profile.height, 'width': runtime.profile.width},
@@ -632,7 +638,9 @@ def main():
               'quantized_layers': runtime.quantized_layers, 'frames': int(len(result['frames'])),
               'frames_sha256': frames_hash, 'elapsed_seconds': time.perf_counter() - started,
               'windows': [{'index': r.index, 'visible_frames': r.visible, 'seconds': r.seconds} for r in result['windows']],
-              'scope': 'CPU emulation for quality comparison; Apple GPU/ANE speed is not measured'}
+              'scope': ('CPU emulation for quality comparison; Apple GPU/ANE speed is not measured. '
+                        'coreml-int8: INT8 weights and FP16 DiT tensors emulated; tiny VAE computed in FP32 '
+                        'with FP16 I/O (the bundle runs it in FP16).')}
     (args.output / 'run.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps({k: report[k] for k in ('frames', 'frames_sha256', 'elapsed_seconds')}))
 

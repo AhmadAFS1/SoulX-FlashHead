@@ -17,6 +17,15 @@ for clip in "$@"; do
   extra=(--seed "${SEED:-42}")
   if [[ -n "${FORCE_FROM:-}" ]]; then extra+=(--force-motion "$FORCE_FROM/$avatar-$stem"); fi
   if [[ -f "$out/run.json" ]]; then
+    "$python" - "$out/run.json" "${SEED:-42}" "${FORCE_FROM:+$FORCE_FROM/$avatar-$stem}" <<'PY'
+import json, sys
+from pathlib import Path
+meta = json.loads(Path(sys.argv[1]).read_text())
+forced = str(Path(sys.argv[3]).resolve()) if sys.argv[3] else None
+recorded = str(Path(meta['forced_motion_from']).resolve()) if meta.get('forced_motion_from') else None
+if meta['seed'] != int(sys.argv[2]) or recorded != forced:
+    sys.exit(f"{sys.argv[1]} was rendered with seed={meta['seed']} forced={recorded}; use another TAG")
+PY
     echo "skip $out"
     continue
   fi
