@@ -1,0 +1,119 @@
+{
+ "title": "Free-running A/B: fold + adaptive FFN (ffnk2) vs shipped INT8 PRO emulation, girl / held-out English, seed 42",
+ "execution": "CPU-only PyTorch emulation of the Core ML bundle on an Intel Xeon @ 2.80GHz (4 vCPU), no GPU; not an Apple device run",
+ "historical_gates_reused": "accepted opening correlation 0.94-0.97, edge ratio 0.95-1.07, mouth centre <= 3.4 px, colour drift < 2/255; control-vs-control floor 0.984 / 0.857 / 1.3 px (NVIDIA GeForce RTX 4070 SUPER reviews, docs/research)",
+ "landmark_note": "MediaPipe FaceMesh on lossless rendered frames (historical reviews used H.264), so absolute edge energies are not comparable; ratios are",
+ "baseline": {
+  "run": "artifacts/cpu-validation/renders/coreml-int8-baseline/girl-eval_english_plosive",
+  "mode": "coreml-int8",
+  "variant": "baseline",
+  "frames": 237,
+  "frames_sha256": "f969b68daf70c3381dfb3c72133c3c1749b01b2487f1d38ff714065ffb286582",
+  "detected_frames": 237,
+  "median_opening_norm": 0.013760417845890027,
+  "median_open_oral_edge_energy": 749.1040061067806,
+  "lip_audio": {
+   "correlation": 0.2861951795765044,
+   "lag_frames": -1
+  },
+  "cpu_dit_seconds_per_window_median": 70.59755118049952,
+  "cpu_window_seconds_median": 79.9156501425,
+  "timing_environment": {
+   "date_utc": "2026-11-02T23:55:45.853347+00:00",
+   "execution": "CPU-only PyTorch inference",
+   "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+   "physical_or_visible_vram": "not applicable (no GPU used)",
+   "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+   "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+   "logical_cpus": 4,
+   "torch_threads": 2,
+   "system_memory_bytes": 16872808448,
+   "os": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+   "torch": "2.7.0+cpu",
+   "co_resident_load": "unisolated container; other CPU jobs may share cores"
+  },
+  "timing_note": "CPU-only wall time on a shared host; compare only runs rendered under the same load"
+ },
+ "candidate": {
+  "run": "artifacts/cpu-validation/renders/coreml-int8-ffnk2_fold/girl-eval_english_plosive",
+  "mode": "coreml-int8",
+  "variant": "ffnk2+fold",
+  "frames": 237,
+  "frames_sha256": "838e1b8e7022434f8738357bd4833c89c42471ddd5731c580617718ee8912d3e",
+  "detected_frames": 237,
+  "median_opening_norm": 0.016728529893253196,
+  "median_open_oral_edge_energy": 808.4246267670761,
+  "lip_audio": {
+   "correlation": 0.29999361143587605,
+   "lag_frames": 0
+  },
+  "cpu_dit_seconds_per_window_median": 85.19208661750008,
+  "cpu_window_seconds_median": 94.65219138399993,
+  "timing_environment": {
+   "date_utc": "2026-11-03T01:53:40.001516+00:00",
+   "execution": "CPU-only PyTorch inference",
+   "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+   "physical_or_visible_vram": "not applicable (no GPU used)",
+   "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+   "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+   "logical_cpus": 4,
+   "torch_threads": 2,
+   "system_memory_bytes": 16872804352,
+   "os": "Linux-6.18.44-fc-v230-x86_64-with-glibc2.39",
+   "torch": "2.7.0+cpu",
+   "co_resident_load": "unisolated container; other CPU jobs may share cores"
+  },
+  "timing_note": "CPU-only wall time on a shared host; compare only runs rendered under the same load"
+ },
+ "compare": {
+  "frames": 237,
+  "identical_frames": 0,
+  "max_abs_u8": 202,
+  "mean_abs_u8": 4.384311843714039,
+  "psnr_db": {
+   "median": 28.534693352958385,
+   "min": 21.80075080907222
+  },
+  "ssim": {
+   "median": 0.9104157530927197
+  },
+  "mouth_psnr_db": {
+   "frames": 237,
+   "identical_crops": 0,
+   "median_db": 30.866616448668474,
+   "min_db": 17.01782167015178
+  },
+  "temporal_delta_rmse_u8": 5.276803242030082,
+  "mean_colour_shift_u8": 0.007557152817734429,
+  "landmarks": {
+   "detected_pairs": 237,
+   "both_open_pairs": 65,
+   "opening_correlation": 0.984145722089531,
+   "median_abs_opening_difference": 0.0030827778223681684,
+   "median_mouth_center_distance_px": 0.6357381050951872,
+   "median_edge_ratio_on_both_open": 0.986105771090257
+  },
+  "window_median_psnr_db": [
+   45.04475679917138,
+   35.63515896199584,
+   32.23488832669,
+   27.01643113911765,
+   26.630996836523643,
+   25.541920561426522,
+   30.731404752653194,
+   27.37310383212343,
+   26.801636129990605
+  ],
+  "window_latent_nrmse": [
+   0.02203499590611825,
+   0.04864811015958651,
+   0.08734074513275403,
+   0.18160205076448388,
+   0.17751747384418973,
+   0.21379686203159765,
+   0.09663765937598286,
+   0.101278303676609,
+   0.15839850663163185
+  ]
+ }
+}
