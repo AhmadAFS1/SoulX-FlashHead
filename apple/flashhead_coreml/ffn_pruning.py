@@ -337,16 +337,54 @@ def fitted_ratio(fitted: dict, ratio: float, path):
     raise KeyError(f'{path} has no fit for removed fraction {ratio}; available: {sorted(fitted)}')
 
 
-def reduce_partition(blocks, ratio: float, fit_dir: Path = DEFAULT_FIT):
-    """Apply a fitted reduction to a ``Blocks`` partition (global layer ids)."""
-    widths, hashes = [], []
+def adaptive_ratios(tolerance: float, fit_dir: Path = DEFAULT_FIT, layers=30):
+    """Per layer, the largest fitted removal whose INT8 held-out FFN error stays
+    within ``tolerance`` x that layer's dense INT8 error (0 keeps the layer dense).
+
+    The shipped INT8 weights already perturb every FFN by the dense INT8 error;
+    this keeps each reduced layer within a fixed multiple of that existing noise.
+    """
+    report = json.loads((Path(fit_dir) / 'fit.json').read_text())
+    ratios = sorted(float(r) for r in report['ratios'])
+    chosen = {}
+    for layer in range(layers):
+        entry = report['blocks'][str(layer)]['holdout_relative_error']
+        limit = tolerance * entry['int8_dense']
+        allowed = [r for r in ratios if entry[f'prune_{r}_int8'] <= limit]
+        chosen[layer] = max(allowed) if allowed else 0.0
+    return chosen
+
+
+def normalise_ratios(ratio, layers):
+    if isinstance(ratio, dict):
+        return {int(k): float(v) for k, v in ratio.items()}
+    if isinstance(ratio, (list, tuple)):
+        return dict(zip(layers, (float(v) for v in ratio)))
+    return {layer: float(ratio) for layer in layers}
+
+
+def reduce_partition(blocks, ratio, fit_dir: Path = DEFAULT_FIT):
+    """Apply fitted reductions to a ``Blocks`` partition (global layer ids).
+
+    ``ratio`` is one removal fraction for every layer, a {layer: fraction} map,
+    or a list aligned with the partition's layers; 0 keeps a layer dense.
+    """
+    layers = list(range(blocks.start, blocks.end))
+    per_layer = normalise_ratios(ratio, layers)
+    widths, hashes, fractions = [], [], []
     for offset, block in enumerate(blocks.blocks):
-        layer = blocks.start + offset
+        layer = layers[offset]
+        fraction = per_layer.get(layer, 0.0)
+        fractions.append(fraction)
+        if fraction <= 0:
+            widths.append(block.ffn[0].out_features)
+            hashes.append(None)
+            continue
         path = Path(fit_dir) / f'block_{layer:02d}.pt'
-        fitted = fitted_ratio(torch.load(path), ratio, path)
+        fitted = fitted_ratio(torch.load(path), fraction, path)
         widths.append(reduce_block(block, fitted))
         hashes.append(_file_sha256(path))
-    return {'transform': 'calibrated_ffn_reduction', 'removed_fraction': ratio, 'layers': [blocks.start, blocks.end],
+    return {'transform': 'calibrated_ffn_reduction', 'removed_fraction': fractions, 'layers': [blocks.start, blocks.end],
             'ffn_widths': widths, 'fit_dir': str(fit_dir), 'fit_sha256': hashes}
 
 
@@ -360,14 +398,26 @@ def _file_sha256(path):
 
 
 def variant_transform(name: str, fit_dir: Path = DEFAULT_FIT):
-    ratio = parse_variant(name)
+    """'ffn25' (uniform) or 'ffnk2' (adaptive: within 2x each layer's INT8 error)."""
+    if name.startswith('ffnk'):
+        try:
+            tolerance = float(name[4:])
+        except ValueError:
+            raise ValueError(f'Unknown adaptive FFN variant {name}') from None
+        ratio = adaptive_ratios(tolerance, fit_dir)
+        mean = sum(ratio.values()) / len(ratio)
+        text = (f'FFN hidden width reduced per layer, each within {tolerance:g}x its INT8 held-out FFN error '
+                f'(mean {mean:.1%} of units removed; OBS order, least-squares refit, per-timestep bias)')
+    else:
+        ratio = parse_variant(name)
+        text = (f'FFN hidden width reduced by {ratio:.1%} in every block '
+                '(OBS order, least-squares refit, per-timestep bias)')
 
     def transform(runtime):
         return reduce_partition(runtime.blocks, ratio, fit_dir)
 
     transform.ffn_ratio, transform.fit_dir = ratio, fit_dir
-    return [transform], (f'FFN hidden width reduced by {ratio:.0%} in every block '
-                         '(OBS order, least-squares refit, per-timestep bias)')
+    return [transform], text
 
 
 def main():
@@ -384,7 +434,7 @@ def main():
     f = sub.add_parser('fit')
     f.add_argument('--capture', default=str(ROOT / 'artifacts/cpu-validation/ffn-capture'))
     f.add_argument('--output', default=str(DEFAULT_FIT))
-    f.add_argument('--ratios', default='0.25,0.375,0.5')
+    f.add_argument('--ratios', default='0.0625,0.125,0.1875,0.25,0.375,0.5')
     f.add_argument('--damp', type=float, default=0.01)
     f.add_argument('--batch', type=int, default=256, help='OBS columns removed per downdate')
     f.add_argument('--predicted-error', action='store_true', help='Also report in-sample error (slow)')

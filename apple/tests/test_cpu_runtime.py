@@ -196,6 +196,17 @@ def test_obs_refit_recovers_least_squares_and_means():
 
 
 @torch.no_grad()
+def test_adaptive_ratios_respect_tolerance(tmp_path):
+    import json
+    blocks = {str(layer): {'holdout_relative_error': {
+        'int8_dense': 1e-4, 'prune_0.25_int8': 1e-4 * (1.5 if layer == 0 else 5),
+        'prune_0.5_int8': 1e-4 * (1.9 if layer == 0 else 9)}} for layer in range(3)}
+    (tmp_path / 'fit.json').write_text(json.dumps({'ratios': [0.25, 0.5], 'blocks': blocks}))
+    assert fp.adaptive_ratios(2, tmp_path, layers=3) == {0: 0.5, 1: 0.0, 2: 0.0}
+    assert fp.adaptive_ratios(6, tmp_path, layers=3) == {0: 0.5, 1: 0.25, 2: 0.25}
+    assert fp.normalise_ratios([0.5, 0.0], [3, 4]) == {3: 0.5, 4: 0.0}
+
+
 def test_variant_names_select_fitted_ratios():
     assert fp.parse_variant('ffn25') == 0.25 and fp.parse_variant('ffn12.5') == 0.125
     assert fp.fitted_ratio({'0.125': 'a', '0.375': 'b'}, fp.parse_variant('ffn37.5'), 'fit') == 'b'

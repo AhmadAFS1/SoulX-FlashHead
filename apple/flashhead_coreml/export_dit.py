@@ -122,6 +122,8 @@ def fits_unchanged(manifest, name):
         if record.get('transform') != 'calibrated_ffn_reduction':
             continue
         for layer, expected in zip(range(*record['layers']), record['fit_sha256']):
+            if expected is None:
+                continue  # layer kept dense
             path = Path(record['fit_dir']) / f'block_{layer:02d}.pt'
             if not path.exists() or _file_sha256(path) != expected:
                 print(f'FFN fit for {name} changed; exporting it again', flush=True)
