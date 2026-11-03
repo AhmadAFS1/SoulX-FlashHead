@@ -50,6 +50,10 @@ public enum SoulXSmoke {
             let overlapAudio = arguments.contains("--prefetch-audio")
             let overlapBlocks = arguments.contains("--prefetch-blocks")
             recorder.set("overlap", ["audio": overlapAudio, "partitions": overlapBlocks])
+            recorder.set("execution_options", SoulXExecutionOptions.report)
+            if arguments.contains("--dit-compute") && SoulXExecutionOptions.ditComputeUnits == nil {
+                throw SoulXError.invalidManifest("--dit-compute must be cpu, cpu-gpu, cpu-ane or all")
+            }
             let engine = SoulXEngine(modelsDirectory: models, computeUnits: units,
                                      collectModelTimings: arguments.contains("--model-timings"),
                                      prefetchAudio: overlapAudio, prefetchBlocks: overlapBlocks)

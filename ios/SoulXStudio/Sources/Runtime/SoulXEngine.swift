@@ -290,13 +290,13 @@ public actor SoulXEngine {
                         if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
                     }
                 }
-                if !keepModelsResident { store.unload("decoder") }
+                if !store.shouldKeepResident(keepModelsResident) { store.unload("decoder") }
                 onProgress("Updating motion history")
                 let feedbackInput = try SoulXTensor.make([1, 5, 3, configuration.height, configuration.width], values: feedback)
                 let encoded = try store.predict("encoder", inputs: ["frames": feedbackInput], output: "motion")
                 _ = try SoulXTensor.checked(encoded, shape: [1, 16, 2, configuration.latentHeight, configuration.latentWidth], name: "motion")
                 let nextMotion = SoulXTensor.values(encoded)
-                if !keepModelsResident { store.unload("encoder") }
+                if !store.shouldKeepResident(keepModelsResident) { store.unload("encoder") }
                 guard nextMotion.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Motion encoder produced non-finite values") }
                 try check(token)
                 motion = nextMotion
@@ -331,7 +331,7 @@ public actor SoulXEngine {
             try check(token)
             onProgress("Generating · step \(step + 1)/2 · part \(index + 1)/\(blockCount)")
             hidden = try store.predict(name, inputs: ["hidden": hidden, "context": context, "timestep": timestep], output: "hidden_out")
-            if !keepModelsResident { store.unload(name) }
+            if !store.shouldKeepResident(keepModelsResident) { store.unload(name) }
             print("SOULX_EVENT partition name=\(name) step=\(step) seconds=\(ProcessInfo.processInfo.systemUptime - started)")
         }
 
@@ -397,7 +397,7 @@ public actor SoulXEngine {
         let waveform = try SoulXTensor.make([1, 128000], values: audioHistory, type: .float32)
         let packed = try store.packedAudio(waveform: waveform)
         let context = try store.predict("conditioning", inputs: ["audio": packed], output: "context")
-        if !keepModelsResident { store.unload("conditioning") }
+        if !store.shouldKeepResident(keepModelsResident) { store.unload("conditioning") }
         return context
     }
 

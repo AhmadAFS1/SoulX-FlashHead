@@ -127,7 +127,8 @@ struct SoulXLoadedBlock: @unchecked Sendable {
 /// process arguments so the app, the in-app smoke mode and the Mac runner
 /// share them. Defaults leave every model exactly as before.
 ///   --gpu-low-precision   allowLowPrecisionAccumulationOnGPU (approximate)
-///   --fast-prediction     specializationStrategy = .fastPrediction
+///   --fast-prediction     specializationStrategy = .fastPrediction (macOS 15 / iOS 18)
+///   --keep-models-resident, --parallel-frames: read by SoulXEngine
 ///   --dit-compute UNITS   compute units for patch/blocks/head only:
 ///                         cpu | cpu-gpu | cpu-ane | all
 enum SoulXExecutionOptions {
@@ -149,13 +150,25 @@ enum SoulXExecutionOptions {
         name.hasPrefix("blocks_") || name == "patch" || name == "head"
     }
 
-    static func apply(to configuration: MLModelConfiguration) {
-        if lowPrecisionGPU { configuration.allowLowPrecisionAccumulationOnGPU = true }
+    /// Low-precision accumulation is limited to the transformer so its effect
+    /// can be measured in isolation; fastPrediction applies to every model.
+    static func apply(to configuration: MLModelConfiguration, name: String) {
+        if lowPrecisionGPU && isTransformer(name) { configuration.allowLowPrecisionAccumulationOnGPU = true }
         if fastPrediction {
-            if #available(macOS 14.4, iOS 17.4, *) {
+            if #available(macOS 15.0, iOS 18.0, *) {
                 configuration.optimizationHints.specializationStrategy = .fastPrediction
             }
         }
+    }
+
+    /// Requested options, for run reports.
+    static var report: [String: Any] {
+        ["models_resident_requested": arguments.contains("--keep-models-resident"),
+         "parallel_frames": arguments.contains("--parallel-frames"),
+         "gpu_low_precision_accumulation_transformer": lowPrecisionGPU,
+         "fast_prediction_specialization": fastPrediction,
+         "dit_compute_units": arguments.firstIndex(of: "--dit-compute").flatMap { $0 + 1 < arguments.count ? arguments[$0 + 1] : nil } ?? "inherit",
+         "dit_compute_recognized": arguments.contains("--dit-compute") ? ditComputeUnits != nil : true]
     }
 }
 
@@ -169,7 +182,7 @@ struct SoulXBlockLoadRequest: Sendable {
         return try autoreleasepool {
             let configuration = MLModelConfiguration()
             configuration.computeUnits = computeUnits
-            SoulXExecutionOptions.apply(to: configuration)
+            SoulXExecutionOptions.apply(to: configuration, name: name)
             let start = ProcessInfo.processInfo.systemUptime
             let model = try MLModel(contentsOf: url, configuration: configuration)
             try Task.checkCancellation()
@@ -226,6 +239,20 @@ final class SoulXModelStore {
     }
 
     func unload(_ name: String) { models.removeValue(forKey: name) }
+
+    /// Whether a model may stay loaded after its prediction. On iOS residency
+    /// is only kept while the same headroom and footprint limits as partition
+    /// preloading still hold; otherwise models unload as before.
+    func shouldKeepResident(_ requested: Bool) -> Bool {
+        guard requested else { return false }
+        #if os(iOS)
+        guard let bytes = largestPartitionBytes, let footprint = Self.footprint() else { return false }
+        let reserve = 1_536 * 1_024 * 1_024 + 2 * bytes + extraPartitionReserve(bytes)
+        return os_proc_available_memory() >= reserve && footprint < 2 * 1_024 * 1_024 * 1_024
+        #else
+        return true
+        #endif
+    }
     func beginWindow() {
         retriedAudioThisWindow = false
         audioOverlapsDiT = false
@@ -465,7 +492,7 @@ final class SoulXModelStore {
         }
         let configuration = MLModelConfiguration()
         configuration.computeUnits = units(for: name)
-        SoulXExecutionOptions.apply(to: configuration)
+        SoulXExecutionOptions.apply(to: configuration, name: name)
         let loaded = try MLModel(contentsOf: url, configuration: configuration)
         models[name] = loaded
         return loaded

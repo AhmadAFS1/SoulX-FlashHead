@@ -99,7 +99,7 @@ private final class Recorder: @unchecked Sendable {
                          "co_resident_load": "Unknown; conversion and device tests may be co-resident",
                          "thermal_state_at_start": ProcessInfo.processInfo.thermalState.rawValue],
             "execution_environment": "Native macOS executable; shared iOS inference runtime sources",
-            "execution_classification": args.compute == "cpu" ? "Requested CPU-only Core ML inference on Mac" : "Requested Mac Core ML inference; actual CPU/GPU/ANE placement unverified",
+            "execution_classification": args.compute == "cpu" && !CommandLine.arguments.contains("--dit-compute") ? "Requested CPU-only Core ML inference on Mac" : "Requested Mac Core ML inference; actual CPU/GPU/ANE placement unverified",
             "scope": "Mac functional smoke and Mac timings only. No iPhone FPS, ANE placement, CUDA parity, lip-sync or perceptual quality claim.",
             "audio_lookahead": args.prefetchAudio, "partition_preload": args.prefetchBlocks,
             "models_resident": args.keepResident,
