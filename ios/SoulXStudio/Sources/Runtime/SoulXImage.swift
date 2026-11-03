@@ -78,6 +78,15 @@ enum SoulXImage {
 
     static func correctedFrame(_ frames: MLMultiArray, index: Int, height: Int, width: Int,
                                reference: SoulXColorStatistics, strength: Float) throws -> [Float] {
+        var result = try unpackFrame(frames, index: index, height: height, width: width)
+        if strength > 0 {
+            result.withUnsafeMutableBufferPointer { transfer($0, plane: height * width, reference: reference, strength: strength) }
+        }
+        return result
+    }
+
+    /// Planar RGB of one decoder frame, clamped to [0, 1]; throws on non-finite pixels.
+    static func unpackFrame(_ frames: MLMultiArray, index: Int, height: Int, width: Int) throws -> [Float] {
         let plane = height * width
         guard frames.shape.map(\.intValue) == [1, 33, 3, height, width] else { throw SoulXError.invalidTensor("decoder frames must be NTCHW [1,33,3,H,W]") }
         guard (0..<33).contains(index) else { throw SoulXError.invalidTensor("Frame index out of range") }
@@ -106,7 +115,14 @@ enum SoulXImage {
             default: throw SoulXError.invalidTensor("Decoder output must contain floating-point pixels")
             }
         }
-        if strength <= 0 { return result }
+        return result
+    }
+
+    /// In-place Lab statistics transfer of one planar frame (the math of
+    /// correctedFrame). Pure per frame, so frames may be processed concurrently.
+    static func transfer(_ result: UnsafeMutableBufferPointer<Float>, plane: Int,
+                         reference: SoulXColorStatistics, strength: Float) {
+        if strength <= 0 { return }
         // Reuse each pixel's Lab value for the transform after computing the
         // frame statistics. The reduction and RGB blending order stay the same.
         let labPixels = (0..<plane).map { lab(SIMD3(result[$0], result[plane + $0], result[2 * plane + $0])) }
@@ -120,7 +136,6 @@ enum SoulXImage {
             let blended = original * (1 - strength) + transferred * strength
             result[p] = blended.x; result[plane + p] = blended.y; result[2 * plane + p] = blended.z
         }
-        return result
     }
 
     static func cgImage(_ planar: [Float], height: Int, width: Int) throws -> CGImage {

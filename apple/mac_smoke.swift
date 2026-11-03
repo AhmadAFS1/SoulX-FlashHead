@@ -23,7 +23,7 @@ private struct Arguments {
     var units: MLComputeUnits { compute == "cpu" ? .cpuOnly : compute == "all" ? .all : .cpuAndGPU }
     static func parse() throws -> Arguments {
         let arguments = Array(CommandLine.arguments.dropFirst())
-        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--keep-models-resident] [--gpu-low-precision] [--fast-prediction] [--dit-compute cpu|cpu-gpu|cpu-ane|all] [--chunks 1] [--compute cpu-gpu|all|cpu]"
+        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--keep-models-resident] [--parallel-frames] [--gpu-low-precision] [--fast-prediction] [--dit-compute cpu|cpu-gpu|cpu-ane|all] [--chunks 1] [--compute cpu-gpu|all|cpu]"
         if arguments.contains("--help") { print(help); exit(0) }
         let supported = Set(["--reference-cache", "--models", "--portrait", "--audio", "--output", "--chunks", "--compute", "--dit-compute"])
         var values: [String: String] = [:]
@@ -32,7 +32,7 @@ private struct Arguments {
         while index < arguments.count {
             let key = arguments[index]
             if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks", "--keep-models-resident",
-                "--gpu-low-precision", "--fast-prediction"].contains(key) {
+                "--gpu-low-precision", "--fast-prediction", "--parallel-frames"].contains(key) {
                 guard flags.insert(key).inserted else { throw SoulXError.invalidManifest(help) }
                 index += 1
                 continue
@@ -103,6 +103,7 @@ private final class Recorder: @unchecked Sendable {
             "scope": "Mac functional smoke and Mac timings only. No iPhone FPS, ANE placement, CUDA parity, lip-sync or perceptual quality claim.",
             "audio_lookahead": args.prefetchAudio, "partition_preload": args.prefetchBlocks,
             "models_resident": args.keepResident,
+            "parallel_frames": CommandLine.arguments.contains("--parallel-frames"),
             "gpu_low_precision_accumulation": CommandLine.arguments.contains("--gpu-low-precision"),
             "fast_prediction_specialization": CommandLine.arguments.contains("--fast-prediction"),
             "dit_compute_units": CommandLine.arguments.firstIndex(of: "--dit-compute").map { CommandLine.arguments[$0 + 1] } ?? "inherit",

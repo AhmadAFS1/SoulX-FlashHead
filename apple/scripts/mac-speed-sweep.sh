@@ -74,6 +74,10 @@ specs=(
   "b10_resident|pro320-b10|$fast --keep-models-resident"
   "ane_on_ane|pro320-ane|$fast --keep-models-resident --dit-compute cpu-ane"
   "ane_on_all|pro320-ane|$fast --keep-models-resident --dit-compute all"
+  "resident_parallel|pro320|$fast --keep-models-resident --parallel-frames"
+  "exact_stack|pro320-fold|$fast --keep-models-resident --parallel-frames"
+  "exact_stack_fastpred|pro320-fold|$fast --keep-models-resident --parallel-frames --fast-prediction"
+  "ane_stack|pro320-ane|$fast --keep-models-resident --parallel-frames --dit-compute cpu-ane"
 )
 [[ -d $device/pro320-ffnk2-fold ]] && specs+=("ffnk2fold_resident|pro320-ffnk2-fold|$fast --keep-models-resident")
 

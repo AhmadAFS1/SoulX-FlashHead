@@ -26,6 +26,9 @@ public actor SoulXEngine {
     /// unloading each one after its prediction. Opt-in: it trades resident
     /// memory (about 1.4 GB of PRO320 partitions) for fewer loads and warm-up.
     private let keepModelsResident: Bool
+    /// Colour-correct and convert the 28 frames of a window concurrently
+    /// (opt-in). Each frame uses the same per-frame math, so pixels are identical.
+    private let parallelFrames: Bool
     private let collectModelTimings: Bool
     private var store: SoulXModelStore?
     private var reference: MLMultiArray?
@@ -41,13 +44,14 @@ public actor SoulXEngine {
     public init(modelsDirectory: URL, computeUnits: MLComputeUnits = .all,
                 audioComputeUnits: MLComputeUnits? = nil,
                 collectModelTimings: Bool = false, prefetchAudio: Bool = false, prefetchBlocks: Bool = false,
-                keepModelsResident: Bool = false) {
+                keepModelsResident: Bool = false, parallelFrames: Bool = false) {
         self.modelsDirectory = modelsDirectory
         self.computeUnits = computeUnits
         self.audioComputeUnits = audioComputeUnits
         self.prefetchAudio = prefetchAudio
         self.prefetchBlocks = prefetchBlocks || ProcessInfo.processInfo.arguments.contains("--prefetch-blocks")
         self.keepModelsResident = keepModelsResident || ProcessInfo.processInfo.arguments.contains("--keep-models-resident")
+        self.parallelFrames = parallelFrames || ProcessInfo.processInfo.arguments.contains("--parallel-frames")
         self.collectModelTimings = collectModelTimings || ProcessInfo.processInfo.arguments.contains("--model-timings")
     }
 
@@ -252,12 +256,39 @@ public actor SoulXEngine {
                 feedback.reserveCapacity(5 * 3 * configuration.height * configuration.width)
                 // History positions 0...4 are never displayed or fed back. Decode
                 // still computes them because window-mode causal context needs them.
-                for frame in configuration.historyFrames..<configuration.framesPerWindow {
-                    try check(token)
-                    let rgb = try SoulXImage.correctedFrame(decoded, index: frame, height: configuration.height, width: configuration.width,
-                                                            reference: colors, strength: configuration.colorCorrectionStrength)
-                    if frame >= configuration.framesPerWindow - configuration.historyFrames { feedback.append(contentsOf: rgb) }
-                    if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
+                if parallelFrames {
+                    let height = configuration.height, width = configuration.width
+                    let first = configuration.historyFrames, count = configuration.framesPerWindow - configuration.historyFrames
+                    var corrected = [[Float]](repeating: [], count: count)
+                    for k in 0..<count {  // the decoder output is read on this thread only
+                        try check(token)
+                        corrected[k] = try SoulXImage.unpackFrame(decoded, index: first + k, height: height, width: width)
+                    }
+                    let reference = colors, strength = configuration.colorCorrectionStrength, shown = visibleCount
+                    let built = UnsafeMutableBufferPointer<CGImage?>.allocate(capacity: count)
+                    built.initialize(repeating: nil)
+                    defer { built.deinitialize(); built.deallocate() }
+                    corrected.withUnsafeMutableBufferPointer { frames in
+                        DispatchQueue.concurrentPerform(iterations: count) { k in
+                            frames[k].withUnsafeMutableBufferPointer {
+                                SoulXImage.transfer($0, plane: height * width, reference: reference, strength: strength)
+                            }
+                            if k < shown { built[k] = try? SoulXImage.cgImage(frames[k], height: height, width: width) }
+                        }
+                    }
+                    for k in 0..<visibleCount {
+                        guard let image = built[k] else { throw SoulXError.invalidImage }
+                        images.append(image)
+                    }
+                    for k in (count - configuration.historyFrames)..<count { feedback.append(contentsOf: corrected[k]) }
+                } else {
+                    for frame in configuration.historyFrames..<configuration.framesPerWindow {
+                        try check(token)
+                        let rgb = try SoulXImage.correctedFrame(decoded, index: frame, height: configuration.height, width: configuration.width,
+                                                                reference: colors, strength: configuration.colorCorrectionStrength)
+                        if frame >= configuration.framesPerWindow - configuration.historyFrames { feedback.append(contentsOf: rgb) }
+                        if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
+                    }
                 }
                 if !keepModelsResident { store.unload("decoder") }
                 onProgress("Updating motion history")
