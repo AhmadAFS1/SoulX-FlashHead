@@ -17,12 +17,13 @@ private struct Arguments {
     let audioCPU: Bool
     let prefetchAudio: Bool
     let prefetchBlocks: Bool
+    let keepResident: Bool
     let chunks: Int
     let compute: String
     var units: MLComputeUnits { compute == "cpu" ? .cpuOnly : compute == "all" ? .all : .cpuAndGPU }
     static func parse() throws -> Arguments {
         let arguments = Array(CommandLine.arguments.dropFirst())
-        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--chunks 1] [--compute cpu-gpu|all|cpu]"
+        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--keep-models-resident] [--chunks 1] [--compute cpu-gpu|all|cpu]"
         if arguments.contains("--help") { print(help); exit(0) }
         let supported = Set(["--reference-cache", "--models", "--portrait", "--audio", "--output", "--chunks", "--compute"])
         var values: [String: String] = [:]
@@ -30,7 +31,7 @@ private struct Arguments {
         var index = 0
         while index < arguments.count {
             let key = arguments[index]
-            if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks"].contains(key) {
+            if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks", "--keep-models-resident"].contains(key) {
                 guard flags.insert(key).inserted else { throw SoulXError.invalidManifest(help) }
                 index += 1
                 continue
@@ -57,7 +58,8 @@ private struct Arguments {
                          cache: values["--reference-cache"].map { URL(fileURLWithPath: $0) },
                          saveFrames: flags.contains("--save-frames"), timings: flags.contains("--model-timings"),
                          audioCPU: flags.contains("--audio-cpu"),
-                         prefetchAudio: flags.contains("--prefetch-audio"), prefetchBlocks: flags.contains("--prefetch-blocks"), chunks: chunks, compute: values["--compute"] ?? "cpu-gpu")
+                         prefetchAudio: flags.contains("--prefetch-audio"), prefetchBlocks: flags.contains("--prefetch-blocks"),
+                         keepResident: flags.contains("--keep-models-resident"), chunks: chunks, compute: values["--compute"] ?? "cpu-gpu")
     }
 }
 
@@ -98,6 +100,7 @@ private final class Recorder: @unchecked Sendable {
             "execution_classification": args.compute == "cpu" ? "Requested CPU-only Core ML inference on Mac" : "Requested Mac Core ML inference; actual CPU/GPU/ANE placement unverified",
             "scope": "Mac functional smoke and Mac timings only. No iPhone FPS, ANE placement, CUDA parity, lip-sync or perceptual quality claim.",
             "audio_lookahead": args.prefetchAudio, "partition_preload": args.prefetchBlocks,
+            "models_resident": args.keepResident,
             "audio_compute": args.audioCPU ? "cpu" : "inherit",
             "model_timings": args.timings,
             "reference_initialization": args.cache == nil ? "on-device encoder" : "verified portrait cache",

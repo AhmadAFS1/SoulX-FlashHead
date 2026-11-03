@@ -22,6 +22,10 @@ public actor SoulXEngine {
     private let audioComputeUnits: MLComputeUnits?
     private let prefetchAudio: Bool
     private let prefetchBlocks: Bool
+    /// Keep Core ML models loaded across passes and windows instead of
+    /// unloading each one after its prediction. Opt-in: it trades resident
+    /// memory (about 1.4 GB of PRO320 partitions) for fewer loads and warm-up.
+    private let keepModelsResident: Bool
     private let collectModelTimings: Bool
     private var store: SoulXModelStore?
     private var reference: MLMultiArray?
@@ -36,12 +40,14 @@ public actor SoulXEngine {
 
     public init(modelsDirectory: URL, computeUnits: MLComputeUnits = .all,
                 audioComputeUnits: MLComputeUnits? = nil,
-                collectModelTimings: Bool = false, prefetchAudio: Bool = false, prefetchBlocks: Bool = false) {
+                collectModelTimings: Bool = false, prefetchAudio: Bool = false, prefetchBlocks: Bool = false,
+                keepModelsResident: Bool = false) {
         self.modelsDirectory = modelsDirectory
         self.computeUnits = computeUnits
         self.audioComputeUnits = audioComputeUnits
         self.prefetchAudio = prefetchAudio
         self.prefetchBlocks = prefetchBlocks || ProcessInfo.processInfo.arguments.contains("--prefetch-blocks")
+        self.keepModelsResident = keepModelsResident || ProcessInfo.processInfo.arguments.contains("--keep-models-resident")
         self.collectModelTimings = collectModelTimings || ProcessInfo.processInfo.arguments.contains("--model-timings")
     }
 
@@ -253,13 +259,13 @@ public actor SoulXEngine {
                     if frame >= configuration.framesPerWindow - configuration.historyFrames { feedback.append(contentsOf: rgb) }
                     if images.count < visibleCount { images.append(try SoulXImage.cgImage(rgb, height: configuration.height, width: configuration.width)) }
                 }
-                store.unload("decoder")
+                if !keepModelsResident { store.unload("decoder") }
                 onProgress("Updating motion history")
                 let feedbackInput = try SoulXTensor.make([1, 5, 3, configuration.height, configuration.width], values: feedback)
                 let encoded = try store.predict("encoder", inputs: ["frames": feedbackInput], output: "motion")
                 _ = try SoulXTensor.checked(encoded, shape: [1, 16, 2, configuration.latentHeight, configuration.latentWidth], name: "motion")
                 let nextMotion = SoulXTensor.values(encoded)
-                store.unload("encoder")
+                if !keepModelsResident { store.unload("encoder") }
                 guard nextMotion.allSatisfy(\.isFinite) else { throw SoulXError.invalidTensor("Motion encoder produced non-finite values") }
                 try check(token)
                 motion = nextMotion
@@ -294,7 +300,7 @@ public actor SoulXEngine {
             try check(token)
             onProgress("Generating · step \(step + 1)/2 · part \(index + 1)/\(blockCount)")
             hidden = try store.predict(name, inputs: ["hidden": hidden, "context": context, "timestep": timestep], output: "hidden_out")
-            store.unload(name)
+            if !keepModelsResident { store.unload(name) }
             print("SOULX_EVENT partition name=\(name) step=\(step) seconds=\(ProcessInfo.processInfo.systemUptime - started)")
         }
 
@@ -360,7 +366,7 @@ public actor SoulXEngine {
         let waveform = try SoulXTensor.make([1, 128000], values: audioHistory, type: .float32)
         let packed = try store.packedAudio(waveform: waveform)
         let context = try store.predict("conditioning", inputs: ["audio": packed], output: "context")
-        store.unload("conditioning")
+        if !keepModelsResident { store.unload("conditioning") }
         return context
     }
 
