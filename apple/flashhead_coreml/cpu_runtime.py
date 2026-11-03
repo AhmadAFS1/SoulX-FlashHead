@@ -310,8 +310,12 @@ def linear(layer: torch.nn.Linear, x: torch.Tensor, R) -> torch.Tensor:
     return R(F.linear(x, weight, layer.bias))
 
 
-def load_blocks_lean(cfg, profile, time_modulations, checkpoint):
-    """All 30 blocks without a second full-size random-initialised copy."""
+def load_blocks_lean(cfg, profile, time_modulations, checkpoint, private=True):
+    """All 30 blocks without a second full-size random-initialised copy.
+
+    ``private=False`` keeps safetensors' file-backed (reclaimable) pages for
+    read-only FP32 rendering; emulation writes weights and needs a copy.
+    """
     from safetensors import safe_open
     with torch.device('meta'):
         blocks = Blocks(cfg, profile, 0, cfg.num_layers, torch.zeros(2, 6, cfg.dim))
@@ -320,7 +324,8 @@ def load_blocks_lean(cfg, profile, time_modulations, checkpoint):
         for key in blocks.state_dict():
             # clone(): safetensors tensors share one memory map of the 6 GB file;
             # any surviving reference would keep every touched page resident.
-            tensors[key] = source.get_tensor(key).float().clone()
+            tensor = source.get_tensor(key).float()
+            tensors[key] = tensor.clone() if private else tensor
     blocks.load_state_dict(tensors, strict=True, assign=True)
     del tensors
     cos, sin = rotary_tables(cfg.dim // cfg.num_heads, profile.grid)
@@ -473,7 +478,8 @@ class CpuRuntime:
             self.time_embeddings, self.time_modulations = timing(torch.tensor([1000., 625.]))
         self.patch = load_component(Patch(self.cfg, profile), checkpoint, 'patch')
         self.conditioning = load_component(AudioProjection(self.cfg.dim), checkpoint, 'conditioning')
-        self.blocks = load_blocks_lean(self.cfg, profile, self.time_modulations, checkpoint)
+        self.blocks = load_blocks_lean(self.cfg, profile, self.time_modulations, checkpoint,
+                                       private=mode == 'coreml-int8' or bool(transforms))
         self.head = load_component(OutputHead(self.cfg, profile, self.time_embeddings), checkpoint, 'head')
         self.transform_log = []
         for transform in transforms or []:
