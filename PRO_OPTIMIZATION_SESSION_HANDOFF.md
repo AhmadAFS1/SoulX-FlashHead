@@ -332,3 +332,31 @@ Follow the report's §7 row 1: an updated A14 baseline, sequential versus overla
 3. **Quality:** finish the CPU A/B set (§6) and review the comparison videos together. Decide on `ffnk2`/`ffnmap` only after the Mac timing.
 4. **If more speed is required:** distil a smaller or fewer-block student. The FFN density result shows that training-free pruning cannot provide it. Use this repository's CPU A/B harness plus the device runs as the quality gate.
 5. Optional quality lever: per-block INT8 (scale per 32) weights, about 3× lower FFN quantization error.
+
+---
+
+## Appendix A. Conversation log (chronological)
+
+Your messages are quoted verbatim, followed by what was done in response. The times are approximate UTC on 2026-11-02 and 2026-11-03. "Stop hook" lines are the repository's automatic reminder to push. They are recorded because they drove the push work.
+
+1. **You (~22:35):** "I have this md file. We are doing a lot of modifications and optimizations to soulxflashhead so that we can have it running on ios mobile devices. I want you to perform more optimizations for the PRO quantized model, then I want you to go ahead and make videos which I can see, and we both can validate that we didn't lose any video quality over these optimizations. Here is copy pate from different chat. You now need to go into the codex branch and continue from there reading this md: [Read the complete SoulXFlashHead PRO quantization and Core ML report](/Users/ahmadsmacair/.codex/worktrees/ios-coreml/SoulXFlashHead/PRO_QUANTIZED_MODEL_REPORT.md) … The report is committed as `43cb763` on `codex/ios-coreml-inference`." (Along with the `/workflow-authoring` skill.)
+   **Done:** Found that `codex/ios-coreml-inference` and `43cb763` were not on GitHub and no Mac folder was shared. Reported that the container is CPU-only (Intel Xeon, 4 vCPU, 15 GiB, no GPU, no Core ML runtime). Asked how to proceed.
+2. **You (choice):** "Connect my Mac".
+   **Done:** No Mac folders were listed for Remote Control. A model download started in the cloud was stopped.
+3. **You:** "I was expecting you to work on my local mac…"
+   **Done:** Explained that this is a cloud session. Gave the Remote Control steps and noted that `~/.codex/...`, being a hidden directory, cannot be shared. Offered the alternative of running Claude Code locally.
+4. **You:** "But anyways I git pushed it. So you ahould be able to pull it anyways: Pushed `codex/ios-coreml-inference` to GitHub and verified that the remote matches local commit `43cb763`, including the complete PRO performance report."
+   **Done:** Fetched the branch, reset the working branch onto `43cb763` and read the report. Ran five parallel code-map readers. Downloaded the pinned weights (hashes verified) and built the CPU renderer and the Core ML emulation. Checked fidelity against the recorded M5 Pro errors. Implemented the exact fold, the FFN reduction tooling and the quality tools. Ran two independent code reviews, whose confirmed findings were fixed. Ran calibration and the FFN fit, and started the evaluation renders. Sent the first baseline video.
+   - **Stop hooks** asked to commit and push. Every `git push` (and the GitHub API) returned HTTP 403 "Claude doesn't have GitHub access … for your organization". Reconnect and install links were given each time.
+5. **You:** "any other way to commit to git?"
+   **Done:** Explained that the commits were safe locally and only the upload was blocked. Sent a verified **git bundle** of the 11 new commits with `git fetch <bundle> …; git push` instructions, and offered GitHub App access or Remote Control. Shortly afterwards `git push` started working and all commits were pushed.
+6. **You:** "make a full md of this entire conversation so that I can start work on my actual macbook."
+   **Done:** Wrote this document, committed it as `4193e69` together with the Mac helpers (fixture builder, `setup-cpu-ab`, `VARIANT`, `ffnmap`), pushed it and sent the file. In the same period, two more out-of-memory kills were traced to the safetensors memory map. The fix reduces each render from about 9 GB to 3.4 GB.
+   - **Container restart:** the cloud container restarted, stopping the render workers and the "find more savings" workflow. Files on disk survived. The renders were restarted from their job lists and the workflow was resumed from its journal.
+7. **You:** "where is the md file of this entire comversation?!"
+   **Done:** Pointed to this file (below) and added this conversation log.
+
+**Where this file is:**
+- GitHub: `https://github.com/AhmadAFS1/SoulX-FlashHead/blob/claude/soulxflashhead-pro-optimization-7cjfod/PRO_OPTIMIZATION_SESSION_HANDOFF.md`
+- After `git switch claude/soulxflashhead-pro-optimization-7cjfod` on your Mac: `PRO_OPTIMIZATION_SESSION_HANDOFF.md` at the repository root.
+- The companion report this session started from: `PRO_QUANTIZED_MODEL_REPORT.md` (same branch, unchanged).
