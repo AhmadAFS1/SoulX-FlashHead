@@ -354,6 +354,37 @@ apple/run_mac_smoke.sh "${common[@]}" --prefetch-audio --prefetch-blocks --model
 .venv-coreml/bin/python apple/flashhead_coreml/compare_frames.py --baseline /tmp/soulx-opt --candidate /tmp/soulx-resident   # expect identical pixels
 ```
 
+## 8c. Speed program toward the goal (≥ half of MuseTalk on the Mac)
+
+**Target.** Your MuseTalk Core ML port runs at about **48 FPS on the M5 Pro**: 20.8 ms per frame with its two-stage pipeline, 18.9 ms of which is the UNet on the Neural Engine. Source: `AhmadAFS1/MuseTalk` branch `claude/ios-unet-bench`, `docs/ios_coreml_implementation.md` (reused Apple M5 Pro records). The same port runs at 16.4–17.1 FPS on the iPhone 12 Pro. **Half of the Mac figure is about 24 FPS.** PRO runs at 15.25 FPS today, so each 28-frame window must drop from 1.836 s to about 1.17 s, roughly 1.6×.
+
+**Everything implemented for it.** All of it is opt-in, nothing here was compiled or measured on Apple hardware, and every row is a separate sweep arm:
+
+| Lever | How to enable | Exact? | Expected on the M5 Pro (estimate) |
+|---|---|---|---|
+| Keep models loaded | `--keep-models-resident` | bit-exact | +3–6% likely; up to about +40% if the 73.9 ms vs 47.1 ms per-call gap is load-related |
+| Parallel colour correction + images | `--parallel-frames` | bit-exact | about +4–5% (the stage cost about 0.1 s/window) |
+| Bigger partitions (fewer calls) | export `--blocks-per-chunk 6` or `10` | exact (6-block matched 3+3 element for element in an earlier Mac trial) | +1.6% measured earlier for 6; more with residency, unmeasured |
+| Exact cross-attention fold | export `--variant fold` | exact in real arithmetic (0.16% vs INT8, CPU) | −3.0% transformer MACs |
+| FP16 attention on GPU | export `--precision mixed-gpu` | approximate, FP16 contract | 0–15% |
+| fastPrediction specialization | `--fast-prediction` | may pick different kernels | unknown |
+| Low-precision GPU accumulation | `--gpu-low-precision` | approximate | unknown, possibly large on GPU matmuls |
+| **Neural Engine layout** | export `--layout ane --precision float16`, run `--dit-compute cpu-ane` | FP32-exact rewrite (NRMSE 3e-6, real `blocks_06`); FP16/ANE accuracy unmeasured | **The big lever.** MuseTalk got its speed from this recipe. Whether the PRO DiT places on the ANE, and how fast, is unknown |
+| Adaptive FFN cut | export `--variant ffnk2+fold` (needs the fit, §7.3) | within the FP32 floor (both avatars, teacher-forced) | −1.5% MACs |
+
+**Run everything with one command on the Mac,** after `make -f apple/Makefile setup-cpu-ab fetch export bundle` and the fixture script:
+
+```sh
+apple/scripts/mac-speed-sweep.sh artifacts/cpu-validation/inputs/eval_english_plosive.wav 4 2
+```
+
+It exports the bundles, gates each one with `validate_dit` on the matching compute units, runs every arm twice, and prints warm FPS, speed-up, identical frames, PSNR and lip/teeth metrics against the baseline. Results go to `artifacts/coreml/sweep/<timestamp>/summary.txt`.
+
+What to do with the results:
+1. Keep every bit-exact arm that is faster.
+2. Accept an approximate arm only if its gate passes and its lip/teeth metrics stay within the FP32 floor.
+3. If `ane_on_ane` places on the Neural Engine and passes the gate, it is the path to 24+ FPS on the Mac and a multi-× gain on the iPhone. Then try `ane_stack` on the iPhone.
+
 ## 9. Ranked next steps
 
 1. **Mac:** A/B `--keep-models-resident` (§8b, bit-exact; Swift only), then export `fold` and measure it against the current bundle (§7.1). Ship each one that lowers M5 Pro or A14 window time while keeping frames identical (residency) or within the FP32 floor (fold).
