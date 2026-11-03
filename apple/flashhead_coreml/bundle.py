@@ -70,7 +70,7 @@ def main():
         frames_per_window=33,history_frames=5,fps=25,sample_rate=16000,sampling_steps=[1000,625,0],
         color_correction_strength=1.0,decoder_mode='window',compression=source['compression'],
         source_checkpoint_sha256=source['source_checkpoint_sha256'],models=records,
-        dit_precision=source['precision'],
+        dit_precision=source['precision'],transformer_variant=source.get('variant','baseline'),
         warning='Apple weight compression with component-specific mixed FP16/FP32 execution; inspect model metadata. CUDA FP8/INT8 activation rounding is not reproduced. ANE placement and real-time throughput require device profiling.')
     (args.output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     shutil.copy2(args.input/'dit_manifest.json',args.output/'dit_manifest.json')

@@ -318,8 +318,11 @@ def load_blocks_lean(cfg, profile, time_modulations, checkpoint):
     tensors = {}
     with safe_open(str(checkpoint), framework='pt', device='cpu') as source:
         for key in blocks.state_dict():
-            tensors[key] = source.get_tensor(key).float()
+            # clone(): safetensors tensors share one memory map of the 6 GB file;
+            # any surviving reference would keep every touched page resident.
+            tensors[key] = source.get_tensor(key).float().clone()
     blocks.load_state_dict(tensors, strict=True, assign=True)
+    del tensors
     cos, sin = rotary_tables(cfg.dim // cfg.num_heads, profile.grid)
     for name, value in (('rotary_cos', cos), ('rotary_sin', sin), ('time_high', time_modulations[0:1].detach()),
                         ('time_low', time_modulations[1:2].detach())):
