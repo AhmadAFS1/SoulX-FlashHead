@@ -195,9 +195,16 @@ Setup: the girl avatar on `eval_english_plosive`, seed 42, nine windows. Each wi
 | Arm compared with the INT8 baseline | Latent NRMSE per window (%) | Mean | Median frame PSNR per window (dB) |
 |---|---|---:|---|
 | **FP32 reference** (quantization floor) | 2.53, 1.42, 2.88, 1.41, 1.45, 1.62, 1.08, 1.46, 2.46 | **1.81%** | 45.6, 47.1, 45.2, 47.8, 46.5, 45.8, 47.7, 43.6, 41.0 |
+| **Exact fold** (−3.0% MACs) | 0.19, 0.13, 0.25, 0.15, 0.14, 0.15, 0.11, 0.14, 0.19 | **0.16%** | 59.1, 60.6, 58.3, 60.2, 60.7, 60.4, 61.5, 61.1, 57.6 |
+| **Fold + adaptive FFN `ffnk2`** (−4.6% MACs) | 2.20, 1.07, 1.61, 1.29, 1.01, 1.42, 0.89, 0.83, 2.57 | **1.43%** | 45.0, 48.9, 47.8, 50.9, 48.2, 46.4, 50.3, 50.7, 39.0 |
 | Uniform FFN −12.5% + fold (**rejected**) | 12.53, 5.54, 7.57, 4.27, 4.95, 4.16, 1.89, 3.88, 7.59 | **5.82%** | 33.6, 37.0, 33.7, 38.8, 39.1, 37.9, 43.5, 36.2, 32.6 |
 
-The shipped INT8 model already differs from FP32 by about 1.8%. A uniform 12.5% FFN cut drifts 3.2× further, which agrees with the per-block sensitivities above. Results for `fold` and `ffnk2+fold` were still rendering ([§6](#6-what-was-still-running-and-how-to-finish-it)). The acceptance rule: a variant should sit inside the FP32 floor, and its lip, teeth and colour metrics should stay within the seed and FP32 floors in the free-running videos.
+The shipped INT8 model already differs from FP32 by about 1.8%.
+- **The exact fold is practically lossless:** 0.16%, about 10× below that floor, coming only from FP16 rounding order.
+- **Fold + adaptive FFN sits inside the floor:** 1.43%.
+- **A uniform 12.5% FFN cut drifts 3.2× further,** in line with the per-block sensitivities above.
+
+Evidence: `apple/validation/cpu_ab_teacher_forced_pro320.json`. Video: `artifacts/cpu-validation/videos/girl-english-ab-teacher-forced.mp4` (FP32 | INT8 | fold+FFN | ×8 difference). The acceptance rule: a variant should sit inside the FP32 floor, and its lip, teeth and colour metrics should stay within the seed and FP32 floors in the free-running videos.
 
 ### 5.6 Lower-bit weights
 
