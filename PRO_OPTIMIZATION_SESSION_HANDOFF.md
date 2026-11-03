@@ -75,7 +75,7 @@ Commits on top of `43cb763`, oldest first:
 | `bee91b9` | Opt-in `--parallel-frames` |
 | `358cf9c`, `a586e4f` | Speed program (§8c); Indian-avatar A/B results |
 | `ff4c44b` | Review fixes, Swift: `fastPrediction` availability (macOS 15 / iOS 18; the old check did not compile), iOS residency memory guard, low precision limited to the transformer, smoke report records the flags |
-| (next commit) | Review fixes, tools: sweep summary counts only passing runs and reads gates; sweep script hardened; ANE export keeps patch/conditioning/head on the gated mixed policy, refuses `mixed`/`query_chunk`, separate q/k norm prescale |
+| `296489b` | Review fixes, tools: sweep summary counts only passing runs and reads gates; sweep script hardened; ANE export keeps patch/conditioning/head on the gated mixed policy, refuses `mixed`/`query_chunk`, separate q/k norm prescale |
 
 ---
 
