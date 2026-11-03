@@ -34,6 +34,9 @@ def save_manifest(path, manifest):
     temporary.replace(path)
 
 
+NORM_SCOPES = ('RMSNorm', 'LayerNorm', 'AneLayerNorm', 'AneRMSNorm')
+
+
 def convert_component(module, inputs, output_name, destination, compression='none', precision='mixed'):
     import coremltools as ct
     from coremltools.converters.mil.mil.scope import ScopeSource
@@ -50,14 +53,19 @@ def convert_component(module, inputs, output_name, destination, compression='non
         # CrossAttentionWeights is the explicit FP32 softmax of the folded
         # cross-attention (dit.CrossAttention.fold_output_projection).
         return op.op_type not in ('layer_norm', 'scaled_dot_product_attention') and not any(
-            name in ('RMSNorm', 'LayerNorm', 'CrossAttentionWeights') for name in modules)
+            name in NORM_SCOPES + ('CrossAttentionWeights',) for name in modules)
+    def fp16_attention(op):
+        # 'mixed-gpu': normalisation stays FP32; attention runs in FP16.
+        modules = op.scopes.get(ScopeSource.TORCHSCRIPT_MODULE_TYPE, [])
+        return op.op_type != 'layer_norm' and not any(name in NORM_SCOPES for name in modules)
     model = ct.convert(
         traced, convert_to='mlprogram',
         inputs=[ct.TensorType(name=n, shape=tuple(x.shape), dtype=np.float16) for n, x in inputs.items()],
         outputs=[ct.TensorType(name=output_name, dtype=np.float16)],
         minimum_deployment_target=ct.target.iOS18,
         compute_precision=(ct.precision.FLOAT32 if precision == 'float32' else ct.precision.FLOAT16
-                           if precision == 'float16' else ct.transform.FP16ComputePrecision(op_selector=fp16_safe)),
+                           if precision == 'float16' else ct.transform.FP16ComputePrecision(op_selector=fp16_attention)
+                           if precision == 'mixed-gpu' else ct.transform.FP16ComputePrecision(op_selector=fp16_safe)),
         compute_units=ct.ComputeUnit.ALL,
         skip_model_load=True,
     )
@@ -155,7 +163,13 @@ def export(args):
         raise ValueError('Invalid partition or query chunk size')
     torch.set_num_threads(args.threads)
     fuse_qkv = getattr(args, 'fuse_qkv', False)
+    layout = getattr(args, 'layout', 'standard') or 'standard'
+    prescale = float(getattr(args, 'norm_prescale', 64.0) or 0.0)
+    if layout == 'ane' and fuse_qkv:
+        raise ValueError('The ANE layout is built from unfused projections; drop --fuse-qkv')
     variant = getattr(args, 'variant', 'baseline') or 'baseline'
+    if layout == 'ane' and 'fold' in variant.split('+'):
+        raise ValueError('The ANE layout does not combine with the fold variant')
     from .variants import build_transforms
     transforms, variant_description = build_transforms(variant)
     checkpoint_dir = Path(args.checkpoint)
@@ -181,8 +195,10 @@ def export(args):
                 'source_checkpoint_sha256': file_hash(checkpoint),
                 'precision': args.precision, 'compression': args.compression,
                 'precision_policy': {'mixed': 'mixed: float32 normalization and attention; float16 matrix projections',
-                                     'float16': 'float16 throughout (diagnostic; failed the full-profile numerical gate)',
+                                     'mixed-gpu': 'mixed-gpu: float32 normalization; float16 attention and matrix projections',
+                                     'float16': 'float16 throughout (standard layout failed the full-profile gate; use with --layout ane prescaled norms)',
                                      'float32': 'float32 throughout with float16 I/O'}[args.precision],
+                'layout': layout, 'norm_prescale': prescale if layout == 'ane' else None,
                 'blocks_per_chunk': args.blocks_per_chunk, 'query_chunk': args.query_chunk,
                 'fuse_qkv': fuse_qkv,
                 'variant': variant, 'variant_description': variant_description, 'variant_transforms': {},
@@ -200,6 +216,8 @@ def export(args):
             raise ValueError('Resume manifest mismatch: fuse_qkv')
         if previous.get('variant', 'baseline') != variant:
             raise ValueError('Resume manifest mismatch: variant')
+        if previous.get('layout', 'standard') != layout or previous.get('norm_prescale') != manifest['norm_prescale']:
+            raise ValueError('Resume manifest mismatch: layout')
         manifest['variant_transforms'] = previous.get('variant_transforms', {})
         manifest['models'] = previous['models']
     latent = lambda: torch.zeros(profile.latent_shape)
@@ -240,6 +258,9 @@ def export(args):
                 manifest['variant_transforms'][name] = applied
         if fuse_qkv and isinstance(module, Blocks):
             module.fuse_projections()
+        if layout == 'ane' and isinstance(module, Blocks):
+            from .ane_layout import to_ane_layout
+            module = to_ane_layout(module, prescale)
         entry = convert_component(module, inputs, output_name, destination, args.compression, args.precision)
         entry['export_seconds'] = time.monotonic() - started
         manifest['models'][name] = entry
@@ -264,7 +285,12 @@ def main():
     parser.add_argument('--fuse-qkv', action='store_true', help='Combine self-attention Q/K/V and cross-attention K/V projections after loading checkpoint rows')
     parser.add_argument('--variant', default='baseline', help="Transformer variant, e.g. 'fold', 'ffn25+fold' (see flashhead_coreml.variants)")
     parser.add_argument('--compression', choices=['none', 'int8', 'lut6', 'lut4'], default='int8')
-    parser.add_argument('--precision', choices=['mixed', 'float16', 'float32'], default='mixed', help='mixed retains FP32 normalization and attention; I/O stays FP16')
+    parser.add_argument('--precision', choices=['mixed', 'mixed-gpu', 'float16', 'float32'], default='mixed',
+                        help='mixed retains FP32 normalization and attention; mixed-gpu keeps only normalization FP32; I/O stays FP16')
+    parser.add_argument('--layout', choices=['standard', 'ane'], default='standard',
+                        help="ane: channels-first 1x1-conv partitions for the Neural Engine (pair with --precision float16)")
+    parser.add_argument('--norm-prescale', type=float, default=64.0,
+                        help='ANE layout: divide norm inputs by this constant (exact; avoids FP16 overflow); 0 disables')
     parser.add_argument('--threads', type=int, default=6)
     parser.add_argument('--only', help='Comma-separated component names')
     parser.add_argument('--resume', action='store_true')

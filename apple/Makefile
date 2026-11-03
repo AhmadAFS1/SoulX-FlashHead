@@ -7,6 +7,10 @@ HEIGHT ?= 320
 WIDTH ?= 176
 # Transformer variant: baseline, fold, ffnk2+fold, ffnmap0=0.5,...+fold (see flashhead_coreml/variants.py)
 VARIANT ?= baseline
+# DiT export options: PRECISION mixed|mixed-gpu|float16, LAYOUT standard|ane, BLOCKS (layers per partition)
+PRECISION ?= mixed
+LAYOUT ?= standard
+BLOCKS ?= 3
 
 .PHONY: setup setup-cpu-ab fetch test export bundle app
 setup:
@@ -19,7 +23,7 @@ fetch:
 test:
 	$(PYTHON) -m pytest apple/tests -q
 export:
-	$(PYTHON) -m flashhead_coreml.export_dit --height $(HEIGHT) --width $(WIDTH) --output $(OUTPUT) --variant '$(VARIANT)' --resume
+	$(PYTHON) -m flashhead_coreml.export_dit --height $(HEIGHT) --width $(WIDTH) --output $(OUTPUT) --variant '$(VARIANT)' --precision $(PRECISION) --layout $(LAYOUT) --blocks-per-chunk $(BLOCKS) --resume
 	$(PYTHON) -m flashhead_coreml.export_support --height $(HEIGHT) --width $(WIDTH) --output $(OUTPUT)
 bundle:
 	$(PYTHON) -m flashhead_coreml.bundle --input $(OUTPUT) --output $(DEVICE_OUTPUT) --compile

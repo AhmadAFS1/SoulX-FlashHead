@@ -76,6 +76,9 @@ def validate(args):
         for key in ('height', 'width', 'blocks_per_chunk', 'query_chunk'):
             if export_manifest[key] != getattr(args, key):
                 raise ValueError(f'Validation/export configuration mismatch: {key}')
+        # An ANE-layout export is scored against the standard FP32 partition,
+        # which it equals in FP32 (tests/test_ane_layout.py), so the gate
+        # measures conversion and precision error only.
     random = lambda shape: torch.randn(shape)
     components = [('patch', lambda: load(Patch(cfg, profile), 'patch'),
                    lambda: {'latent': random(profile.latent_shape), 'reference': random(profile.latent_shape)}, 'hidden'),
@@ -102,6 +105,7 @@ def validate(args):
               'precision_policy': export_manifest.get('precision_policy'),
               'fuse_qkv': export_manifest.get('fuse_qkv', False),
               'variant': export_manifest.get('variant', 'baseline'),
+              'layout': export_manifest.get('layout', 'standard'),
               'comparison_baseline': str(baseline_directory.resolve()) if baseline_directory else None,
               'models_directory': str(models.resolve()),
               'selected_components': sorted(selected),
