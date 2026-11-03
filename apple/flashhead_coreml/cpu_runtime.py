@@ -50,7 +50,7 @@ import torch
 from torch.nn import functional as F
 
 from .dit import (AudioProjection, Blocks, OutputHead, Patch, ProConfig, Profile, TimeEmbedding,
-                  attention, load_component)
+                  attention, load_component, rotary_tables)
 
 ROOT = Path(__file__).resolve().parents[2]
 AVATARS = ROOT / 'ios/SoulXStudio/Resources/Avatars'
@@ -306,7 +306,35 @@ def round_parameters16(module: torch.nn.Module):
 
 
 def linear(layer: torch.nn.Linear, x: torch.Tensor, R) -> torch.Tensor:
-    return R(F.linear(x, layer.weight, layer.bias))
+    weight = layer.weight if layer.weight.dtype == x.dtype else layer.weight.to(x.dtype)
+    return R(F.linear(x, weight, layer.bias))
+
+
+def load_blocks_lean(cfg, profile, time_modulations, checkpoint):
+    """All 30 blocks without a second full-size random-initialised copy."""
+    from safetensors import safe_open
+    with torch.device('meta'):
+        blocks = Blocks(cfg, profile, 0, cfg.num_layers, torch.zeros(2, 6, cfg.dim))
+    tensors = {}
+    with safe_open(str(checkpoint), framework='pt', device='cpu') as source:
+        for key in blocks.state_dict():
+            tensors[key] = source.get_tensor(key).float()
+    blocks.load_state_dict(tensors, strict=True, assign=True)
+    cos, sin = rotary_tables(cfg.dim // cfg.num_heads, profile.grid)
+    for name, value in (('rotary_cos', cos), ('rotary_sin', sin), ('time_high', time_modulations[0:1].detach()),
+                        ('time_low', time_modulations[1:2].detach())):
+        blocks.register_buffer(name, value, persistent=False)
+    return blocks.eval().requires_grad_(False)
+
+
+def store_half(module: torch.nn.Module):
+    """Keep FP16-exact emulated weights as FP16 to halve memory (upcast per use)."""
+    for child in module.modules():
+        if isinstance(child, torch.nn.Linear):
+            child.weight.data = child.weight.data.to(torch.float16)
+        heads = getattr(child, 'o_heads', None)
+        if isinstance(heads, torch.Tensor):
+            heads.data = heads.data.to(torch.float16)
 
 
 def rms(norm, x, R):
@@ -366,7 +394,7 @@ def block_forward(block, x, context, modulation, cos, sin, step, R, observe=None
         kh = ck.reshape(frames, keys, heads, d).transpose(1, 2)
         vh = cv.reshape(frames, keys, heads, d).transpose(1, 2)
         probabilities = R(ca.weights(qh, kh))
-        values = R(torch.matmul(vh, ca.o_heads))
+        values = R(torch.matmul(vh, ca.o_heads.to(vh.dtype)))
         out = R(torch.matmul(probabilities.transpose(1, 2).reshape(frames, rows, heads * keys),
                              values.reshape(frames, heads * keys, dim)))
         x = R(x + R(out + ca.o_bias).reshape(b, n, dim))
@@ -409,8 +437,7 @@ class CpuRuntime:
             self.time_embeddings, self.time_modulations = timing(torch.tensor([1000., 625.]))
         self.patch = load_component(Patch(self.cfg, profile), checkpoint, 'patch')
         self.conditioning = load_component(AudioProjection(self.cfg.dim), checkpoint, 'conditioning')
-        self.blocks = load_component(Blocks(self.cfg, profile, 0, self.cfg.num_layers, self.time_modulations),
-                                     checkpoint, 'blocks', 0)
+        self.blocks = load_blocks_lean(self.cfg, profile, self.time_modulations, checkpoint)
         self.head = load_component(OutputHead(self.cfg, profile, self.time_embeddings), checkpoint, 'head')
         self.transform_log = []
         for transform in transforms or []:
@@ -424,6 +451,7 @@ class CpuRuntime:
                     block.ffn_step_bias = round16(block.ffn_step_bias)
             self.time_modulations = round16(self.time_modulations)
             self.time_embeddings = round16(self.time_embeddings)
+            store_half(self.blocks)
         else:
             self.quantized_layers = 0
         self.rotary = (self.R(self.blocks.rotary_cos), self.R(self.blocks.rotary_sin))
