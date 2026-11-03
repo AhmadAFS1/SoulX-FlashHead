@@ -123,6 +123,42 @@ struct SoulXLoadedBlock: @unchecked Sendable {
     let loadSeconds: Double
 }
 
+/// Opt-in Core ML execution options for speed experiments, read from the
+/// process arguments so the app, the in-app smoke mode and the Mac runner
+/// share them. Defaults leave every model exactly as before.
+///   --gpu-low-precision   allowLowPrecisionAccumulationOnGPU (approximate)
+///   --fast-prediction     specializationStrategy = .fastPrediction
+///   --dit-compute UNITS   compute units for patch/blocks/head only:
+///                         cpu | cpu-gpu | cpu-ane | all
+enum SoulXExecutionOptions {
+    static let arguments = ProcessInfo.processInfo.arguments
+    static let lowPrecisionGPU = arguments.contains("--gpu-low-precision")
+    static let fastPrediction = arguments.contains("--fast-prediction")
+    static let ditComputeUnits: MLComputeUnits? = {
+        guard let index = arguments.firstIndex(of: "--dit-compute"), index + 1 < arguments.count else { return nil }
+        switch arguments[index + 1] {
+        case "cpu": return .cpuOnly
+        case "cpu-gpu": return .cpuAndGPU
+        case "cpu-ane": return .cpuAndNeuralEngine
+        case "all": return .all
+        default: return nil
+        }
+    }()
+
+    static func isTransformer(_ name: String) -> Bool {
+        name.hasPrefix("blocks_") || name == "patch" || name == "head"
+    }
+
+    static func apply(to configuration: MLModelConfiguration) {
+        if lowPrecisionGPU { configuration.allowLowPrecisionAccumulationOnGPU = true }
+        if fastPrediction {
+            if #available(macOS 14.4, iOS 17.4, *) {
+                configuration.optimizationHints.specializationStrategy = .fastPrediction
+            }
+        }
+    }
+}
+
 struct SoulXBlockLoadRequest: Sendable {
     let name: String
     let url: URL
@@ -133,6 +169,7 @@ struct SoulXBlockLoadRequest: Sendable {
         return try autoreleasepool {
             let configuration = MLModelConfiguration()
             configuration.computeUnits = computeUnits
+            SoulXExecutionOptions.apply(to: configuration)
             let start = ProcessInfo.processInfo.systemUptime
             let model = try MLModel(contentsOf: url, configuration: configuration)
             try Task.checkCancellation()
@@ -391,7 +428,9 @@ final class SoulXModelStore {
     }
 
     private func units(for name: String) -> MLComputeUnits {
-        name == "audio" ? effectiveAudioUnits : computeUnits
+        if name == "audio" { return effectiveAudioUnits }
+        if SoulXExecutionOptions.isTransformer(name), let override = SoulXExecutionOptions.ditComputeUnits { return override }
+        return computeUnits
     }
 
     private static func label(_ units: MLComputeUnits) -> String {
@@ -426,6 +465,7 @@ final class SoulXModelStore {
         }
         let configuration = MLModelConfiguration()
         configuration.computeUnits = units(for: name)
+        SoulXExecutionOptions.apply(to: configuration)
         let loaded = try MLModel(contentsOf: url, configuration: configuration)
         models[name] = loaded
         return loaded

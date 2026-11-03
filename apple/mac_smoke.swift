@@ -23,15 +23,16 @@ private struct Arguments {
     var units: MLComputeUnits { compute == "cpu" ? .cpuOnly : compute == "all" ? .all : .cpuAndGPU }
     static func parse() throws -> Arguments {
         let arguments = Array(CommandLine.arguments.dropFirst())
-        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--keep-models-resident] [--chunks 1] [--compute cpu-gpu|all|cpu]"
+        let help = "Usage: run_mac_smoke.sh --models BUNDLE --portrait IMAGE --audio AUDIO --output DIRECTORY [--reference-cache METADATA] [--save-frames] [--model-timings] [--audio-cpu] [--prefetch-audio] [--prefetch-blocks] [--keep-models-resident] [--gpu-low-precision] [--fast-prediction] [--dit-compute cpu|cpu-gpu|cpu-ane|all] [--chunks 1] [--compute cpu-gpu|all|cpu]"
         if arguments.contains("--help") { print(help); exit(0) }
-        let supported = Set(["--reference-cache", "--models", "--portrait", "--audio", "--output", "--chunks", "--compute"])
+        let supported = Set(["--reference-cache", "--models", "--portrait", "--audio", "--output", "--chunks", "--compute", "--dit-compute"])
         var values: [String: String] = [:]
         var flags = Set<String>()
         var index = 0
         while index < arguments.count {
             let key = arguments[index]
-            if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks", "--keep-models-resident"].contains(key) {
+            if ["--save-frames", "--model-timings", "--audio-cpu", "--prefetch-audio", "--prefetch-blocks", "--keep-models-resident",
+                "--gpu-low-precision", "--fast-prediction"].contains(key) {
                 guard flags.insert(key).inserted else { throw SoulXError.invalidManifest(help) }
                 index += 1
                 continue
@@ -45,11 +46,12 @@ private struct Arguments {
         guard let models = values["--models"], let portrait = values["--portrait"],
               let audio = values["--audio"], let output = values["--output"],
               let chunks = Int(values["--chunks"] ?? "1"), chunks > 0,
-              ["cpu-gpu", "all", "cpu"].contains(values["--compute"] ?? "cpu-gpu") else {
+              ["cpu-gpu", "all", "cpu"].contains(values["--compute"] ?? "cpu-gpu"),
+              ["cpu", "cpu-gpu", "cpu-ane", "all"].contains(values["--dit-compute"] ?? "all") else {
             throw SoulXError.invalidManifest(help)
         }
         #if SOULX_BENCH_BASELINE
-        guard flags.subtracting(["--save-frames"]).isEmpty else {
+        guard flags.subtracting(["--save-frames"]).isEmpty, values["--dit-compute"] == nil else {
             throw SoulXError.invalidManifest("The historical benchmark uses sequential inference with the CPU speech encoder.")
         }
         #endif
@@ -101,6 +103,9 @@ private final class Recorder: @unchecked Sendable {
             "scope": "Mac functional smoke and Mac timings only. No iPhone FPS, ANE placement, CUDA parity, lip-sync or perceptual quality claim.",
             "audio_lookahead": args.prefetchAudio, "partition_preload": args.prefetchBlocks,
             "models_resident": args.keepResident,
+            "gpu_low_precision_accumulation": CommandLine.arguments.contains("--gpu-low-precision"),
+            "fast_prediction_specialization": CommandLine.arguments.contains("--fast-prediction"),
+            "dit_compute_units": CommandLine.arguments.firstIndex(of: "--dit-compute").map { CommandLine.arguments[$0 + 1] } ?? "inherit",
             "audio_compute": args.audioCPU ? "cpu" : "inherit",
             "model_timings": args.timings,
             "reference_initialization": args.cache == nil ? "on-device encoder" : "verified portrait cache",
