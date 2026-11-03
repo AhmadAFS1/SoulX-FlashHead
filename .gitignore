@@ -60,3 +60,5 @@ apple/tools/*
 
 # CPU A/B renders, calibration activations and fits (regenerated; summaries live in apple/validation/).
 artifacts/cpu-validation/
+# Git bundles handed to the user when this session cannot push.
+artifacts/git-handoff/
