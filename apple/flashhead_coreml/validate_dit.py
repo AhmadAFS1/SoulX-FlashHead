@@ -19,18 +19,29 @@ from .dit import ProConfig, Profile, Patch, AudioProjection, TimeEmbedding, Bloc
 from .export_dit import convert_component
 
 
-def environment():
+def environment(compute='cpu'):
     import coremltools as ct
     def sysctl(name):
         return subprocess.check_output(['sysctl', '-n', name], text=True).strip()
-    return {'date_utc': datetime.now(timezone.utc).isoformat(),
-            'execution': 'CPU-only Core ML prediction and PyTorch reference; no GPU inference',
-            'gpu_model': 'none used', 'physical_or_visible_vram': 'not applicable to CPU-only validation',
-            'hardware_evidence': 'Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl',
+    base = {'date_utc': datetime.now(timezone.utc).isoformat(),
             'cpu': sysctl('machdep.cpu.brand_string'), 'physical_memory_bytes': int(sysctl('hw.memsize')),
-            'os': platform.platform(), 'driver': 'not applicable (CPU only)',
+            'os': platform.platform(),
             'runtime': {'torch': torch.__version__, 'coremltools': ct.__version__},
             'co_resident_load': 'Other conversion jobs may be running; timings are not benchmarked'}
+    if compute == 'cpu':
+        return {**base, 'execution': 'CPU-only Core ML prediction and PyTorch reference; no GPU inference',
+                'gpu_model': 'none used', 'physical_or_visible_vram': 'not applicable to CPU-only validation',
+                'hardware_evidence': 'Core ML ComputeUnit.CPU_ONLY; torch tensors on CPU; sysctl',
+                'driver': 'not applicable (CPU only)'}
+    try:
+        display = subprocess.check_output(['system_profiler', 'SPDisplaysDataType'], text=True)
+        gpu = next((line.split(':', 1)[1].strip() for line in display.splitlines() if 'Chipset Model' in line), 'unverified')
+    except (OSError, subprocess.CalledProcessError):
+        gpu = 'unverified'
+    return {**base, 'execution': f'Core ML prediction requested with compute units {compute} (per-op CPU/GPU/ANE placement unverified); PyTorch reference on CPU',
+            'gpu_model': gpu, 'physical_or_visible_vram': 'Apple unified memory; no dedicated VRAM',
+            'hardware_evidence': 'system_profiler SPDisplaysDataType; sysctl',
+            'driver': f'Core ML / Metal of {platform.mac_ver()[0] or "unknown macOS"}'}
 
 
 def errors(actual, expected):
@@ -95,7 +106,7 @@ def validate(args):
     unknown = selected - {c[0] for c in components}
     if unknown:
         raise ValueError(f'Unknown components: {sorted(unknown)}')
-    report = {'environment': environment(), 'workload': 'Synthetic small architecture' if synthetic else 'Original PRO checkpoint, random inputs, fixed profile',
+    report = {'environment': environment(getattr(args, 'compute', 'cpu')), 'workload': 'Synthetic small architecture' if synthetic else 'Original PRO checkpoint, random inputs, fixed profile',
               'height': profile.height, 'width': profile.width, 'schedule': [1000, 625, 0],
               'scope': 'Numerical component checks only; not end-to-end animation quality or target-device feasibility',
               'source_checkpoint': None if synthetic else str(checkpoint.resolve()),
@@ -110,8 +121,9 @@ def validate(args):
               'models_directory': str(models.resolve()),
               'selected_components': sorted(selected),
               'input_distribution': 'Deterministic independent standard normal inputs, rounded to FP16; not real image/audio activations',
-              'models': {}}
-    report_path = models / 'dit_validation.json'
+              'models': {}, 'requested_compute_units': getattr(args, 'compute', 'cpu'),
+              'compute_note': 'cpu = Core ML CPU_ONLY; other values request GPU/Neural Engine, but placement per operation is unverified'}
+    report_path = models / ('dit_validation.json' if getattr(args, 'compute', 'cpu') == 'cpu' else f"dit_validation_{args.compute}.json")
     limit = .01 if synthetic else .05
     for name, factory, inputs_factory, output in components:
         if name not in selected:
@@ -144,15 +156,17 @@ def validate(args):
             convert_component(module, inputs, output, destination, 'none')
         elif not destination.exists():
             raise FileNotFoundError(destination)
-        print(f'Validating {name} with CPU_ONLY', flush=True)
-        mlmodel = ct.models.MLModel(str(destination), compute_units=ct.ComputeUnit.CPU_ONLY)
+        units = {'cpu': ct.ComputeUnit.CPU_ONLY, 'cpu-gpu': ct.ComputeUnit.CPU_AND_GPU,
+                 'cpu-ane': ct.ComputeUnit.CPU_AND_NE, 'all': ct.ComputeUnit.ALL}[getattr(args, 'compute', 'cpu')]
+        print(f'Validating {name} with {units.name}', flush=True)
+        mlmodel = ct.models.MLModel(str(destination), compute_units=units)
         baseline_models = []
         if baseline_directory is not None and name.startswith('blocks_'):
             start = int(name.split('_')[1]) * args.blocks_per_chunk
             end = min(start + args.blocks_per_chunk, cfg.num_layers)
             for layer in range(start, end, baseline_chunk):
                 path = baseline_directory / f'blocks_{layer // baseline_chunk:02d}.mlpackage'
-                baseline_models.append(ct.models.MLModel(str(path), compute_units=ct.ComputeUnit.CPU_ONLY))
+                baseline_models.append(ct.models.MLModel(str(path), compute_units=units))
         cases = []
         for step in ([1000., 625.] if 'timestep' in inputs else [None]):
             if step is not None:
@@ -196,6 +210,8 @@ def main():
     parser.add_argument('--query-chunk', type=int, default=0)
     parser.add_argument('--compare-blocks', help='Also compare each candidate block partition to aligned partitions in this baseline export directory, using the same inputs as the FP32 gate')
     parser.add_argument('--threads', type=int, default=4)
+    parser.add_argument('--compute', choices=['cpu', 'cpu-gpu', 'cpu-ane', 'all'], default='cpu',
+                        help='Core ML compute units for the candidate (and baseline) predictions')
     parser.add_argument('--only')
     args = parser.parse_args()
     if not 1 <= args.blocks_per_chunk <= 30 or args.query_chunk < 0:
