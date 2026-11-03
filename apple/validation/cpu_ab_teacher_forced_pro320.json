@@ -1,0 +1,196 @@
+{
+ "title": "Teacher-forced per-window comparison against the shipped INT8 PRO emulation",
+ "execution": "CPU-only PyTorch emulation of the Core ML bundle on an Intel Xeon @ 2.80GHz (4 vCPU), no GPU; not an Apple device run",
+ "environment_of_summary": {
+  "date_utc": "2026-11-03T01:52:15.104149+00:00",
+  "execution": "CPU-only PyTorch inference",
+  "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+  "physical_or_visible_vram": "not applicable (no GPU used)",
+  "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+  "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+  "logical_cpus": 4,
+  "torch_threads": 1,
+  "system_memory_bytes": 16872804352,
+  "os": "Linux-6.18.44-fc-v230-x86_64-with-glibc2.39",
+  "torch": "2.7.0+cpu",
+  "co_resident_load": "unisolated container; other CPU jobs may share cores"
+ },
+ "clip": "girl-eval_english_plosive",
+ "seed": 42,
+ "baseline_run": "f969b68daf70c3381dfb3c72133c3c1749b01b2487f1d38ff714065ffb286582",
+ "method": "each window reuses the INT8 baseline motion latents (teacher forcing); NRMSE of denoised latents over generated slots; median frame PSNR per 28-frame window",
+ "arms": {
+  "fp32-baseline-forced": {
+   "label": "FP32 reference (quantization floor)",
+   "variant": "baseline",
+   "mode": "fp32",
+   "frames_sha256": "dd9f9aa553d3e77434dd538537d6b485f4176fbba7f34a55c9b54a9444d40650",
+   "render_environment": {
+    "date_utc": "2026-11-03T00:54:29.400701+00:00",
+    "execution": "CPU-only PyTorch inference",
+    "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+    "physical_or_visible_vram": "not applicable (no GPU used)",
+    "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "logical_cpus": 4,
+    "torch_threads": 2,
+    "system_memory_bytes": 16872808448,
+    "os": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+    "torch": "2.7.0+cpu",
+    "co_resident_load": "unisolated container; other CPU jobs may share cores"
+   },
+   "latent_nrmse_per_window": [
+    0.02529597286312361,
+    0.014231699549558814,
+    0.028794229893990896,
+    0.014051050409889094,
+    0.01452894130918093,
+    0.01622837631127303,
+    0.01076030344244626,
+    0.01460017603727633,
+    0.024621781681806332
+   ],
+   "latent_nrmse_mean": 0.01812361461094948,
+   "median_psnr_db_per_window": [
+    45.64797762221956,
+    47.087649100820755,
+    45.2400927152956,
+    47.849275656003066,
+    46.54453555732684,
+    45.82351150422311,
+    47.69615361135766,
+    43.59789608040848,
+    41.03268644968477
+   ]
+  },
+  "coreml-int8-fold-forced": {
+   "label": "exact cross-attention fold (-3.0% MACs)",
+   "variant": "fold",
+   "mode": "coreml-int8",
+   "frames_sha256": "e69e7559b8ca2e57c8fb9771d579ef777ce9043c206e8b99e86f833068424b98",
+   "render_environment": {
+    "date_utc": "2026-11-03T01:51:48.779652+00:00",
+    "execution": "CPU-only PyTorch inference",
+    "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+    "physical_or_visible_vram": "not applicable (no GPU used)",
+    "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "logical_cpus": 4,
+    "torch_threads": 2,
+    "system_memory_bytes": 16872804352,
+    "os": "Linux-6.18.44-fc-v230-x86_64-with-glibc2.39",
+    "torch": "2.7.0+cpu",
+    "co_resident_load": "unisolated container; other CPU jobs may share cores"
+   },
+   "latent_nrmse_per_window": [
+    0.0018741838148355703,
+    0.0013300719359325935,
+    0.002549874196776185,
+    0.0015133599982615129,
+    0.0013569024729362322,
+    0.001460010917624466,
+    0.0010794832160248805,
+    0.0013556033352360526,
+    0.0018812149859089228
+   ],
+   "latent_nrmse_mean": 0.0016000783192818239,
+   "median_psnr_db_per_window": [
+    59.0844052806325,
+    60.60364744297124,
+    58.27441899959684,
+    60.20703250255111,
+    60.65263068944213,
+    60.36076037173653,
+    61.47102499663685,
+    61.10298633790643,
+    57.629114146828194
+   ]
+  },
+  "coreml-int8-ffnk2_fold-forced": {
+   "label": "fold + adaptive FFN ffnk2 (-4.6% MACs)",
+   "variant": "ffnk2+fold",
+   "mode": "coreml-int8",
+   "frames_sha256": "b00e371a93bf9cddc34ed6dacede5eb24da0286107d2210e3dba21665739d475",
+   "render_environment": {
+    "date_utc": "2026-11-03T01:38:05.321707+00:00",
+    "execution": "CPU-only PyTorch inference",
+    "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+    "physical_or_visible_vram": "not applicable (no GPU used)",
+    "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "logical_cpus": 4,
+    "torch_threads": 2,
+    "system_memory_bytes": 16872804352,
+    "os": "Linux-6.18.44-fc-v230-x86_64-with-glibc2.39",
+    "torch": "2.7.0+cpu",
+    "co_resident_load": "unisolated container; other CPU jobs may share cores"
+   },
+   "latent_nrmse_per_window": [
+    0.02203499590611825,
+    0.01067905737232238,
+    0.016129066739622777,
+    0.012855717489479428,
+    0.010114082225317575,
+    0.014229665081928067,
+    0.00889386383301926,
+    0.008251853890542832,
+    0.025698590493329423
+   ],
+   "latent_nrmse_mean": 0.014320765892408889,
+   "median_psnr_db_per_window": [
+    45.04475679917138,
+    48.856640447342826,
+    47.815327313002854,
+    50.88829809389555,
+    48.188859377208686,
+    46.43599785137853,
+    50.28316854688614,
+    50.7395344983133,
+    38.984125345026
+   ]
+  },
+  "coreml-int8-ffn12.5_fold-forced": {
+   "label": "fold + uniform FFN -12.5% (rejected, -10.1% MACs)",
+   "variant": "ffn12.5+fold",
+   "mode": "coreml-int8",
+   "frames_sha256": "0f07bd78a2c568a91b7bcc1acdce416f3310185755d7ce9d30cd3519f3356610",
+   "render_environment": {
+    "date_utc": "2026-11-03T00:56:19.699424+00:00",
+    "execution": "CPU-only PyTorch inference",
+    "gpu_model": "none (nvidia-smi absent; no CUDA, Metal or Core ML device used)",
+    "physical_or_visible_vram": "not applicable (no GPU used)",
+    "hardware_evidence": "/proc/cpuinfo, /proc/meminfo, nvidia-smi availability",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "logical_cpus": 4,
+    "torch_threads": 2,
+    "system_memory_bytes": 16872808448,
+    "os": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+    "torch": "2.7.0+cpu",
+    "co_resident_load": "unisolated container; other CPU jobs may share cores"
+   },
+   "latent_nrmse_per_window": [
+    0.1253466936572013,
+    0.055412676051076026,
+    0.07573798859134401,
+    0.042733890484007074,
+    0.04952783788944344,
+    0.04159797475262491,
+    0.01891417464068989,
+    0.038786922791157,
+    0.0759303152436709
+   ],
+   "latent_nrmse_mean": 0.05822094156680161,
+   "median_psnr_db_per_window": [
+    33.56014746095198,
+    36.966953636806096,
+    33.73998704221823,
+    38.82862267069571,
+    39.12852965033426,
+    37.93105944935205,
+    43.52685930806216,
+    36.15876521193478,
+    32.62628115065113
+   ]
+  }
+ }
+}
