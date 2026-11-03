@@ -26,13 +26,14 @@ def partition(seed=0):
     return blocks
 
 
-@pytest.mark.parametrize('prescale', [0.0, 64.0])
+@pytest.mark.parametrize('prescale,qk_prescale', [(0.0, 0.0), (64.0, 8.0), (64.0, 64.0)])
 @torch.no_grad()
-def test_ane_layout_equals_reference_partition(prescale):
+def test_ane_layout_equals_reference_partition(prescale, qk_prescale):
     blocks = partition()
     hidden = torch.randn(1, PROFILE.tokens, CFG.dim) * 30  # residual-scale values
     context = torch.randn(1, 9, 32, CFG.dim)
-    ane = to_ane_layout(blocks, prescale)
+    ane = to_ane_layout(blocks, prescale, qk_prescale)
+    assert ane.blocks[0].norm_q.prescale == qk_prescale and ane.blocks[0].norm1.prescale == prescale
     for t in (1000., 625.):
         expected = blocks(hidden, context, torch.tensor([t]))
         torch.testing.assert_close(ane(hidden, context, torch.tensor([t])), expected, rtol=1e-4, atol=1e-3)
@@ -57,6 +58,29 @@ def test_ane_layout_refuses_folded_cross_attention():
     blocks.fold_cross_output()
     with pytest.raises(ValueError):
         to_ane_layout(blocks)
+
+
+def test_ane_layout_refuses_query_tiling():
+    torch.manual_seed(0)
+    blocks = Blocks(CFG, PROFILE, 0, 2, torch.randn(2, 6, CFG.dim) * 0.2, query_chunk=8).eval()
+    with pytest.raises(ValueError, match='query'):
+        to_ane_layout(blocks)
+
+
+@pytest.mark.parametrize('overrides,match', [({'precision': 'mixed'}, 'float16'), ({'precision': 'mixed-gpu'}, 'float16'),
+                                             ({'precision': 'float16', 'query_chunk': 64}, 'query-chunk'),
+                                             ({'precision': 'float16', 'fuse_qkv': True}, 'unfused')])
+def test_export_refuses_ane_combinations_before_loading(overrides, match, tmp_path):
+    import argparse
+    from flashhead_coreml.export_dit import export
+    args = argparse.Namespace(checkpoint=str(tmp_path / 'missing'), output=str(tmp_path / 'out'), height=320, width=176,
+                              blocks_per_chunk=3, query_chunk=0, fuse_qkv=False, variant='baseline', compression='int8',
+                              precision='float16', layout='ane', norm_prescale=64.0, qk_norm_prescale=8.0, threads=1,
+                              only=None, resume=False)
+    for key, value in overrides.items():
+        setattr(args, key, value)
+    with pytest.raises(ValueError, match=match):
+        export(args)
 
 
 @pytest.mark.skipif(importlib.util.find_spec('coremltools') is None, reason='coremltools required')

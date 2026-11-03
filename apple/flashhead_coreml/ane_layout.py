@@ -12,8 +12,13 @@ that layout without changing its Core ML interface:
 * linear layers become 1x1 convolutions with the same weights;
 * LayerNorm/RMSNorm reduce over channels and may divide their input by a
   constant first (``prescale``) with eps scaled by 1/prescale^2. That is
-  exact in real arithmetic and keeps FP16 squares of residual values that
-  reach |x| ~ 1e3 from overflowing (65504);
+  exact in real arithmetic (and in FP32 up to rounding) and keeps FP16
+  squares of residual values that reach |x| ~ 1e3 from overflowing (65504).
+  The q/k RMSNorms see much smaller projection outputs, so they use their own,
+  smaller ``qk_prescale`` (default 8): dividing them by 64 would push their
+  mean squares towards FP16 subnormals. The scaled eps (1e-6/p^2) itself
+  falls below FP16's smallest subnormal, which only matters for inputs whose
+  mean square is ~1e-6 or less;
 * RoPE pairs are de-interleaved by permuting the q/k projection rows (and
   their RMSNorm weights) offline. Queries and keys share the permutation, so
   every attention score is unchanged; values are not permuted;
@@ -108,7 +113,8 @@ def split_heads_channels(x, heads):
 
 
 class AneBlock(nn.Module):
-    def __init__(self, block: DiTBlock, prescale: float, frames: int, tokens_per_frame: int, keys_per_frame: int):
+    def __init__(self, block: DiTBlock, prescale: float, frames: int, tokens_per_frame: int, keys_per_frame: int,
+                 qk_prescale: float = 8.0):
         super().__init__()
         sa, ca = block.self_attn, block.cross_attn
         if getattr(ca, 'o_heads', None) is not None:
@@ -123,10 +129,10 @@ class AneBlock(nn.Module):
         self.norm3 = AneLayerNorm(block.norm3, prescale)
         self.q, self.k = conv_from_linear(sa.q, rows), conv_from_linear(sa.k, rows)
         self.v, self.o = conv_from_linear(sa.v), conv_from_linear(sa.o)
-        self.norm_q, self.norm_k = AneRMSNorm(sa.norm_q, prescale, rows), AneRMSNorm(sa.norm_k, prescale, rows)
+        self.norm_q, self.norm_k = AneRMSNorm(sa.norm_q, qk_prescale, rows), AneRMSNorm(sa.norm_k, qk_prescale, rows)
         self.cq, self.ck = conv_from_linear(ca.q), conv_from_linear(ca.k)
         self.cv, self.co = conv_from_linear(ca.v), conv_from_linear(ca.o)
-        self.cnorm_q, self.cnorm_k = AneRMSNorm(ca.norm_q, prescale), AneRMSNorm(ca.norm_k, prescale)
+        self.cnorm_q, self.cnorm_k = AneRMSNorm(ca.norm_q, qk_prescale), AneRMSNorm(ca.norm_k, qk_prescale)
         self.ffn1, self.ffn2 = conv_from_linear(block.ffn[0]), conv_from_linear(block.ffn[2])
         self.register_buffer('modulation', block.modulation.detach().reshape(1, 6, dim, 1, 1).clone())
         bias = getattr(block, 'ffn_step_bias', None)
@@ -176,13 +182,15 @@ class AneBlock(nn.Module):
 class AneBlocks(nn.Module):
     """Drop-in replacement for a ``Blocks`` partition (same inputs and output)."""
 
-    def __init__(self, blocks: Blocks, prescale: float = 64.0):
+    def __init__(self, blocks: Blocks, prescale: float = 64.0, qk_prescale: float = 8.0):
         super().__init__()
+        if any(getattr(b.self_attn, 'query_chunk', 0) for b in blocks.blocks):
+            raise ValueError('The ANE layout does not implement query tiling; export with query_chunk 0')
         self.start, self.end = blocks.start, blocks.end
         grid_t = 9
         tokens = int(blocks.rotary_cos.shape[1])
         tokens_per_frame = tokens // grid_t
-        self.blocks = nn.ModuleList([AneBlock(b, prescale, grid_t, tokens_per_frame, 32) for b in blocks.blocks])
+        self.blocks = nn.ModuleList([AneBlock(b, prescale, grid_t, tokens_per_frame, 32, qk_prescale) for b in blocks.blocks])
         half = int(blocks.rotary_cos.shape[-1])
         # Tables (1, half, 1, N): each pair j at every token, shared by all heads.
         self.register_buffer('rotary_cos', blocks.rotary_cos.reshape(1, tokens, half).permute(0, 2, 1)[:, :, None, :].clone())
@@ -190,7 +198,7 @@ class AneBlocks(nn.Module):
         dim = blocks.time_high.shape[-1]
         self.register_buffer('time_high', blocks.time_high.detach().reshape(1, 6, dim, 1, 1).clone())
         self.register_buffer('time_low', blocks.time_low.detach().reshape(1, 6, dim, 1, 1).clone())
-        self.prescale = prescale
+        self.prescale, self.qk_prescale = prescale, qk_prescale
 
     def forward(self, hidden, context, timestep):
         high = timestep.reshape(1, 1, 1, 1) > 800
@@ -203,5 +211,5 @@ class AneBlocks(nn.Module):
         return x.reshape(b, dim, n).transpose(1, 2)
 
 
-def to_ane_layout(blocks: Blocks, prescale: float = 64.0) -> AneBlocks:
-    return AneBlocks(blocks, prescale).eval().requires_grad_(False)
+def to_ane_layout(blocks: Blocks, prescale: float = 64.0, qk_prescale: float = 8.0) -> AneBlocks:
+    return AneBlocks(blocks, prescale, qk_prescale).eval().requires_grad_(False)

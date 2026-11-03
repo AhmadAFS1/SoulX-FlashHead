@@ -36,6 +36,14 @@ def save_manifest(path, manifest):
 
 NORM_SCOPES = ('RMSNorm', 'LayerNorm', 'AneLayerNorm', 'AneRMSNorm')
 
+PRECISION_POLICY = {
+    'mixed': 'mixed: float32 normalization and attention; float16 matrix projections',
+    'mixed-gpu': 'mixed-gpu: float32 normalization; float16 attention and matrix projections',
+    'float16': 'float16 throughout (standard layout failed the full-profile gate; use with --layout ane prescaled norms)',
+    'float32': 'float32 throughout with float16 I/O'}
+# Earlier wordings of the same policies, accepted when resuming an export.
+LEGACY_POLICY = {'float16': ('float16 throughout (diagnostic; failed the full-profile numerical gate)',)}
+
 
 def convert_component(module, inputs, output_name, destination, compression='none', precision='mixed'):
     import coremltools as ct
@@ -165,8 +173,15 @@ def export(args):
     fuse_qkv = getattr(args, 'fuse_qkv', False)
     layout = getattr(args, 'layout', 'standard') or 'standard'
     prescale = float(getattr(args, 'norm_prescale', 64.0) or 0.0)
+    qk_prescale = float(getattr(args, 'qk_norm_prescale', 8.0) or 0.0)
     if layout == 'ane' and fuse_qkv:
         raise ValueError('The ANE layout is built from unfused projections; drop --fuse-qkv')
+    if layout == 'ane' and args.precision not in ('float16', 'float32'):
+        # FP32 islands cannot run on the Neural Engine and would split every
+        # block between compute units; float32 is for parity debugging only.
+        raise ValueError('--layout ane needs --precision float16 (or float32 for debugging), not ' + args.precision)
+    if layout == 'ane' and args.query_chunk:
+        raise ValueError('--layout ane does not implement --query-chunk; use 0')
     variant = getattr(args, 'variant', 'baseline') or 'baseline'
     if layout == 'ane' and 'fold' in variant.split('+'):
         raise ValueError('The ANE layout does not combine with the fold variant')
@@ -194,11 +209,13 @@ def export(args):
                 'latent_shape': list(profile.latent_shape), 'schedule': [1000, 625, 0],
                 'source_checkpoint_sha256': file_hash(checkpoint),
                 'precision': args.precision, 'compression': args.compression,
-                'precision_policy': {'mixed': 'mixed: float32 normalization and attention; float16 matrix projections',
-                                     'mixed-gpu': 'mixed-gpu: float32 normalization; float16 attention and matrix projections',
-                                     'float16': 'float16 throughout (standard layout failed the full-profile gate; use with --layout ane prescaled norms)',
-                                     'float32': 'float32 throughout with float16 I/O'}[args.precision],
+                'precision_policy': PRECISION_POLICY[args.precision],
                 'layout': layout, 'norm_prescale': prescale if layout == 'ane' else None,
+                'qk_norm_prescale': qk_prescale if layout == 'ane' else None,
+                'component_precision': ({'blocks': args.precision, 'patch': 'mixed', 'conditioning': 'mixed', 'head': 'mixed',
+                                         'note': 'ANE layout applies to block partitions only; the other components keep the '
+                                                 'standard layout and its gated mixed policy'}
+                                        if layout == 'ane' else None),
                 'blocks_per_chunk': args.blocks_per_chunk, 'query_chunk': args.query_chunk,
                 'fuse_qkv': fuse_qkv,
                 'variant': variant, 'variant_description': variant_description, 'variant_transforms': {},
@@ -209,15 +226,21 @@ def export(args):
     if args.resume and manifest_path.exists():
         previous = json.loads(manifest_path.read_text())
         for key in ('height', 'width', 'source_checkpoint_sha256', 'compression', 'precision',
-                    'blocks_per_chunk', 'query_chunk', 'compression_scope', 'precision_policy'):
+                    'blocks_per_chunk', 'query_chunk', 'compression_scope'):
             if previous.get(key) != manifest[key]:
                 raise ValueError(f'Resume manifest mismatch: {key}')
+        # The policy text is descriptive and has been reworded; 'precision'
+        # above is the binding value. Accept earlier wordings of the same one.
+        if previous.get('precision_policy') not in (manifest['precision_policy'],) + LEGACY_POLICY.get(args.precision, ()):
+            raise ValueError('Resume manifest mismatch: precision_policy')
         if previous.get('fuse_qkv', False) != fuse_qkv:
             raise ValueError('Resume manifest mismatch: fuse_qkv')
         if previous.get('variant', 'baseline') != variant:
             raise ValueError('Resume manifest mismatch: variant')
         if previous.get('layout', 'standard') != layout or previous.get('norm_prescale') != manifest['norm_prescale']:
             raise ValueError('Resume manifest mismatch: layout')
+        if layout == 'ane' and previous.get('qk_norm_prescale', prescale) != qk_prescale:
+            raise ValueError('Resume manifest mismatch: qk_norm_prescale (export into a new directory)')
         manifest['variant_transforms'] = previous.get('variant_transforms', {})
         manifest['models'] = previous['models']
     latent = lambda: torch.zeros(profile.latent_shape)
@@ -244,7 +267,10 @@ def export(args):
         if selected is not None and name not in selected:
             continue
         destination = out / (name + '.mlpackage')
-        if args.resume and name in manifest['models'] and destination.exists() and fits_unchanged(manifest, name, transforms):
+        precision = args.precision if layout != 'ane' or name.startswith('blocks_') else 'mixed'
+        previous_precision = manifest['models'].get(name, {}).get('precision', args.precision)
+        if (args.resume and name in manifest['models'] and destination.exists() and previous_precision == precision
+                and fits_unchanged(manifest, name, transforms)):
             print(f'Reusing {name}', flush=True)
             continue
         started = time.monotonic()
@@ -260,8 +286,9 @@ def export(args):
             module.fuse_projections()
         if layout == 'ane' and isinstance(module, Blocks):
             from .ane_layout import to_ane_layout
-            module = to_ane_layout(module, prescale)
-        entry = convert_component(module, inputs, output_name, destination, args.compression, args.precision)
+            module = to_ane_layout(module, prescale, qk_prescale)
+        entry = convert_component(module, inputs, output_name, destination, args.compression, precision)
+        entry['precision'] = precision
         entry['export_seconds'] = time.monotonic() - started
         manifest['models'][name] = entry
         save_manifest(manifest_path, manifest)
@@ -288,9 +315,14 @@ def main():
     parser.add_argument('--precision', choices=['mixed', 'mixed-gpu', 'float16', 'float32'], default='mixed',
                         help='mixed retains FP32 normalization and attention; mixed-gpu keeps only normalization FP32; I/O stays FP16')
     parser.add_argument('--layout', choices=['standard', 'ane'], default='standard',
-                        help="ane: channels-first 1x1-conv partitions for the Neural Engine (pair with --precision float16)")
+                        help="ane: channels-first 1x1-conv block partitions for the Neural Engine; needs --precision float16 "
+                             "(patch, conditioning and head keep the standard layout and the mixed policy)")
     parser.add_argument('--norm-prescale', type=float, default=64.0,
-                        help='ANE layout: divide norm inputs by this constant (exact; avoids FP16 overflow); 0 disables')
+                        help='ANE layout: divide LayerNorm inputs by this constant before squaring, with eps scaled to match. '
+                             'Exact in real arithmetic and FP32; in FP16 it avoids overflow but rounds differently. 0 disables')
+    parser.add_argument('--qk-norm-prescale', type=float, default=8.0,
+                        help='ANE layout: the same for the q/k RMSNorms, whose inputs are smaller; a large value would push '
+                             'their mean squares into FP16 subnormals. 0 disables')
     parser.add_argument('--threads', type=int, default=6)
     parser.add_argument('--only', help='Comma-separated component names')
     parser.add_argument('--resume', action='store_true')

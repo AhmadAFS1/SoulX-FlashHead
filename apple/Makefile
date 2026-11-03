@@ -8,8 +8,9 @@ WIDTH ?= 176
 # Transformer variant: baseline, fold, ffnk2+fold, ffnmap0=0.5,...+fold (see flashhead_coreml/variants.py)
 VARIANT ?= baseline
 # DiT export options: PRECISION mixed|mixed-gpu|float16, LAYOUT standard|ane, BLOCKS (layers per partition)
-PRECISION ?= mixed
 LAYOUT ?= standard
+# The ANE layout needs float16 (FP32 islands cannot run on the Neural Engine).
+PRECISION ?= $(if $(filter ane,$(LAYOUT)),float16,mixed)
 BLOCKS ?= 3
 
 .PHONY: setup setup-cpu-ab fetch test export bundle app

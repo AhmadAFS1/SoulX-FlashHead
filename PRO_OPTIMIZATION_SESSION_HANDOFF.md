@@ -62,7 +62,20 @@ Commits on top of `43cb763`, oldest first:
 | `8af50b0` | Per-block FFN reduction evidence: `apple/validation/cpu_ffn_reduction_fit_pro320.json` |
 | `4464253` | A/B summary tool (metrics against floors, comparison videos) |
 | `0993b1d` | Load lock and `malloc_trim` (out-of-memory fix); fixture builder; `ffnmap` variant |
-| (this commit) | This handoff document; Makefile `VARIANT`/`setup-cpu-ab`; bundle manifest records the variant; renderer clones checkpoint tensors (9 → 3.4 GB per render) |
+| `4193e69` | This handoff document; Makefile `VARIANT`/`setup-cpu-ab`; bundle manifest records the variant; renderer clones checkpoint tensors (9 → 3.4 GB per render) |
+| `5e927fc` | Chronological conversation log (Appendix A) |
+| `04442c3`, `9376d4f` | Teacher-forced A/B results: fold, fold+FFN, negative control |
+| `7651c66` | Free-running fold+FFN A/B (girl, English) |
+| `ffa5c2e` | Opt-in `--keep-models-resident` (Swift engine and Mac runner) |
+| `a66b7e9` | Pipeline optimization plan (`docs/research/PRO_PIPELINE_OPTIMIZATION_PLAN_2026-11-03.md`) |
+| `113953d` | FP32 CPU renders keep file-backed checkpoint pages (OOM fix) |
+| `c2e7080` | Opt-in Core ML flags: `--gpu-low-precision`, `--fast-prediction`, `--dit-compute` |
+| `17206d9` | Neural Engine layout for block partitions (`--layout ane`); `--precision mixed-gpu` |
+| `496468d` | One-command Mac speed sweep; GPU/ANE-aware `validate_dit --compute` |
+| `bee91b9` | Opt-in `--parallel-frames` |
+| `358cf9c`, `a586e4f` | Speed program (§8c); Indian-avatar A/B results |
+| `ff4c44b` | Review fixes, Swift: `fastPrediction` availability (macOS 15 / iOS 18; the old check did not compile), iOS residency memory guard, low precision limited to the transformer, smoke report records the flags |
+| (next commit) | Review fixes, tools: sweep summary counts only passing runs and reads gates; sweep script hardened; ANE export keeps patch/conditioning/head on the gated mixed policy, refuses `mixed`/`query_chunk`, separate q/k norm prescale |
 
 ---
 
@@ -369,7 +382,7 @@ apple/run_mac_smoke.sh "${common[@]}" --prefetch-audio --prefetch-blocks --model
 | FP16 attention on GPU | export `--precision mixed-gpu` | approximate, FP16 contract | 0–15% |
 | fastPrediction specialization | `--fast-prediction` | may pick different kernels | unknown |
 | Low-precision GPU accumulation | `--gpu-low-precision` | approximate | unknown, possibly large on GPU matmuls |
-| **Neural Engine layout** | export `--layout ane --precision float16`, run `--dit-compute cpu-ane` | FP32-exact rewrite (NRMSE 3e-6, real `blocks_06`); FP16/ANE accuracy unmeasured | **The big lever.** MuseTalk got its speed from this recipe. Whether the PRO DiT places on the ANE, and how fast, is unknown |
+| **Neural Engine layout** | export `--layout ane --precision float16`, run `--dit-compute cpu-ane` | FP32-exact rewrite (NRMSE 3e-6, real `blocks_06`, CPU); FP16/ANE accuracy unmeasured | **The big lever.** MuseTalk got its speed from this recipe. Whether the PRO DiT places on the ANE, and how fast, is unknown |
 | Adaptive FFN cut | export `--variant ffnk2+fold` (needs the fit, §7.3) | within the FP32 floor (both avatars, teacher-forced) | −1.5% MACs |
 
 **Run everything with one command on the Mac,** after `make -f apple/Makefile setup-cpu-ab fetch export bundle` and the fixture script:
@@ -378,7 +391,29 @@ apple/run_mac_smoke.sh "${common[@]}" --prefetch-audio --prefetch-blocks --model
 apple/scripts/mac-speed-sweep.sh artifacts/cpu-validation/inputs/eval_english_plosive.wav 4 2
 ```
 
-It exports the bundles, gates each one with `validate_dit` on the matching compute units, runs every arm twice, and prints warm FPS, speed-up, identical frames, PSNR and lip/teeth metrics against the baseline. Results go to `artifacts/coreml/sweep/<timestamp>/summary.txt`.
+It does four things:
+
+1. **Export.** It exports the variant bundles. A failed export is logged to `export-<name>.log`, its arms are skipped, and the sweep carries on. Support models (audio, reference, decoder, encoder) are refreshed from the baseline export each time.
+2. **Gate.** It runs `validate_dit` on every exported variant bundle: `fold`, `mixedgpu`, `b6`, `b10`, `ane` and `ffnk2-fold`, each with `all` plus its own compute units. Results go to `gates.jsonl`. The baseline `pro320` bundle reuses its original export gate.
+   - A gate is an NRMSE check per partition against FP32 PyTorch, on random inputs. It is not a quality check.
+   - A `cpu-ane` gate checks numerics with the Neural Engine *requested*. It does not prove placement: use Xcode's Core ML performance report or Instruments for that.
+3. **Time.** It runs every arm `REPEATS` times. The arm order is reversed on even repeats, so thermal drift does not always favour the same arms.
+4. **Summarise.** It prints a hardware header (GPU model from each run's `timings.json`; mixed GPU models are flagged), then per arm: passing runs, warm FPS and its range, speed-up, gates, identical frames, PSNR, lip/teeth metrics, and repeat-to-repeat identity.
+   - Only runs whose report says `passed` count. Failed runs show as `FAIL k/n`.
+   - Arms whose gate failed are marked "do not use this timing".
+
+Results and logs go to `artifacts/coreml/sweep/<timestamp>/` (`summary.txt`, `summary.json`, `console.log`).
+
+Options:
+- `SKIP_EXPORT=1` reuses bundles.
+- `SKIP_GATES=1` skips the gates; the timings are then ungated.
+- `ARMS="..."` runs a subset; the baseline always runs.
+
+ANE export rules, enforced by `export_dit`:
+- `--layout ane` needs `--precision float16`. FP32 islands cannot run on the Neural Engine; `float32` is allowed for debugging only.
+- `--layout ane` refuses `--query-chunk`.
+- The layout applies to block partitions only. `patch`, `conditioning` and `head` keep the standard layout and the gated `mixed` policy, recorded per component in the manifest.
+- LayerNorms use `--norm-prescale` (64). The q/k RMSNorms use a separate `--qk-norm-prescale` (8), so that their mean squares stay out of FP16 subnormals.
 
 What to do with the results:
 1. Keep every bit-exact arm that is faster.
