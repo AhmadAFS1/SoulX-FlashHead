@@ -1,0 +1,9 @@
+# Extra packages for the CPU A/B renderer and quality tools (install on top of
+# apple/requirements.txt). Versions used on 2026-11-02/03 (Linux, CPU only).
+mediapipe==0.10.14
+scikit-image==0.26.0
+opencv-python-headless
+imageio-ffmpeg==0.8.0
+librosa==1.0.0
+soundfile==0.14.0
+pyarrow==26.0.0

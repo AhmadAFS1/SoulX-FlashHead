@@ -398,8 +398,18 @@ def _file_sha256(path):
 
 
 def variant_transform(name: str, fit_dir: Path = DEFAULT_FIT):
-    """'ffn25' (uniform) or 'ffnk2' (adaptive: within 2x each layer's INT8 error)."""
-    if name.startswith('ffnk'):
+    """'ffn25' (uniform), 'ffnk2' (adaptive: within 2x each layer's INT8 error) or
+    'ffnmap0=0.5,1=0.125' (explicit per-layer fractions; other layers stay dense)."""
+    if name.startswith('ffnmap'):
+        try:
+            ratio = {int(k): float(v) for k, v in (item.split('=') for item in name[6:].split(','))}
+        except ValueError:
+            raise ValueError(f'Use ffnmapLAYER=FRACTION,...: {name}') from None
+        if not all(0 <= v < 1 for v in ratio.values()):
+            raise ValueError(f'FFN fractions must be in [0, 1): {name}')
+        text = (f'FFN hidden width reduced in layers {sorted(k for k, v in ratio.items() if v)} '
+                '(explicit map; OBS order, least-squares refit, per-timestep bias)')
+    elif name.startswith('ffnk'):
         try:
             tolerance = float(name[4:])
         except ValueError:

@@ -6,6 +6,8 @@ checkpoint loading and before Apple weight compression:
 ``baseline``  the original PRO transformer (all 30 blocks, dense FFN)
 ``fold``      exact cross-attention output reassociation (dit.fold_cross_output)
 ``ffnNN``     NN% of FFN hidden units removed per block, e.g. ffn25, ffn12.5 (ffn_pruning.py)
+``ffnkK``     per layer, the largest fitted removal within K x that layer's INT8 error
+``ffnmapL=F,...`` explicit per-layer removal fractions; unlisted layers stay dense
 
 Every transform returns a JSON-serialisable description of what it changed.
 """

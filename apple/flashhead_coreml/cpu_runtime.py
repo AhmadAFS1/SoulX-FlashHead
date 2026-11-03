@@ -408,6 +408,36 @@ def block_forward(block, x, context, modulation, cos, sin, step, R, observe=None
 # --------------------------------------------------------------------------
 # Runtime.
 # --------------------------------------------------------------------------
+def acquire_load_lock():
+    """Exclusive lock while a runtime loads; SOULX_CPU_LOAD_LOCK=off disables it."""
+    import fcntl
+    path = os.environ.get('SOULX_CPU_LOAD_LOCK', str(ROOT / 'artifacts/cpu-validation/.load.lock'))
+    if path == 'off':
+        return None
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    handle = open(path, 'w')
+    fcntl.flock(handle, fcntl.LOCK_EX)
+    return handle
+
+
+def release_load_lock(handle):
+    if handle is not None:
+        import fcntl
+        fcntl.flock(handle, fcntl.LOCK_UN)
+        handle.close()
+
+
+def release_freed_memory():
+    """Return freed heap pages to the OS (glibc only; a no-op elsewhere)."""
+    import ctypes
+    import gc
+    gc.collect()
+    try:
+        ctypes.CDLL('libc.so.6').malloc_trim(0)
+    except (OSError, AttributeError):
+        pass
+
+
 @dataclass
 class WindowRecord:
     index: int
@@ -423,6 +453,9 @@ class CpuRuntime:
                  blocks_per_partition=3, transforms: list[Callable] | None = None):
         if mode not in MODES:
             raise ValueError(f'mode must be one of {MODES}')
+        # Loading briefly holds FP32 and FP16 copies (~8.5 GB); serialise loads
+        # across concurrent renders and return freed pages afterwards.
+        lock = acquire_load_lock()
         torch.set_num_threads(threads)
         self.mode, self.profile, self.threads = mode, profile, threads
         self.R = round16 if mode == 'coreml-int8' else identity
@@ -456,6 +489,8 @@ class CpuRuntime:
             self.quantized_layers = 0
         self.rotary = (self.R(self.blocks.rotary_cos), self.R(self.blocks.rotary_sin))
         self._load_support()
+        release_load_lock(lock)
+        release_freed_memory()
         self.observer: Callable | None = None
 
     def _load_support(self):
