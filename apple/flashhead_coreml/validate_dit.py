@@ -123,7 +123,14 @@ def validate(args):
                 raise ValueError(f'{name}: variant export lacks variant_transforms records')
             for record in records:
                 if record['transform'] == 'calibrated_ffn_reduction':
-                    reduce_partition(module, record['removed_fraction'], record['fit_dir'])
+                    from .ffn_pruning import _file_sha256
+                    for layer, expected in zip(range(*record['layers']), record['fit_sha256']):
+                        path = Path(record['fit_dir']) / f'block_{layer:02d}.pt'
+                        if expected is not None and (not path.exists() or _file_sha256(path) != expected):
+                            raise ValueError(f'{name}: {path} differs from the fit used at export')
+                    rebuilt = reduce_partition(module, record['removed_fraction'], record['fit_dir'])
+                    if rebuilt['ffn_widths'] != record['ffn_widths']:
+                        raise ValueError(f'{name}: rebuilt FFN widths differ from the export')
                 elif record['transform'] == 'fold_cross_attention_output':
                     module.fold_cross_output()
                 else:

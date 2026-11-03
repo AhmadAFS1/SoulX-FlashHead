@@ -26,6 +26,12 @@ forced = str(Path(sys.argv[3]).resolve()) if sys.argv[3] else None
 recorded = str(Path(meta['forced_motion_from']).resolve()) if meta.get('forced_motion_from') else None
 if meta['seed'] != int(sys.argv[2]) or recorded != forced:
     sys.exit(f"{sys.argv[1]} was rendered with seed={meta['seed']} forced={recorded}; use another TAG")
+import hashlib
+for record in meta.get('transforms', []):
+    for layer, expected in zip(range(*record.get('layers', [0, 0])), record.get('fit_sha256', [])):
+        path = Path(record['fit_dir']) / f'block_{layer:02d}.pt'
+        if expected and (not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != expected):
+            sys.exit(f"{sys.argv[1]} used an older FFN fit ({path}); remove it or use another TAG")
 PY
     echo "skip $out"
     continue

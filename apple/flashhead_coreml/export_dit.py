@@ -115,13 +115,24 @@ class _PartitionView:
         self.blocks.fold_cross_output()
 
 
-def fits_unchanged(manifest, name):
-    """A reused partition must have been built from the same FFN fit files."""
-    from .ffn_pruning import _file_sha256
-    for record in manifest.get('variant_transforms', {}).get(name, []):
-        if record.get('transform') != 'calibrated_ffn_reduction':
-            continue
-        for layer, expected in zip(range(*record['layers']), record['fit_sha256']):
+def fits_unchanged(manifest, name, transforms=()):
+    """A reused partition must match the current FFN selection and fit files."""
+    from .ffn_pruning import _file_sha256, normalise_ratios
+    records = [r for r in manifest.get('variant_transforms', {}).get(name, [])
+               if r.get('transform') == 'calibrated_ffn_reduction']
+    wanted = [t for t in transforms if getattr(t, 'ffn_ratio', None) is not None]
+    if len(records) != len(wanted):
+        print(f'FFN selection for {name} changed; exporting it again', flush=True)
+        return False
+    for record, transform in zip(records, wanted):
+        layers = list(range(*record['layers']))
+        want = normalise_ratios(transform.ffn_ratio, layers)
+        have = normalise_ratios(record['removed_fraction'], layers)
+        if str(transform.fit_dir) != record['fit_dir'] or any(
+                abs(want.get(layer, 0.0) - have.get(layer, 0.0)) > 1e-9 for layer in layers):
+            print(f'FFN selection for {name} changed; exporting it again', flush=True)
+            return False
+        for layer, expected in zip(layers, record['fit_sha256']):
             if expected is None:
                 continue  # layer kept dense
             path = Path(record['fit_dir']) / f'block_{layer:02d}.pt'
@@ -215,7 +226,7 @@ def export(args):
         if selected is not None and name not in selected:
             continue
         destination = out / (name + '.mlpackage')
-        if args.resume and name in manifest['models'] and destination.exists() and fits_unchanged(manifest, name):
+        if args.resume and name in manifest['models'] and destination.exists() and fits_unchanged(manifest, name, transforms):
             print(f'Reusing {name}', flush=True)
             continue
         started = time.monotonic()
