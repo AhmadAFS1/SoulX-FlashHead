@@ -386,7 +386,7 @@ def main():
     f.add_argument('--output', default=str(DEFAULT_FIT))
     f.add_argument('--ratios', default='0.25,0.375,0.5')
     f.add_argument('--damp', type=float, default=0.01)
-    f.add_argument('--batch', type=int, default=64, help='OBS columns removed per downdate')
+    f.add_argument('--batch', type=int, default=256, help='OBS columns removed per downdate')
     f.add_argument('--predicted-error', action='store_true', help='Also report in-sample error (slow)')
     f.add_argument('--solve-precision', choices=['float32', 'float64'], default='float32',
                    help='OBS/refit linear algebra; the Gram is accumulated in float64 either way')
