@@ -332,9 +332,31 @@ Follow the report's §7 row 1: an updated A14 baseline, sequential versus overla
 - **GitHub push from cloud sessions** needs the Claude GitHub App on the repository, or a refreshed GitHub link. A `git bundle` is a quick workaround.
 - **Portrait ICC.** `girl/portrait.png` embeds Display P3. CoreGraphics colour-matches it, so the CPU renderer converts it to sRGB before computing the colour statistics.
 
+## 8b. Pipeline-level optimizations found after the first handoff
+
+The whole-pipeline plan, skeptic-verified, is in `docs/research/PRO_PIPELINE_OPTIMIZATION_PLAN_2026-11-03.md`. It used static arithmetic plus reused M5 Pro and A14 records; no device run. Summary:
+
+| Rank | Change | Expected effect (estimate) | Exact? | Where it changes | State |
+|---|---|---|---|---|---|
+| 1 | **Keep Core ML models resident.** The engine unloads every partition, the decoder, encoder and conditioning after each prediction, about 14 reloads per window. | M5 Pro: 0.06–0.12 s/window near-certain (3–6%); up to about 0.6 s if the 73.9 ms per-call vs 47.1 ms resident-probe gap is load-related (about 21 FPS upper bound) | Bit-exact | Swift only | **Implemented, opt-in `--keep-models-resident` (`ffa5c2e`); build and A/B on the Mac** |
+| 2 | FP16 self-attention SDPA on the GPU, with LayerNorm kept FP32 | M5 Pro: 0–0.28 s/window (0–15%) | Approximate (within the FP16 contract) | Exporter only | Validate with the GPU backend, not CPU_ONLY |
+| 3 | FFN sub-models on the A14 Neural Engine | A14: 0–10 s of a 31–34 s window (up to 1.5×) | Approximate (device kernels) | Exporter, then partitions and Swift if forced | iPhone |
+| 4 | Drop dead motion rows in block 29 | −0.32% MACs (any window) / −0.65% (windows 2+) | Exact in real arithmetic (CPU check: max diff 0.0) | Exporter (m=1); multifunction model + Swift (m=2) | Not built |
+| 5 | Cross-attention K/V once per window | −0.71% MACs | Exact | Partition interface + Swift | Low priority |
+| — | Defer display-frame Lab correction and CGImage creation off the critical path (only frames 28–32 feed motion) | M5 Pro: about 0.085 s/window (about +5%) | Bit-exact | Swift only | Not built |
+
+Rejected after verification: query-side fold with an RMS estimator, folding modulation into weights, frame-local attention, low-rank FFN or projections, background/cross-window token reuse, INT4 FFN weights.
+
+Mac A/B for rank 1, using `common` from report §8:
+```sh
+apple/run_mac_smoke.sh "${common[@]}" --prefetch-audio --prefetch-blocks --model-timings --output /tmp/soulx-opt
+apple/run_mac_smoke.sh "${common[@]}" --prefetch-audio --prefetch-blocks --model-timings --keep-models-resident --output /tmp/soulx-resident
+.venv-coreml/bin/python apple/flashhead_coreml/compare_frames.py --baseline /tmp/soulx-opt --candidate /tmp/soulx-resident   # expect identical pixels
+```
+
 ## 9. Ranked next steps
 
-1. **Mac:** export `fold` and measure it against the current bundle (§7.1). Ship it if the M5 Pro or A14 partition time drops and the frames stay within the FP32 floor.
+1. **Mac:** A/B `--keep-models-resident` (§8b, bit-exact; Swift only), then export `fold` and measure it against the current bundle (§7.1). Ship each one that lowers M5 Pro or A14 window time while keeping frames identical (residency) or within the FP32 floor (fold).
 2. **Mac:** the Neural Engine eligibility experiment with pre-scaled norms in FP16 (§7.4). This is the largest potential A14 win.
 3. **Quality:** finish the CPU A/B set (§6) and review the comparison videos together. Decide on `ffnk2`/`ffnmap` only after the Mac timing.
 4. **If more speed is required:** distil a smaller or fewer-block student. The FFN density result shows that training-free pruning cannot provide it. Use this repository's CPU A/B harness plus the device runs as the quality gate.
